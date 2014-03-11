@@ -1,4 +1,4 @@
 facebook
 ========
 
-Facebook for OOAD at IEEE
+Facebook for OOAD at IIIT
