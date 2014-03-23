@@ -1,391 +1,282 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg height="804" version="1.1" width="1195" xmlns="http://www.w3.org/2000/svg">
-<rect fill="#ffffff" height="256" stroke="#ffffff" stroke-width="1" width="202" x="374" y="238"/>
-<rect fill="none" height="256" stroke="#000000" stroke-width="1" width="202" x="374" y="238"/>
-<text font-family="Lucida Grande" font-size="13" x="461" y="252">
+<svg height="753" version="1.1" width="826" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="256" stroke="#ffffff" stroke-width="1" width="202" x="318" y="246"/>
+<rect fill="none" height="256" stroke="#000000" stroke-width="1" width="202" x="318" y="246"/>
+<text font-family="Dialog" font-size="13" x="404" y="260">
 User</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="202" x="374" y="262"/>
-<text font-family="Lucida Grande" font-size="13" x="378" y="277">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="202" x="318" y="271"/>
+<text font-family="Dialog" font-size="13" x="322" y="286">
 firstName : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="294">
+<text font-family="Dialog" font-size="13" x="322" y="304">
 email : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="311">
+<text font-family="Dialog" font-size="13" x="322" y="322">
 password : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="328">
+<text font-family="Dialog" font-size="13" x="322" y="340">
 dob : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="345">
+<text font-family="Dialog" font-size="13" x="322" y="358">
 phoneNumber : Integer</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="362">
+<text font-family="Dialog" font-size="13" x="322" y="376">
 lastName : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="379">
+<text font-family="Dialog" font-size="13" x="322" y="394">
 place : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="396">
+<text font-family="Dialog" font-size="13" x="322" y="412">
 currentProfilePic : Photograph</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="413">
+<text font-family="Dialog" font-size="13" x="322" y="430">
 currentCoverPic : Photograph</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="430">
+<text font-family="Dialog" font-size="13" x="322" y="448">
 secretQuestion : String</text>
-<text font-family="Lucida Grande" font-size="13" x="378" y="447">
+<text font-family="Dialog" font-size="13" x="322" y="466">
 secretAnswer : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="202" x="374" y="464"/>
-<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="104" x="606" y="22"/>
-<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="104" x="606" y="22"/>
-<text font-family="Lucida Grande" font-size="13" x="643" y="56">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="202" x="318" y="478"/>
+<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="109" x="398" y="14"/>
+<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="109" x="398" y="14"/>
+<text font-family="Dialog" font-size="13" x="437" y="49">
 Date</text>
-<text font-family="Lucida Grande" font-size="13" x="611" y="37">
+<text font-family="Dialog" font-size="13" x="402" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="104" x="606" y="66"/>
-<rect fill="#ffffff" height="94" stroke="#ffffff" stroke-width="1" width="147" x="750" y="222"/>
-<rect fill="none" height="94" stroke="#000000" stroke-width="1" width="147" x="750" y="222"/>
-<text font-family="Lucida Grande" font-size="13" x="796" y="236">
-Message</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="750" y="246"/>
-<text font-family="Lucida Grande" font-size="13" x="754" y="261">
-messageText : String</text>
-<text font-family="Lucida Grande" font-size="13" x="754" y="278">
-timestamp : Date</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="750" y="291"/>
-<rect fill="#ffffff" height="94" stroke="#ffffff" stroke-width="1" width="131" x="606" y="502"/>
-<rect fill="none" height="94" stroke="#000000" stroke-width="1" width="131" x="606" y="502"/>
-<text font-family="Lucida Grande" font-size="13" x="658" y="516">
-Post</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="606" y="526"/>
-<text font-family="Lucida Grande" font-size="13" x="610" y="541">
-postText : String</text>
-<text font-family="Lucida Grande" font-size="13" x="610" y="558">
-timestamp : Date</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="606" y="571"/>
-<rect fill="#ffffff" height="72" stroke="#ffffff" stroke-width="1" width="112" x="542" y="646"/>
-<rect fill="none" height="72" stroke="#000000" stroke-width="1" width="112" x="542" y="646"/>
-<text font-family="Lucida Grande" font-size="13" x="556" y="660">
-StatusUpdate</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="112" x="542" y="670"/>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="112" x="542" y="693"/>
-<polyline fill="none" points="630,646 630,595" stroke="#000000" stroke-width="1"/>
-<polygon fill="#ffffff" points="630,595 637,607 623,607" stroke="#ffffff" stroke-width="1"/>
-<polygon fill="none" points="630,595 637,607 623,607" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="633" y="627">
-STATUS</text>
-<rect fill="#ffffff" height="71" stroke="#ffffff" stroke-width="1" width="112" x="670" y="646"/>
-<rect fill="none" height="71" stroke="#000000" stroke-width="1" width="112" x="670" y="646"/>
-<text font-family="Lucida Grande" font-size="13" x="699" y="660">
-WallPost</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="112" x="670" y="670"/>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="112" x="670" y="693"/>
-<polyline fill="none" points="718,646 718,595" stroke="#000000" stroke-width="1"/>
-<polygon fill="#ffffff" points="718,595 725,607 711,607" stroke="#ffffff" stroke-width="1"/>
-<polygon fill="none" points="718,595 725,607 711,607" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="721" y="627">
-WALL_POST</text>
-<rect fill="#ffffff" height="94" stroke="#ffffff" stroke-width="1" width="272" x="902" y="438"/>
-<rect fill="none" height="94" stroke="#000000" stroke-width="1" width="272" x="902" y="438"/>
-<text font-family="Lucida Grande" font-size="13" x="1007" y="452">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="109" x="398" y="60"/>
+<rect fill="#ffffff" height="91" stroke="#ffffff" stroke-width="1" width="150" x="662" y="406"/>
+<rect fill="none" height="91" stroke="#000000" stroke-width="1" width="150" x="662" y="406"/>
+<text font-family="Dialog" font-size="13" x="705" y="420">
 Comment</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="272" x="902" y="462"/>
-<text font-family="Lucida Grande" font-size="13" x="906" y="477">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="662" y="431"/>
+<text font-family="Dialog" font-size="13" x="666" y="446">
 commentText : String</text>
-<text font-family="Lucida Grande" font-size="13" x="906" y="494">
+<text font-family="Dialog" font-size="13" x="666" y="464">
 timestamp : Date</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="272" x="902" y="507"/>
-<polyline fill="none" points="736,550 862,550 862,670" stroke="#000000" stroke-width="1"/>
-<polygon fill="#000000" points="736,550 746,545 756,550 746,555" stroke="#000000" stroke-width="1"/>
-<polygon fill="none" points="736,550 746,545 756,550 746,555" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="868" y="653">
-0..*</text>
-<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="114" x="838" y="670"/>
-<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="114" x="838" y="670"/>
-<text font-family="Lucida Grande" font-size="13" x="851" y="684">
-PostComment</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="114" x="838" y="694"/>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="114" x="838" y="716"/>
-<polyline fill="none" points="918,670 918,531" stroke="#000000" stroke-width="1"/>
-<polygon fill="#ffffff" points="918,531 925,543 911,543" stroke="#ffffff" stroke-width="1"/>
-<polygon fill="none" points="918,531 925,543 911,543" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="921" y="605">
-POST</text>
-<rect fill="#ffffff" height="66" stroke="#ffffff" stroke-width="1" width="120" x="462" y="22"/>
-<rect fill="none" height="66" stroke="#000000" stroke-width="1" width="120" x="462" y="22"/>
-<text font-family="Lucida Grande" font-size="13" x="504" y="56">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="662" y="475"/>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="120" x="254" y="14"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="120" x="254" y="14"/>
+<text font-family="Dialog" font-size="13" x="295" y="49">
 Photo</text>
-<text font-family="Lucida Grande" font-size="13" x="475" y="37">
+<text font-family="Dialog" font-size="13" x="263" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="120" x="462" y="66"/>
-<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="107" x="990" y="670"/>
-<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="107" x="990" y="670"/>
-<text font-family="Lucida Grande" font-size="13" x="995" y="684">
-PhotoComment</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="107" x="990" y="694"/>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="107" x="990" y="716"/>
-<polyline fill="none" points="1046,670 1046,531" stroke="#000000" stroke-width="1"/>
-<polygon fill="#ffffff" points="1046,531 1053,543 1039,543" stroke="#ffffff" stroke-width="1"/>
-<polygon fill="none" points="1046,531 1053,543 1039,543" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="1049" y="606">
-PHOTO</text>
-<rect fill="#ffffff" height="152" stroke="#ffffff" stroke-width="1" width="128" x="46" y="366"/>
-<rect fill="none" height="152" stroke="#000000" stroke-width="1" width="128" x="46" y="366"/>
-<text font-family="Lucida Grande" font-size="13" x="74" y="380">
-Photograph</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="46" y="390"/>
-<text font-family="Lucida Grande" font-size="13" x="50" y="405">
-pic : Photo</text>
-<text font-family="Lucida Grande" font-size="13" x="50" y="422">
-description : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="46" y="464"/>
-<polyline fill="none" points="102,517 102,790 1038,790 1038,738" stroke="#000000" stroke-width="1"/>
-<polygon fill="#000000" points="102,517 107,527 102,537 97,527" stroke="#000000" stroke-width="1"/>
-<polygon fill="none" points="102,517 107,527 102,537 97,527" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="765">
-0..*</text>
-<rect fill="#ffffff" height="139" stroke="#ffffff" stroke-width="1" width="135" x="1046" y="150"/>
-<rect fill="none" height="139" stroke="#000000" stroke-width="1" width="135" x="1046" y="150"/>
-<text font-family="Lucida Grande" font-size="13" x="1096" y="164">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="120" x="254" y="60"/>
+<rect fill="#ffffff" height="145" stroke="#ffffff" stroke-width="1" width="135" x="662" y="126"/>
+<rect fill="none" height="145" stroke="#000000" stroke-width="1" width="135" x="662" y="126"/>
+<text font-family="Dialog" font-size="13" x="711" y="140">
 Event</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="135" x="1046" y="174"/>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="189">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="135" x="662" y="151"/>
+<text font-family="Dialog" font-size="13" x="666" y="166">
 title : String</text>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="206">
+<text font-family="Dialog" font-size="13" x="666" y="184">
 description : String</text>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="223">
+<text font-family="Dialog" font-size="13" x="666" y="202">
 when : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="240">
+<text font-family="Dialog" font-size="13" x="666" y="220">
 where : String</text>
-<text font-family="Lucida Grande" font-size="13" x="1050" y="257">
+<text font-family="Dialog" font-size="13" x="666" y="238">
 place : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="135" x="1046" y="267"/>
-<polyline fill="none" points="575,334 958,334 958,238 1046,238" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="1034" x2="1046" y1="245" y2="238"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="1034" x2="1046" y1="231" y2="238"/>
-<text font-family="Lucida Grande" font-size="13" x="960" y="259">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="135" x="662" y="249"/>
+<polyline fill="none" points="519,246 662,246" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="650" x2="662" y1="253" y2="246"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="650" x2="662" y1="239" y2="246"/>
+<text font-family="Dialog" font-size="13" x="539" y="239">
 Creates</text>
-<text font-family="Lucida Grande" font-size="13" x="598" y="329">
+<text font-family="Dialog" font-size="13" x="538" y="262">
 1</text>
-<text font-family="Lucida Grande" font-size="13" x="1013" y="229">
+<text font-family="Dialog" font-size="13" x="616" y="261">
 0..*</text>
-<polyline fill="none" points="478,493 478,742 694,742 694,716" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="701" x2="694" y1="728" y2="716"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="687" x2="694" y1="728" y2="716"/>
-<text font-family="Lucida Grande" font-size="13" x="486" y="736">
-Posts</text>
-<text font-family="Lucida Grande" font-size="13" x="491" y="527">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="700" y="739">
-0..*</text>
-<polyline fill="none" points="734,716 734,766 454,766 454,493" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="461" x2="454" y1="505" y2="493"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="447" x2="454" y1="505" y2="493"/>
-<text font-family="Lucida Grande" font-size="13" x="463" y="760">
-ReceivesPost</text>
-<text font-family="Lucida Grande" font-size="13" x="751" y="742">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="467" y="527">
-1</text>
-<polyline fill="none" points="694,502 694,454 575,454" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="587" x2="575" y1="447" y2="454"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="587" x2="575" y1="461" y2="454"/>
-<text font-family="Lucida Grande" font-size="13" x="667" y="449">
+<polyline fill="none" points="494,654 550,654 550,502 519,501" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="531" x2="519" y1="494" y2="501"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="530" x2="519" y1="508" y2="501"/>
+<text font-family="Dialog" font-size="13" x="552" y="603">
 Liked</text>
-<text font-family="Lucida Grande" font-size="13" x="665" y="492">
+<text font-family="Dialog" font-size="13" x="504" y="648">
 0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="595" y="448">
+<text font-family="Dialog" font-size="13" x="520" y="517">
 0..*</text>
-<polyline fill="none" points="1126,438 1126,366 575,366" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="587" x2="575" y1="359" y2="366"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="587" x2="575" y1="373" y2="366"/>
-<text font-family="Lucida Grande" font-size="13" x="874" y="356">
+<polyline fill="none" points="662,414 519,414" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="531" x2="519" y1="407" y2="414"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="531" x2="519" y1="421" y2="414"/>
+<text font-family="Dialog" font-size="13" x="578" y="404">
 Liked</text>
-<text font-family="Lucida Grande" font-size="13" x="1138" y="423">
+<text font-family="Dialog" font-size="13" x="634" y="408">
 0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="596" y="359">
+<text font-family="Dialog" font-size="13" x="532" y="408">
 0..*</text>
-<polyline fill="none" points="575,398 1070,398 1070,438" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="804" y="393">
-PostsComments</text>
-<text font-family="Lucida Grande" font-size="13" x="601" y="393">
+<polyline fill="none" points="519,478 662,478" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="554" y="472">
+Comments</text>
+<text font-family="Dialog" font-size="13" x="530" y="471">
 1</text>
-<text font-family="Lucida Grande" font-size="13" x="1076" y="421">
+<text font-family="Dialog" font-size="13" x="633" y="471">
 0..*</text>
-<polyline fill="none" points="510,493 510,686 542,686" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="530" x2="542" y1="693" y2="686"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="530" x2="542" y1="679" y2="686"/>
-<text font-family="Lucida Grande" font-size="13" x="513" y="610">
-PostsStatus</text>
-<text font-family="Lucida Grande" font-size="13" x="523" y="529">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="516" y="676">
-0..*</text>
-<rect fill="#ffffff" height="94" stroke="#ffffff" stroke-width="1" width="128" x="38" y="182"/>
-<rect fill="none" height="94" stroke="#000000" stroke-width="1" width="128" x="38" y="182"/>
-<text font-family="Lucida Grande" font-size="13" x="81" y="196">
-Album</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="38" y="206"/>
-<text font-family="Lucida Grande" font-size="13" x="42" y="221">
-name : String</text>
-<text font-family="Lucida Grande" font-size="13" x="42" y="238">
-description : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="128" x="38" y="251"/>
-<polyline fill="none" points="374,374 173,374" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="185" x2="173" y1="367" y2="374"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="185" x2="173" y1="381" y2="374"/>
-<text font-family="Lucida Grande" font-size="13" x="229" y="364">
-CoverPic</text>
-<text font-family="Lucida Grande" font-size="13" x="355" y="369">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="184" y="369">
-1</text>
-<polyline fill="none" points="374,406 173,406" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="185" x2="173" y1="399" y2="406"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="185" x2="173" y1="413" y2="406"/>
-<text font-family="Lucida Grande" font-size="13" x="227" y="396">
-ProfilePic</text>
-<text font-family="Lucida Grande" font-size="13" x="355" y="401">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="184" y="401">
-1</text>
-<polyline fill="none" points="102,275 102,366" stroke="#000000" stroke-width="1"/>
-<polygon fill="#000000" points="102,275 107,285 102,295 97,285" stroke="#000000" stroke-width="1"/>
-<polygon fill="none" points="102,275 107,285 102,295 97,285" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="95" x2="102" y1="354" y2="366"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="109" x2="102" y1="354" y2="366"/>
-<text font-family="Lucida Grande" font-size="13" x="105" y="325">
-ConsistsOf</text>
-<text font-family="Lucida Grande" font-size="13" x="115" y="302">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="108" y="349">
-0..*</text>
-<polyline fill="none" points="374,302 278,302 278,238 165,238" stroke="#000000" stroke-width="1"/>
-<polygon fill="#000000" points="374,302 364,307 354,302 364,297" stroke="#000000" stroke-width="1"/>
-<polygon fill="none" points="374,302 364,307 354,302 364,297" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="177" x2="165" y1="231" y2="238"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="177" x2="165" y1="245" y2="238"/>
-<text font-family="Lucida Grande" font-size="13" x="187" y="267">
-Creates</text>
-<text font-family="Lucida Grande" font-size="13" x="355" y="297">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="182" y="225">
-0..*</text>
-<rect fill="#ffffff" height="128" stroke="#ffffff" stroke-width="1" width="220" x="222" y="14"/>
-<rect fill="none" height="128" stroke="#000000" stroke-width="1" width="220" x="222" y="14"/>
-<text font-family="Lucida Grande" font-size="13" x="295" y="28">
-FriendsWith</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="220" x="222" y="38"/>
-<text font-family="Lucida Grande" font-size="13" x="226" y="53">
-requestStatus : REQUEST_STATUS</text>
-<text font-family="Lucida Grande" font-size="13" x="226" y="70">
-blockedStatus : Boolean</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="220" x="222" y="100"/>
-<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="131" x="734" y="22"/>
-<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="131" x="734" y="22"/>
-<text font-family="Lucida Grande" font-size="13" x="744" y="56">
+<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="131" x="518" y="14"/>
+<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="131" x="518" y="14"/>
+<text font-family="Dialog" font-size="13" x="524" y="49">
 REQUEST_STATUS</text>
-<text font-family="Lucida Grande" font-size="13" x="752" y="37">
+<text font-family="Dialog" font-size="13" x="533" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="734" y="66"/>
-<polyline fill="none" points="173,445 374,445" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="374" y1="452" y2="445"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="374" y1="438" y2="445"/>
-<text font-family="Lucida Grande" font-size="13" x="226" y="435">
-Liked</text>
-<text font-family="Lucida Grande" font-size="13" x="184" y="440">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="348" y="440">
-0..*</text>
-<polyline fill="none" points="374,262 326,262 326,182 414,182 414,238" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="331" y="213">
-FriendsWith</text>
-<text font-family="Lucida Grande" font-size="13" x="348" y="257">
-0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="420" y="221">
-0..*</text>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="342" x2="342" y1="142" y2="182"/>
-<polyline fill="none" points="462,238 462,166 574,166 574,238" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="469" y="186">
-invitesToEvents</text>
-<text font-family="Lucida Grande" font-size="13" x="469" y="225">
-0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="546" y="227">
-0..*</text>
-<rect fill="#ffffff" height="104" stroke="#ffffff" stroke-width="1" width="320" x="646" y="102"/>
-<rect fill="none" height="104" stroke="#000000" stroke-width="1" width="320" x="646" y="102"/>
-<text font-family="Lucida Grande" font-size="13" x="759" y="116">
-EventInvitation</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="320" x="646" y="126"/>
-<text font-family="Lucida Grande" font-size="13" x="650" y="141">
-eventAcceptanceStatus : CONFIRMATION_STATUS</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="320" x="646" y="167"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="574" x2="646" y1="190" y2="190"/>
-<rect fill="#ffffff" height="66" stroke="#ffffff" stroke-width="1" width="196" x="14" y="14"/>
-<rect fill="none" height="66" stroke="#000000" stroke-width="1" width="196" x="14" y="14"/>
-<text font-family="Lucida Grande" font-size="13" x="34" y="48">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="518" y="60"/>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="196" x="30" y="14"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="196" x="30" y="14"/>
+<text font-family="Dialog" font-size="13" x="50" y="49">
 CONFIRMATION_STATUS</text>
-<text font-family="Lucida Grande" font-size="13" x="65" y="29">
+<text font-family="Dialog" font-size="13" x="77" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="196" x="14" y="58"/>
-<polyline fill="none" points="965,110 1102,110 1102,150" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="1009" y="90">
-invite</text>
-<text font-family="Lucida Grande" font-size="13" x="976" y="105">
-1</text>
-<text font-family="Lucida Grande" font-size="13" x="1115" y="133">
-1</text>
-<rect fill="#ffffff" height="122" stroke="#ffffff" stroke-width="1" width="121" x="126" y="574"/>
-<rect fill="none" height="122" stroke="#000000" stroke-width="1" width="121" x="126" y="574"/>
-<text font-family="Lucida Grande" font-size="13" x="146" y="588">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="196" x="30" y="60"/>
+<rect fill="#ffffff" height="127" stroke="#ffffff" stroke-width="1" width="121" x="30" y="350"/>
+<rect fill="none" height="127" stroke="#000000" stroke-width="1" width="121" x="30" y="350"/>
+<text font-family="Dialog" font-size="13" x="50" y="364">
 Organization</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="121" x="126" y="598"/>
-<text font-family="Lucida Grande" font-size="13" x="130" y="613">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="121" x="30" y="375"/>
+<text font-family="Dialog" font-size="13" x="34" y="390">
 company : String</text>
-<text font-family="Lucida Grande" font-size="13" x="130" y="630">
+<text font-family="Dialog" font-size="13" x="34" y="408">
 from : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="130" y="647">
+<text font-family="Dialog" font-size="13" x="34" y="426">
 to : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="130" y="664">
+<text font-family="Dialog" font-size="13" x="34" y="444">
 position : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="121" x="126" y="674"/>
-<polyline fill="none" points="374,470 214,470 214,574" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="207" x2="214" y1="562" y2="574"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="221" x2="214" y1="562" y2="574"/>
-<text font-family="Lucida Grande" font-size="13" x="216" y="493">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="121" x="30" y="455"/>
+<polyline fill="none" points="318,406 150,406" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="162" x2="150" y1="399" y2="406"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="162" x2="150" y1="413" y2="406"/>
+<text font-family="Dialog" font-size="13" x="198" y="422">
 worksFor</text>
-<text font-family="Lucida Grande" font-size="13" x="347" y="465">
+<text font-family="Dialog" font-size="13" x="306" y="400">
 1</text>
-<text font-family="Lucida Grande" font-size="13" x="220" y="557">
+<text font-family="Dialog" font-size="13" x="167" y="400">
 0..*</text>
-<rect fill="#ffffff" height="139" stroke="#ffffff" stroke-width="1" width="145" x="286" y="574"/>
-<rect fill="none" height="139" stroke="#000000" stroke-width="1" width="145" x="286" y="574"/>
-<text font-family="Lucida Grande" font-size="13" x="332" y="588">
+<rect fill="#ffffff" height="145" stroke="#ffffff" stroke-width="1" width="150" x="22" y="486"/>
+<rect fill="none" height="145" stroke="#000000" stroke-width="1" width="150" x="22" y="486"/>
+<text font-family="Dialog" font-size="13" x="71" y="500">
 Institute</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="145" x="286" y="598"/>
-<text font-family="Lucida Grande" font-size="13" x="290" y="613">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="22" y="511"/>
+<text font-family="Dialog" font-size="13" x="26" y="526">
 name : String</text>
-<text font-family="Lucida Grande" font-size="13" x="290" y="630">
+<text font-family="Dialog" font-size="13" x="26" y="544">
 from : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="290" y="647">
+<text font-family="Dialog" font-size="13" x="26" y="562">
 to : Date</text>
-<text font-family="Lucida Grande" font-size="13" x="290" y="664">
-isGraduated : Boolean</text>
-<text font-family="Lucida Grande" font-size="13" x="290" y="681">
+<text font-family="Dialog" font-size="13" x="26" y="580">
+hasGraduated : Boolean</text>
+<text font-family="Dialog" font-size="13" x="26" y="598">
 description : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="145" x="286" y="691"/>
-<polyline fill="none" points="398,493 398,574" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="391" x2="398" y1="562" y2="574"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="405" x2="398" y1="562" y2="574"/>
-<text font-family="Lucida Grande" font-size="13" x="313" y="538">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="22" y="609"/>
+<polyline fill="none" points="318,501 171,501" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="183" x2="171" y1="494" y2="501"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="183" x2="171" y1="508" y2="501"/>
+<text font-family="Dialog" font-size="13" x="206" y="517">
 studiedAt</text>
-<text font-family="Lucida Grande" font-size="13" x="411" y="520">
+<text font-family="Dialog" font-size="13" x="300" y="493">
 1</text>
-<text font-family="Lucida Grande" font-size="13" x="404" y="557">
+<text font-family="Dialog" font-size="13" x="176" y="494">
 0..*</text>
-<polyline fill="none" points="575,238 702,238 702,310 575,310" stroke="#000000" stroke-width="1"/>
-<text font-family="Lucida Grande" font-size="13" x="606" y="279">
-sendsMessage</text>
-<text font-family="Lucida Grande" font-size="13" x="583" y="258">
+<polyline fill="none" points="318,262 286,262 286,294 318,294" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="282" y="256">
 0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="635" y="232">
+<text font-family="Dialog" font-size="13" x="292" y="314">
+0..*</text>
+<ellipse cx="288" cy="278" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="289" cy="279" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<rect fill="#ffffff" height="91" stroke="#ffffff" stroke-width="1" width="230" x="14" y="238"/>
+<rect fill="none" height="91" stroke="#000000" stroke-width="1" width="230" x="14" y="238"/>
+<text font-family="Dialog" font-size="13" x="92" y="252">
+FriendsWith</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="230" x="14" y="263"/>
+<text font-family="Dialog" font-size="13" x="18" y="278">
+requestStatus : REQUEST_STATUS</text>
+<text font-family="Dialog" font-size="13" x="18" y="296">
+blockedStatus : Boolean</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="230" x="14" y="307"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="288" x2="283" y1="278" y2="278"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="278" x2="273" y1="278" y2="278"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="268" x2="263" y1="278" y2="278"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="258" x2="253" y1="278" y2="278"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="248" x2="243" y1="278" y2="278"/>
+<polyline fill="none" points="519,310 606,310 606,358 519,358" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="521" y="327">
+0..*</text>
+<text font-family="Dialog" font-size="13" x="559" y="305">
 sends</text>
-<text font-family="Lucida Grande" font-size="13" x="586" y="301">
+<text font-family="Dialog" font-size="13" x="524" y="351">
 0..*</text>
-<text font-family="Lucida Grande" font-size="13" x="631" y="325">
-receives</text>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="702" x2="750" y1="270" y2="270"/>
+<text font-family="Dialog" font-size="13" x="578" y="373">
+recieves</text>
+<ellipse cx="608" cy="334" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="609" cy="335" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<rect fill="#ffffff" height="91" stroke="#ffffff" stroke-width="1" width="147" x="654" y="278"/>
+<rect fill="none" height="91" stroke="#000000" stroke-width="1" width="147" x="654" y="278"/>
+<text font-family="Dialog" font-size="13" x="699" y="292">
+Message</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="654" y="303"/>
+<text font-family="Dialog" font-size="13" x="658" y="318">
+messageText : String</text>
+<text font-family="Dialog" font-size="13" x="658" y="336">
+timestamp : Date</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="654" y="347"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="608" x2="606" y1="334" y2="334"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="606" x2="611" y1="334" y2="334"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="616" x2="621" y1="334" y2="334"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="626" x2="631" y1="334" y2="334"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="636" x2="641" y1="334" y2="334"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="646" x2="651" y1="334" y2="334"/>
+<polyline fill="none" points="334,246 334,206 390,206 390,246" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="305" y="239">
+0..*</text>
+<text font-family="Dialog" font-size="13" x="395" y="239">
+0..*</text>
+<ellipse cx="362" cy="204" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="363" cy="205" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<rect fill="#ffffff" height="73" stroke="#ffffff" stroke-width="1" width="328" x="190" y="118"/>
+<rect fill="none" height="73" stroke="#000000" stroke-width="1" width="328" x="190" y="118"/>
+<text font-family="Dialog" font-size="13" x="307" y="132">
+EventInvitation</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="328" x="190" y="143"/>
+<text font-family="Dialog" font-size="13" x="194" y="158">
+eventAcceptanceStatus : CONFIRMATION_STATUS</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="328" x="190" y="169"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="362" y1="204" y2="199"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="362" y1="194" y2="190"/>
+<polyline fill="none" points="517,158 662,158" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="545" y="175">
+invitationOf</text>
+<text font-family="Dialog" font-size="13" x="530" y="151">
+1</text>
+<text font-family="Dialog" font-size="13" x="641" y="151">
+1</text>
+<polyline fill="none" points="366,501 366,550 462,550 462,501" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="336" y="520">
+0..*</text>
+<text font-family="Dialog" font-size="13" x="346" y="565">
+posts</text>
+<text font-family="Dialog" font-size="13" x="468" y="515">
+0..*</text>
+<text font-family="Dialog" font-size="13" x="424" y="565">
+recievesPost</text>
+<ellipse cx="414" cy="548" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="415" cy="549" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<rect fill="#ffffff" height="109" stroke="#ffffff" stroke-width="1" width="153" x="342" y="630"/>
+<rect fill="none" height="109" stroke="#000000" stroke-width="1" width="153" x="342" y="630"/>
+<text font-family="Dialog" font-size="13" x="404" y="644">
+Post</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="153" x="342" y="655"/>
+<text font-family="Dialog" font-size="13" x="346" y="670">
+postText : String</text>
+<text font-family="Dialog" font-size="13" x="346" y="688">
+timestamp : Date</text>
+<text font-family="Dialog" font-size="13" x="346" y="706">
+postType : POST_TYPE</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="153" x="342" y="717"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="548" y2="553"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="558" y2="563"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="568" y2="573"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="578" y2="583"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="588" y2="593"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="598" y2="603"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="608" y2="613"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="618" y2="623"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="628" y2="630"/>
+<polyline fill="none" points="494,694 734,694 734,496" stroke="#000000" stroke-width="1"/>
+<polygon fill="#000000" points="494,694 504,689 514,694 504,699" stroke="#000000" stroke-width="1"/>
+<polygon fill="none" points="494,694 504,689 514,694 504,699" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="669" y="634">
+consistsOf</text>
+<text font-family="Dialog" font-size="13" x="507" y="687">
+1</text>
+<text font-family="Dialog" font-size="13" x="705" y="523">
+0..*</text>
 </svg>
