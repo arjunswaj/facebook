@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg height="753" version="1.1" width="826" xmlns="http://www.w3.org/2000/svg">
+<svg height="837" version="1.1" width="826" xmlns="http://www.w3.org/2000/svg">
 <rect fill="#ffffff" height="256" stroke="#ffffff" stroke-width="1" width="202" x="318" y="246"/>
 <rect fill="none" height="256" stroke="#000000" stroke-width="1" width="202" x="318" y="246"/>
 <text font-family="Dialog" font-size="13" x="404" y="260">
@@ -21,38 +21,40 @@ lastName : String</text>
 <text font-family="Dialog" font-size="13" x="322" y="394">
 place : String</text>
 <text font-family="Dialog" font-size="13" x="322" y="412">
-currentProfilePic : Photograph</text>
+currentProfilePic : Photo</text>
 <text font-family="Dialog" font-size="13" x="322" y="430">
-currentCoverPic : Photograph</text>
+currentCoverPic : Photo</text>
 <text font-family="Dialog" font-size="13" x="322" y="448">
 secretQuestion : String</text>
 <text font-family="Dialog" font-size="13" x="322" y="466">
 secretAnswer : String</text>
 <rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="202" x="318" y="478"/>
-<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="109" x="398" y="14"/>
-<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="109" x="398" y="14"/>
-<text font-family="Dialog" font-size="13" x="437" y="49">
-Date</text>
-<text font-family="Dialog" font-size="13" x="402" y="29">
+<rect fill="#ffffff" height="73" stroke="#ffffff" stroke-width="1" width="110" x="566" y="750"/>
+<rect fill="none" height="73" stroke="#000000" stroke-width="1" width="110" x="566" y="750"/>
+<text font-family="Dialog" font-size="13" x="590" y="785">
+DateTime</text>
+<text font-family="Dialog" font-size="13" x="570" y="765">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="109" x="398" y="60"/>
-<rect fill="#ffffff" height="91" stroke="#ffffff" stroke-width="1" width="150" x="662" y="406"/>
-<rect fill="none" height="91" stroke="#000000" stroke-width="1" width="150" x="662" y="406"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="110" x="566" y="796"/>
+<rect fill="#ffffff" height="109" stroke="#ffffff" stroke-width="1" width="150" x="662" y="406"/>
+<rect fill="none" height="109" stroke="#000000" stroke-width="1" width="150" x="662" y="406"/>
 <text font-family="Dialog" font-size="13" x="705" y="420">
 Comment</text>
 <rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="662" y="431"/>
 <text font-family="Dialog" font-size="13" x="666" y="446">
-commentText : String</text>
+text : String</text>
 <text font-family="Dialog" font-size="13" x="666" y="464">
-timestamp : Date</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="662" y="475"/>
-<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="120" x="254" y="14"/>
-<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="120" x="254" y="14"/>
-<text font-family="Dialog" font-size="13" x="295" y="49">
+created : DateTime</text>
+<text font-family="Dialog" font-size="13" x="666" y="482">
+updated : TimeStamp</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="662" y="493"/>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="120" x="326" y="14"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="120" x="326" y="14"/>
+<text font-family="Dialog" font-size="13" x="367" y="49">
 Photo</text>
-<text font-family="Dialog" font-size="13" x="263" y="29">
+<text font-family="Dialog" font-size="13" x="335" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="120" x="254" y="60"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="120" x="326" y="60"/>
 <rect fill="#ffffff" height="145" stroke="#ffffff" stroke-width="1" width="135" x="662" y="126"/>
 <rect fill="none" height="145" stroke="#000000" stroke-width="1" width="135" x="662" y="126"/>
 <text font-family="Dialog" font-size="13" x="711" y="140">
@@ -63,7 +65,7 @@ title : String</text>
 <text font-family="Dialog" font-size="13" x="666" y="184">
 description : String</text>
 <text font-family="Dialog" font-size="13" x="666" y="202">
-when : Date</text>
+when : DateTime</text>
 <text font-family="Dialog" font-size="13" x="666" y="220">
 where : String</text>
 <text font-family="Dialog" font-size="13" x="666" y="238">
@@ -78,12 +80,12 @@ Creates</text>
 1</text>
 <text font-family="Dialog" font-size="13" x="616" y="261">
 0..*</text>
-<polyline fill="none" points="494,654 550,654 550,502 519,501" stroke="#000000" stroke-width="1"/>
+<polyline fill="none" points="505,654 550,654 550,502 519,501" stroke="#000000" stroke-width="1"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="531" x2="519" y1="494" y2="501"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="530" x2="519" y1="508" y2="501"/>
-<text font-family="Dialog" font-size="13" x="552" y="603">
+<text font-family="Dialog" font-size="13" x="552" y="597">
 Liked</text>
-<text font-family="Dialog" font-size="13" x="504" y="648">
+<text font-family="Dialog" font-size="13" x="515" y="648">
 0..*</text>
 <text font-family="Dialog" font-size="13" x="520" y="517">
 0..*</text>
@@ -97,33 +99,33 @@ Liked</text>
 <text font-family="Dialog" font-size="13" x="532" y="408">
 0..*</text>
 <polyline fill="none" points="519,478 662,478" stroke="#000000" stroke-width="1"/>
-<text font-family="Dialog" font-size="13" x="554" y="472">
+<text font-family="Dialog" font-size="13" x="549" y="472">
 Comments</text>
 <text font-family="Dialog" font-size="13" x="530" y="471">
 1</text>
 <text font-family="Dialog" font-size="13" x="633" y="471">
 0..*</text>
-<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="131" x="518" y="14"/>
-<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="131" x="518" y="14"/>
-<text font-family="Dialog" font-size="13" x="524" y="49">
+<rect fill="#ffffff" height="70" stroke="#ffffff" stroke-width="1" width="131" x="486" y="14"/>
+<rect fill="none" height="70" stroke="#000000" stroke-width="1" width="131" x="486" y="14"/>
+<text font-family="Dialog" font-size="13" x="492" y="49">
 REQUEST_STATUS</text>
-<text font-family="Dialog" font-size="13" x="533" y="29">
+<text font-family="Dialog" font-size="13" x="501" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="518" y="60"/>
-<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="196" x="30" y="14"/>
-<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="196" x="30" y="14"/>
-<text font-family="Dialog" font-size="13" x="50" y="49">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="131" x="486" y="60"/>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="196" x="86" y="14"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="196" x="86" y="14"/>
+<text font-family="Dialog" font-size="13" x="106" y="49">
 CONFIRMATION_STATUS</text>
-<text font-family="Dialog" font-size="13" x="77" y="29">
+<text font-family="Dialog" font-size="13" x="133" y="29">
 &lt;&lt;datatype&gt;&gt;</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="196" x="30" y="60"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="196" x="86" y="60"/>
 <rect fill="#ffffff" height="127" stroke="#ffffff" stroke-width="1" width="121" x="30" y="350"/>
 <rect fill="none" height="127" stroke="#000000" stroke-width="1" width="121" x="30" y="350"/>
 <text font-family="Dialog" font-size="13" x="50" y="364">
 Organization</text>
 <rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="121" x="30" y="375"/>
 <text font-family="Dialog" font-size="13" x="34" y="390">
-company : String</text>
+name : String</text>
 <text font-family="Dialog" font-size="13" x="34" y="408">
 from : Date</text>
 <text font-family="Dialog" font-size="13" x="34" y="426">
@@ -140,11 +142,11 @@ worksFor</text>
 1</text>
 <text font-family="Dialog" font-size="13" x="167" y="400">
 0..*</text>
-<rect fill="#ffffff" height="145" stroke="#ffffff" stroke-width="1" width="150" x="22" y="486"/>
-<rect fill="none" height="145" stroke="#000000" stroke-width="1" width="150" x="22" y="486"/>
-<text font-family="Dialog" font-size="13" x="71" y="500">
+<rect fill="#ffffff" height="145" stroke="#ffffff" stroke-width="1" width="165" x="22" y="486"/>
+<rect fill="none" height="145" stroke="#000000" stroke-width="1" width="165" x="22" y="486"/>
+<text font-family="Dialog" font-size="13" x="78" y="500">
 Institute</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="22" y="511"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="165" x="22" y="511"/>
 <text font-family="Dialog" font-size="13" x="26" y="526">
 name : String</text>
 <text font-family="Dialog" font-size="13" x="26" y="544">
@@ -155,15 +157,15 @@ to : Date</text>
 hasGraduated : Boolean</text>
 <text font-family="Dialog" font-size="13" x="26" y="598">
 description : String</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="150" x="22" y="609"/>
-<polyline fill="none" points="318,501 171,501" stroke="#000000" stroke-width="1"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="183" x2="171" y1="494" y2="501"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="183" x2="171" y1="508" y2="501"/>
-<text font-family="Dialog" font-size="13" x="206" y="517">
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="165" x="22" y="609"/>
+<polyline fill="none" points="318,501 186,501" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="198" x2="186" y1="494" y2="501"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="198" x2="186" y1="508" y2="501"/>
+<text font-family="Dialog" font-size="13" x="213" y="517">
 studiedAt</text>
 <text font-family="Dialog" font-size="13" x="300" y="493">
 1</text>
-<text font-family="Dialog" font-size="13" x="176" y="494">
+<text font-family="Dialog" font-size="13" x="191" y="494">
 0..*</text>
 <polyline fill="none" points="318,262 286,262 286,294 318,294" stroke="#000000" stroke-width="1"/>
 <text font-family="Dialog" font-size="13" x="282" y="256">
@@ -204,9 +206,9 @@ recieves</text>
 Message</text>
 <rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="654" y="303"/>
 <text font-family="Dialog" font-size="13" x="658" y="318">
-messageText : String</text>
+text : String</text>
 <text font-family="Dialog" font-size="13" x="658" y="336">
-timestamp : Date</text>
+sentAt : DateTime</text>
 <rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="147" x="654" y="347"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="608" x2="606" y1="334" y2="334"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="606" x2="611" y1="334" y2="334"/>
@@ -221,20 +223,21 @@ timestamp : Date</text>
 0..*</text>
 <ellipse cx="362" cy="204" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
 <ellipse cx="363" cy="205" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
-<rect fill="#ffffff" height="73" stroke="#ffffff" stroke-width="1" width="328" x="190" y="118"/>
-<rect fill="none" height="73" stroke="#000000" stroke-width="1" width="328" x="190" y="118"/>
-<text font-family="Dialog" font-size="13" x="307" y="132">
-EventInvitation</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="328" x="190" y="143"/>
+<rect fill="#ffffff" height="91" stroke="#ffffff" stroke-width="1" width="333" x="190" y="118"/>
+<rect fill="none" height="91" stroke="#000000" stroke-width="1" width="333" x="190" y="118"/>
+<text font-family="Dialog" font-size="13" x="327" y="132">
+Invitation</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="333" x="190" y="143"/>
 <text font-family="Dialog" font-size="13" x="194" y="158">
 eventAcceptanceStatus : CONFIRMATION_STATUS</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="328" x="190" y="169"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="362" y1="204" y2="199"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="362" y1="194" y2="190"/>
-<polyline fill="none" points="517,158 662,158" stroke="#000000" stroke-width="1"/>
-<text font-family="Dialog" font-size="13" x="545" y="175">
+<text font-family="Dialog" font-size="13" x="194" y="176">
+invitedOn : DateTime</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="333" x="190" y="187"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="362" x2="362" y1="204" y2="208"/>
+<polyline fill="none" points="522,158 662,158" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="548" y="175">
 invitationOf</text>
-<text font-family="Dialog" font-size="13" x="530" y="151">
+<text font-family="Dialog" font-size="13" x="535" y="151">
 1</text>
 <text font-family="Dialog" font-size="13" x="641" y="151">
 1</text>
@@ -249,34 +252,53 @@ posts</text>
 recievesPost</text>
 <ellipse cx="414" cy="548" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
 <ellipse cx="415" cy="549" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
-<rect fill="#ffffff" height="109" stroke="#ffffff" stroke-width="1" width="153" x="342" y="630"/>
-<rect fill="none" height="109" stroke="#000000" stroke-width="1" width="153" x="342" y="630"/>
-<text font-family="Dialog" font-size="13" x="404" y="644">
+<rect fill="#ffffff" height="127" stroke="#ffffff" stroke-width="1" width="164" x="342" y="598"/>
+<rect fill="none" height="127" stroke="#000000" stroke-width="1" width="164" x="342" y="598"/>
+<text font-family="Dialog" font-size="13" x="410" y="612">
 Post</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="153" x="342" y="655"/>
-<text font-family="Dialog" font-size="13" x="346" y="670">
-postText : String</text>
-<text font-family="Dialog" font-size="13" x="346" y="688">
-timestamp : Date</text>
-<text font-family="Dialog" font-size="13" x="346" y="706">
-postType : POST_TYPE</text>
-<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="153" x="342" y="717"/>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="164" x="342" y="623"/>
+<text font-family="Dialog" font-size="13" x="346" y="638">
+text : String</text>
+<text font-family="Dialog" font-size="13" x="346" y="656">
+updated : TimeStamp</text>
+<text font-family="Dialog" font-size="13" x="346" y="674">
+type : POST_TYPE</text>
+<text font-family="Dialog" font-size="13" x="346" y="692">
+created : DateTime</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="164" x="342" y="703"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="548" y2="553"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="558" y2="563"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="568" y2="573"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="578" y2="583"/>
 <line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="588" y2="593"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="598" y2="603"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="608" y2="613"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="618" y2="623"/>
-<line fill="#000000" stroke="#000000" stroke-width="1" x1="414" x2="414" y1="628" y2="630"/>
-<polyline fill="none" points="494,694 734,694 734,496" stroke="#000000" stroke-width="1"/>
-<polygon fill="#000000" points="494,694 504,689 514,694 504,699" stroke="#000000" stroke-width="1"/>
-<polygon fill="none" points="494,694 504,689 514,694 504,699" stroke="#000000" stroke-width="1"/>
-<text font-family="Dialog" font-size="13" x="669" y="634">
+<polyline fill="none" points="505,694 734,694 734,514" stroke="#000000" stroke-width="1"/>
+<polygon fill="#000000" points="505,694 515,689 525,694 515,699" stroke="#000000" stroke-width="1"/>
+<polygon fill="none" points="505,694 515,689 525,694 515,699" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="13" x="665" y="634">
 consistsOf</text>
-<text font-family="Dialog" font-size="13" x="507" y="687">
+<text font-family="Dialog" font-size="13" x="518" y="687">
 1</text>
-<text font-family="Dialog" font-size="13" x="705" y="523">
+<text font-family="Dialog" font-size="13" x="705" y="541">
 0..*</text>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="112" x="654" y="14"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="112" x="654" y="14"/>
+<text font-family="Dialog" font-size="13" x="674" y="49">
+POST_TYPE</text>
+<text font-family="Dialog" font-size="13" x="659" y="29">
+&lt;&lt;datatype&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="112" x="654" y="60"/>
+<rect fill="#ffffff" height="73" stroke="#ffffff" stroke-width="1" width="110" x="390" y="750"/>
+<rect fill="none" height="73" stroke="#000000" stroke-width="1" width="110" x="390" y="750"/>
+<text font-family="Dialog" font-size="13" x="408" y="785">
+TimeStamp</text>
+<text font-family="Dialog" font-size="13" x="394" y="765">
+&lt;&lt;datatype&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="110" x="390" y="796"/>
+<rect fill="#ffffff" height="68" stroke="#ffffff" stroke-width="1" width="110" x="206" y="750"/>
+<rect fill="none" height="68" stroke="#000000" stroke-width="1" width="110" x="206" y="750"/>
+<text font-family="Dialog" font-size="13" x="230" y="785">
+DateTime</text>
+<text font-family="Dialog" font-size="13" x="210" y="765">
+&lt;&lt;datatype&gt;&gt;</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="110" x="206" y="796"/>
 </svg>
