@@ -207,9 +207,9 @@ CREATE TABLE `invitation` (
   KEY `sent_by` (`sent_by`),
   KEY `sent_to` (`sent_to`),
   KEY `event_id` (`event_id`),
-  CONSTRAINT `invitation_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE,
   CONSTRAINT `invitation_ibfk_1` FOREIGN KEY (`sent_by`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `invitation_ibfk_2` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `invitation_ibfk_3` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -314,34 +314,6 @@ LOCK TABLES `post` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `post_comment`
---
-
-DROP TABLE IF EXISTS `post_comment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post_comment` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NOT NULL,
-  `comment_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `post_id` (`post_id`),
-  KEY `comment_id` (`comment_id`),
-  CONSTRAINT `post_comment_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `post_comment_ibfk_2` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `post_comment`
---
-
-LOCK TABLES `post_comment` WRITE;
-/*!40000 ALTER TABLE `post_comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post_comment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `post_like`
 --
 
@@ -412,4 +384,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-23 16:09:09
+-- Dump completed on 2014-03-24 21:59:34
