@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.12, for osx10.7 (x86_64)
 --
--- Host: localhost    Database: fb
+-- Host: localhost    Database: facebookdb
 -- ------------------------------------------------------
 -- Server version	5.6.12
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `fb`
+-- Current Database: `facebookdb`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `fb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `facebookdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `fb`;
+USE `facebookdb`;
 
 --
 -- Table structure for table `comment`
@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
-  `created` datetime NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `commented_by` int(11) NOT NULL,
   `belongs_to_post` int(11) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `comment` (
   KEY `belongs_to_post` (`belongs_to_post`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`commented_by`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`belongs_to_post`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,6 +51,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,'Hello','2014-03-24 23:16:39','2014-03-24 17:46:39',2,1),(2,'Why not bazinga?','2014-03-24 23:16:40','2014-03-24 17:46:40',3,2),(3,'May the force be with you','2014-03-24 23:16:40','2014-03-24 17:46:40',4,2),(4,'I too want to know','2014-03-24 23:18:07','2014-03-24 17:48:07',3,4),(5,'Will it be this week?','2014-03-24 23:18:07','2014-03-24 17:48:07',3,4),(6,'Are you Sure?','2014-03-24 23:18:33','2014-03-24 17:48:33',4,6),(7,'Why not comment on it?','2014-03-24 23:19:09','2014-03-24 17:49:09',1,8);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,7 +344,7 @@ CREATE TABLE `post_like` (
   KEY `post_id` (`post_id`),
   CONSTRAINT `post_like_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_like_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +353,7 @@ CREATE TABLE `post_like` (
 
 LOCK TABLES `post_like` WRITE;
 /*!40000 ALTER TABLE `post_like` DISABLE KEYS */;
-INSERT INTO `post_like` VALUES (1,4,1,'2014-03-24 16:57:20'),(2,3,1,'2014-03-24 16:58:20'),(3,2,1,'2014-03-24 16:59:20'),(4,4,2,'2014-03-24 17:00:20'),(5,3,2,'2014-03-24 17:01:20');
+INSERT INTO `post_like` VALUES (1,4,1,'2014-03-24 16:57:20'),(2,3,1,'2014-03-24 16:58:20'),(3,2,1,'2014-03-24 16:59:20'),(4,4,2,'2014-03-24 17:00:20'),(5,3,2,'2014-03-24 17:01:20'),(6,1,7,'2014-03-24 17:56:50'),(7,2,7,'2014-03-24 17:56:50'),(8,3,7,'2014-03-24 17:56:50'),(9,4,7,'2014-03-24 17:56:50');
 /*!40000 ALTER TABLE `post_like` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,4 +402,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-24 22:45:56
+-- Dump completed on 2014-03-24 23:38:30

@@ -8,14 +8,16 @@ import java.sql.SQLException;
 
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.model.User;
+import edu.iiitb.util.ConnectionPool;
 
 public class UserDAOImpl implements UserDAO {
 
   @Override
-  public User getUserImageByUserId(Connection conn, String userId) {    
+  public User getUserImageByUserId(String userId) {    
     User user = new User();
-    try {
-      PreparedStatement stmt = conn
+    Connection connection = ConnectionPool.getConnection();
+    try {      
+      PreparedStatement stmt = connection
           .prepareStatement("SELECT * from user WHERE id = ?");
       stmt.setString(1, userId);
 
@@ -30,6 +32,8 @@ public class UserDAOImpl implements UserDAO {
 
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(connection);
     }
     return user;
   }

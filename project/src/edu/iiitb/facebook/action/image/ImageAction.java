@@ -13,6 +13,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -24,12 +25,15 @@ import edu.iiitb.util.ConnectionPool;
 
 @Namespace("/default")
 @ResultPath(value = "/")
-public class ImageAction extends ActionSupport implements SessionAware {
+public class ImageAction extends ActionSupport implements SessionAware,
+    ServletResponseAware {
 
   /**
    * serialVersionUID
    */
   private static final long serialVersionUID = -8188116769915480525L;
+
+  private HttpServletResponse response;
 
   private String userId;
 
@@ -40,14 +44,12 @@ public class ImageAction extends ActionSupport implements SessionAware {
   @Action(value = "/image")
   public String execute() throws SQLException, IOException {
     Connection connection = ConnectionPool.getConnection();
-    User user = userDao.getUserImageByUserId(connection, userId);
-    HttpServletResponse response = ServletActionContext.getResponse();
-    response.setContentType("image/jpeg");
-
+    User user = userDao.getUserImageByUserId(userId);
+    response.setContentType("image/png");
+    InputStream in = user.getCurrentProfilePic();
     OutputStream out = response.getOutputStream();
     byte[] buffer = new byte[1024];
     int len;
-    InputStream in = user.getCurrentProfilePic();
     while ((len = in.read(buffer)) != -1) {
       out.write(buffer, 0, len);
     }
@@ -66,6 +68,13 @@ public class ImageAction extends ActionSupport implements SessionAware {
   @Override
   public void setSession(Map<String, Object> session) {
     this.session = session;
+  }
 
+  public void setServletResponse(HttpServletResponse response) {
+    this.response = response;
+  }
+
+  public HttpServletResponse getServletResponse() {
+    return response;
   }
 }
