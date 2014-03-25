@@ -15,6 +15,10 @@
 			<param-name>struts.devMode</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<init-param>
+ 			<param-name>actionPackages</param-name>
+ 			<param-value>edu.iiitb.facebook.action</param-value>
+ 		</init-param>
 	</filter>
 	<resource-ref>
 		<description>MySQL Datasource example</description>
