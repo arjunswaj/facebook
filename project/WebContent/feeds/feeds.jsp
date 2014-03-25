@@ -6,44 +6,94 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
+<style type="text/css" media="screen">
+.container {
+	margin: 0 50px 0px 50px;
+	width: 900px;
+}
+
+.left-status {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-status {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.timestamp {
+	padding: 15px 0px;
+	font-size: x-small;
+}
+
+.post {
+	font-size: large;
+	padding: 5px 0px;
+}
+
+.clear {
+	height: 0;
+	font-size: 1px;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	clear: both;
+}
+</style>
 </head>
 <body>
 	<h1>News Feeds</h1>
-	<table border="1" style="margin: 0px auto">
-		<thead>
-			<tr>
-				<td>From</td>
-				<td>First Name</td>
-				<td>Last Name</td>
-				<td>To</td>
-				<td>First Name</td>
-				<td>Last Name</td>
-				<td>Post</td>
-				<td>Type</td>
-				<td>Time</td>
-			</tr>
-		</thead>
-		<tbody>
-			<s:iterator value="newsFeeds" status="feeds">
-				<tr>
-					<td><img width="80px"
-						src="image?userId=<s:property value="fromUserId" />" />
-					</td>
-					<td><s:property value="fromUserFirstName" /></td>
-					<td><s:property value="fromUserLastName" /></td>
-					<td>
-					<img width="80px"
-						src="image?userId=<s:property value="toUserId" />" />
-					</td>
-					<td><s:property value="toUserFirstName" /></td>
-					<td><s:property value="toUserLastName" /></td>
-					<td><s:property value="postText" /></td>
-					<td><s:property value="postType" /></td>
-					<td><s:property value="updatedTime" /></td>
-				</tr>
-
-			</s:iterator>
-		</tbody>
-	</table>
+	<div>
+		<s:iterator value="newsFeeds" var="feeds">
+			<div class="container">
+				<s:if test="#feeds.postType == 'status'">
+					<div class="left-status">
+						<img width="80px"
+							src="image?userId=<s:property value="fromUserId" />" />
+					</div>
+					<div class="right-status">
+						<div>
+							<s:property value="fromUserFirstName" />
+							<s:property value="fromUserLastName" />
+							updated his status
+						</div>
+						<div class="post">
+							<s:property value="postText" />
+						</div>
+						<div class="timestamp">
+							<s:property value="updatedTime" />
+						</div>
+					</div>
+				</s:if>
+				<s:elseif test="#feeds.postType == 'wallpost'">
+					<div class="left-status">
+						<img width="80px"
+							src="image?userId=<s:property value="fromUserId" />" />
+					</div>
+					<div class="right-status">
+						<div>
+							<s:property value="fromUserFirstName" />
+							<s:property value="fromUserLastName" />
+							posted on
+							<s:property value="toUserFirstName" />
+							<s:property value="toUserLastName" />'s Wall
+						</div>
+						<div class="post">
+							<s:property value="postText" />
+						</div>
+						<div class="timestamp">
+							<s:property value="updatedTime" />
+						</div>
+					</div>
+				</s:elseif>
+			</div>
+			<div class="clear"></div>
+		</s:iterator>
+	</div>
 </body>
 </html>
