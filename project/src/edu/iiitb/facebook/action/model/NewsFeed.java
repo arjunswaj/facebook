@@ -1,8 +1,11 @@
 package edu.iiitb.facebook.action.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class NewsFeed {
+  private int postId;
   private int fromUserId;
   private String fromUserFirstName;
   private String fromUserLastName;
@@ -16,10 +19,14 @@ public class NewsFeed {
 
   private Date updatedTime;
 
-  public NewsFeed(int fromUserId, String fromUserFirstName,
+  private List<PostComment> postComments = new ArrayList<PostComment>();
+
+  public NewsFeed(int postId, int fromUserId, String fromUserFirstName,
       String fromUserLastName, int toUserId, String toUserFirstName,
-      String toUserLastName, String postText, String postType, Date updatedTime) {
+      String toUserLastName, String postText, String postType,
+      Date updatedTime) {
     super();
+    this.postId = postId;
     this.fromUserId = fromUserId;
     this.fromUserFirstName = fromUserFirstName;
     this.fromUserLastName = fromUserLastName;
@@ -29,6 +36,14 @@ public class NewsFeed {
     this.postText = postText;
     this.postType = postType;
     this.updatedTime = updatedTime;
+  }
+
+  public int getPostId() {
+    return postId;
+  }
+
+  public void setPostId(int postId) {
+    this.postId = postId;
   }
 
   public int getFromUserId() {
@@ -101,6 +116,14 @@ public class NewsFeed {
 
   public void setUpdatedTime(Date updatedTime) {
     this.updatedTime = updatedTime;
+  }
+
+  public List<PostComment> getPostComments() {
+    return postComments;
+  }
+
+  public void setPostComments(List<PostComment> postComments) {
+    this.postComments = postComments;
   }
 
 }
