@@ -8,6 +8,8 @@
 <title>Employee Form</title>
 </head>
 <body>
+<img width="120px" src="image?userId=3"
+					title='Lol' />
 	<s:form action="empinfo" method="post">
 		<s:textfield name="name" label="Name" size="20" />
 		<s:textfield name="age" label="Age" size="20" />

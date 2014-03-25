@@ -9,9 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -22,28 +20,23 @@ import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("/default")
-@ResultPath(value = "/")
-public class ImageAction extends ActionSupport implements SessionAware,
-    ServletResponseAware {
+public class ImageAction extends ActionSupport implements SessionAware{
 
   /**
    * serialVersionUID
    */
-  private static final long serialVersionUID = -8188116769915480525L;
-
-  private HttpServletResponse response;
+  private static final long serialVersionUID = -8188116769915480525L; 
 
   private String userId;
 
   private Map<String, Object> session;
 
   private UserDAO userDao = new UserDAOImpl();
-
-  @Action(value = "/image")
+  
   public String execute() throws SQLException, IOException {
     Connection connection = ConnectionPool.getConnection();
     User user = userDao.getUserImageByUserId(userId);
+    HttpServletResponse response = ServletActionContext.getResponse();
     response.setContentType("image/jpeg");
     InputStream in = user.getCurrentProfilePic();
     OutputStream out = response.getOutputStream();
@@ -69,11 +62,6 @@ public class ImageAction extends ActionSupport implements SessionAware,
     this.session = session;
   }
 
-  public void setServletResponse(HttpServletResponse response) {
-    this.response = response;
-  }
 
-  public HttpServletResponse getServletResponse() {
-    return response;
-  }
+   
 }
