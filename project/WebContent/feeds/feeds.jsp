@@ -26,10 +26,15 @@
 		<tbody>
 			<s:iterator value="newsFeeds" status="feeds">
 				<tr>
-					<td><s:property value="fromUserId" /></td>
+					<td><img width="80px"
+						src="image?userId=<s:property value="fromUserId" />" />
+					</td>
 					<td><s:property value="fromUserFirstName" /></td>
 					<td><s:property value="fromUserLastName" /></td>
-					<td><s:property value="toUserId" /></td>
+					<td>
+					<img width="80px"
+						src="image?userId=<s:property value="toUserId" />" />
+					</td>
 					<td><s:property value="toUserFirstName" /></td>
 					<td><s:property value="toUserLastName" /></td>
 					<td><s:property value="postText" /></td>
