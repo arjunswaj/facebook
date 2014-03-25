@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.model.User;
-import edu.iiitb.util.ConnectionPool;
+import edu.iiitb.facebook.util.ConnectionPool;
 
 public class UserDAOImpl implements UserDAO {
 

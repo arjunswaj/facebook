@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -21,7 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.User;
-import edu.iiitb.util.ConnectionPool;
+import edu.iiitb.facebook.util.ConnectionPool;
 
 @Namespace("/default")
 @ResultPath(value = "/")
@@ -45,7 +44,7 @@ public class ImageAction extends ActionSupport implements SessionAware,
   public String execute() throws SQLException, IOException {
     Connection connection = ConnectionPool.getConnection();
     User user = userDao.getUserImageByUserId(userId);
-    response.setContentType("image/png");
+    response.setContentType("image/jpeg");
     InputStream in = user.getCurrentProfilePic();
     OutputStream out = response.getOutputStream();
     byte[] buffer = new byte[1024];

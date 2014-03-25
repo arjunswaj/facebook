@@ -1,4 +1,4 @@
-package edu.iiitb.util;
+package edu.iiitb.facebook.util;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -38,7 +38,7 @@ public class ConnectionPool
 
 				Context context = new InitialContext();
 
-				datasource = (DataSource) context.lookup("java:comp/env/jdbc/facebookdb");
+				datasource = (DataSource) context.lookup("java:comp/env/jdbc/fb");
 
 				conn = datasource.getConnection();
 
