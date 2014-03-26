@@ -177,6 +177,7 @@ CREATE TABLE `invitation` (
   `sent_by` int(11) NOT NULL,
   `sent_to` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
+  `confirmation` enum('join','maybe','nope') NOT NULL DEFAULT 'nope',
   PRIMARY KEY (`id`),
   KEY `sent_by` (`sent_by`),
   KEY `sent_to` (`sent_to`),
@@ -358,4 +359,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-26 17:45:53
+-- Dump completed on 2014-03-26 17:51:07
