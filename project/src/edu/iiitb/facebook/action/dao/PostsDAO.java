@@ -5,7 +5,7 @@ import java.util.List;
 import edu.iiitb.facebook.action.model.NewsFeed;
 
 public interface PostsDAO {
-  public List<NewsFeed> getNewsFeedsForUser(String userId);
+  public List<NewsFeed> getNewsFeedsForUser(int userId);
 
-  public int updateStatusForUser(String userId, String status);  
+  public int updateStatusForUser(int userId, String status);  
 }

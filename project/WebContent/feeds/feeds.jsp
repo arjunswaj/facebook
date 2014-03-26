@@ -26,6 +26,20 @@
 	font-family: Arial Narrow, sans-serif;
 }
 
+.left-comment {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-comment {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+}
+
 .timestamp {
 	padding: 15px 0px;
 	font-size: x-small;
@@ -51,31 +65,20 @@
 	<div>
 		<s:iterator value="newsFeeds" var="feeds">
 			<div class="container">
-				<s:if test="#feeds.postType == 'status'">
-					<div class="left-status">
-						<img width="80px"
-							src="image?userId=<s:property value="fromUserId" />" />
-					</div>
-					<div class="right-status">
+				<div class="left-status">
+					<img width="80px"
+						src="image?userId=<s:property value="fromUserId" />" />
+				</div>
+				<div class="right-status">
+					<s:if test="#feeds.postType == 'status'">
 						<div>
 							<s:property value="fromUserFirstName" />
 							<s:property value="fromUserLastName" />
 							updated his status
 						</div>
-						<div class="post">
-							<s:property value="postText" />
-						</div>
-						<div class="timestamp">
-							<s:property value="updatedTime" />
-						</div>
-					</div>
-				</s:if>
-				<s:elseif test="#feeds.postType == 'wallpost'">
-					<div class="left-status">
-						<img width="80px"
-							src="image?userId=<s:property value="fromUserId" />" />
-					</div>
-					<div class="right-status">
+
+					</s:if>
+					<s:elseif test="#feeds.postType == 'wallpost'">
 						<div>
 							<s:property value="fromUserFirstName" />
 							<s:property value="fromUserLastName" />
@@ -83,14 +86,31 @@
 							<s:property value="toUserFirstName" />
 							<s:property value="toUserLastName" />'s Wall
 						</div>
-						<div class="post">
-							<s:property value="postText" />
-						</div>
-						<div class="timestamp">
-							<s:property value="updatedTime" />
-						</div>
+					</s:elseif>
+					<div class="post">
+						<s:property value="postText" />
 					</div>
-				</s:elseif>
+					<div class="timestamp">
+						<s:property value="updatedTime" />
+					</div>
+					<div>
+						<s:iterator value="#feeds.postComments" var="comments">
+							<div class="left-comment">
+								<img width="40px"
+									src="image?userId=<s:property value="#comments.commenterUserId" />" />
+							</div>
+							<div class="right-comment">
+								<div class="post">
+									<s:property value="#comments.commentText" />
+								</div>
+								<div class="timestamp">
+									<s:property value="#comments.commentTime" />
+								</div>
+							</div>
+							<div class="clear"></div>
+						</s:iterator>
+					</div>
+				</div>
 			</div>
 			<div class="clear"></div>
 		</s:iterator>

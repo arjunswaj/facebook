@@ -36,7 +36,7 @@ public class NewsFeedsAction extends ActionSupport {
   private PostsDAO postsDAO = new PostsDAOImpl();
 
   private List<NewsFeed> newsFeeds = new ArrayList<NewsFeed>();
-  private String userId;
+  private int userId;
 
   @Action(value = "/newsfeeds")
   public String execute() {
@@ -44,11 +44,11 @@ public class NewsFeedsAction extends ActionSupport {
     return SUCCESS;
   }
 
-  public String getUserId() {
+  public int getUserId() {
     return userId;
   }
 
-  public void setUserId(String userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 

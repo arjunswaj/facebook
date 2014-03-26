@@ -40,7 +40,7 @@ public class StatusUpdateAction extends ActionSupport {
 
   @Action(value = "/statusupdate")
   public String execute() {
-    int statusId = postsDAO.updateStatusForUser(String.valueOf(userId), status);
+    int statusId = postsDAO.updateStatusForUser(userId, status);
     return SUCCESS;
   }
 
