@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -127,8 +128,10 @@ public class PostsDAOImpl implements PostsDAO {
         }
 
         if (null != commentId && 0 != commentId) {
+          SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+          String commentTimeFormatted = sdf.format(commentTime);           
           PostComment postComment = new PostComment(commentId, commenterUserId,
-              commenterFirstName, commenterLastName, commentText, commentTime);
+              commenterFirstName, commenterLastName, commentText, commentTimeFormatted);
           newsFeed.getPostComments().add(postComment);
         }
         prevPostId = postId;

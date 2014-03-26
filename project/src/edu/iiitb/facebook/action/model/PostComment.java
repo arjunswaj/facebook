@@ -1,6 +1,5 @@
 package edu.iiitb.facebook.action.model;
 
-import java.util.Date;
 
 public class PostComment {
   private int commentId;
@@ -8,11 +7,11 @@ public class PostComment {
   private String commenterFirstName;
   private String commenterLastName;
   private String commentText;
-  private Date commentTime;
+  private String commentTime;
 
   public PostComment(int commentId, int commenterUserId,
       String commenterFirstName, String commenterLastName, String commentText,
-      Date commentTime) {
+      String commentTime) {
     super();
     this.commentId = commentId;
     this.commenterUserId = commenterUserId;
@@ -62,11 +61,11 @@ public class PostComment {
     this.commentText = commentText;
   }
 
-  public Date getCommentTime() {
+  public String getCommentTime() {
     return commentTime;
   }
 
-  public void setCommentTime(Date commentTime) {
+  public void setCommentTime(String commentTime) {
     this.commentTime = commentTime;
   }
 
