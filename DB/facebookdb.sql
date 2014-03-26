@@ -29,6 +29,7 @@ CREATE TABLE `comment` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `commented_by` int(11) NOT NULL,
   `belongs_to_post` int(11) NOT NULL,
+  `like_count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `commented_by` (`commented_by`),
   KEY `belongs_to_post` (`belongs_to_post`),
@@ -274,6 +275,7 @@ CREATE TABLE `post` (
   `type` enum('status','wallpost') NOT NULL DEFAULT 'wallpost',
   `posted_by` int(11) NOT NULL,
   `posted_for` int(11) NOT NULL,
+  `like_count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `posted_by` (`posted_by`),
   KEY `posted_for` (`posted_for`),
@@ -364,4 +366,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-26 17:59:51
+-- Dump completed on 2014-03-26 18:42:59
