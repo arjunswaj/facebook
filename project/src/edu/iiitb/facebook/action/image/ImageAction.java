@@ -43,7 +43,7 @@ public class ImageAction extends ActionSupport implements SessionAware{
   @Action(value = "/image")
   public String execute() throws SQLException, IOException {
     Connection connection = ConnectionPool.getConnection();
-    User user = userDao.getUserImageByUserId(userId);
+    User user = userDao.getUserImageByUserId(Integer.parseInt(userId));
     HttpServletResponse response = ServletActionContext.getResponse();
     response.setContentType("image/jpeg");
     InputStream in = user.getCurrentProfilePic();

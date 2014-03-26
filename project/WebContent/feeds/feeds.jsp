@@ -48,10 +48,20 @@
 }
 
 .post {
-	font-size: large;
+	font-size: 18px;
 	padding: 5px 0px;
 }
 
+.fullname {
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px 0px;
+}
+
+.comment-text {
+	font-size: 15px;
+	padding: 5px 0px;
+}
 .clear {
 	height: 0;
 	font-size: 1px;
@@ -74,19 +84,25 @@
 				<div class="right-status">
 					<s:if test="#feeds.postType == 'status'">
 						<div>
-							<s:property value="fromUserFirstName" />
-							<s:property value="fromUserLastName" />
+							<span class="fullname">
+								<s:property value="fromUserFirstName" />
+								<s:property value="fromUserLastName" />
+							</span>
 							updated his status
 						</div>
 
 					</s:if>
 					<s:elseif test="#feeds.postType == 'wallpost'">
 						<div>
-							<s:property value="fromUserFirstName" />
-							<s:property value="fromUserLastName" />
+							<span class="fullname">
+								<s:property value="fromUserFirstName" />
+								<s:property value="fromUserLastName" />
+							</span>
 							posted on
-							<s:property value="toUserFirstName" />
-							<s:property value="toUserLastName" />'s Wall
+							<span class="fullname">
+								<s:property value="toUserFirstName" />
+								<s:property value="toUserLastName" />
+							</span>'s Wall
 						</div>
 					</s:elseif>
 					<div class="post">
@@ -103,7 +119,12 @@
 							</div>
 							<div class="right-comment">
 								<div class="post">
-									<s:property value="#comments.commentText" />
+									<span class="fullname">
+										<s:property value="#comments.commenterFirstName" /> <s:property value="#comments.commenterLastName" />
+									</span>
+									<span class="comment-text">
+										<s:property value="#comments.commentText" />
+									</span>
 								</div>
 								<div class="timestamp">
 									<s:property value="#comments.commentTime" />
@@ -115,7 +136,7 @@
 							theme="simple" cssClass="yform">
 							<div>
 								<s:textarea name="comment" cols="60" rows="2"
-									placeholder="Post Comment" />
+									placeholder="Post Comment" />								
 								<s:hidden name="postId" value="%{postId}" />
 								<s:hidden name="userId" value="%{userId}" />
 							</div>
@@ -147,8 +168,12 @@
 		
 	var pic = "<div class='left-comment'>" + "<img width='40px'"
 				+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
+												
+				
 		var commentDiv = "<div class='right-comment'>" + "<div class='post'>"
-				+ commentData.comment + "</div>" + "<div class='timestamp'>"
+				+ "<span class='fullname'> "+ commentData.fullname +"</span> " 
+				+ " <span class='comment-text'>"+ commentData.comment + "</span>"
+				+ "</div>" + "<div class='timestamp'>"
 				+ commentData.now + "</div>" + "</div>";
 		$("#formevent_" + commentData.postId).prepend(pic + commentDiv);
 		$("#formevent_" + commentData.postId)[0][0].value = "";
