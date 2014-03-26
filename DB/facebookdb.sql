@@ -57,6 +57,7 @@ CREATE TABLE `comment_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL,
+  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `comment_id` (`comment_id`),
@@ -116,6 +117,8 @@ CREATE TABLE `friends_with` (
   `blocked_status` enum('blocked','unblocked') DEFAULT 'unblocked',
   `request_by` int(11) NOT NULL,
   `request_for` int(11) NOT NULL,
+  `friend_request_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `friend_request_accepted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `request_by` (`request_by`),
@@ -299,6 +302,7 @@ CREATE TABLE `post_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
+  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `post_id` (`post_id`),
@@ -336,6 +340,7 @@ CREATE TABLE `user` (
   `current_cover_pic` longblob NOT NULL,
   `secret_question` text NOT NULL,
   `secret_answer` text NOT NULL,
+  `profile_created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -359,4 +364,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-26 17:51:07
+-- Dump completed on 2014-03-26 17:59:51
