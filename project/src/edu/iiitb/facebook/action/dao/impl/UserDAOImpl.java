@@ -29,8 +29,8 @@ public class UserDAOImpl implements UserDAO
 
 			if (rs.next())
 			{
-				InputStream currentProfilePic = rs.getBinaryStream(UserDAO.CURRENT_COVER_PIC);
-				InputStream currentCoverPic = rs.getBinaryStream(UserDAO.CURRENT_PROFILE_PIC);
+				InputStream currentProfilePic = rs.getBinaryStream(UserDAO.CURRENT_PROFILE_PIC);
+				InputStream currentCoverPic = rs.getBinaryStream(UserDAO.CURRENT_COVER_PIC);
 				user.setFirstName(rs.getString(UserDAO.FIRST_NAME));
 				user.setLastName(rs.getString(UserDAO.LAST_NAME));
 				user.setCurrentProfilePic(currentProfilePic);
@@ -76,8 +76,8 @@ public class UserDAOImpl implements UserDAO
 
 				user.setPhoneNumber(resultSet.getString(UserDAO.PHONE_NUMBER));
 
-				InputStream currentProfilePic = resultSet.getBinaryStream(UserDAO.CURRENT_COVER_PIC);
-				InputStream currentCoverPic = resultSet.getBinaryStream(UserDAO.CURRENT_PROFILE_PIC);
+				InputStream currentProfilePic = resultSet.getBinaryStream(UserDAO.CURRENT_PROFILE_PIC);
+				InputStream currentCoverPic = resultSet.getBinaryStream(UserDAO.CURRENT_COVER_PIC);
 				user.setFirstName(resultSet.getString(UserDAO.FIRST_NAME));
 				user.setLastName(resultSet.getString(UserDAO.LAST_NAME));
 				user.setCurrentProfilePic(currentProfilePic);

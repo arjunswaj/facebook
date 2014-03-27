@@ -2,6 +2,7 @@ package edu.iiitb.facebook.action.dao;
 
 import java.util.List;
 
+import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.User;
 
 public interface FriendsDAO
@@ -15,8 +16,8 @@ public interface FriendsDAO
 	String FRIEND_REQUEST_SENT = "friend_request_sent";
 	String FRIEND_REQUEST_ACCEPTED = "friend_request_accepted";
 
-	public boolean getFriendRequestStatus(int loggedInUserId, int otherUserId);
-	
+	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId);
+
 	public List<User> getFriendsList(int userId);
 
 }
