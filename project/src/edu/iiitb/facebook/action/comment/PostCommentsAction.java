@@ -19,7 +19,10 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.CommentsDAO;
+import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.CommentsDAOImpl;
+import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
+import edu.iiitb.facebook.action.model.User;
 
 /**
  * @author arjun
@@ -37,8 +40,10 @@ public class PostCommentsAction extends ActionSupport {
   private static final long serialVersionUID = 3973933993539075766L;
 
   private CommentsDAO commentsDAO = new CommentsDAOImpl();
-
+  private UserDAO userDao = new UserDAOImpl();
+  
   private int userId;
+  private String fullname;
   private int postId;
   private String comment;
   private int commentId;
@@ -48,7 +53,9 @@ public class PostCommentsAction extends ActionSupport {
   public String execute() {
     commentId = commentsDAO.addCommentForPost(userId, postId, comment);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-    now = sdf.format(new Date());     
+    now = sdf.format(new Date());
+    User user = userDao.getUserImageByUserId(userId);
+    fullname = user.getFirstName() + " " + user.getLastName();
     return SUCCESS;
   }
 
@@ -93,6 +100,14 @@ public class PostCommentsAction extends ActionSupport {
 
   public void setNow(String now) {
     this.now = now;
+  }
+
+  public String getFullname() {
+    return fullname;
+  }
+
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
   }
 
 }

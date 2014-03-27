@@ -13,19 +13,21 @@ import edu.iiitb.facebook.util.ConnectionPool;
 public class UserDAOImpl implements UserDAO {
 
   @Override
-  public User getUserImageByUserId(String userId) {    
+  public User getUserImageByUserId(int userId) {    
     User user = new User();
     Connection connection = ConnectionPool.getConnection();
     try {      
       PreparedStatement stmt = connection
           .prepareStatement("SELECT * from user WHERE id = ?");
-      stmt.setString(1, userId);
+      stmt.setInt(1, userId);
 
       ResultSet rs = stmt.executeQuery();
 
       if (rs.next()) {
         InputStream currentProfilePic = rs.getBinaryStream("current_profile_pic");
         InputStream currentCoverPic = rs.getBinaryStream("current_cover_pic");
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
         user.setCurrentProfilePic(currentProfilePic);
         user.setCurrentCoverPic(currentCoverPic);
       }

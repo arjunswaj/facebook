@@ -120,10 +120,12 @@ public class PostsDAOImpl implements PostsDAO {
         String commentText = rs.getString("comment_text");
 
         Date commentTime = rs.getTimestamp("comment_updated_time");
-        if (prevPostId != postId) {
+        if (prevPostId != postId && 0 != postId) {
+          SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+          String updatedTimeFormatted = sdf.format(updatedTime);
           newsFeed = new NewsFeed(postId, fromUserId, fromUserFirstName,
               fromUserLastName, toUserId, toUserFirstName, toUserLastName,
-              postText, postType, updatedTime);
+              postText, postType, updatedTimeFormatted);
           newsFeeds.add(newsFeed);
         }
 

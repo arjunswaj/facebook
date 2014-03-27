@@ -34,6 +34,7 @@ public class ImageAction extends ActionSupport implements SessionAware{
   private static final long serialVersionUID = -8188116769915480525L; 
 
   private String userId;
+  private String picType;
 
   private Map<String, Object> session;
 
@@ -42,10 +43,13 @@ public class ImageAction extends ActionSupport implements SessionAware{
   @Action(value = "/image")
   public String execute() throws SQLException, IOException {
     Connection connection = ConnectionPool.getConnection();
-    User user = userDao.getUserImageByUserId(userId);
+    User user = userDao.getUserImageByUserId(Integer.parseInt(userId));
     HttpServletResponse response = ServletActionContext.getResponse();
     response.setContentType("image/jpeg");
     InputStream in = user.getCurrentProfilePic();
+    if (null != picType && picType.equals("cover")) {
+      in = user.getCurrentCoverPic();
+    }
     OutputStream out = response.getOutputStream();
     byte[] buffer = new byte[1024];
     int len;
@@ -62,6 +66,14 @@ public class ImageAction extends ActionSupport implements SessionAware{
 
   public void setUserId(String userId) {
     this.userId = userId;
+  }
+  
+  public String getPicType() {
+    return picType;
+  }
+
+  public void setPicType(String picType) {
+    this.picType = picType;
   }
 
   @Override
