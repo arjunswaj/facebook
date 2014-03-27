@@ -3,110 +3,156 @@ package edu.iiitb.facebook.action.model;
 import java.io.InputStream;
 import java.util.Date;
 
-public class User {
+public class User
+{
 
-  private int userId;
-  private String email;
-  private String password;
-  private Date dob;
-  private String phoneNumber;
-  private String firstName;
-  private String lastName;
-  private InputStream currentProfilePic;
-  private InputStream currentCoverPic;
-  private String secretQuestion;
-  private String secretAnswer;
+	private int userId;
+	private String email;
+	private String password;
+	private Date dob;
+	private String phoneNumber;
+	private String firstName;
+	private String lastName;
+	private InputStream currentProfilePic;
+	private InputStream currentCoverPic;
+	private String secretQuestion;
+	private String secretAnswer;
+	private String place;
+	private Date created;
 
-  public User() {
+	public Date getCreated()
+	{
+		return created;
+	}
 
-  }
+	public void setCreated(Date created)
+	{
+		this.created = created;
+	}
 
-  public int getUserId() {
-    return userId;
-  }
+	public String getPlace()
+	{
+		return place;
+	}
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+	public void setPlace(String place)
+	{
+		this.place = place;
+	}
 
-  public String getEmail() {
-    return email;
-  }
+	public User()
+	{
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	}
 
-  public String getPassword() {
-    return password;
-  }
+	public int getUserId()
+	{
+		return userId;
+	}
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+	public void setUserId(int userId)
+	{
+		this.userId = userId;
+	}
 
-  public Date getDob() {
-    return dob;
-  }
+	public String getEmail()
+	{
+		return email;
+	}
 
-  public void setDob(Date dob) {
-    this.dob = dob;
-  }
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
 
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
+	public String getPassword()
+	{
+		return password;
+	}
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
+	public void setPassword(String password)
+	{
+		this.password = password;
+	}
 
-  public String getFirstName() {
-    return firstName;
-  }
+	public Date getDob()
+	{
+		return dob;
+	}
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+	public void setDob(Date dob)
+	{
+		this.dob = dob;
+	}
 
-  public String getLastName() {
-    return lastName;
-  }
+	public String getPhoneNumber()
+	{
+		return phoneNumber;
+	}
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+	public void setPhoneNumber(String phoneNumber)
+	{
+		this.phoneNumber = phoneNumber;
+	}
 
-  public InputStream getCurrentProfilePic() {
-    return currentProfilePic;
-  }
+	public String getFirstName()
+	{
+		return firstName;
+	}
 
-  public void setCurrentProfilePic(InputStream currentProfilePic) {
-    this.currentProfilePic = currentProfilePic;
-  }
+	public void setFirstName(String firstName)
+	{
+		this.firstName = firstName;
+	}
 
-  public InputStream getCurrentCoverPic() {
-    return currentCoverPic;
-  }
+	public String getLastName()
+	{
+		return lastName;
+	}
 
-  public void setCurrentCoverPic(InputStream currentCoverPic) {
-    this.currentCoverPic = currentCoverPic;
-  }
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
+	}
 
-  public String getSecretQuestion() {
-    return secretQuestion;
-  }
+	public InputStream getCurrentProfilePic()
+	{
+		return currentProfilePic;
+	}
 
-  public void setSecretQuestion(String secretQuestion) {
-    this.secretQuestion = secretQuestion;
-  }
+	public void setCurrentProfilePic(InputStream currentProfilePic)
+	{
+		this.currentProfilePic = currentProfilePic;
+	}
 
-  public String getSecretAnswer() {
-    return secretAnswer;
-  }
+	public InputStream getCurrentCoverPic()
+	{
+		return currentCoverPic;
+	}
 
-  public void setSecretAnswer(String secretAnswer) {
-    this.secretAnswer = secretAnswer;
-  }
+	public void setCurrentCoverPic(InputStream currentCoverPic)
+	{
+		this.currentCoverPic = currentCoverPic;
+	}
+
+	public String getSecretQuestion()
+	{
+		return secretQuestion;
+	}
+
+	public void setSecretQuestion(String secretQuestion)
+	{
+		this.secretQuestion = secretQuestion;
+	}
+
+	public String getSecretAnswer()
+	{
+		return secretAnswer;
+	}
+
+	public void setSecretAnswer(String secretAnswer)
+	{
+		this.secretAnswer = secretAnswer;
+	}
 
 }
