@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
-  `created` datetime NOT NULL,
+  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `commented_by` int(11) NOT NULL,
   `belongs_to_post` int(11) NOT NULL,
@@ -46,6 +46,21 @@ LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`kempa`@`localhost`*/ /*!50003 trigger on_comment before insert on comment for each row set new.created = now() */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `comment_like`
@@ -58,7 +73,7 @@ CREATE TABLE `comment_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `comment_id` int(11) NOT NULL,
-  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `comment_id` (`comment_id`),
@@ -87,7 +102,7 @@ CREATE TABLE `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` text NOT NULL,
   `description` text,
-  `time` datetime NOT NULL,
+  `time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `place` text NOT NULL,
   `created_by` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -118,7 +133,7 @@ CREATE TABLE `friends_with` (
   `blocked_status` enum('blocked','unblocked') DEFAULT 'unblocked',
   `request_by` int(11) NOT NULL,
   `request_for` int(11) NOT NULL,
-  `friend_request_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `friend_request_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `friend_request_accepted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
@@ -177,7 +192,7 @@ DROP TABLE IF EXISTS `invitation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `invitation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `invited_on` datetime NOT NULL,
+  `invited_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sent_by` int(11) NOT NULL,
   `sent_to` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
@@ -211,14 +226,14 @@ DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
-  `sent_at` datetime NOT NULL,
-  `sent_by` int(11) NOT NULL,
-  `sent_to` int(11) NOT NULL,
+  `sent_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `sender` int(11) NOT NULL,
+  `recipient` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `sent_by` (`sent_by`),
-  KEY `sent_to` (`sent_to`),
-  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`sent_by`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `message_ibfk_2` FOREIGN KEY (`sent_to`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  KEY `sent_by` (`sender`),
+  KEY `sent_to` (`recipient`),
+  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`sender`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `message_ibfk_2` FOREIGN KEY (`recipient`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -270,7 +285,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
-  `created` datetime NOT NULL,
+  `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` enum('status','wallpost') NOT NULL DEFAULT 'wallpost',
   `posted_by` int(11) NOT NULL,
@@ -292,6 +307,21 @@ LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`kempa`@`localhost`*/ /*!50003 trigger on_post before insert on post for each row set new.created = now() */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `post_like`
@@ -304,7 +334,7 @@ CREATE TABLE `post_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `liked_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `post_id` (`post_id`),
@@ -342,7 +372,7 @@ CREATE TABLE `user` (
   `current_cover_pic` longblob NOT NULL,
   `secret_question` text NOT NULL,
   `secret_answer` text NOT NULL,
-  `profile_created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -366,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-26 18:42:59
+-- Dump completed on 2014-03-27  8:59:13
