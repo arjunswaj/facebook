@@ -79,6 +79,7 @@ public class PostsDAOImpl implements PostsDAO {
       + "    user commenter ON commenter.id = comment.commented_by "
       + "ORDER BY post_id DESC, comment_updated_time , updated_time DESC;";
 
+  
   private static final String STATUS_UPDATE_FOR_USER = "INSERT INTO post(text, type, created, posted_by, posted_for) "
       + "VALUES(?, ?, CURRENT_TIMESTAMP, ?, ?);";
 
@@ -168,5 +169,5 @@ public class PostsDAOImpl implements PostsDAO {
     }
     return statusId;
   }
-
+  
 }
