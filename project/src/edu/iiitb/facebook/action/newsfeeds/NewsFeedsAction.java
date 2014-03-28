@@ -3,7 +3,6 @@
  */
 package edu.iiitb.facebook.action.newsfeeds;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -35,7 +34,7 @@ public class NewsFeedsAction extends ActionSupport {
 
   private PostsDAO postsDAO = new PostsDAOImpl();
 
-  private List<NewsFeed> newsFeeds = new ArrayList<NewsFeed>();
+  private List<NewsFeed> newsFeeds;
   private int userId;
 
   @Action(value = "/newsfeeds")

@@ -5,9 +5,9 @@ package edu.iiitb.facebook.action.status;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
-import org.apache.struts2.convention.annotation.Results;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
@@ -23,9 +23,8 @@ import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
  */
 @Namespace("/default")
 @ResultPath(value = "/")
-@Results({ @Result(name = "success", location = "/success.jsp"),
-    @Result(name = "input", location = "/status/status.jsp"),
-    @Result(name = "login", location = "/index.jsp") })
+@ParentPackage("json-default")
+@Result(name = "success", type = "json")
 public class StatusUpdateAction extends ActionSupport {
 
   /**
@@ -36,7 +35,7 @@ public class StatusUpdateAction extends ActionSupport {
   private PostsDAO postsDAO = new PostsDAOImpl();
 
   private int userId;
-  private String status;
+  private String status;  
 
   @Action(value = "/statusupdate")
   public String execute() {
@@ -61,5 +60,5 @@ public class StatusUpdateAction extends ActionSupport {
   public void setStatus(String status) {
     this.status = status;
   }
-
+  
 }

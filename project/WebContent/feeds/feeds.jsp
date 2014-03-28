@@ -9,6 +9,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
 <style type="text/css" media="screen">
+.status-container {
+	margin: 0 50px 0px 50px;
+	width: 550px;
+}
 .container {
 	margin: 0 50px 0px 50px;
 	width: 900px;
@@ -71,12 +75,51 @@
 	clear: both;
 }
 </style>
+
+<script type="text/javascript">	
+
+	$.subscribe('beforeStatus', function(event, data) {
+		var statusfData = event.originalEvent.formData;
+		var statusForm = event.originalEvent.form[0];		
+		if (!statusfData[0].value) {
+			event.originalEvent.options.submit = false;
+		}
+	});
+
+	$.subscribe('completeStatus', function(event, data) {
+		location.reload();
+	});
+
+	$.subscribe('errorStateStatus', function(event, data) {
+		alert('status: ' + event.originalEvent.status + '\n\nrequest status: '
+				+ event.originalEvent.request.status);
+	});
+</script>
+
+
 </head>
-<body>
+<body>	
 	<h1>News Feeds</h1>
-	<div>
-		<s:iterator value="newsFeeds" var="feeds">
-			<div class="container">
+	<div id="status" class="status-container">
+
+		<s:form id="statusform" action="statusupdate" theme="simple"
+			cssClass="yform">
+			<div>
+				<s:textarea name="status" cols="75" rows="5"
+					placeholder="What's on your mind?" />
+				<s:hidden name="userId" value="%{userId}" />				
+			</div>
+			<div style="width: 100%; text-align: right;">
+				<sj:submit targets="statusResult" value="Post" timeout="2500"
+					indicator="statusIndicator" onBeforeTopics="beforeStatus"
+					onCompleteTopics="completeStatus" onErrorTopics="errorStateStatus"
+					align="right" />
+			</div>
+		</s:form>
+	</div>
+	<div id="feeds">
+		<s:iterator value="newsFeeds" var="feeds">		
+			<div class="container">				
 				<div class="left-status">
 					<img width="80px"
 						src="image?userId=<s:property value="fromUserId" />" />
@@ -154,27 +197,28 @@
 		</s:iterator>
 	</div>
 </body>
-<script type="text/javascript">
+<script type="text/javascript">	
+
 	$.subscribe('before', function(event, data) {
-		var fData = event.originalEvent.formData;		
+		var fData = event.originalEvent.formData;
 		var form = event.originalEvent.form[0];
-		if (!fData[0].value) {	          
-	          event.originalEvent.options.submit = false;
-	      }
+		if (!fData[0].value) {
+			event.originalEvent.options.submit = false;
+		}
 	});
 
-	$.subscribe('complete',	function(event, data) {
-		var commentData = JSON.parse(event.originalEvent.request.responseText); 
-		
-	var pic = "<div class='left-comment'>" + "<img width='40px'"
+	$.subscribe('complete', function(event, data) {
+		var commentData = JSON.parse(event.originalEvent.request.responseText);
+
+		var pic = "<div class='left-comment'>" + "<img width='40px'"
 				+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
-												
-				
+
 		var commentDiv = "<div class='right-comment'>" + "<div class='post'>"
-				+ "<span class='fullname'> "+ commentData.fullname +"</span> " 
-				+ " <span class='comment-text'>"+ commentData.comment + "</span>"
-				+ "</div>" + "<div class='timestamp'>"
-				+ commentData.now + "</div>" + "</div>";
+				+ "<span class='fullname'> " + commentData.fullname
+				+ "</span> " + " <span class='comment-text'>"
+				+ commentData.comment + "</span>" + "</div>"
+				+ "<div class='timestamp'>" + commentData.now + "</div>"
+				+ "</div>";
 		$("#formevent_" + commentData.postId).prepend(pic + commentDiv);
 		$("#formevent_" + commentData.postId)[0][0].value = "";
 	});
