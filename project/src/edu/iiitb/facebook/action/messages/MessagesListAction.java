@@ -9,21 +9,27 @@ import org.apache.struts2.convention.annotation.Results;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
-import edu.iiitb.facebook.action.dao.impl.MessageDAOIMpl;
+import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.LatestMessage;
 
-@Results({@Result(name = "success", location = "/messages/latest_messages.jsp")})
-public class LatestMessagesAction extends ActionSupport
+@Results({
+		@Result(name = "success", location = "/messages/latest_messages.jsp"),
+		@Result(name = "error", location = "/messages/error.jsp") 
+		})
+public class MessagesListAction extends ActionSupport
 {
 	private static final long serialVersionUID = -5115586460910679145L;
-	
-	private List<LatestMessage> latestMessages;
-	private int user = 1; 
 
-	@Action(value = "/latest_messages")
+	private List<LatestMessage> latestMessages;
+	private int user = 0;
+
+	@Action(value = "/messages_list")
 	public String execute()
 	{
-		MessageDAO dao = new MessageDAOIMpl();
+		if (user == 0)
+			return ERROR;
+		MessageDAO dao = new MessageDAOImpl();
+		System.out.println("getting latest messages for " + user);
 		latestMessages = dao.getLatestMessagesFromAllUsers(user);
 		return SUCCESS;
 	}
@@ -36,6 +42,16 @@ public class LatestMessagesAction extends ActionSupport
 	public void setLatestMessages(List<LatestMessage> latestMessages)
 	{
 		this.latestMessages = latestMessages;
+	}
+
+	public int getUser()
+	{
+		return user;
+	}
+
+	public void setUser(int user)
+	{
+		this.user = user;
 	}
 
 }

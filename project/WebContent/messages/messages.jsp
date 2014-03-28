@@ -10,10 +10,16 @@
 <body>
 <s:iterator value="messages">
 <li>
-<s:property value="id" />
 <s:property value="text"/>
 <s:property value="sentAt"/>
 </li>
 </s:iterator>
+
+<s:form action="reply">
+<s:textarea name="reply"  value="" cols="75" rows="5" placeholder="Write a reply..."/>
+<s:hidden name="from" value="%{recipient}" />
+<s:hidden name="to" value="%{sender}"/>
+<s:submit value="Reply"/>
+</s:form>
 </body>
 </html>

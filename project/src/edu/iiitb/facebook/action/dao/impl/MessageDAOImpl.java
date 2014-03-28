@@ -12,7 +12,7 @@ import edu.iiitb.facebook.action.model.LatestMessage;
 import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-public class MessageDAOIMpl implements MessageDAO
+public class MessageDAOImpl implements MessageDAO
 {
 	/*
 	 * (non-Javadoc)
@@ -22,8 +22,10 @@ public class MessageDAOIMpl implements MessageDAO
 	@Override
 	public List<Message> getMessages(int sender, int recipient)
 	{
-		final String query = "select *" + " from message" + " where"
-				+ " sender = ?" + " and recipient = ?";
+		final String query = "select * from message where sender = ? and "
+				+ "recipient = ? union select * from message where "
+				+ "sender = ? and recipient = ? order by sent_at asc";
+
 		List<Message> messages = new LinkedList<Message>();
 
 		Connection connection = ConnectionPool.getConnection();
@@ -33,6 +35,8 @@ public class MessageDAOIMpl implements MessageDAO
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, sender);
 			stmt.setInt(2, recipient);
+			stmt.setInt(3, recipient);
+			stmt.setInt(4, sender);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
@@ -65,21 +69,7 @@ public class MessageDAOIMpl implements MessageDAO
 	@Override
 	public List<LatestMessage> getLatestMessagesFromAllUsers(int recipient)
 	{
-		final String query = "SELECT"
-				+ " user.id,"
-				+ " user.first_name,"
-				+ " user.last_name, "
-				+ " message.text,"
-				+ " message.sent_at"
-				+ " FROM"
-				+ " message,"
-				+ " user,"
-				+ " (select sender, max(sent_at) as sent_at from message group "
-				+ " by sender) AS latest" + " WHERE "
-				+ " message.sender = user.id"
-				+ " and message.sender = latest.sender "
-				+ " and message.sent_at = latest.sent_at"
-				+ " and message.recipient = ?";
+		final String query = "select user.id, user.first_name, user.last_name, message.text, message.sent_at from user, message,  (select max(sent_at) as sent_at, sender, recipient from message group by sender, recipient) as latest_message where user.id = message.sender and message.sender = latest_message.sender and message.sent_at = latest_message.sent_at and message.recipient = latest_message.recipient and message.recipient = ?";
 
 		List<LatestMessage> latestMsgs = new LinkedList<LatestMessage>();
 
@@ -87,21 +77,26 @@ public class MessageDAOIMpl implements MessageDAO
 		PreparedStatement stmt;
 		try
 		{
+			System.out.println("Recipient is : " + recipient);
+			System.out.println("Query is : " + query);
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, recipient);
+			System.out.println("Prepared statement is : " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
 				LatestMessage latestMsg = new LatestMessage();
-				
+
 				latestMsg.setSender(rs.getInt("id"));
 				latestMsg.setSenderFirstName(rs.getString("first_name"));
 				latestMsg.setSenderLastName(rs.getString("last_name"));
 				latestMsg.setText(rs.getString("text"));
 				latestMsg.setSentAt(rs.getTimestamp("sent_at"));
-				
+				latestMsg.setRecipient(recipient);
+
 				latestMsgs.add(latestMsg);
 			}
+			System.out.println("latest messages number : " + latestMsgs.size());
 		}
 		catch (SQLException e)
 		{
@@ -111,5 +106,38 @@ public class MessageDAOIMpl implements MessageDAO
 			ConnectionPool.freeConnection(connection);
 		}
 		return latestMsgs;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.iiitb.facebook.action.dao.MessageDAO#insert(edu.iiitb.facebook.action
+	 * .model.Message)
+	 */
+	@Override
+	public void insert(Message reply)
+	{
+		final String insert = "insert into message (text, sender, recipient) values ('"
+				+ reply.getText()
+				+ "', "
+				+ reply.getSender()
+				+ ", "
+				+ reply.getRecipient() + ")";
+
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(insert);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
 	}
 }

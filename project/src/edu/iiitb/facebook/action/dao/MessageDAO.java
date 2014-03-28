@@ -21,4 +21,10 @@ public interface MessageDAO
 	 * @return
 	 */
 	public List<LatestMessage> getLatestMessagesFromAllUsers(int recipient);
+
+	/**
+	 * Insert the reply into the message table
+	 * @param replyMsg
+	 */
+	public void insert(Message reply);
 }
