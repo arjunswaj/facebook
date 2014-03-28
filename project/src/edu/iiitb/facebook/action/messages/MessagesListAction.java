@@ -13,7 +13,7 @@ import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.LatestMessage;
 
 @Results({
-		@Result(name = "success", location = "/messages/latest_messages.jsp"),
+		@Result(name = "success", location = "/messages/messages_list.jsp"),
 		@Result(name = "error", location = "/messages/error.jsp") 
 		})
 public class MessagesListAction extends ActionSupport
