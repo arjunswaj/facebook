@@ -45,7 +45,7 @@
 
 .timestamp {
 	padding: 15px 0px;
-	font-size: x-small;
+	font-size: 12px;
 }
 
 .post {
@@ -223,7 +223,7 @@
 		var pic = "<div class='left-comment'>" + "<img width='40px'"
 				+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
 
-		var commentDiv = "<div class='right-comment'>" + "<div class='post'>"
+		var commentDiv = "<div class='right-comment'>" + "<div class='comment-post'>"
 				+ "<span class='fullname'> " + commentData.fullname
 				+ "</span> " + " <span class='comment-text'>"
 				+ commentData.comment + "</span>" + "</div>"
