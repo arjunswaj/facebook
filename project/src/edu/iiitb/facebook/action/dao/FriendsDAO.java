@@ -20,4 +20,14 @@ public interface FriendsDAO
 
 	public List<User> getFriendsList(int userId);
 
+	public boolean addFriend(int loggedInUserId, int otherUserId);
+
+	public boolean confirmFriend(int loggedInUserId, int otherUserId);
+
+	public boolean rejectFriend(int loggedInUserId, int otherUserId);
+
+	public boolean blockFriend(int loggedInUserId, int otherUserId);
+
+	public boolean unblockFriend(int loggedInUserId, int otherUserId);
+
 }
