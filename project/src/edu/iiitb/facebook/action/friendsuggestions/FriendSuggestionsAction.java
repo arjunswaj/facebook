@@ -33,7 +33,7 @@ public class FriendSuggestionsAction extends ActionSupport {
 	
 	@Action(value = "/friendsuggestions")
 	public String execute() {
-		setFriendSuggestionsList(friendsDAO.getFriendSuggestions(userId));
+		//setFriendSuggestionsList(friendsDAO.getFriendSuggestions(userId));
 		return SUCCESS;
 	}
 

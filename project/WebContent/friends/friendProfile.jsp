@@ -18,12 +18,60 @@ img.cover_pic {
 img.profile_pic {
 	position: absolute;
 	left: 40px;
-	top: 140px;
+	top: 130px;
 	z-index: 1;
+}
+
+input.friends_checkbox {
+	position: absolute;
+	left: 520px;
+	top: 265px;
+	z-index: 0;
+	width: 150px;
+	height: 30px;
+}
+
+input.friends_status {
+	position: absolute;
+	left: 620px;
+	top: 270px;
+	z-index: 1;
+	width: 150px;
+	height: 30px;
+}
+
+input.RejectButton {
+	position: absolute;
+	left: 900px;
+	top: 270px;
+	z-index: 1;
+	width: 150px;
+	height: 30px;
 }
 </style>
 </head>
 <body>
+
+
+	<script>
+		function addfriend() {
+
+			document.getElementById("friendstatus_form").action = 'friends/addfriend?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+
+		}
+
+		function confirmRequest() {
+
+			document.getElementById("friendstatus_form").action = 'friends/confirmRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+
+		}
+
+		function rejectRequest() {
+
+			document.getElementById("friendstatus_form").action = 'friends/rejectRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+
+		}
+	</script>
 
 	<div>
 		<img class="cover_pic"
@@ -37,31 +85,36 @@ img.profile_pic {
 			src="image?userId=<s:property value="%{friendUserId}"/>" />
 	</div>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<s:set name="checkFriend" value="requestStatus" />
-	
-	<s:property value="%{#requestStatus}"/>
+	<s:url action="/requestUpdate"></s:url>
 
-	<s:if test="%{#checkFriend=='pending'}">
-		<input type="button" value="+1 Friend Request Sent"
-			disabled="disabled">
-	</s:if>
+	<s:form id="friendstatus_form" method="post">
 
-	<s:elseif test="%{#checkFriend=='accepted'}">
+		<s:set name="checkFriend" value="requestStatus" />
 
-		<input type="checkbox" name="vehicle" value="Bike" checked="checked"
-			disabled="disabled">
-		<input type="button" value="Friends" disabled="disabled">
-	</s:elseif>
+		<s:if test="%{#checkFriend=='pending'}">
+			<input class="friends_status" type="button"
+				value="+1 Friend Request Sent" disabled="disabled">
+		</s:if>
 
+		<s:elseif test="%{#checkFriend=='accepted'}">
+
+			<s:checkbox name="friends" cssClass="friends_checkbox"
+				checked="checked" disabled="true"></s:checkbox>
+			<input class="friends_status" type="button" value="Friends"
+				size="200" disabled="disabled">
+		</s:elseif>
+		<s:elseif test="%{#checkFriend=='confirm_request'}">
+
+			<s:submit cssClass="friends_status" value="confirm"
+				onclick="confirmRequest(); return true"></s:submit>
+
+			<s:submit cssClass="RejectButton" value="Reject"
+				onclick="rejectRequest(); return true"></s:submit>
+		</s:elseif>
+		<s:elseif test="%{#checkFriend=='add_friend'}">
+			<s:submit cssClass="friends_status" value="+1 Add Friend"
+				onclick="addfriend(); return true" />
+		</s:elseif>
+	</s:form>
 </body>
 </html>

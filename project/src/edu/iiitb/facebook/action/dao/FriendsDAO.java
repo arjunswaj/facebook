@@ -3,7 +3,6 @@ package edu.iiitb.facebook.action.dao;
 import java.util.List;
 
 import edu.iiitb.facebook.action.model.FriendInfo;
-import edu.iiitb.facebook.action.model.FriendSuggestions;
 import edu.iiitb.facebook.action.model.User;
 
 public interface FriendsDAO
@@ -20,7 +19,15 @@ public interface FriendsDAO
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId);
 
 	public List<User> getFriendsList(int userId);
-	
-	public List<FriendSuggestions> getFriendSuggestions(int userId);
+
+	public boolean addFriend(int loggedInUserId, int otherUserId);
+
+	public boolean confirmFriend(int loggedInUserId, int otherUserId);
+
+	public boolean rejectFriend(int loggedInUserId, int otherUserId);
+
+	public boolean blockFriend(int loggedInUserId, int otherUserId);
+
+	public boolean unblockFriend(int loggedInUserId, int otherUserId);
 
 }
