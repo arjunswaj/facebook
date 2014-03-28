@@ -32,8 +32,8 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="submit" value="Done">
-						<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Back" /></a>
+						<input type="submit" value="Save">
+						<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 					</td>
 					<td colspan="2"></td>
 				</tr>

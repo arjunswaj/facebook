@@ -19,6 +19,6 @@
 			</s:iterator>
 		</tbody>
 	</table>
-	<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Back" /></a>
+	<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Close" /></a>
 </body>
 </html>

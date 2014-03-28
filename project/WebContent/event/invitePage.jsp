@@ -22,7 +22,7 @@
 			</tbody>
 		</table>
 		<input type="button" value="Send" onclick="submitForm();" />
-		<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Back" /></a>
+		<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 	</form>
 	<script type="text/javascript">
 		var cbArray=document.getElementsByName("cb");

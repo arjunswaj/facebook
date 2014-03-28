@@ -10,12 +10,12 @@
 <body style="background-color: #E5E5E9;">
 	<div style="background-color: #D2D2D8;">
 		<br /><br /><br /><br /><br /><br /><br />
-		<b><s:property value="eventName"/></b>
+		&nbsp;<b><s:property value="eventName"/></b>
 		<br /><br />
 	</div>
 	<div style="background-color: #FFFFFF; float: left; width: 520px;">
 		<br />
-		Hosted by <s:property value="user.getFirstName()"/> <s:property value="user.getLastName()"/>
+		&nbsp;Hosted by <s:property value="user.getFirstName()"/> <s:property value="user.getLastName()"/>
 		<br /><br />
 	</div>
 	<div style="background-color: #FFFFFF;">
@@ -28,16 +28,16 @@
 	<div style="float: left; width: 500px;">
 		<div style="background-color: #FFFFFF;">
 			<br />
-			<s:property value="eventDate"/> at <s:property value="eventTime"/>
+			&nbsp;<s:property value="eventDate"/> at <s:property value="eventTime"/>
 			<br/>
 			<hr />
-			<s:property value="eventPlace"/>
+			&nbsp;<s:property value="eventPlace"/>
 			<br /><br />
 		</div>
 		<br />
 		<div style="background-color: #FFFFFF;">
 			<br />
-			<s:property value="eventDescription"/>
+			&nbsp;<s:property value="eventDescription"/>
 			<br /><br />
 		</div>
 	</div>
@@ -47,14 +47,14 @@
 				<thead><b>GUESTS</b></thead>
 				<tbody>
 					<tr>
-						<td><a href='goingList?eventId=<s:property value="eventId"/>'><s:property value="going"/></a></td>
-						<td><a href='maybeList?eventId=<s:property value="eventId"/>'><s:property value="maybe"/></a></td>
-						<td><a href='invitedList?eventId=<s:property value="eventId"/>'><s:property value="invited"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?eventId=<s:property value="eventId"/>'><s:property value="going"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='maybeList?eventId=<s:property value="eventId"/>'><s:property value="maybe"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='invitedList?eventId=<s:property value="eventId"/>'><s:property value="invited"/></a></td>
 					</tr>
 					<tr>
-						<td><a href='goingList?eventId=<s:property value="eventId"/>'>going</a></td>
-						<td><a href='maybeList?eventId=<s:property value="eventId"/>'>maybe</a></td>
-						<td><a href='invitedList?eventId=<s:property value="eventId"/>'>invited</a></td>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?eventId=<s:property value="eventId"/>'>going</a></td>
+						<td><a style="text-decoration: none; color: blue;" href='maybeList?eventId=<s:property value="eventId"/>'>maybe</a></td>
+						<td><a style="text-decoration: none; color: blue;" href='invitedList?eventId=<s:property value="eventId"/>'>invited</a></td>
 					</tr>
 				</tbody>
 			</table>

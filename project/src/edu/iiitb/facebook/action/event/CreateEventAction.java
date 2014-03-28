@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 
@@ -18,6 +19,7 @@ import edu.iiitb.facebook.util.ConnectionPool;
 
 @Namespace("/default")
 @ResultPath("/")
+@ParentPackage("tiles-default")
 public class CreateEventAction extends ActionSupport
 {
 	private String eventId;
@@ -37,7 +39,7 @@ public class CreateEventAction extends ActionSupport
 		value="/createEvent",
 		results=
 		{
-			@Result(name="success", location="/event/eventPage.jsp"),
+			@Result(name="success", type="tiles", location="eventPage.tiles"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)

@@ -29,7 +29,11 @@
 					<td><input type="text" name="eventTime" size="21"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Create"></td>
+					<td>
+						<input type="submit" value="Create">
+						<a href="displayEvents"><input type="button" value="Cancel"></a>
+					</td>
+					
 					<td colspan="2"></td>
 				</tr>
 			</tbody>
