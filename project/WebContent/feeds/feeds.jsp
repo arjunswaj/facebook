@@ -12,9 +12,9 @@
 .status-container {	
 	width: 88%;
 }
-.container {	
+.feed-container {	
 	width: 100%;
-	
+	padding: 15px 0px 15px 0px;
 }
 
 .left-status {
@@ -60,7 +60,9 @@
 	font-weight: bold;
 	padding: 5px 0px;
 }
-
+.comment-form {
+	width: 90%;	
+}
 .comment-text {
 	font-size: 15px;
 	padding: 5px 0px;
@@ -118,7 +120,7 @@
 	</div>
 	<div id="feeds">
 		<s:iterator value="newsFeeds" var="feeds">		
-			<div class="container">				
+			<div class="feed-container">				
 				<div class="left-status">
 					<img width="80px"
 						src="image?userId=<s:property value="fromUserId" />" />
@@ -176,17 +178,19 @@
 						</s:iterator>
 						<s:form id="formevent_%{postId}" action="postcomment"
 							theme="simple" cssClass="yform">
-							<div>
-								<s:textarea name="comment" cols="60" rows="2"
-									placeholder="Post Comment" />								
-								<s:hidden name="postId" value="%{postId}" />
-								<s:hidden name="userId" value="%{userId}" />
-							</div>
-							<div style="width: 100%;text-align:right;">
-								<sj:submit targets="result" value="Post" timeout="2500"
-									indicator="indicator" onBeforeTopics="before"
-									onCompleteTopics="complete" onErrorTopics="errorState"
-									align="right" />
+							<div class="comment-form">
+								<div>
+									<s:textarea name="comment" cols="57" rows="2"
+										placeholder="Post Comment" />
+									<s:hidden name="postId" value="%{postId}" />
+									<s:hidden name="userId" value="%{userId}" />
+								</div>
+								<div style="width: 100%; text-align: right;">
+									<sj:submit targets="result" value="Post" timeout="2500"
+										indicator="indicator" onBeforeTopics="before"
+										onCompleteTopics="complete" onErrorTopics="errorState"
+										align="right" />
+								</div>
 							</div>
 						</s:form>
 					</div>
