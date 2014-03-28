@@ -126,16 +126,22 @@ public class FriendProfileAction extends ActionSupport
 		return SUCCESS;
 	}
 
-	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp") })
-	public String requestUpdate()
+	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp"), @Result(name = ERROR, location = "/") })
+	public String addfriendReqeust()
 	{
 		System.out.println("Add Friend Exeucted");
 		System.out.println(loggedInUserId);
 		System.out.println(friendUserId);
-		
-		
-		
 
+		FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+		if (!friendsDAO.addFriend(Integer.parseInt(loggedInUserId), Integer.parseInt(friendUserId)))
+		{
+
+			return ERROR;
+		}
+
+		setRequestStatus("pending");
 		return SUCCESS;
 	}
 
