@@ -1,6 +1,7 @@
 package edu.iiitb.facebook.action.model;
 
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class User {
@@ -12,10 +13,12 @@ public class User {
   private String phoneNumber;
   private String firstName;
   private String lastName;
+  private String place;
   private InputStream currentProfilePic;
   private InputStream currentCoverPic;
   private String secretQuestion;
   private String secretAnswer;
+  private Timestamp createdOn;
 
   public User() {
 
@@ -108,5 +111,25 @@ public class User {
   public void setSecretAnswer(String secretAnswer) {
     this.secretAnswer = secretAnswer;
   }
+
+public String getPlace()
+{
+	return place;
+}
+
+public void setPlace(String place)
+{
+	this.place = place;
+}
+
+public Timestamp getCreatedOn()
+{
+	return createdOn;
+}
+
+public void setCreatedOn(Timestamp createdOn)
+{
+	this.createdOn = createdOn;
+}
 
 }
