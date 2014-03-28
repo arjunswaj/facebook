@@ -9,26 +9,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
 <style type="text/css" media="screen">
-.status-container {
-	margin: 0 50px 0px 50px;
-	width: 550px;
+.status-container {	
+	width: 88%;
 }
-.container {
-	margin: 0 50px 0px 50px;
-	width: 900px;
+.container {	
+	width: 100%;
+	
 }
 
 .left-status {
 	float: left;
-	margin: 2px;
-	padding: 5px;
+	width: 20%;
 	font-family: Arial Narrow, sans-serif;
 }
 
 .right-status {
 	float: left;
-	margin: 2px;
-	padding: 5px;
+	width: 75%;
 	font-family: Arial Narrow, sans-serif;
 }
 
@@ -54,6 +51,8 @@
 .post {
 	font-size: 18px;
 	padding: 5px 0px;
+	width: 88%;
+	text-align: justify;
 }
 
 .fullname {
