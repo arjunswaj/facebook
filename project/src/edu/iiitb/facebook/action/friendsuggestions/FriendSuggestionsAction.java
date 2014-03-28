@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
@@ -23,7 +24,8 @@ import edu.iiitb.facebook.action.model.NewsFeed;
 
 @Namespace("/default")
 @ResultPath(value = "/")
-@Results({ @Result(name = "success", location = "/suggestions/suggestions.jsp"),
+@ParentPackage("tiles-default")
+@Results({ @Result(name = "success", location = "friendsuggestions.tiles", type="tiles"),
     @Result(name = "login", location = "/index.jsp") })
 public class FriendSuggestionsAction extends ActionSupport {
 	

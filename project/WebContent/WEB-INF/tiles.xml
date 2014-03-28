@@ -17,6 +17,11 @@
 		<put-attribute name="title" value="News Feeds" />
 		<put-attribute name="central-pane" value="/feeds/feeds.jsp" />
 	</definition>
+	<!-- This is for the friend suggestions page -->
+	<definition name="friendsuggestions.tiles" extends="baseLayout">
+		<put-attribute name="title" value="People You May Know" />
+		<put-attribute name="central-pane" value="/suggestions/suggestions.jsp" />
+	</definition>
 	
 	<definition name="baseLayoutWithoutRightPane" template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
 		<put-attribute name="title" value="" />
