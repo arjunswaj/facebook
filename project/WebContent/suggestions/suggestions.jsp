@@ -8,19 +8,23 @@
 <title>Friend Suggestions</title>
 </head>
 <body>
-	<h1>People you may know</h1>
+	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
 	<div id="suggestions">
 		<s:iterator value="friendSuggestionsList">
-			<div>
+			<div align="center" >	
+				<div >
 				<img width="80px" src="image?userId=<s:property value="friendId" />" />
-			</div>		
-			<div align=left>
-				<span>
-						<s:property value="firstName" />
-						<s:property value="lastName" /><br>
-						<a href="#">Add friend</a>
-				</span>
+				</div>
+					<div >
+					<b><s:property value="firstName" /></b>
+					<b><s:property value="lastName" /></b>
+					<br>
+					<a href="#">Mutual Friends</a>
+					<br>
+					<button type="button" class="btn btn-default"> Add Friend</button>	
+					</div>
 			</div>
+			<hr>
 		</s:iterator>
 	</div>
 </body>
