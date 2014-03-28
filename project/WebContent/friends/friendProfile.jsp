@@ -56,19 +56,19 @@ input.RejectButton {
 	<script>
 		function addfriend() {
 
-			document.getElementById("friendstatus_form").action = 'friends/addfriend?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'addfriend?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
 
 		}
 
 		function confirmRequest() {
 
-			document.getElementById("friendstatus_form").action = 'friends/confirmRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'confirmRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
 
 		}
 
 		function rejectRequest() {
 
-			document.getElementById("friendstatus_form").action = 'friends/rejectRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'rejectRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
 
 		}
 	</script>

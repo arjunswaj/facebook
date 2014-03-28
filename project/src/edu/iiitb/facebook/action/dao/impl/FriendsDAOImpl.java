@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.iiitb.facebook.action.dao.FriendsDAO;
 import edu.iiitb.facebook.action.model.FriendInfo;
+import edu.iiitb.facebook.action.model.FriendInfo.RequestStatus;
 import edu.iiitb.facebook.action.model.FriendSuggestions;
 import edu.iiitb.facebook.action.model.User;
-import edu.iiitb.facebook.action.model.FriendInfo.RequestStatus;
 import edu.iiitb.facebook.util.ConnectionPool;
 
 public class FriendsDAOImpl implements FriendsDAO
@@ -45,6 +46,8 @@ public class FriendsDAOImpl implements FriendsDAO
 			"		AND f1.request_for != ? " +
 			"	) " +
 			")";
+
+	String ADD_FRIEND_QRY = "insert into friends_with(request_status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
 
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
@@ -105,7 +108,39 @@ public class FriendsDAOImpl implements FriendsDAO
 	@Override
 	public boolean addFriend(int loggedInUserId, int otherUserId)
 	{
-		// TODO Auto-generated method stub
+
+		Connection conn = ConnectionPool.getConnection();
+
+		try
+		{
+			PreparedStatement preparedstmt = conn.prepareStatement(ADD_FRIEND_QRY);
+
+			preparedstmt.setString(1, "pending");
+			preparedstmt.setString(2, "unblocked");
+			preparedstmt.setInt(3, loggedInUserId);
+			preparedstmt.setInt(4, otherUserId);
+
+			java.util.Calendar cal = Calendar.getInstance();
+			java.util.Date utilDate = new java.util.Date();
+			cal.setTime(utilDate);
+			cal.set(Calendar.HOUR_OF_DAY, 0);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0);
+
+			java.sql.Date sqlDate = new java.sql.Date(cal.getTime().getTime());
+			preparedstmt.setDate(5, sqlDate);
+			if (preparedstmt.executeUpdate() > 0)
+			{
+				return true;
+			}
+
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
 		return false;
 	}
 
@@ -173,3 +208,4 @@ public class FriendsDAOImpl implements FriendsDAO
 	}
 
 }
+
