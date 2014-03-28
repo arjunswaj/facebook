@@ -118,7 +118,7 @@
 				<s:hidden name="userId" value="%{userId}" />				
 			</div>
 			<div style="width: 100%; text-align: right;">
-				<sj:submit targets="statusResult" value="Post" timeout="2500"
+				<sj:submit targets="statusResult" value="Post" timeout="25000"
 					indicator="statusIndicator" onBeforeTopics="beforeStatus"
 					onCompleteTopics="completeStatus" onErrorTopics="errorStateStatus"
 					align="right" />
@@ -193,7 +193,7 @@
 									<s:hidden name="userId" value="%{userId}" />
 								</div>
 								<div style="width: 100%; text-align: right;">
-									<sj:submit targets="result" value="Post" timeout="2500"
+									<sj:submit targets="result" value="Post" timeout="25000"
 										indicator="indicator" onBeforeTopics="before"
 										onCompleteTopics="complete" onErrorTopics="errorState"
 										align="right" />
