@@ -74,4 +74,39 @@ public class FriendsDAOImpl implements FriendsDAO
 		return null;
 	}
 
+	@Override
+	public boolean addFriend(int loggedInUserId, int otherUserId)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean confirmFriend(int loggedInUserId, int otherUserId)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean rejectFriend(int loggedInUserId, int otherUserId)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean blockFriend(int loggedInUserId, int otherUserId)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean unblockFriend(int loggedInUserId, int otherUserId)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
