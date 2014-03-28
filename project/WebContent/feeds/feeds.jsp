@@ -55,6 +55,12 @@
 	text-align: justify;
 }
 
+.comment-post {	
+	padding: 3px 0px;
+	width: 100%;
+	text-align: left;
+}
+
 .fullname {
 	font-size: 16px;
 	font-weight: bold;
@@ -66,6 +72,7 @@
 .comment-text {
 	font-size: 15px;
 	padding: 5px 0px;
+	text-align: left;
 }
 .clear {
 	height: 0;
@@ -162,7 +169,7 @@
 									src="image?userId=<s:property value="#comments.commenterUserId" />" />
 							</div>
 							<div class="right-comment">
-								<div class="post">
+								<div class="comment-post">
 									<span class="fullname">
 										<s:property value="#comments.commenterFirstName" /> <s:property value="#comments.commenterLastName" />
 									</span>
