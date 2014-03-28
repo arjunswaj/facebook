@@ -23,4 +23,6 @@ public interface UserDAO
 	User getUserImageByUserId(int userId);
 
 	User getUserByUserId(int userId);
+	User getUserByUserEmail(String email);
+	String setUser(User user);
 }
