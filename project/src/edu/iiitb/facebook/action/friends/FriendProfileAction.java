@@ -129,9 +129,6 @@ public class FriendProfileAction extends ActionSupport
 	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp"), @Result(name = ERROR, location = "/") })
 	public String addfriendReqeust()
 	{
-		System.out.println("Add Friend Exeucted");
-		System.out.println(loggedInUserId);
-		System.out.println(friendUserId);
 
 		FriendsDAO friendsDAO = new FriendsDAOImpl();
 
@@ -141,7 +138,7 @@ public class FriendProfileAction extends ActionSupport
 			return ERROR;
 		}
 
-		setRequestStatus("pending");
+		setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
 		return SUCCESS;
 	}
 
@@ -149,9 +146,15 @@ public class FriendProfileAction extends ActionSupport
 	public String confirmAddFriend()
 	{
 
-		System.out.println("confirmAddFriend Exeucted");
-		System.out.println(loggedInUserId);
-		System.out.println(friendUserId);
+		FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+		if (!friendsDAO.confirmFriend(Integer.parseInt(loggedInUserId), Integer.parseInt(friendUserId)))
+		{
+
+			return ERROR;
+		}
+
+		setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
 		return SUCCESS;
 	}
 
@@ -159,9 +162,15 @@ public class FriendProfileAction extends ActionSupport
 	public String rejectFriend()
 	{
 
-		System.out.println("rejectFriend Exeucted");
-		System.out.println(loggedInUserId);
-		System.out.println(friendUserId);
+		FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+		if (!friendsDAO.rejectFriend(Integer.parseInt(loggedInUserId), Integer.parseInt(friendUserId)))
+		{
+
+			return ERROR;
+		}
+
+		setRequestStatus(FriendInfo.RequestStatus.ADD_FRIEND.getReqstat());
 		return SUCCESS;
 	}
 
