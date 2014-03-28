@@ -64,8 +64,8 @@ public class FriendProfileAction extends ActionSupport
 	public String execute()
 	{
 
-		this.setLoggedInUserId("1");
-		this.setFriendUserId("3");
+		// this.setLoggedInUserId("3");
+		// this.setFriendUserId("4");
 
 		FriendsDAO friendsDAO = new FriendsDAOImpl();
 		FriendInfo friendInfo = friendsDAO.getFriendRequestStatus(Integer.parseInt(loggedInUserId), Integer.parseInt(friendUserId));
@@ -73,36 +73,49 @@ public class FriendProfileAction extends ActionSupport
 		UserDAO userDAO = new UserDAOImpl();
 		User friendProfile = userDAO.getUserByUserId(Integer.parseInt(friendUserId));
 
-		if (friendProfile != null && FriendInfo.RequestStatus.UNBLOCKED.equals(friendInfo.getBlockedStatus()))
+		if (friendProfile != null && friendInfo != null)
 		{
-
-			if (Integer.parseInt(loggedInUserId) == friendInfo.getRequestedBy())
+			if (FriendInfo.RequestStatus.UNBLOCKED.equals(friendInfo.getBlockedStatus()))
 			{
-				if (FriendInfo.RequestStatus.PENDING.equals(friendInfo.getRequestStatus()))
+
+				if (Integer.parseInt(loggedInUserId) == friendInfo.getRequestedBy())
 				{
-					setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
-				}
-				else if (FriendInfo.RequestStatus.ACCEPTED.equals(friendInfo.getRequestStatus()))
-				{
-					setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
+					if (FriendInfo.RequestStatus.PENDING.equals(friendInfo.getRequestStatus()))
+					{
+						setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
+					}
+					else if (FriendInfo.RequestStatus.ACCEPTED.equals(friendInfo.getRequestStatus()))
+					{
+						setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
+
+					}
 
 				}
+				else
+				{
 
+					if (FriendInfo.RequestStatus.PENDING.equals(friendInfo.getRequestStatus()))
+					{
+						setRequestStatus(FriendInfo.RequestStatus.CONFIRM_REQUEST.getReqstat());
+					}
+					else if (FriendInfo.RequestStatus.ACCEPTED.equals(friendInfo.getRequestStatus()))
+					{
+						setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
+
+					}
+
+				}
 			}
 			else
 			{
-
-				if (FriendInfo.RequestStatus.PENDING.equals(friendInfo.getRequestStatus()))
-				{
-					setRequestStatus(FriendInfo.RequestStatus.CONFIRM_REQUEST.getReqstat());
-				}
-				else if (FriendInfo.RequestStatus.ACCEPTED.equals(friendInfo.getRequestStatus()))
-				{
-					setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
-
-				}
+				return ERROR;
 
 			}
+		}
+		else if (friendProfile != null && friendInfo == null)
+		{
+			setRequestStatus(FriendInfo.RequestStatus.ADD_FRIEND.getReqstat());
+
 		}
 		else
 		{
@@ -112,4 +125,44 @@ public class FriendProfileAction extends ActionSupport
 
 		return SUCCESS;
 	}
+
+	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp"), @Result(name = ERROR, location = "/") })
+	public String addfriendReqeust()
+	{
+		System.out.println("Add Friend Exeucted");
+		System.out.println(loggedInUserId);
+		System.out.println(friendUserId);
+
+		FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+		if (!friendsDAO.addFriend(Integer.parseInt(loggedInUserId), Integer.parseInt(friendUserId)))
+		{
+
+			return ERROR;
+		}
+
+		setRequestStatus("pending");
+		return SUCCESS;
+	}
+
+	@Action(value = "/confirmRequest", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp") })
+	public String confirmAddFriend()
+	{
+
+		System.out.println("confirmAddFriend Exeucted");
+		System.out.println(loggedInUserId);
+		System.out.println(friendUserId);
+		return SUCCESS;
+	}
+
+	@Action(value = "/rejectRequest", results = { @Result(name = SUCCESS, location = "/friends/friendProfile.jsp") })
+	public String rejectFriend()
+	{
+
+		System.out.println("rejectFriend Exeucted");
+		System.out.println(loggedInUserId);
+		System.out.println(friendUserId);
+		return SUCCESS;
+	}
+
 }

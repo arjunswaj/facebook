@@ -9,26 +9,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
 <style type="text/css" media="screen">
-.status-container {
-	margin: 0 50px 0px 50px;
-	width: 550px;
+.status-container {	
+	width: 88%;
 }
-.container {
-	margin: 0 50px 0px 50px;
-	width: 900px;
+.feed-container {	
+	width: 100%;
+	padding: 15px 0px 15px 0px;
 }
 
 .left-status {
 	float: left;
-	margin: 2px;
-	padding: 5px;
+	width: 20%;
 	font-family: Arial Narrow, sans-serif;
 }
 
 .right-status {
 	float: left;
-	margin: 2px;
-	padding: 5px;
+	width: 75%;
 	font-family: Arial Narrow, sans-serif;
 }
 
@@ -48,12 +45,20 @@
 
 .timestamp {
 	padding: 15px 0px;
-	font-size: x-small;
+	font-size: 12px;
 }
 
 .post {
 	font-size: 18px;
 	padding: 5px 0px;
+	width: 88%;
+	text-align: justify;
+}
+
+.comment-post {	
+	padding: 3px 0px;
+	width: 100%;
+	text-align: left;
 }
 
 .fullname {
@@ -61,10 +66,13 @@
 	font-weight: bold;
 	padding: 5px 0px;
 }
-
+.comment-form {
+	width: 90%;	
+}
 .comment-text {
 	font-size: 15px;
 	padding: 5px 0px;
+	text-align: left;
 }
 .clear {
 	height: 0;
@@ -110,7 +118,7 @@
 				<s:hidden name="userId" value="%{userId}" />				
 			</div>
 			<div style="width: 100%; text-align: right;">
-				<sj:submit targets="statusResult" value="Post" timeout="2500"
+				<sj:submit targets="statusResult" value="Post" timeout="25000"
 					indicator="statusIndicator" onBeforeTopics="beforeStatus"
 					onCompleteTopics="completeStatus" onErrorTopics="errorStateStatus"
 					align="right" />
@@ -119,7 +127,7 @@
 	</div>
 	<div id="feeds">
 		<s:iterator value="newsFeeds" var="feeds">		
-			<div class="container">				
+			<div class="feed-container">				
 				<div class="left-status">
 					<img width="80px"
 						src="image?userId=<s:property value="fromUserId" />" />
@@ -161,7 +169,7 @@
 									src="image?userId=<s:property value="#comments.commenterUserId" />" />
 							</div>
 							<div class="right-comment">
-								<div class="post">
+								<div class="comment-post">
 									<span class="fullname">
 										<s:property value="#comments.commenterFirstName" /> <s:property value="#comments.commenterLastName" />
 									</span>
@@ -177,17 +185,19 @@
 						</s:iterator>
 						<s:form id="formevent_%{postId}" action="postcomment"
 							theme="simple" cssClass="yform">
-							<div>
-								<s:textarea name="comment" cols="60" rows="2"
-									placeholder="Post Comment" />								
-								<s:hidden name="postId" value="%{postId}" />
-								<s:hidden name="userId" value="%{userId}" />
-							</div>
-							<div style="width: 100%;text-align:right;">
-								<sj:submit targets="result" value="Post" timeout="2500"
-									indicator="indicator" onBeforeTopics="before"
-									onCompleteTopics="complete" onErrorTopics="errorState"
-									align="right" />
+							<div class="comment-form">
+								<div>
+									<s:textarea name="comment" cols="57" rows="2"
+										placeholder="Post Comment" />
+									<s:hidden name="postId" value="%{postId}" />
+									<s:hidden name="userId" value="%{userId}" />
+								</div>
+								<div style="width: 100%; text-align: right;">
+									<sj:submit targets="result" value="Post" timeout="25000"
+										indicator="indicator" onBeforeTopics="before"
+										onCompleteTopics="complete" onErrorTopics="errorState"
+										align="right" />
+								</div>
 							</div>
 						</s:form>
 					</div>
@@ -213,7 +223,7 @@
 		var pic = "<div class='left-comment'>" + "<img width='40px'"
 				+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
 
-		var commentDiv = "<div class='right-comment'>" + "<div class='post'>"
+		var commentDiv = "<div class='right-comment'>" + "<div class='comment-post'>"
 				+ "<span class='fullname'> " + commentData.fullname
 				+ "</span> " + " <span class='comment-text'>"
 				+ commentData.comment + "</span>" + "</div>"
