@@ -34,14 +34,14 @@ public class FriendsDAOImpl implements FriendsDAO
 			"        SELECT request_for " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"        UNION " +
 			"        SELECT request_by " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"    ) " +
-			"    AND request_status = 'accepted' " +
+			"    AND status = 'accepted' " +
 			"    AND request_for != ? " +
 			"    UNION " +
 			"    SELECT request_by " +
@@ -50,14 +50,14 @@ public class FriendsDAOImpl implements FriendsDAO
 			"        SELECT request_for " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"        UNION " +
 			"        SELECT request_by " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"    ) " +
-			"    AND request_status = 'accepted' " +
+			"    AND status = 'accepted' " +
 			"    AND request_by != ? " +
 			")";
 
