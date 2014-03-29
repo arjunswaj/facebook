@@ -3,12 +3,6 @@
  */
 package edu.iiitb.facebook.action.status;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.ResultPath;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -21,10 +15,6 @@ import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
  * @author arjun
  * 
  */
-@Namespace("/default")
-@ResultPath(value = "/")
-@ParentPackage("json-default")
-@Result(name = "success", type = "json")
 public class StatusUpdateAction extends ActionSupport {
 
   /**
@@ -37,7 +27,6 @@ public class StatusUpdateAction extends ActionSupport {
   private int userId;
   private String status;  
 
-  @Action(value = "/statusupdate")
   public String execute() {
     int statusId = postsDAO.updateStatusForUser(userId, status);
     return SUCCESS;

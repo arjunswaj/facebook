@@ -5,14 +5,15 @@
 
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<constant name="struts.convention.default.parent.package" value="default"/>
-	
-	<package name="default" namespace="/" extends="struts-default">
+	<constant name="struts.convention.default.parent.package"
+		value="default" />
+
+	<package name="default" namespace="/" extends="struts-default,json-default">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
-		
+
 		<interceptors>
 			<interceptor name="authenticationInterceptor"
 				class="edu.iiitb.facebook.interceptors.AuthenticationInterceptor">
@@ -22,6 +23,28 @@
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
 		</interceptors>
+
+		<!-- This is for News Feeds -->
+		<action name="newsfeeds"
+			class="edu.iiitb.facebook.action.newsfeeds.NewsFeedsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">newsfeeds.tiles</result>
+			<result name="login">/login/login.jsp</result>
+		</action>
+
+		<!-- This is for Posting Comments -->
+		<action name="postcomment"
+			class="edu.iiitb.facebook.action.comment.PostCommentsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" />
+		</action>
+
+		<!-- This is for Status Update -->
+		<action name="statusupdate"
+			class="edu.iiitb.facebook.action.status.StatusUpdateAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" />
+		</action>
 	</package>
 
 </struts>

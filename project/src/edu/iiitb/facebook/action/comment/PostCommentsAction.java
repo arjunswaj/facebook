@@ -6,12 +6,6 @@ package edu.iiitb.facebook.action.comment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.ResultPath;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
@@ -27,10 +21,6 @@ import edu.iiitb.facebook.action.model.User;
  * @author arjun
  * 
  */
-@Namespace("/default")
-@ResultPath(value = "/")
-@ParentPackage("json-default")
-@Result(name = "success", type = "json")
 public class PostCommentsAction extends ActionSupport {
 
   /**
@@ -48,7 +38,7 @@ public class PostCommentsAction extends ActionSupport {
   private int commentId;
   private String now;
 
-  @Action(value = "/postcomment")
+  
   public String execute() {
     commentId = commentsDAO.addCommentForPost(userId, postId, comment);
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
