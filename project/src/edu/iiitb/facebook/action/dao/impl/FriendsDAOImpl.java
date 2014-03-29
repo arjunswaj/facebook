@@ -34,14 +34,14 @@ public class FriendsDAOImpl implements FriendsDAO
 			"        SELECT request_for " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"        UNION " +
 			"        SELECT request_by " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"    ) " +
-			"    AND request_status = 'accepted' " +
+			"    AND status = 'accepted' " +
 			"    AND request_for != ? " +
 			"    UNION " +
 			"    SELECT request_by " +
@@ -50,20 +50,20 @@ public class FriendsDAOImpl implements FriendsDAO
 			"        SELECT request_for " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"        UNION " +
 			"        SELECT request_by " +
 			"        FROM facebookdb.friends_with " +
 			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
+			"        AND status = 'accepted' " +
 			"    ) " +
-			"    AND request_status = 'accepted' " +
+			"    AND status = 'accepted' " +
 			"    AND request_by != ? " +
 			")";
 
-	String ADD_FRIEND_QRY = "insert into friends_with(request_status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
+	String ADD_FRIEND_QRY = "insert into friends_with(status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
 
-	String CONFIRM_FRIEND_QRY = "update friends_with set request_status=?, friend_request_accepted =? where request_by=? and request_for=? ";
+	String CONFIRM_FRIEND_QRY = "update friends_with set status=?, friend_request_accepted =? where request_by=? and request_for=? ";
 
 	String REJECT_FRIEND_QRY = "delete from  friends_with  where request_by=? and request_for=? ";
 
