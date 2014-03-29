@@ -10,14 +10,14 @@
 <style>
 img.cover_pic {
 	position: absolute;
-	left: 0px;
+	left: 150px;
 	top: 0px;
 	z-index: 0;
 }
 
 img.profile_pic {
 	position: absolute;
-	left: 40px;
+	left: 190px;
 	top: 130px;
 	z-index: 1;
 }
