@@ -13,7 +13,11 @@ public class Message
 	private String text;
 	private Timestamp sentAt;
 	private int sender;
+	private String senderFirstName;
+	private String senderLastName;
 	private int recipient;
+	private String recipientFirstName;
+	private String recipientLastName;
 	
 	public int getId()
 	{
@@ -54,6 +58,38 @@ public class Message
 	public void setRecipient(int recipient)
 	{
 		this.recipient = recipient;
+	}
+	public String getRecipientFirstName()
+	{
+		return recipientFirstName;
+	}
+	public void setRecipientFirstName(String recipientFirstName)
+	{
+		this.recipientFirstName = recipientFirstName;
+	}
+	public String getRecipientLastName()
+	{
+		return recipientLastName;
+	}
+	public void setRecipientLastName(String recipientLastName)
+	{
+		this.recipientLastName = recipientLastName;
+	}
+	public String getSenderFirstName()
+	{
+		return senderFirstName;
+	}
+	public void setSenderFirstName(String senderFirstName)
+	{
+		this.senderFirstName = senderFirstName;
+	}
+	public String getSenderLastName()
+	{
+		return senderLastName;
+	}
+	public void setSenderLastName(String senderLastName)
+	{
+		this.senderLastName = senderLastName;
 	}
 
 }

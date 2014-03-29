@@ -18,6 +18,13 @@
 		<put-attribute name="central-pane" value="/feeds/feeds.jsp" />
 	</definition>
 	
+	<!-- This is for the messages page -->
+	<definition name="messages.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Messages" />
+		<put-attribute name="left-pane" value="/messages/messages_list.jsp" />
+		<put-attribute name="central-pane" value="/messages/messages.jsp" />
+	</definition>
+	
 	<definition name="baseLayoutWithoutRightPane" template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="left-pane" value="/WEB-INF/content/tiles/LeftPane.jsp" />
@@ -33,4 +40,6 @@
 		<put-attribute name="title" value="Event" />
 		<put-attribute name="central-pane" value="/event/eventPage.jsp" />
 	</definition>
+	
+	
 </tiles-definitions>

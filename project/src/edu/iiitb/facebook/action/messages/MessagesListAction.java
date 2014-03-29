@@ -29,7 +29,6 @@ public class MessagesListAction extends ActionSupport
 		if (user == 0)
 			return ERROR;
 		MessageDAO dao = new MessageDAOImpl();
-		System.out.println("getting latest messages for " + user);
 		latestMessages = dao.getLatestMessagesFromAllUsers(user);
 		return SUCCESS;
 	}

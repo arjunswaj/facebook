@@ -22,9 +22,13 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public List<Message> getMessages(int sender, int recipient)
 	{
-		final String query = "select * from message where sender = ? and "
-				+ "recipient = ? union select * from message where "
-				+ "sender = ? and recipient = ? order by sent_at asc";
+		final String query = "select * from user as from_user, message, user as to_user "
+				+ " where "
+				+ " from_user.id = message.sender and to_user.id = message.recipient "
+				+ " and "
+				+ " ((message.sender = ? and message.recipient = ? ) or "
+				+ " (message.sender = ? and message.recipient = ?))"
+				+ " order by sent_at asc";
 
 		List<Message> messages = new LinkedList<Message>();
 
@@ -46,6 +50,12 @@ public class MessageDAOImpl implements MessageDAO
 				message.setSentAt(rs.getTimestamp("sent_at"));
 				message.setSender(rs.getInt("sender"));
 				message.setRecipient(rs.getInt("recipient"));
+				
+				//TODO: Disambiguiting by default here
+				message.setSenderFirstName(rs.getString("first_name"));
+				message.setSenderLastName(rs.getString("last_name"));
+				message.setRecipientFirstName(rs.getString("first_name"));
+				message.setRecipientLastName(rs.getString("last_name"));
 				messages.add(message);
 			}
 		}

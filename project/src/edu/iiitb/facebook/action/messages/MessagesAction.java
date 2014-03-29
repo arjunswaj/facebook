@@ -3,6 +3,7 @@ package edu.iiitb.facebook.action.messages;
 import java.util.List;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
@@ -12,7 +13,8 @@ import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.Message;
 
-@Results({ @Result(name = "success", location = "/messages/messages.jsp"),
+@ParentPackage("tiles-default")
+@Results({ @Result(name = "success", location = "messages.tiles", type="tiles"),
 		@Result(name = "error", location = "/messages/error.jsp") })
 public class MessagesAction extends ActionSupport
 {
