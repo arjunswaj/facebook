@@ -15,7 +15,7 @@ import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.User;
 
-@Namespace("/friends")
+@Namespace("/")
 @ResultPath(value = "/")
 @ParentPackage("tiles-default")
 public class FriendProfileAction extends ActionSupport

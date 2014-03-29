@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,42 +10,42 @@
 <title>Insert title here</title>
 
 <style>
-img.cover_pic {
+.cover_pic {
 	position: absolute;
-	left: 150px;
-	top: 0px;
+	left: 50px;
+	top: 60px;
 	z-index: 0;
 }
 
-img.profile_pic {
+.profile_pic {
 	position: absolute;
-	left: 190px;
-	top: 130px;
+	left: 90px;
+	top: 190px;
 	z-index: 1;
 }
 
-input.friends_checkbox {
+.friends_checkbox {
 	position: absolute;
-	left: 520px;
-	top: 265px;
+	left: 420px;
+	top: 215px;
 	z-index: 0;
 	width: 150px;
 	height: 30px;
 }
 
-input.friends_status {
+.friends_status {
 	position: absolute;
-	left: 620px;
-	top: 270px;
+	left: 820px;
+	top: 250px;
 	z-index: 1;
-	width: 150px;
+	width: 200px;
 	height: 30px;
 }
 
-input.RejectButton {
+.RejectButton {
 	position: absolute;
-	left: 900px;
-	top: 270px;
+	left: 650px;
+	top: 250px;
 	z-index: 1;
 	width: 150px;
 	height: 30px;
@@ -87,8 +89,6 @@ input.RejectButton {
 
 	<s:form id="friendstatus_form" method="post">
 
-
-
 		<s:hidden name="loggedInUserId" value="%{loggedInUserId}"></s:hidden>
 
 		<s:set name="checkFriend" value="requestStatus" />
@@ -99,8 +99,8 @@ input.RejectButton {
 
 		<s:elseif test="%{#checkFriend=='accepted'}">
 
-			<s:checkbox name="friends" cssClass="friends_checkbox"
-				checked="checked" disabled="true"></s:checkbox>
+			<%-- <s:checkbox name="friends" cssClass="friends_checkbox"
+				checked="checked" disabled="true"></s:checkbox> --%>
 			<input class="friends_status" type="button" value="Friends"
 				size="200" disabled="disabled">
 		</s:elseif>
@@ -117,5 +117,7 @@ input.RejectButton {
 				onclick="addfriend(); return true" />
 		</s:elseif>
 	</s:form>
+
+	
 </body>
 </html>

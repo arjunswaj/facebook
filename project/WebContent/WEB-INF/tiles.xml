@@ -14,6 +14,16 @@
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
+
+
+	<definition name="baseLayout_withoutleftPane"
+		template="/WEB-INF/content/tiles/BaseLayoutWithoutLeftPane.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="right-pane"
+			value="/WEB-INF/content/tiles/RightPane.jsp" />
+		<put-attribute name="central-pane" value="" />
+	</definition>
 	<!-- This is for the news feeds page -->
 	<definition name="newsfeeds.tiles" extends="baseLayout">
 		<put-attribute name="title" value="News Feeds" />
@@ -51,9 +61,12 @@
 	</definition>
 
 	<!-- This is for the messages page -->
-	<definition name="friends.tiles" extends="baseLayout">
+	<definition name="friends.tiles" extends="baseLayout_withoutleftPane">
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 	</definition>
+
+
+
 
 </tiles-definitions>
