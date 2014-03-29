@@ -24,8 +24,7 @@ import edu.iiitb.facebook.action.model.NewsFeed;
 
 @Namespace("/default")
 @ResultPath(value = "/")
-@ParentPackage("tiles-default")
-@Results({ @Result(name = "success", location = "friendsuggestions.tiles", type="tiles"),
+@Results({ @Result(name = "success", location = "suggestions/suggestions.jsp"),
     @Result(name = "login", location = "/index.jsp") })
 public class FriendSuggestionsAction extends ActionSupport {
 	

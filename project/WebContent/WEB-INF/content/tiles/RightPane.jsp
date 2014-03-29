@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <div style="padding:20px;width:100%;font-weight:bold;">
-	<div style="padding:20px;width:100%"><a href="friendsuggestions?userId=1">Friends Suggestions</a></div>
+	<br />
+	<s:action name="friendsuggestions" executeResult="true" />
+	<br />
 </div>
