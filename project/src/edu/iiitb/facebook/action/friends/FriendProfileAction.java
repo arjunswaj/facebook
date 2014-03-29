@@ -2,6 +2,7 @@ package edu.iiitb.facebook.action.friends;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 
@@ -16,6 +17,7 @@ import edu.iiitb.facebook.action.model.User;
 
 @Namespace("/friends")
 @ResultPath(value = "/")
+@ParentPackage("tiles-default")
 public class FriendProfileAction extends ActionSupport
 {
 
@@ -60,7 +62,7 @@ public class FriendProfileAction extends ActionSupport
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Action(value = "/profile", results = { @Result(name = SUCCESS, location = "/friends/profile.jsp") })
+	@Action(value = "/profile", results = { @Result(name = SUCCESS, location = "friends.tiles", type = "tiles") })
 	public String execute()
 	{
 
@@ -131,7 +133,7 @@ public class FriendProfileAction extends ActionSupport
 		return SUCCESS;
 	}
 
-	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "/friends/profile.jsp"), @Result(name = ERROR, location = "/") })
+	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "friends.tiles", type = "tiles") })
 	public String addfriendReqeust()
 	{
 
@@ -167,7 +169,7 @@ public class FriendProfileAction extends ActionSupport
 		return SUCCESS;
 	}
 
-	@Action(value = "/confirmRequest", results = { @Result(name = SUCCESS, location = "/friends/profile.jsp") })
+	@Action(value = "/confirmRequest", results = { @Result(name = SUCCESS, location = "friends.tiles", type = "tiles") })
 	public String confirmAddFriend()
 	{
 
@@ -196,7 +198,7 @@ public class FriendProfileAction extends ActionSupport
 		return SUCCESS;
 	}
 
-	@Action(value = "/rejectRequest", results = { @Result(name = SUCCESS, location = "/friends/profile.jsp") })
+	@Action(value = "/rejectRequest", results = { @Result(name = SUCCESS, location = "friends.tiles", type = "tiles") })
 	public String rejectFriend()
 	{
 		if (loggedInUserId != null && friendUserId != null)

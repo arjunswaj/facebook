@@ -6,9 +6,11 @@
 	<!-- This is the base definition -->
 	<definition name="baseLayout" template="/WEB-INF/content/tiles/BaseLayout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="left-pane" value="/WEB-INF/content/tiles/LeftPane.jsp" />
+		<put-attribute name="left-pane"
+			value="/WEB-INF/content/tiles/LeftPane.jsp" />
 		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
-		<put-attribute name="right-pane" value="/WEB-INF/content/tiles/RightPane.jsp" />
+		<put-attribute name="right-pane"
+			value="/WEB-INF/content/tiles/RightPane.jsp" />
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
@@ -22,17 +24,19 @@
 		<put-attribute name="title" value="People You May Know" />
 		<put-attribute name="central-pane" value="/suggestions/suggestions.jsp" />
 	</definition>
-	
+
 	<!-- This is for the messages page -->
 	<definition name="messages.tiles" extends="baseLayout">
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="left-pane" value="/messages/messages_list.jsp" />
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
-	
-	<definition name="baseLayoutWithoutRightPane" template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
+
+	<definition name="baseLayoutWithoutRightPane"
+		template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="left-pane" value="/WEB-INF/content/tiles/LeftPane.jsp" />
+		<put-attribute name="left-pane"
+			value="/WEB-INF/content/tiles/LeftPane.jsp" />
 		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
@@ -45,6 +49,11 @@
 		<put-attribute name="title" value="Event" />
 		<put-attribute name="central-pane" value="/event/eventPage.jsp" />
 	</definition>
-	
-	
+
+	<!-- This is for the messages page -->
+	<definition name="friends.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Messages" />
+		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+	</definition>
+
 </tiles-definitions>
