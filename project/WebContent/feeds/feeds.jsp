@@ -114,10 +114,10 @@
 			cssClass="yform">
 			<div>
 				<s:textarea name="status" cols="75" rows="5"
-					placeholder="What's on your mind?" />
+					placeholder="What's on your mind?" style="width: 95%;"/>
 				<s:hidden name="userId" value="%{userId}" />				
 			</div>
-			<div style="width: 100%; text-align: right;">
+			<div style="width: 95%; text-align: right;">
 				<sj:submit targets="statusResult" value="Post" timeout="25000"
 					indicator="statusIndicator" onBeforeTopics="beforeStatus"
 					onCompleteTopics="completeStatus" onErrorTopics="errorStateStatus"
@@ -188,11 +188,11 @@
 							<div class="comment-form">
 								<div>
 									<s:textarea name="comment" cols="57" rows="2"
-										placeholder="Post Comment" />
+										placeholder="Post Comment" style="width: 95%;"/>
 									<s:hidden name="postId" value="%{postId}" />
 									<s:hidden name="userId" value="%{userId}" />
 								</div>
-								<div style="width: 100%; text-align: right;">
+								<div style="width: 95%; text-align: right;">
 									<sj:submit targets="result" value="Post" timeout="25000"
 										indicator="indicator" onBeforeTopics="before"
 										onCompleteTopics="complete" onErrorTopics="errorState"
