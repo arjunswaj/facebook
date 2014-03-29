@@ -24,8 +24,8 @@ public class FriendsDAOImpl implements FriendsDAO
 			+ " select * from friends_with f1 where f1.request_by=? and f1.request_for=?";
 
 	// Added by Rahul
-	private static final String SUGGEST_FRIENDS_QUERY = "" +
-			"SELECT id, first_name, last_name " +
+	private static final String SUGGEST_FRIENDS_QUERY  = "" +
+			"SELECT DISTINCT id, first_name, last_name " +
 			"FROM facebookdb.user " +
 			"WHERE id in ( " +
 			"   SELECT request_for " +
@@ -43,6 +43,17 @@ public class FriendsDAOImpl implements FriendsDAO
 			"    ) " +
 			"    AND status = 'accepted' " +
 			"    AND request_for != ? " +
+		    "	 AND request_for NOT IN ( " +
+		    "        SELECT request_for " +
+		    "        FROM facebookdb.friends_with " +
+		    "        WHERE request_by = ? " +
+		    "        AND status = 'accepted' " +
+		    "        UNION " +
+		    "        SELECT request_by " +
+		    "        FROM facebookdb.friends_with " +
+		    "        WHERE request_for = ? " +
+		    "        AND status = 'accepted' " +
+		    "    ) " +
 			"    UNION " +
 			"    SELECT request_by " +
 			"    FROM facebookdb.friends_with " +
@@ -59,6 +70,17 @@ public class FriendsDAOImpl implements FriendsDAO
 			"    ) " +
 			"    AND status = 'accepted' " +
 			"    AND request_by != ? " +
+		    "	 AND request_by NOT IN ( " +
+		    "        SELECT request_for " +
+		    "        FROM facebookdb.friends_with " +
+		    "        WHERE request_by = ? " +
+		    "        AND status = 'accepted' " +
+		    "        UNION " +
+		    "        SELECT request_by " +
+		    "        FROM facebookdb.friends_with " +
+		    "        WHERE request_for = ? " +
+		    "        AND status = 'accepted' " +
+		    "    )" +
 			")";
 
 	String ADD_FRIEND_QRY = "insert into friends_with(status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
@@ -252,6 +274,10 @@ public class FriendsDAOImpl implements FriendsDAO
 			stmt.setInt(4, userId);
 			stmt.setInt(5, userId);
 			stmt.setInt(6, userId);
+			stmt.setInt(7, userId);
+			stmt.setInt(8, userId);
+			stmt.setInt(9, userId);
+			stmt.setInt(10, userId);
 			ResultSet rs = stmt.executeQuery();
 
 			FriendSuggestions fs = null;
