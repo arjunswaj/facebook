@@ -5,11 +5,23 @@
 
 <struts>
 	<constant name="struts.devMode" value="true" />
+	<constant name="struts.convention.default.parent.package" value="default"/>
+	
 	<package name="default" namespace="/" extends="struts-default">
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
+		
+		<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="edu.iiitb.facebook.interceptors.AuthenticationInterceptor">
+			</interceptor>
+			<interceptor-stack name="secureAccess">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
 	</package>
 
 </struts>
