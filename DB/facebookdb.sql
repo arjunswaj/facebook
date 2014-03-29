@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: facebookdb
+-- Host: localhost    Database: facebooktestdb
 -- ------------------------------------------------------
 -- Server version	5.5.35-0ubuntu0.13.10.2
 
@@ -55,7 +55,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`kempa`@`localhost`*/ /*!50003 trigger on_comment before insert on comment for each row set new.created = now() */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=CURRENT_USER*/ /*!50003 trigger on_comment before insert on comment for each row set new.created = now() */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -128,9 +128,8 @@ DROP TABLE IF EXISTS `friends_with`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `friends_with` (
-  `id` int(11) NOT NULL,
-  `request_status` enum('pending','accepted') DEFAULT 'pending',
-  `blocked_status` enum('blocked','unblocked') DEFAULT 'unblocked',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` enum('pending','accepted','blocked') NOT NULL DEFAULT 'pending',
   `request_by` int(11) NOT NULL,
   `request_for` int(11) NOT NULL,
   `friend_request_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -316,7 +315,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`kempa`@`localhost`*/ /*!50003 trigger on_post before insert on post for each row set new.created = now() */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=CURRENT_USER*/ /*!50003 trigger on_post before insert on post for each row set new.created = now() */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -396,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-27  8:59:13
+-- Dump completed on 2014-03-29 16:29:19
