@@ -24,11 +24,42 @@ public class FriendsDAOImpl implements FriendsDAO
 			+ " select * from friends_with f1 where f1.request_by=? and f1.request_for=?";
 
 	// Added by Rahul
-	private static final String SUGGEST_FRIENDS_QUERY = "" + "SELECT id, first_name, last_name " + "FROM user " + "WHERE id in ( "
-			+ "	SELECT request_for " + "	FROM friends_with f1 " + "	WHERE EXISTS ( " + "		SELECT request_for " + "		FROM friends_with f2 "
-			+ "		WHERE f2.request_by = ? " + "		AND f2.request_for = f1.request_by " + "		AND f1.request_for != ? " + "	) " + "	UNION "
-			+ "	SELECT request_for " + "	FROM friends_with f1 " + "	WHERE EXISTS ( " + "		SELECT request_by " + "		FROM friends_with f2 "
-			+ "		WHERE f2.request_for = ? " + "		AND f2.request_by = f1.request_by " + "		AND f1.request_for != ? " + "	) " + ")";
+	private static final String SUGGEST_FRIENDS_QUERY = "" +
+			"SELECT id, first_name, last_name " +
+			"FROM facebookdb.user " +
+			"WHERE id in ( " +
+			"   SELECT request_for " +
+			"    FROM facebookdb.friends_with " +
+			"    WHERE request_by in ( " +
+			"        SELECT request_for " +
+			"        FROM facebookdb.friends_with " +
+			"        WHERE request_by = ? " +
+			"        AND request_status = 'accepted' " +
+			"        UNION " +
+			"        SELECT request_by " +
+			"        FROM facebookdb.friends_with " +
+			"        WHERE request_for = ? " +
+			"        AND request_status = 'accepted' " +
+			"    ) " +
+			"    AND request_status = 'accepted' " +
+			"    AND request_for != ? " +
+			"    UNION " +
+			"    SELECT request_by " +
+			"    FROM facebookdb.friends_with " +
+			"    WHERE request_for in ( " +
+			"        SELECT request_for " +
+			"        FROM facebookdb.friends_with " +
+			"        WHERE request_by = ? " +
+			"        AND request_status = 'accepted' " +
+			"        UNION " +
+			"        SELECT request_by " +
+			"        FROM facebookdb.friends_with " +
+			"        WHERE request_for = ? " +
+			"        AND request_status = 'accepted' " +
+			"    ) " +
+			"    AND request_status = 'accepted' " +
+			"    AND request_by != ? " +
+			")";
 
 	String ADD_FRIEND_QRY = "insert into friends_with(request_status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
 
@@ -219,6 +250,8 @@ public class FriendsDAOImpl implements FriendsDAO
 			stmt.setInt(2, userId);
 			stmt.setInt(3, userId);
 			stmt.setInt(4, userId);
+			stmt.setInt(5, userId);
+			stmt.setInt(6, userId);
 			ResultSet rs = stmt.executeQuery();
 
 			FriendSuggestions fs = null;
