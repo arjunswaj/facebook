@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<sj:head jqueryui="true"/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
 <style type="text/css" media="screen">
@@ -84,46 +83,20 @@
 }
 </style>
 
-<script type="text/javascript">	
-
-	$.subscribe('beforeStatus', function(event, data) {
-		var statusfData = event.originalEvent.formData;
-		var statusForm = event.originalEvent.form[0];		
-		if (!statusfData[0].value) {
-			event.originalEvent.options.submit = false;
-		}
-	});
-
-	$.subscribe('completeStatus', function(event, data) {
-		location.reload();
-	});
-
-	$.subscribe('errorStateStatus', function(event, data) {
-		alert('status: ' + event.originalEvent.status + '\n\nrequest status: '
-				+ event.originalEvent.request.status);
-	});
-</script>
-
-
 </head>
 <body>	
 	<h1>News Feeds</h1>
 	<div id="status" class="status-container">
 
-		<s:form id="statusform" action="statusupdate" theme="simple"
-			cssClass="yform">
+		<form id="statusform" action="statusupdate" class="status-form">
 			<div>
-				<s:textarea name="status" cols="75" rows="5"
-					placeholder="What's on your mind?" style="width: 95%;"/>
-				<s:hidden name="userId" value="%{userId}" />				
+				<s:textarea name="status" cols="75" rows="5" id ="status"
+					placeholder="What's on your mind?" style="width: 95%;"/>								
 			</div>
 			<div style="width: 95%; text-align: right;">
-				<sj:submit targets="statusResult" value="Post" timeout="25000"
-					indicator="statusIndicator" onBeforeTopics="beforeStatus"
-					onCompleteTopics="completeStatus" onErrorTopics="errorStateStatus"
-					align="right" />
+				<s:submit value="Post" />
 			</div>
-		</s:form>
+		</form>
 	</div>
 	<div id="feeds">
 		<s:iterator value="newsFeeds" var="feeds">		
@@ -183,23 +156,22 @@
 							</div>
 							<div class="clear"></div>
 						</s:iterator>
-						<s:form id="formevent_%{postId}" action="postcomment"
-							theme="simple" cssClass="yform">
+						<s:set var="postId" value="%{postId}"/>
+						<%
+						  int postId = (Integer) pageContext.getAttribute("postId");						    
+						%>
+						<form id="commentForm_<%=postId %>" class="comment-form" action="postcomment" method="post">
 							<div class="comment-form">
 								<div>
 									<s:textarea name="comment" cols="57" rows="2"
 										placeholder="Post Comment" style="width: 95%;"/>
-									<s:hidden name="postId" value="%{postId}" />
-									<s:hidden name="userId" value="%{userId}" />
+									<s:hidden name="postId" value="%{postId}" />									
 								</div>
 								<div style="width: 95%; text-align: right;">
-									<sj:submit targets="result" value="Post" timeout="25000"
-										indicator="indicator" onBeforeTopics="before"
-										onCompleteTopics="complete" onErrorTopics="errorState"
-										align="right" />
+									<s:submit value="Post" />
 								</div>
 							</div>
-						</s:form>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -207,35 +179,98 @@
 		</s:iterator>
 	</div>
 </body>
+<script src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript">	
 
-	$.subscribe('before', function(event, data) {
-		var fData = event.originalEvent.formData;
-		var form = event.originalEvent.form[0];
-		if (!fData[0].value) {
-			event.originalEvent.options.submit = false;
-		}
+
+	$(".comment-form").submit(function(event) {
+
+		/* stop form from submitting normally */
+		event.preventDefault();
+
+		/* get some values from elements on the page: */
+		var form = $(this); 
+		var url = form[0].action;
+		var comment = form[0][0].value;
+		var postId = form[0][1].value;		
+
+		/* Send the data using post */
+		var posting = $.post(url, {
+			"comment" : comment,
+			"postId" : postId			
+		});
+
+		/* Put the results in the view */
+		posting.done(function(commentData) {			
+
+			var pic = "<div class='left-comment'>" + "<img width='40px'"
+					+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
+
+			var commentDiv = "<div class='right-comment'>"
+					+ "<div class='comment-post'>" + "<span class='fullname'> "
+					+ commentData.fullname + "</span> "
+					+ " <span class='comment-text'>" + commentData.comment
+					+ "</span>" + "</div>" + "<div class='timestamp'>"
+					+ commentData.now + "</div>" + "</div>";			
+			$("#commentForm_" + commentData.postId).prepend(pic + commentDiv);
+			$("#commentForm_" + commentData.postId)[0][0].value = "";
+		});
 	});
 
-	$.subscribe('complete', function(event, data) {
-		var commentData = JSON.parse(event.originalEvent.request.responseText);
+	$("#statusform").submit(
+			function(event) {
 
-		var pic = "<div class='left-comment'>" + "<img width='40px'"
-				+ "src='image?userId=" + commentData.userId + "'/>" + "</div>";
+				/* stop form from submitting normally */
+				event.preventDefault();
 
-		var commentDiv = "<div class='right-comment'>" + "<div class='comment-post'>"
-				+ "<span class='fullname'> " + commentData.fullname
-				+ "</span> " + " <span class='comment-text'>"
-				+ commentData.comment + "</span>" + "</div>"
-				+ "<div class='timestamp'>" + commentData.now + "</div>"
-				+ "</div>";
-		$("#formevent_" + commentData.postId).prepend(pic + commentDiv);
-		$("#formevent_" + commentData.postId)[0][0].value = "";
-	});
+				/* get some values from elements on the page: */
+				var form = $(this);
+				var url = form[0].action;
+				var status = form[0][0].value;
 
-	$.subscribe('errorState', function(event, data) {
-		alert('status: ' + event.originalEvent.status + '\n\nrequest status: '
-				+ event.originalEvent.request.status);
-	});
+				/* Send the data using post */
+				var posting = $.post(url, {
+					"status" : status
+				});
+
+				/* Put the results in the view */
+				posting.done(function(commentData) {
+					var html = "<div class=\"feed-container\">"
+						+ "        <div class=\"left-status\">"
+						+ "          <img width=\"80px\""
+						+ "            src=\"image?userId="+commentData.userId+"\" />"
+						+ "        </div>" + 
+						"        <div class=\"right-status\">"
+						+ "<div>" + "<span class=\"fullname\">"
+						+ commentData.fullName
+						+ "</span>"
+						+ "updated his status"
+						+ "</div>"
+						+ "<div class=\"post\">"
+						+ commentData.status
+						+ "</div>"
+						+ "<div class=\"timestamp\">"
+						+ commentData.now
+						+ "</div>"
+						+ "</div>"
+						+ "<div class=\"clear\"></div>"
+						+ "<div>"
+						+ "<form id=\"commentForm_" +commentData.postId + "\" class=\"comment-form\" action=\"postcomment\" method=\"post\">"
+						+ "<div class=\"comment-form\">"
+						+ "<div>"
+						+ "<textarea name=\"comment\" cols=\"57\" rows=\"2\""
+						+ "placeholder=\"Post Comment\" style=\"width: 95%;\"/>"
+						+ "<input type=\"hidden\" name=\"postId\" value=\""+commentData.postId+"\" />"
+						+ "</div>"
+						+ "<div style=\"width: 95%; text-align: right;\"> "
+						+ "<input type=\"submit\" value=\"Post\" />"
+						+ "</div>"
+						+ "</div>"
+						+ "</form>" + "</div>"
+						+ "</div>";
+					$("#feeds").prepend(html);
+					$("#status")[0].value = "";					
+				});
+			});
 </script>
 </html>

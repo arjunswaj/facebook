@@ -36,14 +36,18 @@
 		<action name="postcomment"
 			class="edu.iiitb.facebook.action.comment.PostCommentsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result type="json" />
+			<result type="json" name="success"/>
+			<result type="json" name="input"/>
+			<result name="login">/login/login.jsp</result>
 		</action>
 
 		<!-- This is for Status Update -->
 		<action name="statusupdate"
 			class="edu.iiitb.facebook.action.status.StatusUpdateAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result type="json" />
+			<result type="json" name="success"/>
+			<result type="json" name="input"/>
+			<result name="login">/login/login.jsp</result>
 		</action>
 	</package>
 
