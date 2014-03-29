@@ -6,7 +6,7 @@ public class FriendInfo
 	public enum RequestStatus
 	{
 		PENDING("pending"), ACCEPTED("accepted"), BLOCKED("blocked"), UNBLOCKED("unblocked"), CONFIRM_REQUEST("confirm_request"), ADD_FRIEND(
-				"add_friend");
+				"add_friend"), MYPROFILE("myprofile");
 
 		public String reqstat;
 

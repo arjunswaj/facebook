@@ -56,20 +56,19 @@ input.RejectButton {
 	<script>
 		function addfriend() {
 
-			document.getElementById("friendstatus_form").action = 'addfriend?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'addfriend?friendUserId=<s:property value="%{friendUserId}"/>';
 
 		}
 
 		function confirmRequest() {
 
-			document.getElementById("friendstatus_form").action = 'confirmRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'confirmRequest?friendUserId=<s:property value="%{friendUserId}"/>';
 
 		}
 
 		function rejectRequest() {
 
-			document.getElementById("friendstatus_form").action = 'rejectRequest?loggedInUserId=<s:property value="%{loggedInUserId}"/>&friendUserId=<s:property value="%{friendUserId}"/>';
-
+			document.getElementById("friendstatus_form").action = 'rejectRequest?friendUserId=<s:property value="%{friendUserId}"/>';
 		}
 	</script>
 
@@ -85,12 +84,14 @@ input.RejectButton {
 			src="image?userId=<s:property value="%{friendUserId}"/>" />
 	</div>
 
-	<s:url action="/requestUpdate"></s:url>
 
 	<s:form id="friendstatus_form" method="post">
 
-		<s:set name="checkFriend" value="requestStatus" />
 
+
+		<s:hidden name="loggedInUserId" value="%{loggedInUserId}"></s:hidden>
+
+		<s:set name="checkFriend" value="requestStatus" />
 		<s:if test="%{#checkFriend=='pending'}">
 			<input class="friends_status" type="button"
 				value="+1 Friend Request Sent" disabled="disabled">
