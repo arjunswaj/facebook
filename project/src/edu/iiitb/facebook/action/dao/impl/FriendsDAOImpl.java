@@ -24,66 +24,23 @@ public class FriendsDAOImpl implements FriendsDAO
 			+ " select * from friends_with f1 where f1.request_by=? and f1.request_for=?";
 
 	// Added by Rahul
-	private static final String SUGGEST_FRIENDS_QUERY  = "" +
-			"SELECT DISTINCT id, first_name, last_name " +
-			"FROM facebookdb.user " +
-			"WHERE id in ( " +
-			"   SELECT request_for " +
-			"    FROM facebookdb.friends_with " +
-			"    WHERE request_by in ( " +
-			"        SELECT request_for " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_by = ? " +
-			"        AND status = 'accepted' " +
-			"        UNION " +
-			"        SELECT request_by " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_for = ? " +
-			"        AND status = 'accepted' " +
-			"    ) " +
-			"    AND status = 'accepted' " +
-			"    AND request_for != ? " +
-		    "	 AND request_for NOT IN ( " +
-		    "        SELECT request_for " +
-		    "        FROM facebookdb.friends_with " +
-		    "        WHERE request_by = ? " +
-		    "        AND status = 'accepted' " +
-		    "        UNION " +
-		    "        SELECT request_by " +
-		    "        FROM facebookdb.friends_with " +
-		    "        WHERE request_for = ? " +
-		    "        AND status = 'accepted' " +
-		    "    ) " +
-			"    UNION " +
-			"    SELECT request_by " +
-			"    FROM facebookdb.friends_with " +
-			"    WHERE request_for in ( " +
-			"        SELECT request_for " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_by = ? " +
-			"        AND status = 'accepted' " +
-			"        UNION " +
-			"        SELECT request_by " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_for = ? " +
-			"        AND status = 'accepted' " +
-			"    ) " +
-			"    AND status = 'accepted' " +
-			"    AND request_by != ? " +
-		    "	 AND request_by NOT IN ( " +
-		    "        SELECT request_for " +
-		    "        FROM facebookdb.friends_with " +
-		    "        WHERE request_by = ? " +
-		    "        AND status = 'accepted' " +
-		    "        UNION " +
-		    "        SELECT request_by " +
-		    "        FROM facebookdb.friends_with " +
-		    "        WHERE request_for = ? " +
-		    "        AND status = 'accepted' " +
-		    "    )" +
-			")";
+	private static final String SUGGEST_FRIENDS_QUERY = "" + "SELECT DISTINCT id, first_name, last_name " + "FROM facebookdb.user "
+			+ "WHERE id in ( " + "   SELECT request_for " + "    FROM facebookdb.friends_with " + "    WHERE request_by in ( "
+			+ "        SELECT request_for " + "        FROM facebookdb.friends_with " + "        WHERE request_by = ? "
+			+ "        AND status = 'accepted' " + "        UNION " + "        SELECT request_by " + "        FROM facebookdb.friends_with "
+			+ "        WHERE request_for = ? " + "        AND status = 'accepted' " + "    ) " + "    AND status = 'accepted' "
+			+ "    AND request_for != ? " + "	 AND request_for NOT IN ( " + "        SELECT request_for " + "        FROM facebookdb.friends_with "
+			+ "        WHERE request_by = ? " + "        AND status = 'accepted' " + "        UNION " + "        SELECT request_by "
+			+ "        FROM facebookdb.friends_with " + "        WHERE request_for = ? " + "        AND status = 'accepted' " + "    ) "
+			+ "    UNION " + "    SELECT request_by " + "    FROM facebookdb.friends_with " + "    WHERE request_for in ( "
+			+ "        SELECT request_for " + "        FROM facebookdb.friends_with " + "        WHERE request_by = ? "
+			+ "        AND status = 'accepted' " + "        UNION " + "        SELECT request_by " + "        FROM facebookdb.friends_with "
+			+ "        WHERE request_for = ? " + "        AND status = 'accepted' " + "    ) " + "    AND status = 'accepted' "
+			+ "    AND request_by != ? " + "	 AND request_by NOT IN ( " + "        SELECT request_for " + "        FROM facebookdb.friends_with "
+			+ "        WHERE request_by = ? " + "        AND status = 'accepted' " + "        UNION " + "        SELECT request_by "
+			+ "        FROM facebookdb.friends_with " + "        WHERE request_for = ? " + "        AND status = 'accepted' " + "    )" + ")";
 
-	String ADD_FRIEND_QRY = "insert into friends_with(status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
+	String ADD_FRIEND_QRY = "insert into friends_with(status,request_by,request_for,friend_request_sent) values(?,?,?,?)";
 
 	String CONFIRM_FRIEND_QRY = "update friends_with set status=?, friend_request_accepted =? where request_by=? and request_for=? ";
 
@@ -117,12 +74,7 @@ public class FriendsDAOImpl implements FriendsDAO
 				{
 					friendInfo.setRequestStatus(reqstatus);
 				}
-				RequestStatus blockStatus = FriendInfo.RequestStatus.fromString(resultSet.getString(FriendsDAO.BLOCKED_STATUS));
-				if (blockStatus != null)
-				{
 
-					friendInfo.setBlockedStatus(blockStatus);
-				}
 			}
 
 		}
@@ -156,11 +108,10 @@ public class FriendsDAOImpl implements FriendsDAO
 			PreparedStatement preparedstmt = conn.prepareStatement(ADD_FRIEND_QRY);
 
 			preparedstmt.setString(1, FriendInfo.RequestStatus.PENDING.getReqstat());
-			preparedstmt.setString(2, FriendInfo.RequestStatus.UNBLOCKED.getReqstat());
-			preparedstmt.setInt(3, loggedInUserId);
-			preparedstmt.setInt(4, otherUserId);
+			preparedstmt.setInt(2, loggedInUserId);
+			preparedstmt.setInt(3, otherUserId);
 
-			preparedstmt.setString(5, CommonUtil.getCurrentTimeStamp());
+			preparedstmt.setString(4, CommonUtil.getCurrentTimeStamp());
 			if (preparedstmt.executeUpdate() > 0)
 			{
 				return true;

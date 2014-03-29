@@ -89,7 +89,6 @@
 
 	<s:form id="friendstatus_form" method="post">
 
-		<s:hidden name="lref" value="%{lref}"></s:hidden>
 
 		<s:set name="checkFriend" value="requestStatus" />
 		<s:if test="%{#checkFriend=='pending'}">

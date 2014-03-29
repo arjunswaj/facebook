@@ -22,9 +22,9 @@ import edu.iiitb.facebook.action.model.User;
  * @author prashanth
  * 
  */
-@Namespace("/")
-@ResultPath(value = "/")
-@ParentPackage("tiles-default")
+// @Namespace("/")
+// @ResultPath(value = "/")
+// @ParentPackage("tiles-default")
 public class FriendProfileAction extends ActionSupport implements SessionAware
 {
 	String lref;
@@ -68,7 +68,8 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Action(value = "/profile", results = { @Result(name = SUCCESS, location = "friends.tiles", type = "tiles") })
+	// @Action(value = "/profile", results = { @Result(name = SUCCESS, location
+	// = "friends.tiles", type = "tiles") })
 	public String execute()
 	{
 
@@ -81,8 +82,12 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		{
 			setLref(user.getUserId() + "");
 
-			if (fref != null && fref.equals(lref))
+			if ((fref != null && fref.equals(lref)) || fref == null)
 			{
+				if (fref == null)
+				{
+					setFref(user.getUserId() + "");
+				}
 				setRequestStatus(FriendInfo.RequestStatus.MYPROFILE.getReqstat());
 				return SUCCESS;
 
@@ -98,7 +103,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				// relationship exists in friends_with table
 				if (friendProfile != null && friendInfo != null)
 				{
-					if (FriendInfo.RequestStatus.UNBLOCKED.equals(friendInfo.getBlockedStatus()))
+					if (!FriendInfo.RequestStatus.BLOCKED.equals(friendInfo.getRequestStatus()))
 					{
 
 						if (Integer.parseInt(lref) == friendInfo.getRequestedBy())
@@ -147,6 +152,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 
 				}
 			}
+
 		}
 		else
 		{
@@ -155,79 +161,110 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		return SUCCESS;
 	}
 
-	@Action(value = "/addfriend", results = { @Result(name = SUCCESS, location = "profile?fref=%{fref}", type = "redirectAction") })
+	// @Action(value = "/addfriend", results = { @Result(name = SUCCESS,
+	// location = "profile?fref=%{fref}", type = "redirectAction") })
 	public String addfriendReqeust()
 	{
 
-		if (lref != null && fref != null)
-		{
-			FriendsDAO friendsDAO = new FriendsDAOImpl();
+		User user = (User) session.get("user");
 
-			try
+		if (user != null)
+		{
+			setLref(user.getUserId() + "");
+
+			if (fref != null)
 			{
-				if (!friendsDAO.addFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
+				FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+				try
+				{
+					if (!friendsDAO.addFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
+					{
+
+						return ERROR;
+					}
+				}
+				catch (NumberFormatException ex)
+				{
+					return ERROR;
+				}
+
+				setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
+			}
+		}
+		else
+		{
+			return LOGIN;
+		}
+		return SUCCESS;
+	}
+
+	// @Action(value = "/confirmRequest", results = { @Result(name = SUCCESS,
+	// location = "profile?fref=%{fref}", type = "redirectAction") })
+	public String confirmAddFriend()
+	{
+
+		User user = (User) session.get("user");
+
+		if (user != null)
+		{
+			setLref(user.getUserId() + "");
+			if (fref != null)
+			{
+				FriendsDAO friendsDAO = new FriendsDAOImpl();
+
+				if (!friendsDAO.confirmFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
 				{
 
 					return ERROR;
 				}
+
+				setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
 			}
-			catch (NumberFormatException ex)
+
+			else
 			{
 				return ERROR;
 			}
-
-			setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
 		}
 		else
 		{
-			return ERROR;
+			return LOGIN;
 		}
 		return SUCCESS;
 	}
 
-	@Action(value = "/confirmRequest", results = { @Result(name = SUCCESS, location = "profile?fref=%{fref}", type = "redirectAction") })
-	public String confirmAddFriend()
-	{
-
-		if (lref != null && fref != null)
-		{
-			FriendsDAO friendsDAO = new FriendsDAOImpl();
-
-			if (!friendsDAO.confirmFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
-			{
-
-				return ERROR;
-			}
-
-			setRequestStatus(FriendInfo.RequestStatus.ACCEPTED.getReqstat());
-		}
-
-		else
-		{
-			return ERROR;
-		}
-		return SUCCESS;
-	}
-
-	@Action(value = "/rejectRequest", results = { @Result(name = SUCCESS, location = "profile?fref=%{fref}", type = "redirectAction") })
+	// @Action(value = "/rejectRequest", results = { @Result(name = SUCCESS,
+	// location = "profile?fref=%{fref}", type = "redirectAction") })
 	public String rejectFriend()
 	{
-		if (lref != null && fref != null)
+
+		User user = (User) session.get("user");
+
+		if (user != null)
 		{
-			FriendsDAO friendsDAO = new FriendsDAOImpl();
-
-			if (!friendsDAO.rejectFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
+			setLref(user.getUserId() + "");
+			if (fref != null)
 			{
+				FriendsDAO friendsDAO = new FriendsDAOImpl();
 
-				return ERROR;
+				if (!friendsDAO.rejectFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
+				{
+
+					return ERROR;
+				}
+
+				setRequestStatus(FriendInfo.RequestStatus.ADD_FRIEND.getReqstat());
 			}
 
-			setRequestStatus(FriendInfo.RequestStatus.ADD_FRIEND.getReqstat());
+			else
+			{
+				return ERROR;
+			}
 		}
-
 		else
 		{
-			return ERROR;
+			return LOGIN;
 		}
 		return SUCCESS;
 	}

@@ -10,8 +10,7 @@ public interface FriendsDAO
 {
 
 	String ID = "id";
-	String REQUEST_STATUS = "request_status"; // enum('pending','accepted')
-	String BLOCKED_STATUS = "blocked_status"; // enum('blocked','unblocked')
+	String REQUEST_STATUS = "status"; // enum('pending','accepted','blocked')
 	String REQUEST_BY = "request_by";
 	String REQUEST_FOR = "request_for";
 	String FRIEND_REQUEST_SENT = "friend_request_sent";

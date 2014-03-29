@@ -122,16 +122,14 @@ public class UserDAOImpl implements UserDAO
 			preparedStmt.setString(1, email);
 
 			ResultSet resultSet = preparedStmt.executeQuery();
-			System.out.println(resultSet.getFetchSize());
-			System.out.println(preparedStmt);
+//			System.out.println(resultSet.getFetchSize());
+//			System.out.println(preparedStmt);
 
 			while (resultSet.next())
 			{
 
-				System.out.println("hello");
 				user = new User();
 				user.setUserId(resultSet.getInt("id"));
-				System.out.println("got user id");
 				user.setEmail(resultSet.getString(UserDAO.EMAIL));
 
 				user.setPassword(resultSet.getString(UserDAO.PASSWORD));

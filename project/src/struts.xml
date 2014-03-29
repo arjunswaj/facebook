@@ -45,6 +45,40 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" />
 		</action>
+
+		<action name="profile"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">friends.tiles</result>
+			<result name="login">/login/login.jsp</result>
+
+		</action>
+		<action name="addfriend"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="addfriendReqeust">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="redirectAction">profile?fref=${fref}</result>
+			<result name="login">/login/login.jsp</result>
+
+		</action>
+		<action name="confirmRequest"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="confirmAddFriend">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="redirectAction">profile?fref=${fref}</result>
+			<result name="login">/login/login.jsp</result>
+
+		</action>
+		<action name="rejectRequest"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="rejectFriend">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="redirectAction">profile?fref=${fref}</result>
+			<result name="login">/login/login.jsp</result>
+		</action>
+
+		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
+			<result name="success" type="redirectAction">profile</result>
+			<result name="input">/login/login.jsp</result>
+
+		</action>
 	</package>
 
 </struts>
