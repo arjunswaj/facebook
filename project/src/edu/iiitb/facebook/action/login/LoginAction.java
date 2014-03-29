@@ -76,7 +76,7 @@ public class LoginAction extends ActionSupport implements SessionAware
 		User user = (User) session.get("user");
 		if (user != null)
 		{
-			System.out.println("place1");
+			//System.out.println("place1");
 			// temp
 			setFref(user.getUserId() + "");
 
@@ -84,12 +84,12 @@ public class LoginAction extends ActionSupport implements SessionAware
 		}
 		else
 		{
-			System.out.println("place2");
+			//System.out.println("place2");
 
 			User newUser = new User(email, password);
 			if (isValidUser(newUser))
 			{
-				System.out.println("place3");
+				//System.out.println("place3");
 
 				setFref(new UserDAOImpl().getUserByUserEmail(email).getUserId() + "");
 
@@ -115,26 +115,26 @@ public class LoginAction extends ActionSupport implements SessionAware
 
 	private boolean isValidUser(User user)
 	{
-		System.out.println(user.getEmail());
+		//System.out.println(user.getEmail());
 		tempuser = dao.getUserByUserEmail(user.getEmail());
-		System.out.println(tempuser.getFirstName());
+		//System.out.println(tempuser.getFirstName());
 		if (tempuser != null)
 		{
 			if (!user.getPassword().equals(tempuser.getPassword()))
 			{
 				addFieldError("wrong password", password);
-				System.out.println("place4");
+				//System.out.println("place4");
 				return false;
 			}
 			else
 			{
-				System.out.println("place5");
+				//System.out.println("place5");
 				return true;
 			}
 		}
 		else
 		{
-			System.out.println("place6");
+			//System.out.println("place6");
 			addFieldError("INVALID_USER", email);
 			return false;
 		}
