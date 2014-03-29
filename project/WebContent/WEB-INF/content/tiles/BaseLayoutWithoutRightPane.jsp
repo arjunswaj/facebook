@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Facebook - <tiles:insertAttribute name="title"
 		ignore="true" /></title>
+		
+<!-- Bootstrap -->
+<link href="../css/bootstrap.css" rel="stylesheet">
 <style type="text/css" media="screen">
 .page-container {	
 	width: 100%;
@@ -25,7 +28,15 @@
 	margin: 2px;
 	padding: 5px;
 	font-family: Arial Narrow, sans-serif;
-	width: 75%;
+	width: 50%;
+}
+
+.right-pane {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+	width: 25%;
 }
 
 .clear {
@@ -52,11 +63,17 @@
 		</div>
 		<div class="central-pane">
 			<tiles:insertAttribute name="central-pane" />
-		</div>
+		</div>		
 	</div>
 	<div class="clear"></div>
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
+	
+	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../js/bootstrap.js"></script>
+    
 </body>
 </html>

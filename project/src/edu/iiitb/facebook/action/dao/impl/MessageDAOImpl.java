@@ -87,11 +87,11 @@ public class MessageDAOImpl implements MessageDAO
 		PreparedStatement stmt;
 		try
 		{
-			System.out.println("Recipient is : " + recipient);
-			System.out.println("Query is : " + query);
+			//System.out.println("Recipient is : " + recipient);
+			//System.out.println("Query is : " + query);
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, recipient);
-			System.out.println("Prepared statement is : " + stmt);
+			//System.out.println("Prepared statement is : " + stmt);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
@@ -106,7 +106,7 @@ public class MessageDAOImpl implements MessageDAO
 
 				latestMsgs.add(latestMsg);
 			}
-			System.out.println("latest messages number : " + latestMsgs.size());
+			//System.out.println("latest messages number : " + latestMsgs.size());
 		}
 		catch (SQLException e)
 		{
@@ -128,18 +128,16 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public void insert(Message reply)
 	{
-		final String insert = "insert into message (text, sender, recipient) values ('"
-				+ reply.getText()
-				+ "', "
-				+ reply.getSender()
-				+ ", "
-				+ reply.getRecipient() + ")";
-
+		final String insert = "insert into message (text, sender, recipient) values (?, ? , ?)";
+	
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
 		try
 		{
 			stmt = connection.prepareStatement(insert);
+			stmt.setString(1, reply.getText());
+			stmt.setInt(2,  reply.getSender());
+			stmt.setInt(3, reply.getRecipient());
 			stmt.executeUpdate();
 		}
 		catch (SQLException e)

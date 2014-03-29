@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="createEventPage.jsp"><input type="button" value="Create New Event" /></a>
+<a href="event/createEventPage.jsp"><input type="button" value="Create New Event" /></a>
 </body>
 </html>
