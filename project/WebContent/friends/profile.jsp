@@ -58,38 +58,38 @@
 	<script>
 		function addfriend() {
 
-			document.getElementById("friendstatus_form").action = 'addfriend?friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'addfriend?fref=<s:property value="%{fref}"/>';
 
 		}
 
 		function confirmRequest() {
 
-			document.getElementById("friendstatus_form").action = 'confirmRequest?friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'confirmRequest?fref=<s:property value="%{fref}"/>';
 
 		}
 
 		function rejectRequest() {
 
-			document.getElementById("friendstatus_form").action = 'rejectRequest?friendUserId=<s:property value="%{friendUserId}"/>';
+			document.getElementById("friendstatus_form").action = 'rejectRequest?fref=<s:property value="%{fref}"/>';
 		}
 	</script>
 
 	<div>
 		<img class="cover_pic"
-			src="image?userId=<s:property value="%{friendUserId}"/>&picType=cover"
+			src="image?userId=<s:property value="%{fref}"/>&picType=cover"
 			width="1000px" height="250px" />
 
 
 	</div>
 	<div>
 		<img class="profile_pic" width="120px" height="140px"
-			src="image?userId=<s:property value="%{friendUserId}"/>" />
+			src="image?userId=<s:property value="%{fref}"/>" />
 	</div>
 
 
 	<s:form id="friendstatus_form" method="post">
 
-		<s:hidden name="loggedInUserId" value="%{loggedInUserId}"></s:hidden>
+		<s:hidden name="lref" value="%{lref}"></s:hidden>
 
 		<s:set name="checkFriend" value="requestStatus" />
 		<s:if test="%{#checkFriend=='pending'}">
@@ -118,6 +118,6 @@
 		</s:elseif>
 	</s:form>
 
-	
+
 </body>
 </html>
