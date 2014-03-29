@@ -20,7 +20,7 @@ import edu.iiitb.facebook.action.model.User;
 @ParentPackage("tiles-default")
 public class FriendProfileAction extends ActionSupport
 {
-
+//
 	String loggedInUserId;
 
 	String friendUserId;
