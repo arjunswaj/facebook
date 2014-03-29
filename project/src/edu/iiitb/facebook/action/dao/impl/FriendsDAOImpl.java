@@ -25,7 +25,7 @@ public class FriendsDAOImpl implements FriendsDAO
 
 	// Added by Rahul
 	private static final String SUGGEST_FRIENDS_QUERY  = "" +
-			"SELECT id, first_name, last_name " +
+			"SELECT DISTINCT id, first_name, last_name " +
 			"FROM facebookdb.user " +
 			"WHERE id in ( " +
 			"   SELECT request_for " +
