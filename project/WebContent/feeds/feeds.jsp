@@ -90,7 +90,7 @@
 
 		<form id="statusform" action="statusupdate" class="status-form">
 			<div>
-				<s:textarea name="status" cols="75" rows="5" id ="status"
+				<s:textarea name="status" cols="75" rows="5" id ="statusUpdate"
 					placeholder="What's on your mind?" style="width: 95%;"/>								
 			</div>
 			<div style="width: 95%; text-align: right;">
@@ -112,7 +112,7 @@
 								<s:property value="fromUserFirstName" />
 								<s:property value="fromUserLastName" />
 							</span>
-							updated his status
+							updated the status
 						</div>
 
 					</s:if>
@@ -235,41 +235,50 @@
 
 				/* Put the results in the view */
 				posting.done(function(commentData) {
-					var html = "<div class=\"feed-container\">"
-						+ "        <div class=\"left-status\">"
-						+ "          <img width=\"80px\""
-						+ "            src=\"image?userId="+commentData.userId+"\" />"
-						+ "        </div>" + 
-						"        <div class=\"right-status\">"
-						+ "<div>" + "<span class=\"fullname\">"
-						+ commentData.fullName
-						+ "</span>"
-						+ "updated his status"
-						+ "</div>"
-						+ "<div class=\"post\">"
-						+ commentData.status
-						+ "</div>"
-						+ "<div class=\"timestamp\">"
-						+ commentData.now
-						+ "</div>"
-						+ "</div>"
-						+ "<div class=\"clear\"></div>"
-						+ "<div>"
-						+ "<form id=\"commentForm_" +commentData.postId + "\" class=\"comment-form\" action=\"postcomment\" method=\"post\">"
-						+ "<div class=\"comment-form\">"
-						+ "<div>"
-						+ "<textarea name=\"comment\" cols=\"57\" rows=\"2\""
-						+ "placeholder=\"Post Comment\" style=\"width: 95%;\"/>"
-						+ "<input type=\"hidden\" name=\"postId\" value=\""+commentData.postId+"\" />"
-						+ "</div>"
-						+ "<div style=\"width: 95%; text-align: right;\"> "
-						+ "<input type=\"submit\" value=\"Post\" />"
-						+ "</div>"
-						+ "</div>"
-						+ "</form>" + "</div>"
-						+ "</div>";
-					$("#feeds").prepend(html);
-					$("#status")[0].value = "";					
+					  var html = []; 
+					  html.push("<div id=\"feeds\"> ");
+					  html.push("      <div class=\"feed-container\">         ");
+					  html.push("        <div class=\"left-status\"> ");
+					  html.push("          <img width=\"80px\" ");
+					  html.push("            src=\"image?userId="+commentData.userId+"\" /> ");
+					  html.push("        </div> ");
+					  html.push("        <div class=\"right-status\"> ");					  
+					  html.push("            <div> ");
+					  html.push("              <span class=\"fullname\"> ");
+					  html.push(commentData.fullName);					  
+					  html.push("              </span> ");
+					  html.push("              updated the status ");
+					  html.push("            </div> ");
+					  html.push(" ");					  
+					  html.push("          <div class=\"post\"> ");
+					  html.push(commentData.status); 
+					  html.push("          </div> ");
+					  html.push("          <div class=\"timestamp\"> ");
+					  html.push(commentData.now); 
+					  html.push("          </div> ");
+					  /*
+					  html.push("          <div> ");					   
+					  html.push("            <form id=\"commentForm_"+commentData.postId+"\" class=\"comment-form\" action=\"postcomment\" method=\"post\"> ");
+					  html.push("              <div class=\"comment-form\"> ");
+					  html.push("                <div> ");
+					  html.push("                  <textarea name=\"comment\" cols=\"57\" rows=\"2\" ");
+					  html.push("                    placeholder=\"Post Comment\" style=\"width: 95%;\"></textarea> ");
+					  html.push("                  <input type=\"hidden\" name=\"postId\" value=\""+commentData.postId+"\" />                   ");
+					  html.push("                </div> ");
+					  html.push("                <div style=\"width: 95%; text-align: right;\"> ");
+					  html.push("                  <input type=\"submit\" value=\"Post\" /> ");
+					  html.push("                </div> ");
+					  html.push("              </div> ");
+					  html.push("            </form> ");
+					  html.push("          </div> ");
+					  */
+					  html.push("        </div> ");
+					  html.push("      </div> ");
+					  html.push("      <div class=\"clear\"></div> ");					   
+					  html.push("  </div>");
+					  					 
+					$("#feeds").prepend(html.join(" "));
+					$("#statusUpdate")[0].value = "";					
 				});
 			});
 </script>
