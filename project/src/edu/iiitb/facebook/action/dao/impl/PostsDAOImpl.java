@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -155,13 +156,17 @@ public class PostsDAOImpl implements PostsDAO {
     Connection connection = ConnectionPool.getConnection();
     try {
       PreparedStatement stmt = connection
-          .prepareStatement(STATUS_UPDATE_FOR_USER);
+          .prepareStatement(STATUS_UPDATE_FOR_USER, Statement.RETURN_GENERATED_KEYS);
       int index = 1;
       stmt.setString(index++, status);
       stmt.setString(index++, STATUS);
       stmt.setInt(index++, userId);
       stmt.setInt(index++, userId);
-      statusId = stmt.executeUpdate();
+      stmt.executeUpdate();
+      ResultSet rs = stmt.getGeneratedKeys();
+      if (rs.next()) {
+        statusId = rs.getInt(1);
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

@@ -5,6 +5,9 @@ package edu.iiitb.facebook.action.comment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
@@ -12,49 +15,41 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.CommentsDAO;
-import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.CommentsDAOImpl;
-import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 
 /**
  * @author arjun
  * 
  */
-public class PostCommentsAction extends ActionSupport {
+public class PostCommentsAction extends ActionSupport implements SessionAware {
 
   /**
    * serialVersionUID
    */
   private static final long serialVersionUID = 3973933993539075766L;
-
+  private Map<String, Object> session;
   private CommentsDAO commentsDAO = new CommentsDAOImpl();
-  private UserDAO userDao = new UserDAOImpl();
-  
-  private int userId;
+
   private String fullname;
+  private int userId;
   private int postId;
   private String comment;
   private int commentId;
   private String now;
 
-  
   public String execute() {
-    commentId = commentsDAO.addCommentForPost(userId, postId, comment);
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-    now = sdf.format(new Date());
-    User user = userDao.getUserImageByUserId(userId);
-    fullname = user.getFirstName() + " " + user.getLastName();
-    return SUCCESS;
-  }
-
-  @IntRangeFieldValidator(message = "The userId must be positive", min = "1")
-  public int getUserId() {
-    return userId;
-  }
-
-  public void setUserId(int userId) {
-    this.userId = userId;
+    User user = (User) session.get("user");
+    if (null != user) {
+      userId = user.getUserId();
+      commentId = commentsDAO.addCommentForPost(userId, postId, comment);
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+      now = sdf.format(new Date());
+      fullname = user.getFirstName() + " " + user.getLastName();
+      return SUCCESS;
+    } else {
+      return LOGIN;
+    }
   }
 
   @IntRangeFieldValidator(message = "The postId must be positive", min = "1")
@@ -99,4 +94,16 @@ public class PostCommentsAction extends ActionSupport {
     this.fullname = fullname;
   }
 
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  @Override
+  public void setSession(Map<String, Object> session) {
+    this.session = session;
+  }
 }
