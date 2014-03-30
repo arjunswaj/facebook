@@ -4,7 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 
-public class searchAction extends ActionSupport
+public class SearchAction extends ActionSupport
 {
 
 	private String email;
