@@ -49,6 +49,14 @@
 			<result type="json" name="input"/>
 			<result name="login">/login/login.jsp</result>
 		</action>
+		
+		<!-- This is for Friend Suggestions -->
+		<action name="friendsuggestions"
+			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success">/suggestions/suggestions.jsp</result>
+			<result name="login">/login/login.jsp</result>
+		</action>
 
 		<action name="profile"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">

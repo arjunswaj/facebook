@@ -22,17 +22,12 @@ import edu.iiitb.facebook.action.model.NewsFeed;
  *
  */
 
-@Namespace("/default")
-@ResultPath(value = "/")
-@Results({ @Result(name = "success", location = "suggestions/suggestions.jsp"),
-    @Result(name = "login", location = "/index.jsp") })
 public class FriendSuggestionsAction extends ActionSupport {
 	
 	private FriendsDAO friendsDAO = new FriendsDAOImpl();
 	private List<FriendSuggestions> friendSuggestionsList;
 	private int userId;
 	
-	@Action(value = "/friendsuggestions")
 	public String execute() {
 		setFriendSuggestionsList(friendsDAO.getFriendSuggestions(userId));
 		return SUCCESS;
