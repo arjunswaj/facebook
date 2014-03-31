@@ -57,6 +57,13 @@
 			<result name="success">/suggestions/suggestions.jsp</result>
 			<result name="login">/login/login.jsp</result>
 		</action>
+		<action name="mutualfriends"
+			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success">/suggestions/mutualfriends.jsp</result>
+			<result name="login">/login/login.jsp</result>
+			<result name="input">/suggestions/mutualfriends.jsp</result>
+		</action>
 
 		<action name="profile"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">

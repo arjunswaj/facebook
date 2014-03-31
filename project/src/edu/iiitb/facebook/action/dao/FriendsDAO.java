@@ -31,5 +31,7 @@ public interface FriendsDAO
 	public boolean unblockFriend(int loggedInUserId, int otherUserId);
 	
 	public List<FriendSuggestions> getFriendSuggestions(int userId);
+	
+	public List<FriendSuggestions> getMutualFriends(int userId, int friendId);
 
 }
