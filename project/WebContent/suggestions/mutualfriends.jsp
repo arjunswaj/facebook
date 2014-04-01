@@ -22,11 +22,11 @@
 		<s:iterator value="mutualFriendsList">
 			<div align="center" >	
 				<div >
-				<img width="80px" src="image?userId=<s:property value="friendId" />" />
+				<img width="80px" class="img-thumbnail" src="image?userId=<s:property value="friendId" />" />
 				</div>
 				<div >
-					<b><s:property value="firstName" /></b>
-					<b><s:property value="lastName" /></b>
+					<strong><s:property value="firstName" /></strong>
+					<strong><s:property value="lastName" /></strong>
 				</div>
 			</div>
 			<hr>
