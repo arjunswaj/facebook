@@ -29,7 +29,7 @@
 			class="edu.iiitb.facebook.action.newsfeeds.NewsFeedsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">newsfeeds.tiles</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<!-- This is for Posting Comments -->
@@ -38,7 +38,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<!-- This is for Status Update -->
@@ -47,7 +47,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<!-- This is for Friend Suggestions -->
@@ -55,13 +55,13 @@
 			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/suggestions/suggestions.jsp</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 		<action name="mutualfriends"
 			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/suggestions/mutualfriends.jsp</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 			<result name="input">/suggestions/mutualfriends.jsp</result>
 		</action>
 
@@ -69,35 +69,36 @@
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">friends.tiles</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 
 		</action>
 		<action name="addfriend"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="addfriendReqeust">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 
 		</action>
 		<action name="confirmRequest"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="confirmAddFriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 
 		</action>
 		<action name="rejectRequest"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="rejectFriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login/login.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
 			<result name="success" type="redirectAction">profile</result>
-			<result name="input">/login/login.jsp</result>
+			<result name="input">/login.jsp</result>
 
 		</action>
+			
 
 		<action name="search" class="edu.iiitb.facebook.action.search.SearchAction">
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
