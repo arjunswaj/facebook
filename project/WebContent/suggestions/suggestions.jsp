@@ -21,7 +21,7 @@
 	}
 	$(document).ready(function(){
 		  $("button").click(function(){
-		   	$(this).html('Friend Request Sent');
+		   	//$(this).html('Friend Request Sent');
 		  });
 	});
 		
