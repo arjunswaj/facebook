@@ -22,24 +22,18 @@ import edu.iiitb.facebook.action.model.NewsFeed;
  *
  */
 
-public class FriendSuggestionsAction extends ActionSupport {
+public class MutualFriendsAction extends ActionSupport {
 	
 	private FriendsDAO friendsDAO = new FriendsDAOImpl();
-	private List<FriendSuggestions> friendSuggestionsList;
+	private List<FriendSuggestions> mutualFriendsList;
 	private int userId;
+	private int friendId;
 	
 	public String execute() {
-		setFriendSuggestionsList(friendsDAO.getFriendSuggestions(userId));
+		setMutualFriendsList(friendsDAO.getMutualFriends(userId, friendId));
 		return SUCCESS;
 	}
 
-	public List<FriendSuggestions> getFriendSuggestionsList() {
-		return friendSuggestionsList;
-	}
-
-	public void setFriendSuggestionsList(List<FriendSuggestions> friendSuggestionsList) {
-		this.friendSuggestionsList = friendSuggestionsList;
-	}
 	
 	public int getUserId() {
 		return userId;
@@ -47,6 +41,23 @@ public class FriendSuggestionsAction extends ActionSupport {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public int getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(int friendId) {
+		this.friendId = friendId;
+	}
+	
+	public List<FriendSuggestions> getMutualFriendsList() {
+		return mutualFriendsList;
+	}
+
+
+	public void setMutualFriendsList(List<FriendSuggestions> mutualFriendsList) {
+		this.mutualFriendsList = mutualFriendsList;
 	}
 
 }

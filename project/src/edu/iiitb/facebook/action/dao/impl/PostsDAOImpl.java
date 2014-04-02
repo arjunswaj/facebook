@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,13 +61,13 @@ public class PostsDAOImpl implements PostsDAO {
       + "    LEFT OUTER JOIN user friends1 ON friends1.id = rsbm.request_for "
       + "    LEFT OUTER JOIN user me ON me.id = rsbm.request_by "
       + "    WHERE " + "        me.id = ? "
-      + "            AND rsbm.request_status = 'accepted' UNION ALL SELECT  "
+      + "            AND rsbm.status = 'accepted' UNION ALL SELECT  "
       + "        friends2.id AS user_id " + "    FROM "
       + "        friends_with rsbt "
       + "    LEFT OUTER JOIN user friends2 ON friends2.id = rsbt.request_by "
       + "    LEFT OUTER JOIN user me ON me.id = rsbt.request_for "
       + "    WHERE " + "        me.id = ? "
-      + "            AND rsbt.request_status = 'accepted') AS friends "
+      + "            AND rsbt.status = 'accepted') AS friends "
       + "        LEFT OUTER JOIN "
       + "    post friends_post ON friends.user_id = friends_post.posted_for "
       + "        LEFT OUTER JOIN "
@@ -155,13 +156,17 @@ public class PostsDAOImpl implements PostsDAO {
     Connection connection = ConnectionPool.getConnection();
     try {
       PreparedStatement stmt = connection
-          .prepareStatement(STATUS_UPDATE_FOR_USER);
+          .prepareStatement(STATUS_UPDATE_FOR_USER, Statement.RETURN_GENERATED_KEYS);
       int index = 1;
       stmt.setString(index++, status);
       stmt.setString(index++, STATUS);
       stmt.setInt(index++, userId);
       stmt.setInt(index++, userId);
-      statusId = stmt.executeUpdate();
+      stmt.executeUpdate();
+      ResultSet rs = stmt.getGeneratedKeys();
+      if (rs.next()) {
+        statusId = rs.getInt(1);
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

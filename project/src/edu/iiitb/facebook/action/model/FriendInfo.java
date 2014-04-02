@@ -5,8 +5,8 @@ public class FriendInfo
 
 	public enum RequestStatus
 	{
-		PENDING("pending"), ACCEPTED("accepted"), BLOCKED("blocked"), UNBLOCKED("unblocked"), CONFIRM_REQUEST("confirm_request"), ADD_FRIEND(
-				"add_friend"), MYPROFILE("myprofile");
+		PENDING("pending"), ACCEPTED("accepted"), BLOCKED("blocked"), CONFIRM_REQUEST("confirm_request"), ADD_FRIEND("add_friend"), MYPROFILE(
+				"myprofile");
 
 		public String reqstat;
 
@@ -70,21 +70,9 @@ public class FriendInfo
 		this.requestStatus = requestStatus;
 	}
 
-	public RequestStatus getBlockedStatus()
-	{
-		return blockedStatus;
-	}
-
-	public void setBlockedStatus(RequestStatus blockedStatus)
-	{
-		this.blockedStatus = blockedStatus;
-	}
-
 	int requestedBy;
 	int requestFor;
 
 	RequestStatus requestStatus;
-
-	RequestStatus blockedStatus;
 
 }

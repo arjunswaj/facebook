@@ -23,47 +23,95 @@ public class FriendsDAOImpl implements FriendsDAO
 	String ARE_THEY_FRIENDS_QRY = "select * from friends_with f1 where f1.request_by=? and f1.request_for=?" + " union "
 			+ " select * from friends_with f1 where f1.request_by=? and f1.request_for=?";
 
-	// Added by Rahul
-	private static final String SUGGEST_FRIENDS_QUERY = "" +
-			"SELECT id, first_name, last_name " +
-			"FROM facebookdb.user " +
-			"WHERE id in ( " +
-			"   SELECT request_for " +
-			"    FROM facebookdb.friends_with " +
-			"    WHERE request_by in ( " +
-			"        SELECT request_for " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
-			"        UNION " +
-			"        SELECT request_by " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
-			"    ) " +
-			"    AND request_status = 'accepted' " +
-			"    AND request_for != ? " +
-			"    UNION " +
-			"    SELECT request_by " +
-			"    FROM facebookdb.friends_with " +
-			"    WHERE request_for in ( " +
-			"        SELECT request_for " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_by = ? " +
-			"        AND request_status = 'accepted' " +
-			"        UNION " +
-			"        SELECT request_by " +
-			"        FROM facebookdb.friends_with " +
-			"        WHERE request_for = ? " +
-			"        AND request_status = 'accepted' " +
-			"    ) " +
-			"    AND request_status = 'accepted' " +
-			"    AND request_by != ? " +
-			")";
+	private static final String SUGGEST_FRIENDS_QUERY = "" 
+			+ "SELECT DISTINCT id, first_name, last_name " 
+			+ "FROM user "
+			+ "WHERE id in ( " 
+			+ "   SELECT request_for " 
+			+ "    FROM friends_with " 
+			+ "    WHERE request_by in ( "
+			+ "        SELECT request_for " 
+			+ "        FROM friends_with " 
+			+ "        WHERE request_by = ? "
+			+ "        AND status = 'accepted' " 
+			+ "        UNION " 
+			+ "        SELECT request_by " 
+			+ "        FROM friends_with "
+			+ "        WHERE request_for = ? " 
+			+ "        AND status = 'accepted' " + "    ) " 
+			+ "    AND status = 'accepted' "
+			+ "    AND request_for != ? " 
+			+ "	 AND request_for NOT IN ( " 
+			+ "        SELECT request_for " 
+			+ "        FROM friends_with "
+			+ "        WHERE request_by = ? " 
+			+ "        AND status = 'accepted' " 
+			+ "        UNION " 
+			+ "        SELECT request_by "
+			+ "        FROM friends_with " 
+			+ "        WHERE request_for = ? " 
+			+ "        AND status = 'accepted' " + "    ) "
+			+ "    UNION " 
+			+ "    SELECT request_by " 
+			+ "    FROM friends_with " 
+			+ "    WHERE request_for in ( "
+			+ "        SELECT request_for " 
+			+ "        FROM friends_with " 
+			+ "        WHERE request_by = ? "
+			+ "        AND status = 'accepted' " 
+			+ "        UNION " 
+			+ "        SELECT request_by " 
+			+ "        FROM friends_with "
+			+ "        WHERE request_for = ? " 
+			+ "        AND status = 'accepted' " 
+			+ "    ) " 
+			+ "    AND status = 'accepted' "
+			+ "    AND request_by != ? " 
+			+ "	 AND request_by NOT IN ( " 
+			+ "        SELECT request_for " 
+			+ "        FROM friends_with "
+			+ "        WHERE request_by = ? " 
+			+ "        AND status = 'accepted' " 
+			+ "        UNION " 
+			+ "        SELECT request_by "
+			+ "        FROM friends_with " 
+			+ "        WHERE request_for = ? " 
+			+ "        AND status = 'accepted' " 
+			+ "    )" 
+			+ ")";
+	
+	String MUTUAL_FRIENDS_QUERY = ""
+			+ "SELECT DISTINCT id, first_name, last_name "
+			+ "FROM user "
+			+ "WHERE id IN ( "
+			+ "		SELECT myFriends as mutualFriends FROM "
+			+ "		(SELECT request_for as myFriends "
+			+ "		FROM friends_with "
+			+ "		WHERE request_by = ? "
+			+ "		AND status = 'accepted' "
+			+ "		UNION "
+			+ "		SELECT request_by as myFriends "
+			+ "		FROM friends_with "
+			+ "		WHERE request_for = ? "
+			+ "		AND status = 'accepted') as myFriendsTable "
+			+ "		WHERE myFriends IN "
+			+ "			(SELECT hisFriends FROM "
+			+ "			(SELECT request_for as hisFriends "
+			+ "			FROM friends_with "
+			+ "			WHERE request_by = ? "
+			+ "			AND status = 'accepted' "
+			+ "			UNION "
+			+ "			SELECT request_by as hisFriends "
+			+ "			FROM friends_with "
+			+ "			WHERE request_for = ? "
+			+ "			AND status = 'accepted') as hisFriendsTable" 
+			+ "		)" 
+			+ "	) ";
+	
 
-	String ADD_FRIEND_QRY = "insert into friends_with(request_status,blocked_status,request_by,request_for,friend_request_sent) values(?,?,?,?,?)";
+	String ADD_FRIEND_QRY = "insert into friends_with(status,request_by,request_for,friend_request_sent) values(?,?,?,?)";
 
-	String CONFIRM_FRIEND_QRY = "update friends_with set request_status=?, friend_request_accepted =? where request_by=? and request_for=? ";
+	String CONFIRM_FRIEND_QRY = "update friends_with set status=?, friend_request_accepted =? where request_by=? and request_for=? ";
 
 	String REJECT_FRIEND_QRY = "delete from  friends_with  where request_by=? and request_for=? ";
 
@@ -95,12 +143,7 @@ public class FriendsDAOImpl implements FriendsDAO
 				{
 					friendInfo.setRequestStatus(reqstatus);
 				}
-				RequestStatus blockStatus = FriendInfo.RequestStatus.fromString(resultSet.getString(FriendsDAO.BLOCKED_STATUS));
-				if (blockStatus != null)
-				{
 
-					friendInfo.setBlockedStatus(blockStatus);
-				}
 			}
 
 		}
@@ -134,11 +177,10 @@ public class FriendsDAOImpl implements FriendsDAO
 			PreparedStatement preparedstmt = conn.prepareStatement(ADD_FRIEND_QRY);
 
 			preparedstmt.setString(1, FriendInfo.RequestStatus.PENDING.getReqstat());
-			preparedstmt.setString(2, FriendInfo.RequestStatus.UNBLOCKED.getReqstat());
-			preparedstmt.setInt(3, loggedInUserId);
-			preparedstmt.setInt(4, otherUserId);
+			preparedstmt.setInt(2, loggedInUserId);
+			preparedstmt.setInt(3, otherUserId);
 
-			preparedstmt.setString(5, CommonUtil.getCurrentTimeStamp());
+			preparedstmt.setString(4, CommonUtil.getCurrentTimeStamp());
 			if (preparedstmt.executeUpdate() > 0)
 			{
 				return true;
@@ -234,9 +276,8 @@ public class FriendsDAOImpl implements FriendsDAO
 	}
 
 	/*
-	 * added by Rahul
+	 * Added by Rahul
 	 */
-	@Override
 	public List<FriendSuggestions> getFriendSuggestions(int userId)
 	{
 
@@ -252,6 +293,10 @@ public class FriendsDAOImpl implements FriendsDAO
 			stmt.setInt(4, userId);
 			stmt.setInt(5, userId);
 			stmt.setInt(6, userId);
+			stmt.setInt(7, userId);
+			stmt.setInt(8, userId);
+			stmt.setInt(9, userId);
+			stmt.setInt(10, userId);
 			ResultSet rs = stmt.executeQuery();
 
 			FriendSuggestions fs = null;
@@ -271,6 +316,43 @@ public class FriendsDAOImpl implements FriendsDAO
 		}
 		finally
 		{
+			ConnectionPool.freeConnection(connection);
+		}
+
+		return friendSuggestionsList;
+	}
+	
+	/*
+	 * Added by Rahul
+	 */
+	@Override
+	public List<FriendSuggestions> getMutualFriends(int userId, int friendId) {
+
+		List<FriendSuggestions> friendSuggestionsList = new ArrayList<FriendSuggestions>();
+
+		Connection connection = ConnectionPool.getConnection();
+		try {
+			PreparedStatement stmt = connection.prepareStatement(MUTUAL_FRIENDS_QUERY);
+			stmt.setInt(1, userId);
+			stmt.setInt(2, userId);
+			stmt.setInt(3, friendId);
+			stmt.setInt(4, friendId);
+			ResultSet rs = stmt.executeQuery();
+
+			FriendSuggestions fs = null;
+
+			while (rs.next()) {
+				int mutualFriendId = rs.getInt("id");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				fs = new FriendSuggestions(mutualFriendId, firstName, lastName);
+				friendSuggestionsList.add(fs);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
 			ConnectionPool.freeConnection(connection);
 		}
 

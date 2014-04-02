@@ -3,47 +3,55 @@
  */
 package edu.iiitb.facebook.action.status;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.ResultPath;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
+import edu.iiitb.facebook.action.model.User;
 
 /**
  * @author arjun
  * 
  */
-@Namespace("/default")
-@ResultPath(value = "/")
-@ParentPackage("json-default")
-@Result(name = "success", type = "json")
-public class StatusUpdateAction extends ActionSupport {
+public class StatusUpdateAction extends ActionSupport implements SessionAware {
 
   /**
    * serialVersionUID
    */
   private static final long serialVersionUID = 5907009549083317309L;
 
+  private Map<String, Object> session;
+
   private PostsDAO postsDAO = new PostsDAOImpl();
 
   private int userId;
-  private String status;  
+  private int postId;
+  private String status;
+  private String fullName;
+  private String now;
 
-  @Action(value = "/statusupdate")
   public String execute() {
-    int statusId = postsDAO.updateStatusForUser(userId, status);
-    return SUCCESS;
+    User user = (User) session.get("user");
+    if (null != user) {
+      userId = user.getUserId();
+      postId = postsDAO.updateStatusForUser(userId, status);
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+      now = sdf.format(new Date());
+      fullName = user.getFirstName() + " " + user.getLastName();
+      return SUCCESS;
+    } else {
+      return LOGIN;
+    }
   }
 
-  @IntRangeFieldValidator(message = "The userId must be positive", min = "1")
   public int getUserId() {
     return userId;
   }
@@ -60,5 +68,33 @@ public class StatusUpdateAction extends ActionSupport {
   public void setStatus(String status) {
     this.status = status;
   }
-  
+
+  @Override
+  public void setSession(Map<String, Object> session) {
+    this.session = session;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public int getPostId() {
+    return postId;
+  }
+
+  public void setPostId(int postId) {
+    this.postId = postId;
+  }
+
+  public String getNow() {
+    return now;
+  }
+
+  public void setNow(String now) {
+    this.now = now;
+  }
 }
