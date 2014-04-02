@@ -94,7 +94,7 @@
 		</action>
 
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
-			<result name="success" type="redirectAction">profile</result>
+			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="input">/login.jsp</result>
 
 		</action>
