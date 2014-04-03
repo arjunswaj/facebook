@@ -102,7 +102,7 @@
 
 		<action name="search" class="edu.iiitb.facebook.action.search.SearchAction">
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-		</action>
+		</action>		
 
 	</package>
 
