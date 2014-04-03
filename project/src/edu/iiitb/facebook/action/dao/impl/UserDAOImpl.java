@@ -209,13 +209,13 @@ public class UserDAOImpl implements UserDAO
 
 }
 
-	@Override
+	
 	public void setsecurity(String question, String answer, String phone) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void setcurrentprofilepic(InputStream photo, int id) {
 		// TODO Auto-generated method stub
 		
