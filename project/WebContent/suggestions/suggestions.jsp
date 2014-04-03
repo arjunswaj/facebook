@@ -8,7 +8,7 @@
 <title>Friend Suggestions</title>
 </head>
 <body>
-	<script type="text/javascript">
+	<script>
 	function getMutualFriends(userId, friendId) {
 		var w = 300;
 		var h = 600;
@@ -19,12 +19,17 @@
 			window.open(url,"_blank",'directories=no, location=no,resizable=no, titlebar=no, status=no, width = ' + w +', height =' + h + ',top = ' + t +',left = ' + l);
 		}
 	}
+	$(document).ready(function(){
+		  $("#addfriend").click(function(){
+		   	$(this).html('Friend Request Sent');
+		  });
+	});
 		
 	</script>
 	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
 	<div id="suggestions">
 		<s:iterator value="friendSuggestionsList">
-			<div align="center" >	
+			<div align="center" id="suggestionsblock">	
 				<div >
 					<img width="80px" src="image?userId=<s:property value="friendId" />" />
 				</div>
@@ -32,7 +37,7 @@
 					<b><s:property value="firstName" /></b>
 					<b><s:property value="lastName" /></b>
 					<br><a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
-					<br><button type="button" class="btn btn-default"> + Add Friend</button>	
+					<br><button type="button" class="btn btn-default" id="addfriend"> + Add Friend</button>	
 				</div>
 			</div>
 			<hr>

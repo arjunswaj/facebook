@@ -28,7 +28,7 @@
 	margin: 2px;
 	padding: 5px;
 	font-family: Arial Narrow, sans-serif;
-	width: 50%;
+	width: 75%;
 }
 
 .right-pane {
@@ -36,7 +36,7 @@
 	margin: 2px;
 	padding: 5px;
 	font-family: Arial Narrow, sans-serif;
-	width: 25%;
+	width: 0%;
 }
 
 .clear {

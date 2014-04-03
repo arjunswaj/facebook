@@ -2,12 +2,14 @@ package edu.iiitb.facebook.action.event;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,10 +19,9 @@ import edu.iiitb.facebook.action.model.Event;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("/events")
-@ResultPath("/")
+@Namespace("event")
 @ParentPackage("tiles-default")
-public class EditEventAction extends ActionSupport
+public class EditEventAction extends ActionSupport implements SessionAware
 {
 	private String eventId;
 	private String eventName;
@@ -31,7 +32,7 @@ public class EditEventAction extends ActionSupport
 	private String going="0";
 	private String maybe="0";
 	private String invited="0";
-	
+	private Map<String, Object> session;
 	private User user;
 	
 	@Action
@@ -46,12 +47,7 @@ public class EditEventAction extends ActionSupport
 	)
 	public String execute() throws SQLException
 	{
-		/////////replace with user from session
-		user=new User();
-		user.setUserId(3);
-		user.setFirstName("Dnyanesh");
-		user.setEmail("dnyanesh@dnyanesh.com");
-		///////////////////////////////////////
+		user = (User) session.get("user");
 		
 		
 		if(user==null)
@@ -164,5 +160,11 @@ public class EditEventAction extends ActionSupport
 
 	public void setInvited(String invited) {
 		this.invited = invited;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		session=arg0;
 	}
 }

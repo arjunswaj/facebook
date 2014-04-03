@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Facebook_login</title>
+<script type="text/css">
+
+</script>
 </head>
 <body bgcolor="#3b5998">
 <img src="/images/facebook_icon.jpg"/>
