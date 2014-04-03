@@ -5,24 +5,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Invite Friends</title>
 </head>
-<body>
+<body style="background-color: #c5c5df;">
 	<form id="f1" action="sendInvites" method="post">
 		<input type="hidden" name="eventId" value='<s:property value="eventId" />' />
 		<input type="hidden" name="invitees" id="invitees" value="" />
-		<table>
-			<thead><b>Invite Friends</b></thead>
+		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
+			<colgroup>
+				<col width="10px"/>
+				<col width="50px"/>
+				<col width="90%"/>
+				<col />
+			</colgroup>
 			<tbody>
+				<tr style="background-color: #f5f6f7; height: 60px;">
+					<td></td>
+					<td colspan="2"><h3>Invite Friends</h3></td>
+					<td align="right"><a href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a></td>
+				</tr>
 				<s:iterator value="map" var="u">
-					<tr>
-						<td><input type="checkbox" name="cb" value='<s:property value="#u.key" />' /><s:property value="#u.value" /></td>
-					</tr>
+				<tr>
+					<td valign="middle"><input type="checkbox" name="cb" value='<s:property value="#u.key" />' /></td>
+					<td><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></td>
+					<td colspan="2"><s:property value="#u.value" /></td>
+				</tr>
 				</s:iterator>
+				<tr>
+					<td colspan="4" align="right">
+						<input style="background-color: #45619d; color: white;" type="button" value="Send" onclick="submitForm();" />
+						<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
-		<input type="button" value="Send" onclick="submitForm();" />
-		<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 	</form>
 	<script type="text/javascript">
 		var cbArray=document.getElementsByName("cb");

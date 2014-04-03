@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Event</title>
 </head>
 <body style="background-color: #E5E5E9;">
 	<div style="background-color: #D2D2D8;">
 		<br /><br /><br /><br /><br /><br /><br />
-		&nbsp;<b><s:property value="eventName"/></b>
-		<br /><br />
+		<h2>&nbsp;<s:property value="eventName"/></h2>
+		<br />
 	</div>
 	<div style="background-color: #FFFFFF; float: left; width: 520px;">
 		<br />
