@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE>
 <html>
 <head>
@@ -63,7 +66,7 @@
 					</div>
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary">
-							<b>User</b>
+							<b><s:property value="#session['user'].firstName"/> <s:property value="#session['user'].lastName"/></b>
 						</button>
 						<button type="button" class="btn btn-primary">
 							<b>Home</b>
