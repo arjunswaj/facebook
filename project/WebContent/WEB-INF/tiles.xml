@@ -24,11 +24,13 @@
 			value="/WEB-INF/content/tiles/RightPane.jsp" />
 		<put-attribute name="central-pane" value="" />
 	</definition>
+	
 	<!-- This is for the news feeds page -->
 	<definition name="newsfeeds.tiles" extends="baseLayout">
 		<put-attribute name="title" value="News Feeds" />
 		<put-attribute name="central-pane" value="/feeds/feeds.jsp" />
 	</definition>
+	
 	<!-- This is for the friend suggestions page -->
 	<definition name="friendsuggestions.tiles" extends="baseLayout">
 		<put-attribute name="title" value="People You May Know" />
@@ -38,7 +40,7 @@
 	<!-- This is for the messages page -->
 	<definition name="messages.tiles" extends="baseLayout">
 		<put-attribute name="title" value="Messages" />
-		<put-attribute name="left-pane" value="/messages/messages_list.jsp" />
+		<put-attribute name="left-pane" value="/messages/list_latest_messages.jsp" />
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
 

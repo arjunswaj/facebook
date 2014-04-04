@@ -32,6 +32,31 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<!-- Start of messages related actions -->
+		
+		<!-- This is for displaying the latest message thread -->
+		<action name="messages" method="messageThread"
+		    class="edu.iiitb.facebook.action.messages.MessagesAction">
+		    <interceptor-ref name="secureAccess"></interceptor-ref>
+		    <result name="success" type="tiles">messages.tiles</result>
+		    <result name="error">/messages/error.jsp</result>
+		</action>
+		
+		<action name="reply" method="reply"
+		    class="edu.iiitb.facebook.action.messages.MessagesAction">
+		    <interceptor-ref name="secureAccess"></interceptor-ref>
+		    <result name="success" type="tiles">messages.tiles</result>
+		</action>
+		
+		<action name="listLatestMessages" method="listLatestMessages"
+		    class="edu.iiitb.facebook.action.messages.MessagesListAction">
+		    <interceptor-ref name="secureAccess"></interceptor-ref>
+		    <result name="success">/messages/list_latest_messages.jsp</result>
+		    <result name="error">/messages/error.jsp</result>
+		</action>
+		
+		<!--  End of messages related actions -->
+		    
 		<!-- This is for Posting Comments -->
 		<action name="postcomment"
 			class="edu.iiitb.facebook.action.comment.PostCommentsAction">

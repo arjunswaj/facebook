@@ -12,10 +12,6 @@ import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.LatestMessage;
 
-@Results({
-		@Result(name = "success", location = "/messages/messages_list.jsp"),
-		@Result(name = "error", location = "/messages/error.jsp") 
-		})
 public class MessagesListAction extends ActionSupport
 {
 	private static final long serialVersionUID = -5115586460910679145L;
@@ -23,8 +19,7 @@ public class MessagesListAction extends ActionSupport
 	private List<LatestMessage> latestMessages;
 	private int user = 0;
 
-	@Action(value = "/messages_list")
-	public String execute()
+	public String listLatestMessages()
 	{
 		if (user == 0)
 			return ERROR;

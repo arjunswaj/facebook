@@ -2,10 +2,6 @@ package edu.iiitb.facebook.action.messages;
 
 import java.util.List;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.InterceptorRef;
-import org.apache.struts2.convention.annotation.Result;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
@@ -20,18 +16,7 @@ public class MessagesAction extends ActionSupport
 	private int sender = 0;
 	private int recipient = 0;
 
-	@Action(
-			value = "/messages",
-			results = {
-					@Result(name = "success", location = "messages.tiles", type = "tiles"),
-					@Result(name = "error", location = "/messages/error.jsp"),
-					@Result(name = "login", location = "/login/login.jsp")
-			},
-			interceptorRefs = {
-					@InterceptorRef(value = "secureAccess")
-			}
-	)
-	public String messages()
+	public String messageThread()
 	{
 		if (sender == 0 || recipient == 0)
 			return ERROR;
@@ -50,7 +35,6 @@ public class MessagesAction extends ActionSupport
 	 * 
 	 * @return
 	 */
-	@Action(value = "/reply")
 	public String reply()
 	{
 		// Sent(insert) message
