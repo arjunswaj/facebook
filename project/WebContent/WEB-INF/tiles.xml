@@ -15,7 +15,15 @@
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
 
-
+	<!-- Layout with no left and right pane -->
+		<definition name="simpleLayout" template="/WEB-INF/content/tiles/SimpleLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="central-pane" value="" />
+		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
+	</definition>
+	
+	
 	<definition name="baseLayout_withoutleftPane"
 		template="/WEB-INF/content/tiles/BaseLayoutWithoutLeftPane.jsp">
 		<put-attribute name="title" value="" />
@@ -68,7 +76,7 @@
 	</definition>
 
 	<!-- This is for the messages page -->
-	<definition name="friends.tiles" extends="baseLayout_withoutleftPane">
+	<definition name="friends.tiles" extends="simpleLayout">
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 	</definition>

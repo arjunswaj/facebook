@@ -1,9 +1,17 @@
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <style>
 .lpcenter {
 margin:auto;
 width:70%;
 }
 </style>
+<div class="lpcenter">
+	<img width="50px" src="image?userId=<s:property value="#session['user'].userId" />" />
+	<br>
+	<b><s:property value="#session['user'].firstName"/> <s:property value="#session['user'].lastName"/></b>
+	<br>
+	<a href="#">Edit Profile</a>
+</div>
 
 <div class="lpcenter">
 
