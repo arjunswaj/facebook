@@ -97,16 +97,15 @@ public class MessageDAOImpl implements MessageDAO
 			{
 				LatestMessage latestMsg = new LatestMessage();
 
-				latestMsg.setSender(rs.getInt("id"));
+				latestMsg.setOtherUser(rs.getInt("id"));
 				latestMsg.setSenderFirstName(rs.getString("first_name"));
 				latestMsg.setSenderLastName(rs.getString("last_name"));
 				latestMsg.setText(rs.getString("text"));
 				latestMsg.setSentAt(rs.getTimestamp("sent_at"));
-				latestMsg.setRecipient(recipient);
+				latestMsg.setUser(recipient);
 
 				latestMsgs.add(latestMsg);
 			}
-			//System.out.println("latest messages number : " + latestMsgs.size());
 		}
 		catch (SQLException e)
 		{

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<s:iterator value="latestMessages">
-		<li><a href="messages.action?sender=<s:property value="sender" />&recipient=<s:property value="recipient" />">
+		<li><a href="messages.action?withUser=<s:property value="otherUser" />">
 				<s:property value="senderFirstName" /> <s:property
 					value="senderLastName" /> <s:property value="text" /> <s:property
 					value="sentAt" />

@@ -4,21 +4,13 @@ import java.sql.Timestamp;
 
 public class LatestMessage
 {
-	private int sender;
+	private int user;
+	private int otherUser;
 	private String senderFirstName;
 	private String senderLastName;
 	private String text;
-	private int recipient;
 	private Timestamp sentAt;
 	
-	public int getSender()
-	{
-		return sender;
-	}
-	public void setSender(int sender)
-	{
-		this.sender = sender;
-	}
 	public String getSenderFirstName()
 	{
 		return senderFirstName;
@@ -43,14 +35,6 @@ public class LatestMessage
 	{
 		this.text = text;
 	}
-	public int getRecipient()
-	{
-		return recipient;
-	}
-	public void setRecipient(int recipient)
-	{
-		this.recipient = recipient;
-	}
 	public String getSenderLastName()
 	{
 		return senderLastName;
@@ -58,5 +42,21 @@ public class LatestMessage
 	public void setSenderLastName(String senderLastName)
 	{
 		this.senderLastName = senderLastName;
+	}
+	public int getUser()
+	{
+		return user;
+	}
+	public void setUser(int user)
+	{
+		this.user = user;
+	}
+	public int getOtherUser()
+	{
+		return otherUser;
+	}
+	public void setOtherUser(int otherUser)
+	{
+		this.otherUser = otherUser;
 	}
 }
