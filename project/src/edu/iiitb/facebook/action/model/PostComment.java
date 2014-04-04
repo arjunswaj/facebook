@@ -1,6 +1,5 @@
 package edu.iiitb.facebook.action.model;
 
-
 public class PostComment {
   private int commentId;
   private int commenterUserId;
@@ -8,10 +7,12 @@ public class PostComment {
   private String commenterLastName;
   private String commentText;
   private String commentTime;
+  private int likeCount;
+  private boolean haveILiked;
 
   public PostComment(int commentId, int commenterUserId,
       String commenterFirstName, String commenterLastName, String commentText,
-      String commentTime) {
+      String commentTime, int likeCount, boolean haveILiked) {
     super();
     this.commentId = commentId;
     this.commenterUserId = commenterUserId;
@@ -19,6 +20,8 @@ public class PostComment {
     this.commenterLastName = commenterLastName;
     this.commentText = commentText;
     this.commentTime = commentTime;
+    this.likeCount = likeCount;
+    this.haveILiked = haveILiked;
   }
 
   public int getCommentId() {
@@ -69,4 +72,19 @@ public class PostComment {
     this.commentTime = commentTime;
   }
 
+  public int getLikeCount() {
+    return likeCount;
+  }
+
+  public void setLikeCount(int likeCount) {
+    this.likeCount = likeCount;
+  }
+
+  public boolean isHaveILiked() {
+    return haveILiked;
+  }
+
+  public void setHaveILiked(boolean haveILiked) {
+    this.haveILiked = haveILiked;
+  }
 }
