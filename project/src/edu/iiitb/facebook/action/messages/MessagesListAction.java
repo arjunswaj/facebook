@@ -1,28 +1,29 @@
 package edu.iiitb.facebook.action.messages;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.LatestMessage;
+import edu.iiitb.facebook.action.model.User;
+import edu.iiitb.facebook.util.Constants;
 
-public class MessagesListAction extends ActionSupport
+public class MessagesListAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = -5115586460910679145L;
 
 	private List<LatestMessage> latestMessages;
-	private int user = 0;
+	
+	private Map<String, Object> session;
 
 	public String listLatestMessages()
 	{
-		if (user == 0)
-			return ERROR;
+		int user = ((User)(session.get(Constants.USER))).getUserId();
 		MessageDAO dao = new MessageDAOImpl();
 		latestMessages = dao.getLatestMessagesFromAllUsers(user);
 		return SUCCESS;
@@ -38,14 +39,13 @@ public class MessagesListAction extends ActionSupport
 		this.latestMessages = latestMessages;
 	}
 
-	public int getUser()
+	public Map<String, Object> getSession()
 	{
-		return user;
+		return session;
 	}
 
-	public void setUser(int user)
+	public void setSession(Map<String, Object> session)
 	{
-		this.user = user;
+		this.session = session;
 	}
-
 }

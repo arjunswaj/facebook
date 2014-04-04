@@ -1,35 +1,40 @@
 package edu.iiitb.facebook.action.messages;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
 import edu.iiitb.facebook.action.model.Message;
+import edu.iiitb.facebook.action.model.User;
+import edu.iiitb.facebook.util.Constants;
 
-public class MessagesAction extends ActionSupport
+public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 
 	private List<Message> messages;
-	private int sender = 0;
-	private int recipient = 0;
+	private int withUser = 0;
+	
+	private Map<String, Object> session;
 
 	public String messageThread()
 	{
-		if (sender == 0 || recipient == 0)
+		int me = ((User)(session.get(Constants.USER))).getUserId();
+		if (withUser == 0)
 			return ERROR;
 
 		MessageDAO dao = new MessageDAOImpl();
-		messages = dao.getMessages(sender, recipient);
+		messages = dao.getMessages(withUser, me);
 		return SUCCESS;
 	}
 
 	private String reply;
-	private int from;
 	private int to;
-
 	/**
 	 * Send reply
 	 * 
@@ -37,6 +42,8 @@ public class MessagesAction extends ActionSupport
 	 */
 	public String reply()
 	{
+		int from = ((User)(session.get(Constants.USER))).getUserId();
+		
 		// Sent(insert) message
 		Message replyMsg = new Message();
 		replyMsg.setText(reply);
@@ -47,8 +54,7 @@ public class MessagesAction extends ActionSupport
 
 		// get the messages for display
 		messages = dao.getMessages(to, from);
-		sender = to;
-		recipient = from;
+		withUser = to;
 
 		return SUCCESS;
 	}
@@ -63,26 +69,6 @@ public class MessagesAction extends ActionSupport
 		this.messages = messages;
 	}
 
-	public int getSender()
-	{
-		return sender;
-	}
-
-	public void setSender(int sender)
-	{
-		this.sender = sender;
-	}
-
-	public int getRecipient()
-	{
-		return recipient;
-	}
-
-	public void setRecipient(int recipient)
-	{
-		this.recipient = recipient;
-	}
-
 	public String getReply()
 	{
 		return reply;
@@ -93,16 +79,6 @@ public class MessagesAction extends ActionSupport
 		this.reply = reply;
 	}
 
-	public int getFrom()
-	{
-		return from;
-	}
-
-	public void setFrom(int from)
-	{
-		this.from = from;
-	}
-
 	public int getTo()
 	{
 		return to;
@@ -111,5 +87,25 @@ public class MessagesAction extends ActionSupport
 	public void setTo(int to)
 	{
 		this.to = to;
+	}
+
+	public int getWithUser()
+	{
+		return withUser;
+	}
+
+	public void setWithUser(int withUser)
+	{
+		this.withUser = withUser;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.apache.struts2.interceptor.SessionAware#setSession(java.util.Map)
+	 */
+	@Override
+	public void setSession(Map<String, Object> arg0)
+	{
+		this.session = arg0;
+		
 	}
 }

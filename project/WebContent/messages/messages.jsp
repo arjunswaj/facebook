@@ -42,8 +42,7 @@
 	<s:form id="replyform" action="reply">
 		<s:textarea name="reply" value="" cols="75" rows="5"
 			placeholder="Write a reply" />
-		<s:hidden name="from" value="%{recipient}" />
-		<s:hidden name="to" value="%{sender}" />
+		<s:hidden name="to" value="%{withUser}" />
 		<sj:submit targets="replyResult" value="Reply" timeout="25000"
 			indicator="replyIndicator" onBeforeTopics="beforeReply"
 			onCompleteTopics="completeReply" onErrorTopics="errorStateReply"
