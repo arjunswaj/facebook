@@ -20,8 +20,8 @@
 		}
 	}
 	$(document).ready(function(){
-		  $("button").click(function(){
-		   	//$(this).html('Friend Request Sent');
+		  $("#addfriend").click(function(){
+		   	$(this).html('Friend Request Sent');
 		  });
 	});
 		
@@ -37,7 +37,7 @@
 					<b><s:property value="firstName" /></b>
 					<b><s:property value="lastName" /></b>
 					<br><a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
-					<br><button type="button" class="btn btn-default" id="addfriend" value=""> + Add Friend</button>	
+					<br><button type="button" class="btn btn-default" id="addfriend"> + Add Friend</button>	
 				</div>
 			</div>
 			<hr>

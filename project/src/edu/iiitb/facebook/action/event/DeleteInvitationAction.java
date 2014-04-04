@@ -9,6 +9,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,15 +18,14 @@ import edu.iiitb.facebook.action.dao.impl.EventDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("/events")
-@ResultPath("/")
-public class DeleteInvitationAction extends ActionSupport
+@Namespace("event")
+public class DeleteInvitationAction extends ActionSupport implements SessionAware
 {
 	private String listName;
 	private String eventId;
 	private String inviteeId;
 	private Map<String, String> map;
-	
+	private Map<String, Object> session;
 	private User user;
 	
 	@Action
@@ -41,12 +41,7 @@ public class DeleteInvitationAction extends ActionSupport
 	)
 	public String execute() throws SQLException
 	{
-		/////////replace with user from session
-		user=new User();
-		user.setUserId(3);
-		user.setFirstName("Dnyanesh");
-		user.setEmail("dnyanesh@dnyanesh.com");
-		///////////////////////////////////////
+		user = (User) session.get("user");
 		
 		
 		if(user==null)
@@ -106,5 +101,11 @@ public class DeleteInvitationAction extends ActionSupport
 
 	public void setListName(String listName) {
 		this.listName = listName;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		session=arg0;
 	}
 }

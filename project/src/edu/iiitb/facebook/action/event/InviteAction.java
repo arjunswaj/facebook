@@ -9,6 +9,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -17,13 +18,12 @@ import edu.iiitb.facebook.action.dao.impl.EventDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("/events")
-@ResultPath("/")
-public class InviteAction extends ActionSupport
+@Namespace("event")
+public class InviteAction extends ActionSupport implements SessionAware
 {
 	private String eventId;
 	private Map<String, String> map;
-	
+	private Map<String, Object> session;
 	private User user;
 	
 	@Action
@@ -37,12 +37,7 @@ public class InviteAction extends ActionSupport
 	)
 	public String execute() throws SQLException
 	{
-		/////////replace with user from session
-		user=new User();
-		user.setUserId(3);
-		user.setFirstName("Dnyanesh");
-		user.setEmail("dnyanesh@dnyanesh.com");
-		///////////////////////////////////////
+		user = (User) session.get("user");
 		
 		
 		if(user==null)
@@ -79,5 +74,11 @@ public class InviteAction extends ActionSupport
 
 	public void setEventId(String eventId) {
 		this.eventId = eventId;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		session=arg0;
 	}
 }

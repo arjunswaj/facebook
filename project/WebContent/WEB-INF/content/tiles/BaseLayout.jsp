@@ -51,6 +51,9 @@
  	padding: 10px 0px;
  	font-style: italic;
  }
+body {
+	background-color:#e9eaed;
+}
 </style>
 </head>
 <body>

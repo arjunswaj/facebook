@@ -4,37 +4,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Create New Event</title>
 </head>
-<body>
+<body style="background-color: #c5c5df;">
 	<form action="createEvent">
-		<table>
-			<thead><b>Create New Event</b></thead>
+		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
 			<tbody>
 				<tr>
+					<td colspan="3" style="background-color: #45619d; color: white; height: 35px;"><b>Create New Event</b></td>
+				</tr>
+				<tr>
 					<td>Name: </td>
-					<td colspan="2"><input type="text" name="eventName" size="50"></td>
+					<td colspan="2"><input type="text" name="eventName" style="width: 98%;"></td>
 				</tr>
 				<tr>
 					<td>Description: </td>
-					<td colspan="2"><textarea rows="4" cols="50" name="eventDescription"></textarea></td>
+					<td colspan="2"><textarea rows="4" name="eventDescription" style="width: 98%;"></textarea></td>
 				</tr>
 				<tr>
 					<td>Where: </td>
-					<td colspan="2"><input type="text" name="eventPlace" size="50"></td>
+					<td colspan="2"><input type="text" name="eventPlace" style="width: 98%;"></td>
 				</tr>
 				<tr>
 					<td>When: </td>
-					<td><input type="text" name="eventDate" size="22"></td>
-					<td><input type="text" name="eventTime" size="21"></td>
+					<td><input type="text" name="eventDate" style="width: 96%;"></td>
+					<td><input type="text" name="eventTime" style="width: 96%;"></td>
 				</tr>
 				<tr>
-					<td>
-						<input type="submit" value="Create">
+					<td colspan="3" align="right">
+						<input style="background-color: #45619d; color: white;" type="submit" value="Create">
 						<a href="displayEvents"><input type="button" value="Cancel"></a>
 					</td>
-					
-					<td colspan="2"></td>
 				</tr>
 			</tbody>
 		</table>

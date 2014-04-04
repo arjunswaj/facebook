@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Events</title>
 </head>
 <body>
-<a href="event/createEventPage.jsp"><input type="button" value="Create New Event" /></a>
+<a href="createEventPage.jsp"><input type="button" value="+ Create Event" /></a>
+<br /><br />
+<p><b>Page Under Construction</b></p>
+</iframe>
 </body>
 </html>

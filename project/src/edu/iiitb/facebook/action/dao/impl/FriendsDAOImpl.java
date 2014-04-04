@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.iiitb.facebook.action.dao.FriendsDAO;
@@ -16,6 +14,7 @@ import edu.iiitb.facebook.action.model.FriendSuggestions;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.CommonUtil;
 import edu.iiitb.facebook.util.ConnectionPool;
+
 
 public class FriendsDAOImpl implements FriendsDAO
 {
@@ -114,7 +113,7 @@ public class FriendsDAOImpl implements FriendsDAO
 	String CONFIRM_FRIEND_QRY = "update friends_with set status=?, friend_request_accepted =? where request_by=? and request_for=? ";
 
 	String REJECT_FRIEND_QRY = "delete from  friends_with  where request_by=? and request_for=? ";
-
+	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
 	{
@@ -165,6 +164,7 @@ public class FriendsDAOImpl implements FriendsDAO
 	{
 		return null;
 	}
+
 
 	@Override
 	public boolean addFriend(int loggedInUserId, int otherUserId)
@@ -360,3 +360,4 @@ public class FriendsDAOImpl implements FriendsDAO
 	}
 
 }
+

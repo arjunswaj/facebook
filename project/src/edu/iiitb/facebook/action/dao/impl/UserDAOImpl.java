@@ -207,7 +207,17 @@ public class UserDAOImpl implements UserDAO
 		}
 		return ret;
 
+}
+
+	
+	public void setsecurity(String question, String answer, String phone) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	
+	public void setcurrentprofilepic(InputStream photo, int id) {
+		// TODO Auto-generated method stub
 		
 	}
 }
