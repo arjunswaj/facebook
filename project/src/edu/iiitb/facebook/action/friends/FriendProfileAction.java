@@ -268,6 +268,27 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		}
 		return SUCCESS;
 	}
+	
+	public String blockfriend() {
+		User user = (User) session.get("user");
+		if (user != null) {
+			setLref(user.getUserId() + "");
+			if (fref != null) {
+				FriendsDAO friendsDAO = new FriendsDAOImpl();
+				if ( !friendsDAO.blockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) ){
+					return ERROR;
+				} else {
+					setRequestStatus(FriendInfo.RequestStatus.BLOCKED.getReqstat());
+				}
+			} else {
+				return ERROR;
+			}
+
+		} else {
+			return LOGIN;
+		}
+		return SUCCESS;
+	}
 
 	Map<String, Object> session;
 

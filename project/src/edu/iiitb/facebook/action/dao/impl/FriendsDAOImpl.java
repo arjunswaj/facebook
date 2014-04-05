@@ -44,12 +44,13 @@ public class FriendsDAOImpl implements FriendsDAO
 			+ "        SELECT request_for " 
 			+ "        FROM friends_with "
 			+ "        WHERE request_by = ? " 
-			+ "        AND status = 'accepted' " 
+			+ "        AND status in ('accepted','pending','blocked') " 
 			+ "        UNION " 
 			+ "        SELECT request_by "
 			+ "        FROM friends_with " 
 			+ "        WHERE request_for = ? " 
-			+ "        AND status = 'accepted' " + "    ) "
+			+ "        AND status in ('accepted','pending','blocked') " 
+			+ "    ) "
 			+ "    UNION " 
 			+ "    SELECT request_by " 
 			+ "    FROM friends_with " 
@@ -70,12 +71,12 @@ public class FriendsDAOImpl implements FriendsDAO
 			+ "        SELECT request_for " 
 			+ "        FROM friends_with "
 			+ "        WHERE request_by = ? " 
-			+ "        AND status = 'accepted' " 
+			+ "        AND status in ('accepted','pending','blocked') " 
 			+ "        UNION " 
 			+ "        SELECT request_by "
 			+ "        FROM friends_with " 
 			+ "        WHERE request_for = ? " 
-			+ "        AND status = 'accepted' " 
+			+ "        AND status in ('accepted','pending','blocked') " 
 			+ "    )" 
 			+ ")";
 	
@@ -113,6 +114,12 @@ public class FriendsDAOImpl implements FriendsDAO
 	String CONFIRM_FRIEND_QRY = "update friends_with set status=?, friend_request_accepted =? where request_by=? and request_for=? ";
 
 	String REJECT_FRIEND_QRY = "delete from  friends_with  where request_by=? and request_for=? ";
+	
+	String BLOCK_FRIEND_QUERY = "" +
+		"UPDATE friends_with " +
+		"SET status = 'blocked' " +
+		"WHERE request_by IN (?,?) " +
+		"AND request_for IN (?, ?) ";
 	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
@@ -262,9 +269,27 @@ public class FriendsDAOImpl implements FriendsDAO
 	}
 
 	@Override
-	public boolean blockFriend(int loggedInUserId, int otherUserId)
-	{
-		// TODO Auto-generated method stub
+	public boolean blockFriend(int loggedInUserId, int otherUserId) {
+		Connection conn = ConnectionPool.getConnection();
+
+		try {
+			PreparedStatement preparedstmt = conn.prepareStatement(BLOCK_FRIEND_QUERY);
+
+			preparedstmt.setInt(1, otherUserId);
+			preparedstmt.setInt(2, loggedInUserId);
+			preparedstmt.setInt(3, otherUserId);
+			preparedstmt.setInt(4, loggedInUserId);
+
+			if (preparedstmt.executeUpdate() > 0) {
+				return true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionPool.freeConnection(conn);
+		}
 		return false;
 	}
 

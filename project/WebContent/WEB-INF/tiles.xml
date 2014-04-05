@@ -15,7 +15,15 @@
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
 
-
+	<!-- Layout with no left and right pane -->
+		<definition name="simpleLayout" template="/WEB-INF/content/tiles/SimpleLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="central-pane" value="" />
+		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
+	</definition>
+	
+	
 	<definition name="baseLayout_withoutleftPane"
 		template="/WEB-INF/content/tiles/BaseLayoutWithoutLeftPane.jsp">
 		<put-attribute name="title" value="" />
@@ -52,7 +60,8 @@
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
-
+	
+	<!-- This is the base layout for event functionality related pages -->
 	<definition name="baseLayoutWithoutRightPane"
 		template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
 		<put-attribute name="title" value="" />
@@ -62,17 +71,21 @@
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
+	
+	<!-- This is for the Events page -->
 	<definition name="eventsPage.tiles" extends="baseLayoutWithoutRightPane">
 		<put-attribute name="title" value="Events" />
 		<put-attribute name="central-pane" value="/event/eventsPage.jsp" />
 	</definition>
+	
+	<!-- This is for the event page of an event -->
 	<definition name="eventPage.tiles" extends="baseLayoutWithoutRightPane">
 		<put-attribute name="title" value="Event" />
 		<put-attribute name="central-pane" value="/event/eventPage.jsp" />
 	</definition>
 
 	<!-- This is for the friends page -->
-	<definition name="friends.tiles" extends="baseLayout_withoutleftPane">
+	<definition name="friends.tiles" extends="simpleLayout">
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 	</definition>

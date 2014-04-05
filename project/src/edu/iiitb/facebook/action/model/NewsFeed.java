@@ -17,13 +17,15 @@ public class NewsFeed {
   private String postType;
 
   private String updatedTime;
+  private int likeCount;
+  private boolean haveILiked;
 
   private List<PostComment> postComments = new ArrayList<PostComment>();
 
   public NewsFeed(int postId, int fromUserId, String fromUserFirstName,
       String fromUserLastName, int toUserId, String toUserFirstName,
       String toUserLastName, String postText, String postType,
-      String updatedTime) {
+      String updatedTime, int likeCount, boolean haveILiked) {
     super();
     this.postId = postId;
     this.fromUserId = fromUserId;
@@ -35,6 +37,8 @@ public class NewsFeed {
     this.postText = postText;
     this.postType = postType;
     this.updatedTime = updatedTime;
+    this.likeCount = likeCount;
+    this.haveILiked = haveILiked;
   }
 
   public int getPostId() {
@@ -123,6 +127,22 @@ public class NewsFeed {
 
   public void setPostComments(List<PostComment> postComments) {
     this.postComments = postComments;
+  }
+
+  public int getLikeCount() {
+    return likeCount;
+  }
+
+  public void setLikeCount(int likeCount) {
+    this.likeCount = likeCount;
+  }
+
+  public boolean isHaveILiked() {
+    return haveILiked;
+  }
+
+  public void setHaveILiked(boolean haveILiked) {
+    this.haveILiked = haveILiked;
   }
 
 }

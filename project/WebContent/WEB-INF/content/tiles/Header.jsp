@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE>
 <html>
 <head>
@@ -6,6 +9,21 @@
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script>
+	function gotoProfile() {
+	
+		document.getElementById("facebookHeader").action = "profile";
+		document.getElementById("facebookHeader").submit();
+	}
+	function gotoNewsFeeds() {
+		
+		document.getElementById("facebookHeader").action = "newsfeeds";
+		document.getElementById("facebookHeader").submit();
+	}
+	function gotoMessages() {
+		
+		document.getElementById("facebookHeader").action = "listLatestMessages";
+		document.getElementById("facebookHeader").submit();
+	}
 	function search() {
 
 		document.getElementById("facebookHeader").action = "search";
@@ -44,38 +62,43 @@
 <body>
 
 	<div class="navbar navbar-default">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><img width="35px"
-				src="/facebook/images/icon.jpg"></a>
+			<!-- facebook icon -->
+			<a class="navbar-brand" href="#"><img width="35px" src="/facebook/images/icon.jpg"></a>
+			
 			<form class="navbar-form" id="facebookHeader" method="post">
+				<!-- All elements in a single row -->
 				<div class="row">
+				
 					<div class="col-lg-6">
 						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for people, places and things" name="email"
-								id="names" /> <span class="input-group-btn">
-								<button class="btn btn-default" type="button"
-									onclick="search();">
+							<input type="text" class="form-control" placeholder="Search for people, places and things" name="email" id="names" /> 
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button" onclick="search();">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
-						</div>
-					</div>
+						</div> <!-- end of div  input-group -->
+					</div> <!-- end of col-lg-6 -->
+					
+
 					<div class="btn-group">
-						<button type="button" class="btn btn-primary">
-							<b>User</b>
+						<!-- Profile Button -->
+						<button type="button" id="profile" class="btn btn-primary" onclick="gotoProfile();">
+							<b><s:property value="#session['user'].firstName"/> <s:property value="#session['user'].lastName"/></b>
 						</button>
-						<button type="button" class="btn btn-primary">
-							<b>Home</b>
+						<!-- Home Button -->
+						<button type="button" id="home" class="btn btn-primary" onclick="gotoNewsFeeds();"> <b>Home</b>
 						</button>
-						<button type="button" class="btn btn-primary">
+						<!-- My Friends Button -->
+						<button type="button" id="friends" class="btn btn-primary">
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
-						<button type="button" class="btn btn-primary">
+						<!-- Messages button -->
+						<button type="button" id="messages" class="btn btn-primary" onclick="gotoMessages();">
 							<span class="glyphicon glyphicon-comment"></span>
 						</button>
 					</div>
-
+					
 					<div class="btn-group">
 						<button type="button" class="btn btn-primary dropdown-toggle"
 							data-toggle="dropdown">
@@ -87,6 +110,9 @@
 							<li><a href="#">Logout</a></li>
 						</ul>
 					</div>
+								
+					
+					
 				</div>
 			</form>
 		</div>

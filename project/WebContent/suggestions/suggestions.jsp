@@ -8,7 +8,56 @@
 <title>Friend Suggestions</title>
 </head>
 <body>
-	<script>
+	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
+	<div id="suggestions">
+		<s:iterator value="friendSuggestionsList" var="fsl">
+			<s:set var="friendId" value="%{friendId}"/>
+			<%
+			  int friendId = (Integer) pageContext.getAttribute("friendId");						    
+			%>
+			<form id="suggFriendForm_<%=friendId %>" class="suggFriendForm" action="addSuggestedFriend" method="post">
+			<div class="suggFriendForm" align="center">
+				<img width="80px" src="image?userId=<s:property value="friendId" />" />
+				<div>
+					<b><s:property value="firstName" /></b>
+					<b><s:property value="lastName" /></b>
+					<br>
+					<a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
+					<s:submit align="center" id="AddFriend" value="+ Add Friend" />
+					<s:hidden name="friendId" value="%{friendId}" />
+				</div>
+			</div>
+			</form>
+			<hr>
+		</s:iterator>
+	</div>
+</body>
+<script src="js/jquery-1.9.1.js"></script>
+	<script type="text/javascript">	
+	$(".suggFriendForm").submit(function(event) {
+
+		/* stop form from submitting normally */
+		event.preventDefault();
+
+		/* get some values from elements on the page: */
+		var form = $(this); 
+		var url = form[0].action;
+		var friendId = form[0][1].value;
+
+		/* Send the data using post */
+		var posting = $.post(url, {
+			"friendId" : friendId			
+		});
+		
+		posting.done(function(addSuggFriendData) {
+			if (addSuggFriendData.status == true) {
+				form[0][0].value = "Friend Request Sent";
+				form[0][0].disabled = true;
+			}
+		});
+	});
+		
+		
 	function getMutualFriends(userId, friendId) {
 		var w = 300;
 		var h = 600;
@@ -19,6 +68,7 @@
 			window.open(url,"_blank",'directories=no, location=no,resizable=no, titlebar=no, status=no, width = ' + w +', height =' + h + ',top = ' + t +',left = ' + l);
 		}
 	}
+	
 	$(document).ready(function(){
 		  $("#addfriend").click(function(){
 		   	$(this).html('Friend Request Sent');
@@ -26,22 +76,4 @@
 	});
 		
 	</script>
-	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
-	<div id="suggestions">
-		<s:iterator value="friendSuggestionsList">
-			<div align="center" id="suggestionsblock">	
-				<div >
-					<img width="80px" src="image?userId=<s:property value="friendId" />" />
-				</div>
-				<div >
-					<b><s:property value="firstName" /></b>
-					<b><s:property value="lastName" /></b>
-					<br><a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
-					<br><button type="button" class="btn btn-default" id="addfriend"> + Add Friend</button>	
-				</div>
-			</div>
-			<hr>
-		</s:iterator>
-	</div>
-</body>
 </html>

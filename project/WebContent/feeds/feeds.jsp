@@ -134,6 +134,13 @@
 					</div>
 					<div class="timestamp">
 						<s:property value="updatedTime" />
+						<s:if test="#feeds.haveILiked == true">
+							<span>Liked</span>
+						</s:if>
+						<s:elseif test="#feeds.haveILiked == false">
+							<span>Like</span>
+						</s:elseif>
+						<s:property value="#feeds.likeCount" /> likes
 					</div>
 					<div>
 						<s:iterator value="#feeds.postComments" var="comments">
@@ -152,6 +159,13 @@
 								</div>
 								<div class="timestamp">
 									<s:property value="#comments.commentTime" />
+									<s:if test="#comments.haveILiked == true">
+										<span>Liked</span>
+									</s:if>
+									<s:elseif test="#comments.haveILiked == false">
+										<span>Like</span>
+									</s:elseif>
+									<s:property value="#comments.likeCount" /> likes
 								</div>
 							</div>
 							<div class="clear"></div>
