@@ -5,4 +5,5 @@
 
 # eclipse specific git ignore
 bin/**
+bin
 .classpath
