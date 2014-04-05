@@ -11,17 +11,17 @@
 <script>
 	function gotoProfile() {
 	
-		document.getElementById("facebookHeader").action = "profile";
+		document.getElementById("facebookHeader").action = "/facebook/profile";
 		document.getElementById("facebookHeader").submit();
 	}
 	function gotoNewsFeeds() {
 		
-		document.getElementById("facebookHeader").action = "newsfeeds";
+		document.getElementById("facebookHeader").action = "/facebook/newsfeeds";
 		document.getElementById("facebookHeader").submit();
 	}
 	function gotoMessages() {
 		
-		document.getElementById("facebookHeader").action = "listLatestMessages";
+		document.getElementById("facebookHeader").action = "/facebook/listLatestMessages";
 		document.getElementById("facebookHeader").submit();
 	}
 	function search() {
