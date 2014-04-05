@@ -84,7 +84,7 @@
 					<div class="btn-group">
 						<!-- Profile Button -->
 						<button type="button" id="profile" class="btn btn-primary" onclick="gotoProfile();">
-							<b><s:property value="#session['user'].firstName"/> <s:property value="#session['user'].lastName"/></b>
+							<b><s:property value="#session['user'].firstName"/></b>
 						</button>
 						<!-- Home Button -->
 						<button type="button" id="home" class="btn btn-primary" onclick="gotoNewsFeeds();"> <b>Home</b>
