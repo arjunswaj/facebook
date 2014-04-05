@@ -9,27 +9,36 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
+import edu.iiitb.facebook.action.model.LatestMessage;
 import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.Constants;
 
+// TODO: Fix names
 public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
-
-	private List<Message> messages;
-	private int withUser = 0;
-	
 	private Map<String, Object> session;
-
-	public String messageThread()
+	
+	private List<Message> messages;
+	private List<LatestMessage> latestMessages;
+	private int withUser = -1; // the current other user with whom this 'user' is having the conversation.
+	/**
+	 * Load the messages
+	 * @return
+	 */
+	public String loadMessages()
 	{
-		int me = ((User)(session.get(Constants.USER))).getUserId();
-		if (withUser == 0)
-			return ERROR;
+		int user = ((User)(session.get(Constants.USER))).getUserId();
 
+		// latest messages list
 		MessageDAO dao = new MessageDAOImpl();
-		messages = dao.getMessages(withUser, me);
+		latestMessages = dao.getLatestConversationforAllUsersWith(user);
+		if (withUser < 0 && !latestMessages.isEmpty())
+			withUser = latestMessages.get(0).getOtherUser();
+		
+		// message thread
+		messages = dao.getMessages(withUser, user);
 		return SUCCESS;
 	}
 
@@ -53,10 +62,8 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		dao.insert(replyMsg);
 
 		// get the messages for display
-		messages = dao.getMessages(to, from);
 		withUser = to;
-
-		return SUCCESS;
+		return loadMessages();
 	}
 
 	public List<Message> getMessages()
@@ -107,5 +114,15 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	{
 		this.session = arg0;
 		
+	}
+
+	public List<LatestMessage> getLatestMessages()
+	{
+		return latestMessages;
+	}
+
+	public void setLatestMessages(List<LatestMessage> latestMessages)
+	{
+		this.latestMessages = latestMessages;
 	}
 }

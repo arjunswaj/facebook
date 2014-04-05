@@ -16,11 +16,11 @@ public interface MessageDAO
 	public List<Message> getMessages(int sender, int recipient);
 	
 	/**
-	 * Gets the latest message from all users to the specified recipient
-	 * @param recipient
+	 * Gets the latest conversation between the specified user and each of the other users
+	 * @param user The specified user
 	 * @return
 	 */
-	public List<LatestMessage> getLatestMessagesFromAllUsers(int recipient);
+	public List<LatestMessage> getLatestConversationforAllUsersWith(int user);
 
 	/**
 	 * Insert the reply into the message table

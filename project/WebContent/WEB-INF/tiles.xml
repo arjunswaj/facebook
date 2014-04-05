@@ -37,10 +37,19 @@
 		<put-attribute name="central-pane" value="/suggestions/suggestions.jsp" />
 	</definition>
 
+	<!-- Base layout for the messages page -->
+	<definition name="messagesBaseLayout" template="/WEB-INF/content/tiles/MessagesBaseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="left-pane" value="" />
+		<put-attribute name="central-pane" value="" />
+		<put-attribute name="right-pane" value="" />
+		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
+	</definition>
+	
 	<!-- This is for the messages page -->
-	<definition name="messages.tiles" extends="baseLayout">
+	<definition name="messages.tiles" extends="messagesBaseLayout">
 		<put-attribute name="title" value="Messages" />
-		<put-attribute name="left-pane" value="/messages/list_latest_messages.jsp" />
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
 
@@ -62,7 +71,7 @@
 		<put-attribute name="central-pane" value="/event/eventPage.jsp" />
 	</definition>
 
-	<!-- This is for the messages page -->
+	<!-- This is for the friends page -->
 	<definition name="friends.tiles" extends="baseLayout_withoutleftPane">
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />

@@ -73,13 +73,25 @@ public class MessageDAOImpl implements MessageDAO
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * edu.iiitb.facebook.action.dao.MessageDAO#getLatestMessagesFromAllUsers
+	 * edu.iiitb.facebook.action.dao.MessageDAO#getLatestConversationforAllUsersWith
 	 * (int)
 	 */
 	@Override
-	public List<LatestMessage> getLatestMessagesFromAllUsers(int recipient)
+	public List<LatestMessage> getLatestConversationforAllUsersWith(int user)
 	{
-		final String query = "select user.id, user.first_name, user.last_name, message.text, message.sent_at from user, message,  (select max(sent_at) as sent_at, sender, recipient from message group by sender, recipient) as latest_message where user.id = message.sender and message.sender = latest_message.sender and message.sent_at = latest_message.sent_at and message.recipient = latest_message.recipient and message.recipient = ?";
+		//final String query = "select user.id, user.first_name, user.last_name, message.text, message.sent_at from user, message,  (select max(sent_at) as sent_at, sender, recipient from message group by sender, recipient) as latest_message where user.id = message.sender and message.sender = latest_message.sender and message.sent_at = latest_message.sent_at and message.recipient = latest_message.recipient and message.recipient = ?";
+		final String query = "select"
+				+ " user.id, user.first_name, user.last_name, message.text,"
+				+ " message.sent_at"
+				+ " from"
+				+ " user, message, (select max(sent_at) as sent_at, sender, recipient"
+					+ " from message group by sender, recipient) as latest_message"
+				+ " where"
+				+ " user.id = message.sender"
+				+ " and message.sender = latest_message.sender"
+				+ " and message.sent_at = latest_message.sent_at"
+				+ " and message.recipient = latest_message.recipient"
+				+ " and message.recipient = ?";
 
 		List<LatestMessage> latestMsgs = new LinkedList<LatestMessage>();
 
@@ -87,11 +99,8 @@ public class MessageDAOImpl implements MessageDAO
 		PreparedStatement stmt;
 		try
 		{
-			//System.out.println("Recipient is : " + recipient);
-			//System.out.println("Query is : " + query);
 			stmt = connection.prepareStatement(query);
-			stmt.setInt(1, recipient);
-			//System.out.println("Prepared statement is : " + stmt);
+			stmt.setInt(1, user);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
@@ -102,7 +111,7 @@ public class MessageDAOImpl implements MessageDAO
 				latestMsg.setSenderLastName(rs.getString("last_name"));
 				latestMsg.setText(rs.getString("text"));
 				latestMsg.setSentAt(rs.getTimestamp("sent_at"));
-				latestMsg.setUser(recipient);
+				latestMsg.setUser(user);
 
 				latestMsgs.add(latestMsg);
 			}

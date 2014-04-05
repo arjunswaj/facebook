@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
+<link rel="stylesheet" type="text/css" href="messages/messages.css" />
 </head>
 <script type="text/javascript">
 	$.subscribe('beforeReply', function(event, data) {
@@ -27,26 +28,48 @@
 </script>
 
 <body>
-	<s:iterator value="messages">
-		<b>
-		<s:property value="senderFirstName" />
-		<s:property value="senderLastName" />
-		</b>
-		<s:property value="sentAt" />
-		<br>
-		<s:property value="text" />
-		<br>
-		<br>
-	</s:iterator>
-
-	<s:form id="replyform" action="reply">
-		<s:textarea name="reply" value="" cols="75" rows="5"
-			placeholder="Write a reply" />
-		<s:hidden name="to" value="%{withUser}" />
-		<sj:submit targets="replyResult" value="Reply" timeout="25000"
-			indicator="replyIndicator" onBeforeTopics="beforeReply"
-			onCompleteTopics="completeReply" onErrorTopics="errorStateReply"
-			align="right" />
-	</s:form>
+	<div id="container" style="width: 100%">
+		<div id="latestmessages" class="latest-messages">
+			List of latest messages
+			<s:iterator value="latestMessages">
+				<li><a
+					href="messages.action?withUser=<s:property value="otherUser" />" onClick="a_onClick()">
+						<s:property value="senderFirstName" /> <s:property
+							value="senderLastName" /> <s:property value="text" /> <s:property
+							value="sentAt" />
+				</a></li>
+			</s:iterator>
+		</div>
+		<div id="messagethread" class="message-thread">
+			<s:iterator value="messages">
+				<div id="message" class="message">
+					<div id="messageThreadPhoto" class="message-photo">
+						<img width="100%" height="100%"
+							src="image?userId=<s:property value="sender" />" />
+					</div>
+					<div style="width: 90% float: left">
+						<b> <s:property value="senderFirstName" /> <s:property
+								value="senderLastName" />
+						</b>
+						<s:property value="sentAt" />
+						<br>
+					</div>
+					<div style="width: 90% float: left">
+						<s:property value="text" />
+						<br> <br>
+					</div>
+				</div>
+			</s:iterator>
+		</div>
+		<s:form id="replyform" action="reply">
+			<s:textarea name="reply" value="" cols="50" rows="5"
+				placeholder="Write a reply" />
+			<s:hidden name="to" value="%{withUser}" />
+			<sj:submit targets="replyResult" value="Reply" timeout="25000"
+				indicator="replyIndicator" onBeforeTopics="beforeReply"
+				onCompleteTopics="completeReply" onErrorTopics="errorStateReply"
+				align="right" />
+		</s:form>
+	</div>
 </body>
 </html>

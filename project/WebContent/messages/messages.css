@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.latest-messages {
+	width: 36%;
+	height: 100%;
+	float: left;
+}
+
+.message-thread {
+	width: 64%;
+	height: 100%;
+	float: left;
+	border: 5px;
+}
+
+.message {
+	width: 100%;
+	height: 75px;
+	float: left;
+}
+
+.message-photo {
+	width: 10%;
+	height: 100%;
+	float: left;
+}
