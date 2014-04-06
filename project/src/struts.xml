@@ -98,6 +98,7 @@
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">friends.tiles</result>
+			<result name="error" type="tiles">error.tiles</result>
 			<result name="login">/login.jsp</result>
 
 		</action>
