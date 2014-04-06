@@ -195,7 +195,7 @@ CREATE TABLE `invitation` (
   `sent_by` int(11) NOT NULL,
   `sent_to` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
-  `confirmation` enum('join','maybe','nope') NOT NULL DEFAULT 'nope',
+  `confirmation` enum('pending','join','maybe','nope') NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`),
   KEY `sent_by` (`sent_by`),
   KEY `sent_to` (`sent_to`),
