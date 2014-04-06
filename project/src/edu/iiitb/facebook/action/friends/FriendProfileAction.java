@@ -82,9 +82,9 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		{
 			setLref(user.getUserId() + "");
 
-			if ((fref != null && fref.equals(lref)) || fref == null)
+			if ((fref != null && fref.equals(lref)) || fref == null || "".equals(fref))
 			{
-				if (fref == null)
+				if (fref == null || "".equals(fref))
 				{
 					setFref(user.getUserId() + "");
 				}
@@ -268,23 +268,33 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		}
 		return SUCCESS;
 	}
-	
-	public String blockfriend() {
+
+	public String blockfriend()
+	{
 		User user = (User) session.get("user");
-		if (user != null) {
+		if (user != null)
+		{
 			setLref(user.getUserId() + "");
-			if (fref != null) {
+			if (fref != null)
+			{
 				FriendsDAO friendsDAO = new FriendsDAOImpl();
-				if ( !friendsDAO.blockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) ){
+				if (!friendsDAO.blockFriend(Integer.parseInt(lref), Integer.parseInt(fref)))
+				{
 					return ERROR;
-				} else {
+				}
+				else
+				{
 					setRequestStatus(FriendInfo.RequestStatus.BLOCKED.getReqstat());
 				}
-			} else {
+			}
+			else
+			{
 				return ERROR;
 			}
 
-		} else {
+		}
+		else
+		{
 			return LOGIN;
 		}
 		return SUCCESS;

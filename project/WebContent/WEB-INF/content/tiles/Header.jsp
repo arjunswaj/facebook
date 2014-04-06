@@ -55,9 +55,11 @@
 					success : function(data) {
 
 						response($.map(data, function(item) {
+							$("#fref").val(item.userid);
+
 							return {
 								label : item.name,
-								value : item.value,
+								value : item.name,
 							}
 						}));
 					},
@@ -87,7 +89,8 @@
 					<div class="input-group">
 						<input type="text" class="form-control"
 							placeholder="Search for people, places and things" name="email"
-							id="names" autocomplete="off" /> <span class="input-group-btn">
+							id="names" autocomplete="off" /> <input type="text" id="fref"
+							name="fref" hidden="true" /> <span class="input-group-btn">
 							<button class="btn btn-default" type="button" onclick="search();">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>

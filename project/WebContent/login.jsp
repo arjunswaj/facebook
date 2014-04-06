@@ -21,7 +21,7 @@
 
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
 	onunload="" bgcolor="#3b5998">
-	<img src="/images/icon.jpg" />
+	<img src="images/icon.jpg" />
 	<a style="color: #ffffff;" href="login.jsp"><h1 align="middle">Facebook</h1></a>
 	<div align="center">
 		<s:form action="login" autocomplete="off">
@@ -31,6 +31,12 @@
 
 			<s:submit value="login" />
 		</s:form>
+	</div>
+
+
+	<p>
+	<div align="left">
+		<img src="images/like.png" />
 	</div>
 </body>
 </html>

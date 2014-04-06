@@ -7,11 +7,14 @@
 <%
 	Connection conn = ConnectionPool.getConnection();
 
-	String name = request.getParameter("name");
+	String name = "%" + request.getParameter("name") + "%";
 
-	PreparedStatement stmt = conn.prepareStatement("select first_name, last_name, email from user where first_name like '%" + name
-			+ "%' or last_name like '%" + name + "%' or email like '%" + name + "%'");
+	PreparedStatement stmt = conn
+			.prepareStatement("select id,first_name, last_name, email from user where first_name like ? or last_name like ? or email like ?");
 
+	stmt.setString(1, name);
+	stmt.setString(2, name);
+	stmt.setString(3, name);
 	ResultSet rs = stmt.executeQuery();
 	JSONArray jsonArr = new JSONArray();
 
@@ -19,8 +22,9 @@
 	while (rs.next())
 	{
 
-		json.put("name", rs.getString(1) + " " + rs.getString(2));
-		json.put("value", rs.getString(3));
+		json.put("name", rs.getString(2) + " " + rs.getString(3));
+		json.put("value", rs.getString(4));
+		json.put("userid", rs.getString(1));
 		jsonArr.add(json);
 	}
 	ConnectionPool.freeConnection(conn);

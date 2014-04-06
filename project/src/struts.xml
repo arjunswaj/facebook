@@ -134,12 +134,13 @@
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
 			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="input">/login.jsp</result>
-
 		</action>
 
-
 		<action name="search" class="edu.iiitb.facebook.action.search.SearchAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="error" type="tiles">error.tiles</result>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="logout" class="edu.iiitb.facebook.action.login.LogoutAction">
