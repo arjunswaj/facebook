@@ -26,6 +26,8 @@ import edu.iiitb.facebook.util.ConnectionPool;
 @ParentPackage("tiles-default")
 public class EventAction extends ActionSupport implements SessionAware
 {
+	private User inviter;
+	private String confirmationIfUserIsInvitee="going";
 	private String eventId;
 	private String eventName;
 	private String eventDescription;
@@ -67,7 +69,10 @@ public class EventAction extends ActionSupport implements SessionAware
 		
 		going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join").size()).toString();
 		maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe").size()).toString();
-		invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "nope").size()).toString();
+		invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "pending").size()).toString();
+		
+		setInviter(eventDAO.getInviter(cn, Integer.parseInt(eventId)));
+		confirmationIfUserIsInvitee=eventDAO.getConfirmationStatus(cn, Integer.parseInt(eventId), user.getUserId());
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
@@ -157,5 +162,22 @@ public class EventAction extends ActionSupport implements SessionAware
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		session=arg0;
+	}
+
+	public User getInviter() {
+		return inviter;
+	}
+
+	public void setInviter(User inviter) {
+		this.inviter = inviter;
+	}
+
+	public String getConfirmationIfUserIsInvitee() {
+		return confirmationIfUserIsInvitee;
+	}
+
+	public void setConfirmationIfUserIsInvitee(
+			String confirmationIfUserIsInvitee) {
+		this.confirmationIfUserIsInvitee = confirmationIfUserIsInvitee;
 	}
 }

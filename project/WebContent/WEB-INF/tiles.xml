@@ -61,7 +61,23 @@
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
 	
-	<!-- This is the base layout for event functionality related pages -->
+	<!-- This is the base layout for the Events page -->
+	<definition name="baseLayoutWithoutSidePanes"
+		template="/WEB-INF/content/tiles/BaseLayoutWithoutSidePanes.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="left-pane" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="central-pane" value="" />
+		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
+	</definition>
+	
+	<!-- This is for the Events page -->
+	<definition name="eventsPage.tiles" extends="baseLayoutWithoutSidePanes">
+		<put-attribute name="title" value="Events" />
+		<put-attribute name="central-pane" value="/event/eventsPage.jsp" />
+	</definition>
+	
+	<!-- This is the base layout for an event's page -->
 	<definition name="baseLayoutWithoutRightPane"
 		template="/WEB-INF/content/tiles/BaseLayoutWithoutRightPane.jsp">
 		<put-attribute name="title" value="" />
@@ -70,12 +86,6 @@
 		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
-	</definition>
-	
-	<!-- This is for the Events page -->
-	<definition name="eventsPage.tiles" extends="baseLayoutWithoutRightPane">
-		<put-attribute name="title" value="Events" />
-		<put-attribute name="central-pane" value="/event/eventsPage.jsp" />
 	</definition>
 	
 	<!-- This is for the event page of an event -->

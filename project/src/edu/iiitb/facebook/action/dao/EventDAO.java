@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import edu.iiitb.facebook.action.model.Event;
+import edu.iiitb.facebook.action.model.Invitation;
+import edu.iiitb.facebook.action.model.User;
 
 public interface EventDAO
 {
@@ -16,4 +18,9 @@ public interface EventDAO
 	public Map<String, String> getInvitees(Connection cn, int inviterId, int eventId, String confirmation) throws SQLException;
 	public void deleteInvitation(Connection cn, int inviterId, int inviteeId, int eventId) throws SQLException;
 	public void editEvent(Connection cn, int userId, int eventId, Event e) throws SQLException;
+	public List<Invitation> getEventsInvitedTo(Connection cn, int inviteeId, String date) throws SQLException;
+	public List<String> getDatesOfEventsInvitedTo(Connection cn, int inviteeId) throws SQLException;
+	public User getInviter(Connection cn, int eventId) throws SQLException;
+	public String getConfirmationStatus(Connection cn, int eventId, int inviteeId) throws SQLException;
+	public void setConfirmationStatus(Connection cn, int eventId, int inviteeId, String confirmation) throws SQLException;
 }
