@@ -5,16 +5,16 @@
 	height: 600px;
 }
 
-.latest-messages {
+.conversations {
 	width: 36%;
 	height: 100%;
 	float: left;
 }
 
-.message-thread {
+.conversation-thread {
 	width: 64%;
 	height: 70%;
-	float: left;
+	float: right;
 	overflow: auto;
 }
 

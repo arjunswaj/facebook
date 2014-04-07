@@ -8,7 +8,7 @@ public class LatestMessage
 	private int otherUser;
 	private String senderFirstName;
 	private String senderLastName;
-	private String text;
+	private String latestMessage;
 	private Timestamp sentAt;
 	
 	public String getSenderFirstName()
@@ -26,14 +26,6 @@ public class LatestMessage
 	public void setSentAt(Timestamp sentAt)
 	{
 		this.sentAt = sentAt;
-	}
-	public String getText()
-	{
-		return text;
-	}
-	public void setText(String text)
-	{
-		this.text = text;
 	}
 	public String getSenderLastName()
 	{
@@ -58,5 +50,13 @@ public class LatestMessage
 	public void setOtherUser(int otherUser)
 	{
 		this.otherUser = otherUser;
+	}
+	public String getLatestMessage()
+	{
+		return latestMessage;
+	}
+	public void setLatestMessage(String latestMessage)
+	{
+		this.latestMessage = latestMessage;
 	}
 }

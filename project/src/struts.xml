@@ -32,27 +32,37 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		
 		<!-- Start of messages related actions -->
 
-		<!-- This is for displaying the latest message thread -->
+		<!-- This is for displaying the messages page -->
 		<action name="messages" method="loadMessages"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">messages.tiles</result>
-			<result name="error">/messages/error.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		
+		<!--  This is for displaying all the conversations -->
+		<action name="conversation" method="loadMessages"
+			class="edu.iiitb.facebook.action.messages.MessagesAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<!-- This is for replying to a message -->
 		<action name="reply" method="reply"
 		    class="edu.iiitb.facebook.action.messages.ReplyAction">
 		    <interceptor-ref name="secureAccess"></interceptor-ref>
-		    <!-- <result name="success" type="tiles">messages.tiles</result> -->
 		    <result name="login">/login.jsp</result>
 		    <result type="json" name="success" /> 
 			<result type="json" name="input" />
 		</action>
 
 		<!-- End of messages related actions -->
+
 
 		<!-- This is for Posting Comments -->
 		<action name="postcomment"
