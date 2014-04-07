@@ -4,12 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import edu.iiitb.facebook.action.dao.EventDAO;
 import edu.iiitb.facebook.action.model.Event;
+import edu.iiitb.facebook.action.model.Invitation;
+import edu.iiitb.facebook.action.model.User;
 
 public class EventDAOImpl implements EventDAO
 {
@@ -26,16 +29,34 @@ public class EventDAOImpl implements EventDAO
 			"insert into invitation(sent_by, sent_to, event_id) values(?, ?, ?);";
 	
 	private static final String GET_POTENTIAL_INVITEES_QUERY=
-			"select u.id, u.first_name, u.last_name from user u where u.id in (select request_for from friends_with where request_by=? and request_status='accepted') or u.id in (select request_by from friends_with where request_for=? and request_status='accepted');";
+			"select u.id, u.first_name, u.last_name from user u where u.id in (select request_for from friends_with where request_by=? and status='accepted') or u.id in (select request_by from friends_with where request_for=? and status='accepted');";
+	
+	//private static final String GET_INVITEES_QUERY=
+		//	"select user.id, user.first_name, user.last_name from user, invitation where invitation.sent_by=? and invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
 	
 	private static final String GET_INVITEES_QUERY=
-			"select user.id, user.first_name, user.last_name from user, invitation where invitation.sent_by=? and invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
+			"select user.id, user.first_name, user.last_name from user, invitation where invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
 	
 	private static final String DELETE_INVITATION_QUERY=
 			"delete from invitation where sent_by=? and sent_to=? and event_id=?;";
 	
 	private static final String EDIT_EVENT_QUERY=
 			"update event set title=?, description=?, time=?, place=? where id=?;";
+	
+	private static final String GET_EVENTS_INVITED_TO_QUERY=
+			"select i.id, e.id, e.title, e.place, e.time, i.sent_by, u.first_name, u.last_name, i.confirmation from event e, invitation i, user u where e.id=i.event_id and i.sent_to=? and i.sent_by=u.id and time like ?;";
+	
+	private static final String GET_DATES_OF_EVENTS_INVITED_TO_QUERY=
+			"select distinct substr(e.time, 1, 10) as date from event e, invitation i where e.id=i.event_id and i.sent_to=? order by date;";
+	
+	private static final String GET_INVITER_QUERY=
+			"select u.* from user u, event e where e.id=? and e.created_by=u.id;";
+	
+	private static final String GET_CONFIRMATION_STATUS_QUERY=
+			"select confirmation from invitation where event_id=? and sent_to=?;";
+	
+	private static final String SET_CONFIRMATION_STATUS_QUERY=
+			"update invitation set confirmation=? where event_id=? and sent_to=?;";
 	
 	@Override
 	public int createEvent(Connection cn, int userId, Event e) throws SQLException
@@ -115,9 +136,11 @@ public class EventDAOImpl implements EventDAO
 	public Map<String, String> getInvitees(Connection cn, int inviterId, int eventId, String confirmation) throws SQLException
 	{
 		PreparedStatement ps=cn.prepareStatement(GET_INVITEES_QUERY);
-		ps.setInt(1, inviterId);
-		ps.setInt(2, eventId);
-		ps.setString(3, confirmation);
+		//ps.setInt(1, inviterId);
+		//ps.setInt(2, eventId);
+		ps.setInt(1, eventId);
+		//ps.setString(3, confirmation);
+		ps.setString(2, confirmation);
 		ResultSet rs=ps.executeQuery();
 		Map<String, String> m=new HashMap<String, String>();
 		while(rs.next())
@@ -145,6 +168,77 @@ public class EventDAOImpl implements EventDAO
 		ps.setString(3, e.getEventDate()+" "+e.getEventTime());
 		ps.setString(4, e.getEventPlace());
 		ps.setInt(5, eventId);
+		ps.executeUpdate();
+		ps.close();
+	}
+	
+	public List<Invitation> getEventsInvitedTo(Connection cn, int inviteeId, String date) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_EVENTS_INVITED_TO_QUERY);
+		ps.setInt(1, inviteeId);
+		ps.setString(2, date+"%");
+		List<Invitation> l=new ArrayList<Invitation>();
+		ResultSet rs=ps.executeQuery();
+		while(rs.next())
+			l.add(new Invitation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5).split("[ ]")[1].substring(1, 8), rs.getString(6), rs.getString(7)+" "+rs.getString(8), rs.getString(9)));
+		rs.close();
+		ps.close();
+		return l;
+	}
+
+	@Override
+	public List<String> getDatesOfEventsInvitedTo(Connection cn, int inviteeId) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_DATES_OF_EVENTS_INVITED_TO_QUERY);
+		ps.setInt(1, inviteeId);
+		List<String> l=new ArrayList<String>();
+		ResultSet rs=ps.executeQuery();
+		while(rs.next())
+			l.add(rs.getString(1));
+		rs.close();
+		ps.close();
+		return l;
+	}
+	
+	public User getInviter(Connection cn, int eventId) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_INVITER_QUERY);
+		ps.setInt(1, eventId);
+		ResultSet rs=ps.executeQuery();
+		User u=null;
+		if(rs.next())
+		{
+			u=new User();
+			u.setUserId(rs.getInt("id"));
+			u.setEmail(rs.getString("email"));
+			u.setFirstName(rs.getString("first_name"));
+			u.setLastName(rs.getString("last_name"));
+		}
+		rs.close();
+		ps.close();
+		return u;
+	}
+	
+	public String getConfirmationStatus(Connection cn, int eventId, int inviteeId) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_CONFIRMATION_STATUS_QUERY);
+		ps.setInt(1, eventId);
+		ps.setInt(2, inviteeId);
+		ResultSet rs=ps.executeQuery();
+		String cs="";
+		if(rs.next())
+			cs=rs.getString(1);
+		rs.close();
+		ps.close();
+		return cs;
+	}
+	
+	public void setConfirmationStatus(Connection cn, int eventId, int inviteeId, String confirmation) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(SET_CONFIRMATION_STATUS_QUERY);
+		ps.setString(1, confirmation);
+		ps.setInt(2, eventId);
+		ps.setInt(3, inviteeId);
 		ps.executeUpdate();
 		ps.close();
 	}

@@ -21,6 +21,7 @@ import edu.iiitb.facebook.util.ConnectionPool;
 @Namespace("event")
 public class InvitedListAction extends ActionSupport implements SessionAware
 {
+	private String readOnly="false";
 	private String eventId;
 	private Map<String, String> map;
 	private Map<String, Object> session;
@@ -46,7 +47,7 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "nope");
+		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "pending");
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
@@ -80,5 +81,13 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		session=arg0;
+	}
+
+	public String getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(String readOnly) {
+		this.readOnly = readOnly;
 	}
 }

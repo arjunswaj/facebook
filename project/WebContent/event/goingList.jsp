@@ -21,7 +21,11 @@
 				<tr>
 					<td width="50px"><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></td>
 					<td><s:property value="#u.value" /></td>
-					<td align="right"><a href='deleteInvitation?listName=going&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a></td>
+					<td align="right">
+						<s:if test='readOnly.equals("false")'>
+						<a href='deleteInvitation?listName=going&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>
+						</s:if>
+					</td>
 				</tr>
 			</table>
 			<hr />

@@ -33,16 +33,16 @@
 		</action>
 
 		<!-- Start of messages related actions -->
-		
+
 		<!-- This is for displaying the latest message thread -->
 		<action name="messages" method="loadMessages"
-		    class="edu.iiitb.facebook.action.messages.MessagesAction">
-		    <interceptor-ref name="secureAccess"></interceptor-ref>
-		    <result name="success" type="tiles">messages.tiles</result>
-		    <result name="error">/messages/error.jsp</result>
-		    <result name="login">/login.jsp</result>
+			class="edu.iiitb.facebook.action.messages.MessagesAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">messages.tiles</result>
+			<result name="error">/messages/error.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
-		
+
 		<action name="reply" method="reply"
 		    class="edu.iiitb.facebook.action.messages.ReplyAction">
 		    <interceptor-ref name="secureAccess"></interceptor-ref>
@@ -51,9 +51,9 @@
 		    <result type="json" name="success" /> 
 			<result type="json" name="input" />
 		</action>
-		
-		<!--  End of messages related actions -->
-		    
+
+		<!-- End of messages related actions -->
+
 		<!-- This is for Posting Comments -->
 		<action name="postcomment"
 			class="edu.iiitb.facebook.action.comment.PostCommentsAction">
@@ -100,6 +100,7 @@
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">friends.tiles</result>
+			<result name="error" type="tiles">error.tiles</result>
 			<result name="login">/login.jsp</result>
 
 		</action>
@@ -123,7 +124,7 @@
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
 			<result name="blockFriendlogin">/login.jsp</result>
 		</action>
-		
+
 		<action name="blockfriend"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="blockfriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -135,13 +136,21 @@
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
 			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="input">/login.jsp</result>
-
 		</action>
-			
 
 		<action name="search" class="edu.iiitb.facebook.action.search.SearchAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="error" type="tiles">error.tiles</result>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-		</action>		
+			<result name="login">/login.jsp</result>
+		</action>
+
+		<action name="logout" class="edu.iiitb.facebook.action.login.LogoutAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="redirectAction">login</result>
+			<result name="login" type="redirectAction">login</result>
+
+		</action>
 
 	</package>
 

@@ -27,16 +27,8 @@ import edu.iiitb.facebook.util.ConnectionPool;
 public class SendInvitesAction extends ActionSupport implements SessionAware
 {
 	private String eventId;
-	private String eventName;
-	private String eventDescription;
-	private String eventPlace;
-	private String eventDate;
-	private String eventTime;
 	private String invitees;
 	private List<Integer> inviteesList;
-	private String going="0";
-	private String maybe="0";
-	private String invited="0";
 	private Map<String, Object> session;
 	private User user;
 	
@@ -45,7 +37,7 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 		value="/sendInvites",
 		results=
 		{
-			@Result(name="success", type="tiles", location="eventPage.tiles"),
+			@Result(name="success", type="chain", location="event"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
@@ -60,12 +52,6 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		Event e=eventDAO.getEvent(cn, Integer.parseInt(eventId));
-		eventName=e.getEventName();
-		eventDescription=e.getEventDescription();
-		eventPlace=e.getEventPlace();
-		eventDate=e.getEventDate();
-		eventTime=e.getEventTime();
 		
 		inviteesList=new ArrayList<Integer>();
 		String[] sa=invitees.split("[|]");
@@ -74,9 +60,6 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 				inviteesList.add(Integer.parseInt(sa[k]));
 		eventDAO.sendInvites(cn, user.getUserId(), inviteesList, Integer.parseInt(eventId));
 		
-		going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join").size()).toString();
-		maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe").size()).toString();
-		invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "nope").size()).toString();
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
@@ -104,70 +87,6 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 
 	public void setEventId(String eventId) {
 		this.eventId = eventId;
-	}
-
-	public String getEventName() {
-		return eventName;
-	}
-
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
-	}
-
-	public String getEventDescription() {
-		return eventDescription;
-	}
-
-	public void setEventDescription(String eventDescription) {
-		this.eventDescription = eventDescription;
-	}
-
-	public String getEventDate() {
-		return eventDate;
-	}
-
-	public void setEventDate(String eventDate) {
-		this.eventDate = eventDate;
-	}
-
-	public String getEventPlace() {
-		return eventPlace;
-	}
-
-	public void setEventPlace(String eventPlace) {
-		this.eventPlace = eventPlace;
-	}
-
-	public String getEventTime() {
-		return eventTime;
-	}
-
-	public void setEventTime(String eventTime) {
-		this.eventTime = eventTime;
-	}
-
-	public String getGoing() {
-		return going;
-	}
-
-	public void setGoing(String going) {
-		this.going = going;
-	}
-
-	public String getMaybe() {
-		return maybe;
-	}
-
-	public void setMaybe(String maybe) {
-		this.maybe = maybe;
-	}
-
-	public String getInvited() {
-		return invited;
-	}
-
-	public void setInvited(String invited) {
-		this.invited = invited;
 	}
 
 	@Override

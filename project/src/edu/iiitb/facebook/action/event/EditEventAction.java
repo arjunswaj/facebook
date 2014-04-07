@@ -29,9 +29,6 @@ public class EditEventAction extends ActionSupport implements SessionAware
 	private String eventPlace;
 	private String eventDate;
 	private String eventTime;
-	private String going="0";
-	private String maybe="0";
-	private String invited="0";
 	private Map<String, Object> session;
 	private User user;
 	
@@ -41,7 +38,7 @@ public class EditEventAction extends ActionSupport implements SessionAware
 		results=
 		{
 			@Result(name="edit", location="/event/editEventPage.jsp"),
-			@Result(name="success", type="tiles", location="eventPage.tiles"),
+			@Result(name="success", type="chain", location="event"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
@@ -65,8 +62,6 @@ public class EditEventAction extends ActionSupport implements SessionAware
 			eventPlace=e.getEventPlace();
 			eventDate=e.getEventDate();
 			eventTime=e.getEventTime();
-			going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join").size()).toString();
-			maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe").size()).toString();
 			ConnectionPool.freeConnection(cn);
 			return "edit";
 		}
@@ -74,9 +69,6 @@ public class EditEventAction extends ActionSupport implements SessionAware
 		{
 			Event e=new Event(eventName, eventDescription, eventPlace, eventDate, eventTime);
 			eventDAO.editEvent(cn, user.getUserId(), Integer.parseInt(eventId), e);
-			going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join").size()).toString();
-			maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe").size()).toString();
-			invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "nope").size()).toString();
 			ConnectionPool.freeConnection(cn);
 			return SUCCESS;
 		}
@@ -136,30 +128,6 @@ public class EditEventAction extends ActionSupport implements SessionAware
 
 	public void setEventId(String eventId) {
 		this.eventId = eventId;
-	}
-
-	public String getGoing() {
-		return going;
-	}
-
-	public void setGoing(String going) {
-		this.going = going;
-	}
-
-	public String getMaybe() {
-		return maybe;
-	}
-
-	public void setMaybe(String maybe) {
-		this.maybe = maybe;
-	}
-
-	public String getInvited() {
-		return invited;
-	}
-
-	public void setInvited(String invited) {
-		this.invited = invited;
 	}
 
 	@Override

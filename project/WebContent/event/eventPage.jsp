@@ -15,13 +15,50 @@
 	</div>
 	<div style="background-color: #FFFFFF; float: left; width: 520px;">
 		<br />
-		&nbsp;Hosted by <s:property value="user.getFirstName()"/> <s:property value="user.getLastName()"/>
+		&nbsp;Hosted by <s:property value="inviter.getFirstName()"/> <s:property value="inviter.getLastName()"/>
 		<br /><br />
 	</div>
 	<div style="background-color: #FFFFFF;">
 		<br />
-		<a href='invite?eventId=<s:property value="eventId"/>'><input type="button" value="Invite"></a>
-		<a href='editEvent?eventId=<s:property value="eventId"/>'><input type="button" value="Edit"></a>
+		<s:if test='user.getUserId()==inviter.getUserId()'>
+			<a href='invite?eventId=<s:property value="eventId"/>'><input type="button" value="Invite"></a>
+			<a href='editEvent?eventId=<s:property value="eventId"/>'><input type="button" value="Edit"></a>
+		</s:if>
+		<s:else>
+			<s:if test='confirmationIfUserIsInvitee.equals("pending")'>
+				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=join'><input type="button" value="Join" /></a>
+				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=maybe'><input type="button" value="Maybe" /></a>
+				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=nope'><input type="button" value="Decline" /></a>
+			</s:if>
+			<s:else>
+				<form id='<s:property value="eventId" />' method="post" action="confirm">
+					<input type="hidden" id='caller' name="caller" value="eventPage" />
+					<input type="hidden" id='eventId' name="eventId" value='<s:property value="eventId" />' />
+					
+					<s:if test='confirmationIfUserIsInvitee.equals("join")'>
+					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
+						<option value="join" selected="selected">Going</option>
+						<option value="maybe">Maybe</option>
+						<option value="nope">Not Going</option>
+					</select>
+					</s:if>
+					<s:elseif test='confirmationIfUserIsInvitee.equals("maybe")'>
+					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
+						<option value="join">Going</option>
+						<option value="maybe" selected="selected">Maybe</option>
+						<option value="nope">Not Going</option>
+					</select>
+					</s:elseif>
+					<s:else>
+					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
+						<option value="join">Going</option>
+						<option value="maybe">Maybe</option>
+						<option value="nope" selected="selected">Not Going</option>
+					</select>
+					</s:else>
+				</form>
+			</s:else>
+		</s:else>
 		<br /><br />
 	</div>
 	<br />
@@ -43,6 +80,8 @@
 	</div>
 	<div style="margin-left: 510px;">
 		<div style="background-color: #FFFFFF;">
+		
+			<s:if test='user.getUserId()==inviter.getUserId()'>
 			<table width="100%">
 				<thead><b>GUESTS</b></thead>
 				<tbody>
@@ -58,6 +97,25 @@
 					</tr>
 				</tbody>
 			</table>
+			</s:if>
+			<s:else>
+			<table width="100%">
+				<thead><b>GUESTS</b></thead>
+				<tbody>
+					<tr>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="going"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='maybeList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="maybe"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='invitedList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="invited"/></a></td>
+					</tr>
+					<tr>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?readOnly=true&eventId=<s:property value="eventId"/>'>going</a></td>
+						<td><a style="text-decoration: none; color: blue;" href='maybeList?readOnly=true&eventId=<s:property value="eventId"/>'>maybe</a></td>
+						<td><a style="text-decoration: none; color: blue;" href='invitedList?readOnly=true&eventId=<s:property value="eventId"/>'>invited</a></td>
+					</tr>
+				</tbody>
+			</table>
+			</s:else>
+			
 		</div>
 	</div>
 </body>

@@ -43,29 +43,6 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		return SUCCESS;
 	}
 
-	private String reply;
-	private int to;
-	/**
-	 * Send reply
-	 * 
-	 * @return
-	 */
-	public String reply()
-	{
-		user = ((User)(session.get(Constants.USER))).getUserId();
-		
-		// Sent(insert) message
-		Message replyMsg = new Message();
-		replyMsg.setText(reply);
-		replyMsg.setSender(user);
-		replyMsg.setRecipient(to);
-		MessageDAO dao = new MessageDAOImpl();
-		dao.insert(replyMsg);
-
-		//withUser = to;
-		return SUCCESS;
-	}
-
 	public List<Message> getMessages()
 	{
 		return messages;
@@ -74,26 +51,6 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	public void setMessages(List<Message> messages)
 	{
 		this.messages = messages;
-	}
-
-	public String getReply()
-	{
-		return reply;
-	}
-
-	public void setReply(String reply)
-	{
-		this.reply = reply;
-	}
-
-	public int getTo()
-	{
-		return to;
-	}
-
-	public void setTo(int to)
-	{
-		this.to = to;
 	}
 
 	public int getWithUser()

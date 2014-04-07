@@ -1,8 +1,8 @@
 package edu.iiitb.facebook.action.search;
 
-import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang.StringUtils;
 
-import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
+import com.opensymphony.xwork2.ActionSupport;
 
 public class SearchAction extends ActionSupport
 {
@@ -34,13 +34,16 @@ public class SearchAction extends ActionSupport
 	public String execute()
 	{
 
-		if (email != null)
+		if (fref != null && !StringUtils.isEmpty(fref))
 		{
 
-			setFref(new UserDAOImpl().getUserByUserEmail(email).getUserId() + "");
+			setFref(fref);
+			return SUCCESS;
 		}
-
-		return SUCCESS;
+		else
+		{
+			return ERROR;
+		}
 
 	}
 

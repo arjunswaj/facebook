@@ -10,18 +10,33 @@
 <script type="text/css">
 
 </script>
+
+<script type="text/javascript">
+	window.history.forward();
+	function noBack() {
+		window.history.forward();
+	}
+</script>
 </head>
-<body bgcolor="#3b5998">
-<img src="/images/facebook_icon.jpg"/>
-<a style="color:#ffffff;" href="login.jsp"><h1 align="middle">Facebook</h1></a>
+
+<body onload="noBack();" onpageshow="if (event.persisted) noBack();"
+	onunload="" bgcolor="#3b5998">
+	<img src="images/icon.jpg" />
+	<a style="color: #ffffff;" href="login.jsp"><h1 align="middle">Facebook</h1></a>
 	<div align="center">
 		<s:form action="login" autocomplete="off">
 
 			<s:textfield key="email" label="email" />
 			<s:password key="password" label="Password" />
 
-			<s:submit value="login"/>
+			<s:submit value="login" />
 		</s:form>
+	</div>
+
+
+	<p>
+	<div align="left">
+		<img src="images/like.png" />
 	</div>
 </body>
 </html>
