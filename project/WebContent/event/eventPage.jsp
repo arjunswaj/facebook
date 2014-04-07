@@ -37,7 +37,7 @@
 					
 					<s:if test='confirmationIfUserIsInvitee.equals("join")'>
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
-						<option value="join" selected="selected">Going</option>
+						<option value="join" selected="selected">*Going</option>
 						<option value="maybe">Maybe</option>
 						<option value="nope">Not Going</option>
 					</select>
@@ -45,7 +45,7 @@
 					<s:elseif test='confirmationIfUserIsInvitee.equals("maybe")'>
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
 						<option value="join">Going</option>
-						<option value="maybe" selected="selected">Maybe</option>
+						<option value="maybe" selected="selected">*Maybe</option>
 						<option value="nope">Not Going</option>
 					</select>
 					</s:elseif>
@@ -53,7 +53,7 @@
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
 						<option value="join">Going</option>
 						<option value="maybe">Maybe</option>
-						<option value="nope" selected="selected">Not Going</option>
+						<option value="nope" selected="selected">*Not Going</option>
 					</select>
 					</s:else>
 				</form>

@@ -4,8 +4,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Events</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Events</title>
+	<script type="text/javascript">
+		function loadXmlDoc(e)
+		{
+			var sel=document.getElementById(e).childNodes[1];
+			var req=new XMLHttpRequest();
+			req.onreadystatechange=
+				function()
+				{
+					if(req.readyState==4 && req.status==200)
+					{
+						var s=req.responseText;
+						if(sel.value=="join")
+							s=s.replace(">Going"," selected='selected'>*Going");
+						else if(sel.value=="maybe")
+							s=s.replace(">Maybe"," selected='selected'>*Maybe");
+						if(sel.value=="nope")
+							s=s.replace(">Not Going"," selected='selected'>*Not Going");
+						sel.innerHTML=s;
+					}
+				};
+			req.open("POST", "confirm?eventId="+e+"&confirmation="+sel.value, true);
+			req.send();
+		}
+		
+		function loadXmlDoc2(e, c)
+		{
+			var div=document.getElementById(e);
+			var s="<option value='join'>Going</option><option value='maybe'>Maybe</option><option value='nope'>Not Going</option>";
+			div.innerHTML="<div></div><select onchange=\"loadXmlDoc('"+e+"')\">"+s+"</select>";
+			div.childNodes[1].value=c;
+			loadXmlDoc(e);
+		}
+
+	</script>
 </head>
 <body>
 
@@ -39,35 +73,35 @@
 					<a href='event?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
 					<s:property value="#invitation.getEventPlace()" /><br />
 					<s:property value="#invitation.getInviterName()" /> invited you<br />
-					<s:if test='#invitation.getConfirmation().equals("pending")'>
-						<a href='confirm?caller=eventsPage&eventId=<s:property value="#invitation.getEventId()" />&confirmation=join'><input type="button" value="Join" /></a>
-						<a href='confirm?caller=eventsPage&eventId=<s:property value="#invitation.getEventId()" />&confirmation=maybe'><input type="button" value="Maybe" /></a>
-						<a href='confirm?caller=eventsPage&eventId=<s:property value="#invitation.getEventId()" />&confirmation=nope'><input type="button" value="Decline" /></a>
-					</s:if>
-					<s:else>
-						<form id='<s:property value="#invitation.getEventId()" />' method="post" action="confirm">
-							<input type="hidden" id='caller' name="caller" value="eventsPage" />
-							<input type="hidden" id='eventId' name="eventId" value='<s:property value="#invitation.getEventId()" />' />
-							
+					
+					<div id='<s:property value="#invitation.getEventId()" />'>
+						<s:if test='#invitation.getConfirmation().equals("pending")==false'>
 							<s:if test='#invitation.getConfirmation().equals("join")'>
-							<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="#invitation.getEventId()" />').submit();">
-								<option value="join" selected="selected">Going</option>
+							<select onchange="loadXmlDoc('<s:property value="#invitation.getEventId()" />')">
+								<option value="join" selected="selected">*Going</option>
 								<option value="maybe">Maybe</option>
 								<option value="nope">Not Going</option>
 							</select>
 							</s:if>
 							<s:elseif test='#invitation.getConfirmation().equals("maybe")'>
-							<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="#invitation.getEventId()" />').submit();">
+							<select onchange="loadXmlDoc('<s:property value="#invitation.getEventId()" />')">
 								<option value="join">Going</option>
-								<option value="maybe" selected="selected">Maybe</option>
+								<option value="maybe" selected="selected">*Maybe</option>
 								<option value="nope">Not Going</option>
 							</select>
 							</s:elseif>
 							<s:else>
 								You declined.
 							</s:else>
-						</form>
-					</s:else>
+						</s:if>
+						<s:else>
+							<div>						
+								<input type="button" value="Join" onclick="loadXmlDoc2('<s:property value="#invitation.getEventId()" />', 'join')" />
+								<input type="button" value="Maybe" onclick="loadXmlDoc2('<s:property value="#invitation.getEventId()" />', 'maybe')" />
+								<input type="button" value="Decline" onclick="loadXmlDoc2('<s:property value="#invitation.getEventId()" />', 'nope')" />
+							</div>
+						</s:else>
+					</div>
 				</div>
 				<br />
 			</div>
