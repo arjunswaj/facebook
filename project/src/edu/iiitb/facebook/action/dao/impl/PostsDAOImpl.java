@@ -64,6 +64,10 @@ public class PostsDAOImpl implements PostsDAO
 
 	private static final String DELETE_POST = "delete from post where id=?";
 
+	private static final String GET_POST = "select text from post where id=?";
+	
+	private static final String UPDATE_POST = "update post set text=? where id=?";
+
 	@Override
 	public List<NewsFeed> getNewsFeedsForUser(int userId)
 	{
@@ -199,8 +203,58 @@ public class PostsDAOImpl implements PostsDAO
 	@Override
 	public int updatePost(String postId, String updatedText)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = ConnectionPool.getConnection();
+
+		try
+		{
+			PreparedStatement stmt = conn.prepareStatement(UPDATE_POST);
+			stmt.setString(1, updatedText);
+			stmt.setString(2, postId);
+			return stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnectionPool.freeConnection(conn);
+		}
+
+		return -1;
+	}
+
+	@Override
+	public String getText(String postId)
+	{
+		Connection conn = ConnectionPool.getConnection();
+
+		String postText = "";
+
+		try
+		{
+			PreparedStatement stmt = conn.prepareStatement(GET_POST);
+			stmt.setString(1, postId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next())
+			{
+				postText = rs.getString(1);
+			}
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnectionPool.freeConnection(conn);
+		}
+
+		return postText;
 	}
 
 }

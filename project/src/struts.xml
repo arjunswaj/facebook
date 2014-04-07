@@ -32,7 +32,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-		
+
 		<!-- Start of messages related actions -->
 
 		<!-- This is for displaying the messages page -->
@@ -42,8 +42,8 @@
 			<result name="success" type="tiles">messages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
-		
-		<!--  This is for displaying all the conversations -->
+
+		<!-- This is for displaying all the conversations -->
 		<action name="conversation" method="loadMessages"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -239,7 +239,17 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 		</action>
+		<action name="getPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
+			method="getPost">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+		</action>
 
+		<action name="editPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
+			method="editPost">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+		</action>
 	</package>
 
 </struts>

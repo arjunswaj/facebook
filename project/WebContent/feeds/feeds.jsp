@@ -165,7 +165,7 @@
 							</span>
 						</div>
 					</s:elseif>
-					<div class="post">
+					<div id='post_<s:property value="#feeds.postId"/>' class="post">
 						<s:property value="postText" />
 					</div>
 					<div class="timestamp">
@@ -272,71 +272,91 @@
 				});
 			});
 
-	$("#statusform").submit(
-			function(event) {
+	$("#statusform")
+			.submit(
+					function(event) {
 
-				/* stop form from submitting normally */
-				event.preventDefault();
+						/* stop form from submitting normally */
+						event.preventDefault();
 
-				/* get some values from elements on the page: */
-				var form = $(this);
-				var url = form[0].action;
-				var status = form[0][0].value;
+						/* get some values from elements on the page: */
+						var form = $(this);
+						var url = form[0].action;
+						var status = form[0][0].value;
 
-				/* Send the data using post */
-				var posting = $.post(url, {
-					"status" : status
-				});
+						/* Send the data using post */
+						var posting = $.post(url, {
+							"status" : status
+						});
 
-				/* Put the results in the view */
-				posting.done(function(commentData) {
-					var html = [];
-					html.push("<div id=\"feeds\"> ");
-					html.push("      <div class=\"feed-container\">         ");
-					html.push("        <div class=\"left-status\"> ");
-					html.push("          <img width=\"80px\" ");
-					html.push("            src=\"image?userId="
-							+ commentData.userId + "\" /> ");
-					html.push("        </div> ");
-					html.push("        <div class=\"right-status\"> ");
-					html.push("            <div> ");
-					html.push("              <span class=\"fullname\"> ");
-					html.push(commentData.fullName);
-					html.push("              </span> ");
-					html.push("              updated the status ");
-					html.push("            </div> ");
-					html.push(" ");
-					html.push("          <div class=\"post\"> ");
-					html.push(commentData.status);
-					html.push("          </div> ");
-					html.push("          <div class=\"timestamp\"> ");
-					html.push(commentData.now);
-					html.push("          </div> ");
-					/*
-					html.push("          <div> ");					   
-					html.push("            <form id=\"commentForm_"+commentData.postId+"\" class=\"comment-form\" action=\"postcomment\" method=\"post\"> ");
-					html.push("              <div class=\"comment-form\"> ");
-					html.push("                <div> ");
-					html.push("                  <textarea name=\"comment\" cols=\"57\" rows=\"2\" ");
-					html.push("                    placeholder=\"Post Comment\" style=\"width: 95%;\"></textarea> ");
-					html.push("                  <input type=\"hidden\" name=\"postId\" value=\""+commentData.postId+"\" />                   ");
-					html.push("                </div> ");
-					html.push("                <div style=\"width: 95%; text-align: right;\"> ");
-					html.push("                  <input type=\"submit\" value=\"Post\" /> ");
-					html.push("                </div> ");
-					html.push("              </div> ");
-					html.push("            </form> ");
-					html.push("          </div> ");
-					 */
-					html.push("        </div> ");
-					html.push("      </div> ");
-					html.push("      <div class=\"clear\"></div> ");
-					html.push("  </div>");
+						/* Put the results in the view */
+						posting
+								.done(function(commentData) {
+									var html = [];
+									html.push("<div id=\"feeds\"> ");
+									html
+											.push("      <div class=\"feed-container\">         ");
+									html
+											.push("        <div class=\"left-status\"> ");
+									html.push("          <img width=\"80px\" ");
+									html.push("            src=\"image?userId="
+											+ commentData.userId + "\" /> ");
+									html.push("        </div> ");
+									html
+											.push("        <div class=\"right-status\"> ");
+									html.push("            <div> ");
+									html
+											.push("              <span class=\"fullname\"> ");
+									html.push(commentData.fullName);
+									html.push("              </span> ");
+									html
+											.push("              updated the status ");
+									html.push("            </div> ");
+									html.push(" ");
 
-					$("#feeds").prepend(html.join(" "));
-					$("#statusUpdate")[0].value = "";
-				});
-			});
+									html
+											.push("<span> 	<form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
+									html
+											.push("<div align=\"right\"><input type=\"submit\" id=\"\"\"\" value=\"delete\">");
+									html
+											.push("		</div>	</form>	<form id='"+commentData.postId+"' class=\"edit_post\" method=\"post\">");
+									html
+											.push("<div align=\"right\"><input type=\"submit\" id=\"\"\"\" value=\"edit\"></div>	</form>	</span>");
+									html
+											.push("          <div class=\"post\"> ");
+									html.push(commentData.status);
+									html.push("          </div> ");
+									html
+											.push("          <div class=\"timestamp\"> ");
+									html.push(commentData.now);
+									html.push("          </div> ");
+									/*
+									html.push("          <div> ");					   
+									html.push("            <form id=\"commentForm_"+commentData.postId+"\" class=\"comment-form\" action=\"postcomment\" method=\"post\"> ");
+									html.push("              <div class=\"comment-form\"> ");
+									html.push("                <div> ");
+									html.push("                  <textarea name=\"comment\" cols=\"57\" rows=\"2\" ");
+									html.push("                    placeholder=\"Post Comment\" style=\"width: 95%;\"></textarea> ");
+									html.push("                  <input type=\"hidden\" name=\"postId\" value=\""+commentData.postId+"\" />                   ");
+									html.push("                </div> ");
+									html.push("                <div style=\"width: 95%; text-align: right;\"> ");
+									html.push("                  <input type=\"submit\" value=\"Post\" /> ");
+									html.push("                </div> ");
+									html.push("              </div> ");
+									html.push("            </form> ");
+									html.push("          </div> ");
+									 */
+									html.push("        </div> ");
+									html.push("      </div> ");
+									html
+											.push("      <div class=\"clear\"></div> ");
+									html.push("  </div>");
+
+									$("#feeds").prepend(html.join(" "));
+									$("#statusUpdate")[0].value = "";
+
+								});
+					});
 
 	$(".delete_post").submit(function(event) {
 
@@ -344,10 +364,9 @@
 		var answer = confirm("Are you sure you want to delete this post ?");
 		if (answer) {
 
-			/* get some values from elements on the page: */
 			var url = "deletePostAction";
 			var postidvalue = $(this).attr("id");
-			/* Send the data using post */
+
 			var posting = $.post(url, {
 				"postId" : postidvalue
 			});
@@ -355,17 +374,55 @@
 			posting.done(function(data) {
 
 				if (data.value == "true") {
-				
-					
-					$("div[id='"+postidvalue+"']").remove();
+
+					$("div[id='" + postidvalue + "']").remove();
 				}
 
-			
 			});
 
 		}
 
 		return false;
+	});
+
+	$(".edit_post").submit(function(event) {
+
+		event.preventDefault();
+
+		var url = "getPostAction";
+		var postidvalue = $(this).attr("id");
+
+		var posting = $.post(url, {
+			"postId" : postidvalue
+		});
+
+		posting.done(function(data) {
+
+			var text = prompt("edit the post", data.postText);
+
+			if (text != null) {
+				
+				
+
+				var otherusrl = "editPostAction";
+				
+				var newPosting = $.post(otherusrl, {
+					"postId" : data.postId,
+					"postText" : text
+				});
+				
+				newPosting.done(function(newdata) {
+
+					if(newdata.value="true")
+					document.getElementById("post_" + data.postId).innerHTML =text;
+
+				});
+
+				
+			}
+
+		});
+
 	});
 </script>
 </html>

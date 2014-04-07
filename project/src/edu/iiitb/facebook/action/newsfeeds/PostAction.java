@@ -1,6 +1,5 @@
 package edu.iiitb.facebook.action.newsfeeds;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -9,8 +8,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
-import edu.iiitb.facebook.action.model.NewsFeed;
-import edu.iiitb.facebook.action.model.User;
 
 public class PostAction extends ActionSupport implements SessionAware
 {
@@ -19,6 +16,8 @@ public class PostAction extends ActionSupport implements SessionAware
 	String value;
 
 	String postId;
+
+	String postText;
 
 	public String getPostId()
 	{
@@ -49,9 +48,7 @@ public class PostAction extends ActionSupport implements SessionAware
 
 	public String execute()
 	{
-		System.out.println("postid" + postId);
-
-		User user = (User) session.get("user");
+		System.out.println("executepostid" + postId);
 
 		PostsDAO dao = new PostsDAOImpl();
 
@@ -68,5 +65,53 @@ public class PostAction extends ActionSupport implements SessionAware
 		}
 
 		return SUCCESS;
+	}
+
+	public String editPost()
+	{
+		System.out.println("editPostpostid" + postId);
+		System.out.println("postTxt" + postText);
+
+		PostsDAO dao = new PostsDAOImpl();
+
+		int result = dao.updatePost(postId, postText);
+		if (result > 0)
+		{
+			setValue("true");
+			System.out.println("true");
+		}
+		else
+		{
+			setValue("false");
+			System.out.println("false");
+		}
+
+		return SUCCESS;
+	}
+
+	public String getPost()
+	{
+		System.out.println("getPostpostid" + postId);
+
+		PostsDAO dao = new PostsDAOImpl();
+
+		setPostText(dao.getText(postId));
+
+		return SUCCESS;
+	}
+
+	public String getPostText()
+	{
+		return postText;
+	}
+
+	public void setPostText(String postText)
+	{
+		this.postText = postText;
+	}
+
+	public Map<String, Object> getSession()
+	{
+		return session;
 	}
 }

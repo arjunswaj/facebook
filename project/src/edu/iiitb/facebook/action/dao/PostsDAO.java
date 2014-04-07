@@ -13,4 +13,6 @@ public interface PostsDAO
 	public int deletePost(String postId);
 
 	public int updatePost(String postId, String updatedText);
+
+	public  String getText(String postId);
 }
