@@ -235,7 +235,6 @@
 		</action>
 
 
-
 		<action name="deletePostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />

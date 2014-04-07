@@ -4,15 +4,9 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;

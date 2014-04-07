@@ -13,22 +13,28 @@
 	<div style="color: #ffffff;">
 		<h1>Sign Up</h1>
 		<h4>It’s free and always will be.</h4>
+		<h2>Upload Profile Pic</h2>
 
-		<s:form action="signup" method="post" enctype="multipart/form-data"
+		<s:actionerror />
+		<s:form action="signup3.1" method="post" enctype="multipart/form-data"
 			autocomplete="off">
 
-			<s:textfield key="first_name" label="first name" />
-			<s:textfield key="last_name" label="last name" />
-			<s:textfield key="email" label="Email Id" />
-			<s:textfield key="reemail" label="re-enter Email Id" />
-			<s:password key="password" label="New Password" />
-			<s:textfield key="phone_number" label="Phone number" />
-			<s:textfield key="place" label="place" />
-			<s:textfield key="secret_question" label="Enter the Secret Question" />
-			<s:textfield key="secret_answer" label="Enter the Secret Answer" />
 			<s:file name="current_profile_pic" label="upload profile pic" />
-			<s:file name="current_cover_pic" label="upload cover pic" />
-			<s:submit value="Sign Up" />
+			<s:submit value="Upload" />
+		</s:form>
+		<s:actionerror />
+		<s:form action="signup3.2" method="post" enctype="multipart/form-data"
+			autocomplete="off">
+
+			<s:file name="current_profile_pic" label="upload cover pic" />
+			<s:submit value="Upload" />
+		</s:form>
+		<br>
+		<s:form action="signup3" method="post" enctype="multipart/form-data"
+			autocomplete="off">
+
+
+			<s:submit value="PROCEED" />
 		</s:form>
 	</div>
 </body>
