@@ -23,6 +23,7 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	private List<Message> messages;
 	private List<LatestMessage> latestMessages;
 	private int withUser = -1; // the current other user with whom this 'user' is having the conversation.
+	private int user;
 	/**
 	 * Load the messages
 	 * @return
@@ -51,19 +52,18 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	 */
 	public String reply()
 	{
-		int from = ((User)(session.get(Constants.USER))).getUserId();
+		user = ((User)(session.get(Constants.USER))).getUserId();
 		
 		// Sent(insert) message
 		Message replyMsg = new Message();
 		replyMsg.setText(reply);
-		replyMsg.setSender(from);
+		replyMsg.setSender(user);
 		replyMsg.setRecipient(to);
 		MessageDAO dao = new MessageDAOImpl();
 		dao.insert(replyMsg);
 
-		// get the messages for display
-		withUser = to;
-		return loadMessages();
+		//withUser = to;
+		return SUCCESS;
 	}
 
 	public List<Message> getMessages()
@@ -124,5 +124,15 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	public void setLatestMessages(List<LatestMessage> latestMessages)
 	{
 		this.latestMessages = latestMessages;
+	}
+
+	public int getUser()
+	{
+		return user;
+	}
+
+	public void setUser(int user)
+	{
+		this.user = user;
 	}
 }

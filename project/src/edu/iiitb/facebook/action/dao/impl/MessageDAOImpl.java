@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -134,19 +135,24 @@ public class MessageDAOImpl implements MessageDAO
 	 * .model.Message)
 	 */
 	@Override
-	public void insert(Message reply)
+	public int insert(Message reply)
 	{
 		final String insert = "insert into message (text, sender, recipient) values (?, ? , ?)";
+		int id = -1;
 	
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
 		try
 		{
-			stmt = connection.prepareStatement(insert);
+			stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, reply.getText());
 			stmt.setInt(2,  reply.getSender());
 			stmt.setInt(3, reply.getRecipient());
 			stmt.executeUpdate();
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			if(rs.next())
+				id = rs.getInt(1);
 		}
 		catch (SQLException e)
 		{
@@ -155,5 +161,6 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}
+		return id;
 	}
 }

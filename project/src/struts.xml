@@ -44,10 +44,12 @@
 		</action>
 		
 		<action name="reply" method="reply"
-		    class="edu.iiitb.facebook.action.messages.MessagesAction">
+		    class="edu.iiitb.facebook.action.messages.ReplyAction">
 		    <interceptor-ref name="secureAccess"></interceptor-ref>
-		    <result name="success" type="tiles">messages.tiles</result>
+		    <!-- <result name="success" type="tiles">messages.tiles</result> -->
 		    <result name="login">/login.jsp</result>
+		    <result type="json" name="success" /> 
+			<result type="json" name="input" />
 		</action>
 		
 		<!--  End of messages related actions -->

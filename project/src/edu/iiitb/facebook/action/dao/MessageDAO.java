@@ -24,7 +24,8 @@ public interface MessageDAO
 
 	/**
 	 * Insert the reply into the message table
-	 * @param replyMsg
+	 * @param reply
+	 * @return The id of the newly inserted tuple
 	 */
-	public void insert(Message reply);
+	public int insert(Message reply);
 }
