@@ -1,52 +1,8 @@
 /**
  * 
  */
-var div = document.getElementById("conversationThread");
+var div = document.getElementById("messageThread");
 div.scrollTop = div.scrollHeight;
-
-$('.conversation')
-		.click(
-				function(event) {
-					event.preventDefault();
-					var anchor = $(this);
-					var url = anchor[0].href;
-					var getting = $.get(url);
-					getting
-							.done(function(responses) {
-								var messageThread = '<div id="conversationThread" class="conversation-thread"> ';
-								$
-										.each(
-												responses.conversation,
-												function(index, message) {
-													messageThread += '			<div class="message"> \
-					<div class="message-photo"> \
-						<img width="100%" height="100%" \
-							src="image?userId='
-															+ message.sender
-															+ '" /> \
-					</div> \
-					<div class="message-text"> \
-						<b> '
-															+ message.senderFirstName
-															+ ' '
-															+ message.senderLastName
-															+ ' \
-						</b> \
-						'
-															+ message.sentAt
-															+ ' \
-					</div> \
-					<div class="message-text">'
-															+ message.text
-															+ '\
-					</div> \
-				</div>';
-												});
-								messageThread.append += '</div>';
-								$("#conversationThread").replaceWith(messageThread);
-								div.scrollTop = div.scrollHeight;
-							});
-				});
 
 $("#replyForm")
 		.submit(
@@ -55,7 +11,7 @@ $("#replyForm")
 					event.preventDefault();
 
 					var form = $(this);
-					var url = form[0].action;
+					var url = $("#replyForm")[0].action;
 					var reply = form[0][0].value;
 					var to = form[0][1].value;
 
@@ -66,7 +22,7 @@ $("#replyForm")
 
 					posting
 							.done(function(response) {
-								$("#conversationThread")
+								$("#messageThread")
 										.append(
 												'\
 						<div class="message"> \
@@ -89,6 +45,6 @@ $("#replyForm")
 														+ '</div> \
 						</div>');
 								$("#reply").value = "";
-								div.scrollTop = div.scrollHeight;
 							});
 				});
+div.scrollTop = div.scrollHeight;

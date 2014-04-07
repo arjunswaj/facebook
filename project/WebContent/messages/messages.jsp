@@ -11,27 +11,25 @@
 </head>
 <body>
 	<div id="container" class="container">
-		<div id="conversations" class="conversations">
-			<s:iterator value="conversations">
-				<div>
-					<a id="conversation" class="conversation"
-						href="conversation.action?otherUser=<s:property value="otherUser" />">
-						<s:property value="senderFirstName" /> <s:property
-							value="senderLastName" /> <s:property value="latestMessage" /> <s:property
-							value="sentAt" />
-					</a>
-				</div>
+		<div id="latestmessages" class="latest-messages">
+			List of latest messages
+			<s:iterator value="latestMessages">
+				<li><a
+					href="messages.action?withUser=<s:property value="otherUser" />"
+					onClick="a_onClick()"> <s:property value="senderFirstName" />
+						<s:property value="senderLastName" /> <s:property value="text" />
+						<s:property value="sentAt" />
+				</a></li>
 			</s:iterator>
 		</div>
-
-		<div id="conversationThread" class="conversation-thread">
-			<s:iterator value="conversation">
+		<div id="messageThread" class="message-thread">
+			<s:iterator value="messages">
 				<div class="message">
 					<div class="message-photo">
 						<img width="100%" height="100%"
 							src="image?userId=<s:property value="sender" />" />
 					</div>
-					<div class="message-header">
+					<div class="message-text">
 						<b> <s:property value="senderFirstName" /> <s:property
 								value="senderLastName" />
 						</b>
@@ -42,14 +40,14 @@
 					</div>
 				</div>
 			</s:iterator>
+			
 		</div>
-
 		<div id="replyBox" class="reply-box">
 			<form id="replyForm" action="reply">
 				<div>
-					<s:textarea id="reply" name="replyMsg.text" value="" cols="75"
-						rows="5" placeholder="Write a reply" />
-					<s:hidden name="replyMsg.recipient" value="%{otherUser}" />
+					<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5"
+						placeholder="Write a reply" />
+					<s:hidden name="replyMsg.recipient" value="%{withUser}" />
 					<s:submit value="Reply"></s:submit>
 				</div>
 			</form>

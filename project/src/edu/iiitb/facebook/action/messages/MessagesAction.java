@@ -14,14 +14,16 @@ import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.Constants;
 
+// TODO: Fix names
 public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 	private Map<String, Object> session;
 	
-	private List<Message> conversation;
-	private List<LatestMessage> conversations;
-	private int otherUser = -1; // the other user with whom this 'user' is having the conversation.
+	private List<Message> messages;
+	private List<LatestMessage> latestMessages;
+	private int withUser = -1; // the current other user with whom this 'user' is having the conversation.
+	private int user;
 	/**
 	 * Load the messages
 	 * @return
@@ -32,23 +34,33 @@ public class MessagesAction extends ActionSupport implements SessionAware
 
 		// latest messages list
 		MessageDAO dao = new MessageDAOImpl();
-		conversations = dao.getLatestConversationforAllUsersWith(user);
-		if (otherUser < 0 && !conversations.isEmpty())
-			otherUser = conversations.get(0).getOtherUser();
+		latestMessages = dao.getLatestConversationforAllUsersWith(user);
+		if (withUser < 0 && !latestMessages.isEmpty())
+			withUser = latestMessages.get(0).getOtherUser();
 		
 		// message thread
-		setConversation(dao.getMessages(otherUser, user));
+		messages = dao.getMessages(withUser, user);
 		return SUCCESS;
 	}
 
-	public int getOtherUser()
+	public List<Message> getMessages()
 	{
-		return otherUser;
+		return messages;
 	}
 
-	public void setOtherUser(int otherUser)
+	public void setMessages(List<Message> messages)
 	{
-		this.otherUser = otherUser;
+		this.messages = messages;
+	}
+
+	public int getWithUser()
+	{
+		return withUser;
+	}
+
+	public void setWithUser(int withUser)
+	{
+		this.withUser = withUser;
 	}
 
 	/* (non-Javadoc)
@@ -61,23 +73,23 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		
 	}
 
-	public List<LatestMessage> getConversations()
+	public List<LatestMessage> getLatestMessages()
 	{
-		return conversations;
+		return latestMessages;
 	}
 
-	public void setConversations(List<LatestMessage> conversations)
+	public void setLatestMessages(List<LatestMessage> latestMessages)
 	{
-		this.conversations = conversations;
+		this.latestMessages = latestMessages;
 	}
 
-	public List<Message> getConversation()
+	public int getUser()
 	{
-		return conversation;
+		return user;
 	}
 
-	public void setConversation(List<Message> conversation)
+	public void setUser(int user)
 	{
-		this.conversation = conversation;
+		this.user = user;
 	}
 }
