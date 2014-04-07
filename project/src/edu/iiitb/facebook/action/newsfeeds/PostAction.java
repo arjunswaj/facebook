@@ -48,7 +48,6 @@ public class PostAction extends ActionSupport implements SessionAware
 
 	public String execute()
 	{
-		System.out.println("executepostid" + postId);
 
 		PostsDAO dao = new PostsDAOImpl();
 
@@ -69,8 +68,6 @@ public class PostAction extends ActionSupport implements SessionAware
 
 	public String editPost()
 	{
-		System.out.println("editPostpostid" + postId);
-		System.out.println("postTxt" + postText);
 
 		PostsDAO dao = new PostsDAOImpl();
 
@@ -91,7 +88,6 @@ public class PostAction extends ActionSupport implements SessionAware
 
 	public String getPost()
 	{
-		System.out.println("getPostpostid" + postId);
 
 		PostsDAO dao = new PostsDAOImpl();
 
