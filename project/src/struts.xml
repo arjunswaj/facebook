@@ -161,6 +161,79 @@
 			<result name="login" type="redirectAction">login</result>
 
 		</action>
+		<action name="signup1"
+			class="edu.iiitb.facebook.action.login.FirstSignUpAction">
+			<result name="success">/login/signup2.jsp</result>
+			<result name="error">/login/signup1.jsp</result>
+			<result name="input">/login/signup1.jsp</result>
+
+
+		</action>
+		<action name="signup2"
+			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup2.jsp</result>
+
+		</action>
+		<action name="signup3"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
+			<result name="success" type="tiles">newsfeeds.tiles</result>
+			<result name="error">/login/signup3.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
+		</action>
+		<action name="signup3.1"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="profile">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">50971520</param>
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/jpg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
+		</action>
+		<action name="signup3.2"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="cover">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">50971520</param>
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/jpg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
+		</action>
+
+		<action name="myrecoveryAction" class="edu.iiitb.facebook.action.login.RecoveryAction">
+			<result name="success">/login/resetpassword.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+		<action name="getquestion" class="edu.iiitb.facebook.action.login.RecoveryAction"
+			method="getsecretquestion">
+			<result name="success">/login/recovery.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+		<action name="pswdreset"
+			class="edu.iiitb.facebook.action.login.PasswordResetAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+
+
 
 	</package>
 
