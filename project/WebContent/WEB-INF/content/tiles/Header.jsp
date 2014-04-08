@@ -49,17 +49,18 @@
 					url : "getdata.jsp",
 					type : "POST",
 					dataType : "json",
+					cache : false,
 					data : {
 						name : request.term
 					},
 					success : function(data) {
 
 						response($.map(data, function(item) {
-							$("#fref").val(item.userid);
 
 							return {
+
 								label : item.name,
-								value : item.name,
+								value : item.userid,
 							}
 						}));
 					},
@@ -68,7 +69,12 @@
 					}
 				});
 			},
-			minLength : 2
+			minLength : 2,
+			select : function(event, ui) {
+				event.preventDefault();
+				$(this).val(ui.item.label);
+				$("#fref").val(ui.item.value);
+			}
 		});
 	});
 </script>
