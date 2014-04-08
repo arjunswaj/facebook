@@ -157,11 +157,18 @@
 										class="delete_post" method="post">
 										<s:submit value="delete" />
 									</form>
+								</s:if> <s:elseif test="#loggedInUser==#feeds.fromUserId">
+
+									<form id='<s:property value="#feeds.postId"/>'
+										class="delete_post" method="post">
+										<s:submit value="delete" />
+									</form>
 									<form id='<s:property value="#feeds.postId"/>'
 										class="edit_post" method="post">
 										<s:submit value="edit" />
 									</form>
-								</s:if>
+
+								</s:elseif>
 							</span>
 						</div>
 					</s:elseif>
