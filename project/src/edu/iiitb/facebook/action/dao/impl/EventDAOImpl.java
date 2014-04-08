@@ -44,10 +44,14 @@ public class EventDAOImpl implements EventDAO
 			"update event set title=?, description=?, time=?, place=? where id=?;";
 	
 	private static final String GET_EVENTS_INVITED_TO_QUERY=
-			"select i.id, e.id, e.title, e.place, e.time, i.sent_by, u.first_name, u.last_name, i.confirmation from event e, invitation i, user u where e.id=i.event_id and i.sent_to=? and i.sent_by=u.id and time like ?;";
+			"(select i.id, e.id, e.title, e.place, e.time, i.sent_by, u.first_name, u.last_name, i.confirmation from event e, invitation i, user u where e.id=i.event_id and i.sent_to=? and i.sent_by=u.id and time like ?)"
+			+" union "
+			+"(select 0, id, title, place, time, ?, 'You', 'are', 'join' from event where created_by=? and time like ?);";
 	
 	private static final String GET_DATES_OF_EVENTS_INVITED_TO_QUERY=
-			"select distinct substr(e.time, 1, 10) as date from event e, invitation i where e.id=i.event_id and i.sent_to=? order by date;";
+			"(select distinct substr(e.time, 1, 10) as date from event e, invitation i where e.id=i.event_id and i.sent_to=? order by date)"
+			+" union "
+			+"(select distinct substr(e.time, 1, 10) as date from event e where e.created_by=?)";
 	
 	private static final String GET_INVITER_QUERY=
 			"select u.* from user u, event e where e.id=? and e.created_by=u.id;";
@@ -177,6 +181,9 @@ public class EventDAOImpl implements EventDAO
 		PreparedStatement ps=cn.prepareStatement(GET_EVENTS_INVITED_TO_QUERY);
 		ps.setInt(1, inviteeId);
 		ps.setString(2, date+"%");
+		ps.setInt(3, inviteeId);
+		ps.setInt(4, inviteeId);
+		ps.setString(5, date+"%");
 		List<Invitation> l=new ArrayList<Invitation>();
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())
@@ -191,6 +198,7 @@ public class EventDAOImpl implements EventDAO
 	{
 		PreparedStatement ps=cn.prepareStatement(GET_DATES_OF_EVENTS_INVITED_TO_QUERY);
 		ps.setInt(1, inviteeId);
+		ps.setInt(2, inviteeId);
 		List<String> l=new ArrayList<String>();
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())

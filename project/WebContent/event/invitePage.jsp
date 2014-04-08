@@ -9,6 +9,7 @@
 </head>
 <body style="background-color: #c5c5df;">
 	<form id="f1" action="sendInvites" method="post">
+		<input type="hidden" name="caller" value='<s:property value="caller" />' />
 		<input type="hidden" name="eventId" value='<s:property value="eventId" />' />
 		<input type="hidden" name="invitees" id="invitees" value="" />
 		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
@@ -22,7 +23,14 @@
 				<tr style="background-color: #f5f6f7; height: 60px;">
 					<td></td>
 					<td colspan="2"><h3>Invite Friends</h3></td>
-					<td align="right"><a href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a></td>
+					<td align="right">
+						<s:if test='caller.equals("eventsPage")'>
+							<a href='displayEvents'><input type="button" value="X" /></a>
+						</s:if>
+						<s:else>
+							<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a>
+						</s:else>
+					</td>
 				</tr>
 				<s:iterator value="map" var="u">
 				<tr>
@@ -34,7 +42,12 @@
 				<tr>
 					<td colspan="4" align="right">
 						<input style="background-color: #45619d; color: white;" type="button" value="Send" onclick="submitForm();" />
-						<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+						<s:if test='caller.equals("eventsPage")'>
+							<a href='displayEvents'><input type="button" value="Cancel" /></a>
+						</s:if>
+						<s:else>
+							<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+						</s:else>
 					</td>
 				</tr>
 			</tbody>

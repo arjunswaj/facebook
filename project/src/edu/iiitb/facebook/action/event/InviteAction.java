@@ -21,6 +21,7 @@ import edu.iiitb.facebook.util.ConnectionPool;
 @Namespace("event")
 public class InviteAction extends ActionSupport implements SessionAware
 {
+	private String caller="eventPage";
 	private String eventId;
 	private Map<String, String> map;
 	private Map<String, Object> session;
@@ -80,5 +81,13 @@ public class InviteAction extends ActionSupport implements SessionAware
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		session=arg0;
+	}
+
+	public String getCaller() {
+		return caller;
+	}
+
+	public void setCaller(String caller) {
+		this.caller = caller;
 	}
 }
