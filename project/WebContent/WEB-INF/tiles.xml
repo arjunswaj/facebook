@@ -16,6 +16,7 @@
 	</definition>
 
 	<!-- Layout with no left and right pane -->
+	<!-- Used for profile page, settings page -->
 	<definition name="simpleLayout" template="/WEB-INF/content/tiles/SimpleLayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
@@ -105,6 +106,11 @@
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/friends/error.jsp" />
 	</definition>
-
+	
+	<!-- This is for settings page -->
+	<definition name="settings.tiles" extends="simpleLayout">
+		<put-attribute name="title" value="Settings" />
+		<put-attribute name="central-pane" value="/settings/settings.jsp" />
+	</definition>
 
 </tiles-definitions>

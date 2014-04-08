@@ -250,6 +250,15 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 		</action>
+		
+		<!-- This is for Settings Page -->
+		<action name="accountSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login">/login.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
