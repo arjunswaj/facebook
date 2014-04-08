@@ -300,9 +300,9 @@
 						posting
 								.done(function(commentData) {
 									var html = [];
-									html.push("<div id=\"feeds\"> ");
+								/* 	html.push("<div id=\"feeds\"> "); */
 									html
-											.push("      <div class=\"feed-container\">         ");
+											.push("      <div id=\""+commentData.postId+"\" class=\"feed-container\">         ");
 									html
 											.push("        <div class=\"left-status\"> ");
 									html.push("          <img width=\"80px\" ");
@@ -318,17 +318,19 @@
 									html.push("              </span> ");
 									html
 											.push("              updated the status ");
-									html.push("            </div> ");
+								
 									html.push(" ");
 
 									html
 											.push("<span> 	<form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
 									html
-											.push("<div align=\"right\"><input type=\"submit\" id=\"\"\"\" value=\"delete\">");
+											.push("<div align=\"right\"><input type=\"submit\"  value=\"delete\">");
 									html
 											.push("		</div>	</form>	<form id='"+commentData.postId+"' class=\"edit_post\" method=\"post\">");
 									html
-											.push("<div align=\"right\"><input type=\"submit\" id=\"\"\"\" value=\"edit\"></div>	</form>	</span>");
+											.push("<div align=\"right\"><input type=\"submit\"  value=\"edit\"></div>	</form>	</span>");
+									
+									html.push("            </div> ");
 									html
 											.push("          <div class=\"post\"> ");
 									html.push(commentData.status);
@@ -336,7 +338,7 @@
 									html
 											.push("          <div class=\"timestamp\"> ");
 									html.push(commentData.now);
-									html.push("          </div> ");
+								/* 	html.push("          </div> "); */
 									/*
 									html.push("          <div> ");					   
 									html.push("            <form id=\"commentForm_"+commentData.postId+"\" class=\"comment-form\" action=\"postcomment\" method=\"post\"> ");
