@@ -18,6 +18,12 @@ body {background-color:#ffffff;}
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	function unblockfriend(obj) {
+		fref = obj.value;
+		document.getElementById("unblockFriendForm_"+fref).action = 'unblockfriend?fref='+fref;
+	}
+</script>
 <div class="container">
 	<div class="page-header" align="left">
 		<h4><strong>General Account Settings</strong></h4>
@@ -48,9 +54,27 @@ body {background-color:#ffffff;}
         	<div class="col-md-3"><a href="#">Edit</a></div>
       	</div>
       	<hr>
-      	<h4>List of Blocked Users</h4>
 	</form>
-
+	
+	<h4>List of Blocked Users</h4>
+	<hr>
+	<div id="blockedfriends">
+		<s:iterator value="blockedFriendsList" var="bfl">
+		<s:set var="friendId" value="%{friendId}"/>
+		<%
+			int friendId = (Integer) pageContext.getAttribute("friendId");						    
+		%>
+		<form id="unblockFriendForm_<%=friendId %>" method="post">
+			<b><s:property value="firstName" /></b>
+			<b><s:property value="lastName" /></b>
+			<input type="submit" value="Unblock" onclick="unblockfriend(friendId);"/>
+			<s:hidden name="friendId" value="%{friendId}" />
+		</form>
+		<hr>
+		</s:iterator>
+	</div>
+	
 </div>
+
 </body>
 </html>

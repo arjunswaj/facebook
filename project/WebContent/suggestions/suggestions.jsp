@@ -18,9 +18,10 @@
 			<form id="suggFriendForm_<%=friendId %>" class="suggFriendForm" action="addSuggestedFriend" method="post">
 			<div class="suggFriendForm" align="center">
 				<img width="80px" src="image?userId=<s:property value="friendId" />" />
-				<div>
+				<div><a href="profile?fref=<s:property value="friendId" />" >
 					<b><s:property value="firstName" /></b>
 					<b><s:property value="lastName" /></b>
+					</a>
 					<br>
 					<a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
 					<s:submit align="center" id="AddFriend" value="+ Add Friend" />

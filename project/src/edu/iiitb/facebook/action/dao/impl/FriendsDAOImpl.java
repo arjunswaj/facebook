@@ -117,9 +117,25 @@ public class FriendsDAOImpl implements FriendsDAO
 	
 	String BLOCK_FRIEND_QUERY = "" +
 		"UPDATE friends_with " +
-		"SET status = 'blocked' " +
-		"WHERE request_by IN (?,?) " +
-		"AND request_for IN (?, ?) ";
+		"SET status = 'blocked', " +
+		"request_by = ?, " +
+		"request_for = ? " +
+		"WHERE id = ?" ;
+	
+	String GET_BLOCKED_FRIENDS_QUERY = "" +
+		"SELECT id, first_name, last_name " +
+		"FROM user " +
+		"WHERE id in ( " +
+		"SELECT request_for " +
+		"FROM friends_with " +
+		"WHERE status = 'blocked' " +
+		"AND request_by = ?) ";
+	
+	String UNBLOCK_FRIEND_QUERY = "" +
+		"DELETE FROM  friends_with " +
+		"WHERE request_by = ? " +
+		"AND request_for = ? " +
+		"AND status = 'blocked'";
 	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
@@ -272,15 +288,29 @@ public class FriendsDAOImpl implements FriendsDAO
 	public boolean blockFriend(int loggedInUserId, int otherUserId) {
 		Connection conn = ConnectionPool.getConnection();
 
+		
 		try {
-			PreparedStatement preparedstmt = conn.prepareStatement(BLOCK_FRIEND_QUERY);
+			
+			PreparedStatement stmt = conn.prepareStatement(ARE_THEY_FRIENDS_QRY);
+			int friendsWithId = -1;
+			
+			stmt.setInt(1, loggedInUserId);
+			stmt.setInt(2, otherUserId);
+			stmt.setInt(3, otherUserId);
+			stmt.setInt(4, loggedInUserId);
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				friendsWithId = rs.getInt("id");
+			}
+			
+			stmt = conn.prepareStatement(BLOCK_FRIEND_QUERY);
 
-			preparedstmt.setInt(1, otherUserId);
-			preparedstmt.setInt(2, loggedInUserId);
-			preparedstmt.setInt(3, otherUserId);
-			preparedstmt.setInt(4, loggedInUserId);
+			stmt.setInt(1, loggedInUserId);
+			stmt.setInt(2, otherUserId);
+			stmt.setInt(3, friendsWithId);
 
-			if (preparedstmt.executeUpdate() > 0) {
+			if (stmt.executeUpdate() > 0) {
 				return true;
 			}
 		}
@@ -294,10 +324,24 @@ public class FriendsDAOImpl implements FriendsDAO
 	}
 
 	@Override
-	public boolean unblockFriend(int loggedInUserId, int otherUserId)
-	{
-		// TODO Auto-generated method stub
-		return false;
+	public boolean unblockFriend(int myUserId, int blockedUserId) {
+				
+		Connection connection = ConnectionPool.getConnection();
+		
+		try {
+			PreparedStatement stmt = connection.prepareStatement(UNBLOCK_FRIEND_QUERY);
+			stmt.setInt(1, myUserId);
+			stmt.setInt(2, blockedUserId);
+			
+			int is = stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionPool.freeConnection(connection);
+		}
+		return true;
 	}
 
 	/*
@@ -384,5 +428,35 @@ public class FriendsDAOImpl implements FriendsDAO
 		return friendSuggestionsList;
 	}
 
+	@Override
+	public List<FriendSuggestions> getBlockedFriends(int userId) {
+		List<FriendSuggestions> blockedFriendsList = new ArrayList<FriendSuggestions>();
+
+		Connection connection = ConnectionPool.getConnection();
+		try {
+			PreparedStatement stmt = connection.prepareStatement(GET_BLOCKED_FRIENDS_QUERY);
+			stmt.setInt(1, userId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			FriendSuggestions fs = null;
+
+			while (rs.next()) {
+				int friendId = rs.getInt("id");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				fs = new FriendSuggestions(friendId, firstName, lastName);
+				blockedFriendsList.add(fs);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			ConnectionPool.freeConnection(connection);
+		}
+
+		return blockedFriendsList;
+	}
 }
 

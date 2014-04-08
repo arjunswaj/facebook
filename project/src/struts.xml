@@ -143,6 +143,12 @@
 			<result name="error">/login.jsp</result>
 			<result name="login">/login.jsp</result>
 		</action>
+		<action name="unblockfriend"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="unblockfriend">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
 			<result name="success" type="redirectAction">newsfeeds</result>
@@ -258,6 +264,7 @@
 			<result name="success" type="tiles">settings.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
+
 		
 	</package>
 
