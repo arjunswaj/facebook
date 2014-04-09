@@ -13,9 +13,8 @@
 	margin: 20px;
 	top: 20px;
 	left: 50px;
-	-webkit-column-count:4; /* Chrome, Safari, Opera */
-    -moz-column-count:4; /* Firefox */
-     column-count:4;
+	-moz-column-count:3; /* Firefox */
+     column-count:3;
 	
 }
 
@@ -27,9 +26,9 @@ div.img {
 	width: auto;
 	float: left;
 	text-align: center;
-	-moz-column-count:2;
+	-moz-column-count:3;
 	/* Firefox */
-    column-count:2;
+    column-count:3;
 	
 }
 	
@@ -77,7 +76,9 @@ text-align:center;
 					src="image?userId=<s:property value="%{userId}"/>" alt="klematis"></a>
  <div class="desc"><a href='profile?fref=<s:property value="%{userId}"/>'><s:property value="#a.firstName" /></a></div>
 </div>
+		
 </s:iterator>
+	
 </div>
 </body>
 </html>

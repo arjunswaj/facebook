@@ -54,6 +54,8 @@ body {
 			<tiles:insertAttribute name="central-pane" />
 		</div>
 		<div>
+			
+	
 	<div class="central-pane">
 		<tiles:insertAttribute name="profile_menu-pane"/>
 	</div>

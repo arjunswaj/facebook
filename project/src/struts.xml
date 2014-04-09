@@ -170,6 +170,7 @@
 		<action name="viewFriends" class="edu.iiitb.facebook.action.viewfriends.ViewFriendsAction" method="execute">
 		<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/friends/viewFriends.jsp</result>
+			<result name="error">/friends/noFriends.jsp</result>
 		</action>
 
 
