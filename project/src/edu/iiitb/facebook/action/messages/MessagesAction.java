@@ -14,6 +14,7 @@ import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.Constants;
 
+// TODO: Fix names
 public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
@@ -23,7 +24,6 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	private List<LatestMessage> latestConversations;
 	private int otherUser = -1; // the other user with whom this 'user' is
 								// having the conversation.
-
 	/**
 	 * Load the latest conversations and select the latest amongst them all for
 	 * the expanded selected conversation view
@@ -46,16 +46,6 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		return SUCCESS;
 	}
 
-	public int getOtherUser()
-	{
-		return otherUser;
-	}
-
-	public void setOtherUser(int otherUser)
-	{
-		this.otherUser = otherUser;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -73,6 +63,7 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		return latestConversations;
 	}
 
+
 	public void setLatestConversations(List<LatestMessage> latestConversations)
 	{
 		this.latestConversations = latestConversations;
@@ -87,5 +78,15 @@ public class MessagesAction extends ActionSupport implements SessionAware
 			List<Message> selectedConversationThread)
 	{
 		this.selectedConversationThread = selectedConversationThread;
+	}
+
+	public int getOtherUser()
+	{
+		return otherUser;
+	}
+
+	public void setOtherUser(int otherUser)
+	{
+		this.otherUser = otherUser;
 	}
 }

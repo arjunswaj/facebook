@@ -49,8 +49,8 @@ public class DisplayEventsAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		EventDAO eventDAO=new EventDAOImpl();
 		invitationListMap=new LinkedHashMap<String, List<Invitation>>();
-		for(String date:eventDAO.getDatesOfEventsInvitedTo(cn, user.getUserId()))
-			invitationListMap.put(date, eventDAO.getEventsInvitedTo(cn, user.getUserId(), date));
+		for(String date:eventDAO.getDatesOfEvents(cn, user.getUserId()))
+			invitationListMap.put(date, eventDAO.getEvents(cn, user.getUserId(), date));
 		ConnectionPool.freeConnection(cn);
 		
 		return SUCCESS;

@@ -47,6 +47,7 @@ $(document).on("click", ".latest-conversation", function(event) {
 	});
 });
 
+
 $(document).on("submit", "#replyForm", function(event) {
 	event.preventDefault();
 	var form = $(this);
@@ -80,8 +81,8 @@ $(document).on("submit", "#replyForm", function(event) {
 	/*
 	 * Reload the latest Conversations
 	 */
-	var asdf = $.post('latestConversations.action', {});
-	asdf.done(function(response) {
+	var posting = $.post('latestConversations.action', {});
+	posting.done(function(response) {
 		var latestConversations = '<div id="latestConversations" class="latest-conversations">';
 		$.each(response.latestConversations, function(index, latestConversation) {
 			latestConversations += '<div>\

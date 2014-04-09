@@ -33,7 +33,7 @@ public class ConfirmationAction extends ActionSupport implements SessionAware
 		value="/confirm",
 		results=
 		{
-			@Result(name="success1", type="redirect", location="displayEvents"),
+			@Result(name="success1", location="/event/confirmationDropDownInnerHTML.html"),
 			@Result(name="success2", type="chain", location="event"),
 			@Result(name="login", location="/index.jsp")
 		}

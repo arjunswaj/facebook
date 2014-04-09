@@ -47,7 +47,7 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "pending");
+		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'pending'");
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;

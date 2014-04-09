@@ -17,6 +17,25 @@
 		window.history.forward();
 	}
 </script>
+<script>
+function validateEmail()
+{
+var x=document.forms["myForm"]["email"].value;
+var y=document.forms["myForm"]["password"].value;
+var atpos=x.indexOf("@");
+var dotpos=x.lastIndexOf(".");
+if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
+  {
+  alert("Not a valid e-mail address");
+  return false;
+  }
+if (!y)
+	{
+	alert("password cannot be null");
+	return false;
+	}
+}
+</script>
 </head>
 
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();"
@@ -24,14 +43,19 @@
 	<img src="images/icon.jpg" />
 	<a style="color: #ffffff;" href="login.jsp"><h1 align="middle">Facebook</h1></a>
 	<div align="center">
-		<s:form action="login" autocomplete="off">
+		<s:form action="login" name="myForm" autocomplete="off" method="post"
+			onsubmit="return validateEmail();">
 
-			<s:textfield key="email" label="email" />
+			<s:textfield key="email" label="Email" />
 			<s:password key="password" label="Password" />
-
 			<s:submit value="login" />
 		</s:form>
+		<div color="#ffffff">
+			<a href="login/recovery.jsp">Forgot your password?</a>
+		</div>
 	</div>
+	<a style="color: #ffffff;" href="login/signup1.jsp"><h1 align="middle">Sign Up</h1></a>
+	
 
 
 	<p>

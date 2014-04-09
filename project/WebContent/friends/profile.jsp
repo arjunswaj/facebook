@@ -8,6 +8,32 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+
+
+html,body {
+    margin:0;
+    width:100%;
+    height:100%;
+    
+}
+
+.coverpic {
+width:1200px;
+height:500px;
+}
+
+.menu {
+width:10%;
+height:10%;
+
+}
+.viewFriends {
+width:20%;
+height:20%;
+margin:20px; 
+}
+
+
 .cover_pic {
 	position: relative;
 	margin: 20px;
@@ -30,6 +56,9 @@
 	width: 200px;
 	height: 30px;
 }
+
+
+
 </style>
 </head>
 <body>
@@ -51,13 +80,12 @@
 	</script>
 
 	<div class="container">
-		<img class="cover_pic" height="350px"
+	<div class="coverpic">
+		<img class="cover_pic" height="350px" 
 			src="image?picType=cover&userId=<s:property value="fref" />" /> <img
 			class="profile_pic" width="120px" height="140px"
 			src="image?userId=<s:property value="fref" />" />
-	</div>
-
-	<s:form id="friendstatus_form" method="post">
+			<s:form id="friendstatus_form" method="post">
 		<s:set name="checkFriend" value="requestStatus" />
 		<!-- Button for Pending status -->
 		<s:if test="%{#checkFriend=='pending'}">
@@ -84,8 +112,13 @@
 			<input class="friends_status" type="submit" value="+1 Add Friend"
 				onclick="addfriend();" />
 		</s:elseif>
+		 
 	</s:form>
+			
+	</div>
+	</div>
 
+	
 
 
 

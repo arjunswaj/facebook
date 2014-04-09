@@ -11,8 +11,8 @@
 	float: left;
 }
 
-.inbox {
-	width: 100%;
+.inbox-header {
+	width: 50%;
 	height: 11%;
 	float: left;
 }
@@ -21,9 +21,8 @@
 	float: left;
 	width: 50%;
 }
-
 .unread {
-	float: left;
+	float: right;
 	width: 50%;
 }
 

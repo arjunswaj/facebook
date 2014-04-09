@@ -26,6 +26,7 @@ import edu.iiitb.facebook.util.ConnectionPool;
 @ParentPackage("tiles-default")
 public class SendInvitesAction extends ActionSupport implements SessionAware
 {
+	private String caller;
 	private String eventId;
 	private String invitees;
 	private List<Integer> inviteesList;
@@ -38,6 +39,7 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 		results=
 		{
 			@Result(name="success", type="chain", location="event"),
+			@Result(name="success2", type="redirect", location="displayEvents"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
@@ -62,6 +64,10 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 		
 		
 		ConnectionPool.freeConnection(cn);
+		
+		if(caller.equals("eventsPage"))
+			return "success2";
+		
 		return SUCCESS;
 	}
 	
@@ -93,5 +99,13 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		session=arg0;
+	}
+
+	public String getCaller() {
+		return caller;
+	}
+
+	public void setCaller(String caller) {
+		this.caller = caller;
 	}
 }

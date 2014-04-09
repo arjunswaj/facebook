@@ -15,7 +15,7 @@
 		<div id="left" class="left">
 			
 			<!-- Inbox header -->
-			<div id="inbox" class="inbox">
+			<div id="inboxHeader" class="inbox-header">
 				<span class="inbox">Inbox</span>
 				<span class="unread">Unread</span>
 			</div>
@@ -35,6 +35,7 @@
 			</div>
 			
 		</div>
+
 
 		<div id="right" class="right">
 		
@@ -74,7 +75,7 @@
 					</div>
 				</form>
 			</div>
-			
+
 		</div>
 	
 	</div>

@@ -33,5 +33,9 @@ public interface FriendsDAO
 	public List<FriendSuggestions> getFriendSuggestions(int userId);
 	
 	public List<FriendSuggestions> getMutualFriends(int userId, int friendId);
+	
+	public List<FriendSuggestions> getBlockedFriends(int userId);
+	
+	
 
 }

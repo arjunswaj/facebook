@@ -6,6 +6,7 @@ public class LatestMessage
 {
 	private int user;
 	private int otherUser;
+
 	private String otherUserFirstName;
 	private String otherUserLastName;
 	private String latestMessage;
@@ -35,14 +36,6 @@ public class LatestMessage
 	{
 		this.otherUser = otherUser;
 	}
-	public String getLatestMessage()
-	{
-		return latestMessage;
-	}
-	public void setLatestMessage(String latestMessage)
-	{
-		this.latestMessage = latestMessage;
-	}
 	public String getOtherUserFirstName()
 	{
 		return otherUserFirstName;
@@ -58,5 +51,13 @@ public class LatestMessage
 	public void setOtherUserLastName(String otherUserLastName)
 	{
 		this.otherUserLastName = otherUserLastName;
+	}
+	public String getLatestMessage()
+	{
+		return latestMessage;
+	}
+	public void setLatestMessage(String latestMessage)
+	{
+		this.latestMessage = latestMessage;
 	}
 }

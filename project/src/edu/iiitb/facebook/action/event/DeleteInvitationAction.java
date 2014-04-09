@@ -35,6 +35,9 @@ public class DeleteInvitationAction extends ActionSupport implements SessionAwar
 			@Result(name="invited", type="chain", location="invitedList"),
 			@Result(name="maybe", type="chain", location="maybeList"),
 			@Result(name="going", type="chain", location="goingList"),
+			@Result(name="all", type="chain", location="allList"),
+			@Result(name="declined", type="chain", location="declinedList"),
+			@Result(name="host", type="chain", location="hostList"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)

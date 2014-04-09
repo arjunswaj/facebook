@@ -21,14 +21,14 @@
 	<div style="background-color: #FFFFFF;">
 		<br />
 		<s:if test='user.getUserId()==inviter.getUserId()'>
-			<a href='invite?eventId=<s:property value="eventId"/>'><input type="button" value="Invite"></a>
-			<a href='editEvent?eventId=<s:property value="eventId"/>'><input type="button" value="Edit"></a>
+			<a style="text-decoration: none;" href='invite?eventId=<s:property value="eventId"/>'><input type="button" value="Invite"></a>
+			<a style="text-decoration: none;" href='editEvent?eventId=<s:property value="eventId"/>'><input type="button" value="Edit"></a>
 		</s:if>
 		<s:else>
 			<s:if test='confirmationIfUserIsInvitee.equals("pending")'>
-				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=join'><input type="button" value="Join" /></a>
-				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=maybe'><input type="button" value="Maybe" /></a>
-				<a href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=nope'><input type="button" value="Decline" /></a>
+				<a style="text-decoration: none;" href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=join'><input type="button" value="Join" /></a>
+				<a style="text-decoration: none;" href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=maybe'><input type="button" value="Maybe" /></a>
+				<a style="text-decoration: none;" href='confirm?caller=eventPage&eventId=<s:property value="eventId" />&confirmation=nope'><input type="button" value="Decline" /></a>
 			</s:if>
 			<s:else>
 				<form id='<s:property value="eventId" />' method="post" action="confirm">
@@ -37,7 +37,7 @@
 					
 					<s:if test='confirmationIfUserIsInvitee.equals("join")'>
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
-						<option value="join" selected="selected">Going</option>
+						<option value="join" selected="selected">*Going</option>
 						<option value="maybe">Maybe</option>
 						<option value="nope">Not Going</option>
 					</select>
@@ -45,7 +45,7 @@
 					<s:elseif test='confirmationIfUserIsInvitee.equals("maybe")'>
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
 						<option value="join">Going</option>
-						<option value="maybe" selected="selected">Maybe</option>
+						<option value="maybe" selected="selected">*Maybe</option>
 						<option value="nope">Not Going</option>
 					</select>
 					</s:elseif>
@@ -53,7 +53,7 @@
 					<select id="confirmation" name="confirmation" onchange="document.getElementById('<s:property value="eventId" />').submit();">
 						<option value="join">Going</option>
 						<option value="maybe">Maybe</option>
-						<option value="nope" selected="selected">Not Going</option>
+						<option value="nope" selected="selected">*Not Going</option>
 					</select>
 					</s:else>
 				</form>
@@ -86,7 +86,7 @@
 				<thead><b>GUESTS</b></thead>
 				<tbody>
 					<tr>
-						<td><a style="text-decoration: none; color: blue;" href='goingList?eventId=<s:property value="eventId"/>'><s:property value="going"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?eventId=<s:property value="eventId"/>'><%=1+Integer.parseInt((String)request.getAttribute("going"))%></a></td>
 						<td><a style="text-decoration: none; color: blue;" href='maybeList?eventId=<s:property value="eventId"/>'><s:property value="maybe"/></a></td>
 						<td><a style="text-decoration: none; color: blue;" href='invitedList?eventId=<s:property value="eventId"/>'><s:property value="invited"/></a></td>
 					</tr>
@@ -103,7 +103,7 @@
 				<thead><b>GUESTS</b></thead>
 				<tbody>
 					<tr>
-						<td><a style="text-decoration: none; color: blue;" href='goingList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="going"/></a></td>
+						<td><a style="text-decoration: none; color: blue;" href='goingList?readOnly=true&eventId=<s:property value="eventId"/>'><%=1+Integer.parseInt((String)request.getAttribute("going"))%></a></td>
 						<td><a style="text-decoration: none; color: blue;" href='maybeList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="maybe"/></a></td>
 						<td><a style="text-decoration: none; color: blue;" href='invitedList?readOnly=true&eventId=<s:property value="eventId"/>'><s:property value="invited"/></a></td>
 					</tr>

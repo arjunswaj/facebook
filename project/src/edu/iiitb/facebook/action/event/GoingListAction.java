@@ -26,6 +26,7 @@ public class GoingListAction extends ActionSupport implements SessionAware
 	private Map<String, String> map;
 	private Map<String, Object> session;
 	private User user;
+	private User inviter;
 	
 	@Action
 	(
@@ -47,8 +48,8 @@ public class GoingListAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join");
-		
+		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'join'");
+		inviter=eventDAO.getInviter(cn, Integer.parseInt(eventId));
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
 	}
@@ -89,5 +90,13 @@ public class GoingListAction extends ActionSupport implements SessionAware
 
 	public void setReadOnly(String readOnly) {
 		this.readOnly = readOnly;
+	}
+
+	public User getInviter() {
+		return inviter;
+	}
+
+	public void setInviter(User inviter) {
+		this.inviter = inviter;
 	}
 }

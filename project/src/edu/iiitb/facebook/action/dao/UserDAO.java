@@ -1,5 +1,7 @@
 package edu.iiitb.facebook.action.dao;
 
+import java.io.FileInputStream;
+
 import edu.iiitb.facebook.action.model.User;
 
 public interface UserDAO
@@ -25,4 +27,11 @@ public interface UserDAO
 	User getUserByUserId(int userId);
 	User getUserByUserEmail(String email);
 	String setUser(User user);
+	
+	
+	String setCoverImageByUserId(int userId, FileInputStream inputStream);
+	String setProfileImageByUserId(int userId, FileInputStream inputStream);
+	String setUserwithoutphotos(User user);
+	String resetpassword(String email, String password);
+	
 }
