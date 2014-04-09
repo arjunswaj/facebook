@@ -14,9 +14,22 @@
 		$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
 		});
 	</script>
+	<script type="text/javascript">
+		function validateAndSubmit()
+		{
+			if(document.getElementById("nm").value=="")
+				alert("Name is empty.");
+			else if(document.getElementById("wh").value=="")
+				alert("Place is empty.");
+			else if(document.getElementById("datepicker").value=="")
+				alert("Date is empty.");
+			else
+				document.getElementById("f1").submit();
+		}
+	</script>
 </head>
 <body style="background-color: #c5c5df;">
-	<form action="editEvent">
+	<form action="editEvent" method="post" id="f1">
 		<input type="hidden" name="eventId" value='<s:property value="eventId" />' />
 		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
 			<tbody>
@@ -25,24 +38,24 @@
 				</tr>
 				<tr>
 					<td>Name: </td>
-					<td colspan="2"><input type="text" name="eventName" style="width: 98%;" value='<s:property value="eventName" />'></td>
+					<td colspan="2"><input id="nm" type="text" name="eventName" style="width: 98%;" value='<s:property value="eventName" />'></td>
 				</tr>
 				<tr>
 					<td>Description: </td>
-					<td colspan="2"><textarea rows="4" style="width: 98%;" name="eventDescription"><s:property value="eventDescription" /></textarea></td>
+					<td colspan="2"><textarea id="dc" rows="4" style="width: 98%;" name="eventDescription"><s:property value="eventDescription" /></textarea></td>
 				</tr>
 				<tr>
 					<td>Where: </td>
-					<td colspan="2"><input type="text" name="eventPlace" style="width: 98%;" value='<s:property value="eventPlace" />'></td>
+					<td colspan="2"><input id="wh" type="text" name="eventPlace" style="width: 98%;" value='<s:property value="eventPlace" />'></td>
 				</tr>
 				<tr>
 					<td>When: </td>
 					<td><input id='datepicker' type="text" name="eventDate" style="width: 96%;" value='<s:property value="eventDate" />'></td>
-					<td><input type="text" name="eventTime" style="width: 96%;" value='<s:property value="eventTime" />'></td>
+					<td><input id="tm" type="text" name="eventTime" style="width: 96%;" value='<s:property value="eventTime" />'></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="right">
-						<input style="background-color: #45619d; color: white;" type="submit" value="Save">
+						<input style="background-color: #45619d; color: white;" type="button" value="Save" onclick="validateAndSubmit()" />
 						<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 					</td>
 				</tr>
