@@ -3,8 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Create New Event</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Create New Event</title>
+	<link rel="stylesheet" href="../css/jquery-ui.css">
+	<script src="../js/jquery-1.10.2.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script>
+		$(function() {
+		$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
+		});
+	</script>
 </head>
 <body style="background-color: #c5c5df;">
 	<form action="createEvent">
@@ -27,8 +35,8 @@
 				</tr>
 				<tr>
 					<td>When: </td>
-					<td><input type="text" name="eventDate" style="width: 96%;"></td>
-					<td><input type="text" name="eventTime" style="width: 96%;"></td>
+					<td><input type="text" name="eventDate" style="width: 96%;" id='datepicker' /></td>
+					<td><input type="text" name="eventTime" style="width: 96%;" /></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="right">
