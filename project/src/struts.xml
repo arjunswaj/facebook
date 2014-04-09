@@ -32,7 +32,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-
+		
 		<!-- Start of messages related actions -->
 
 		<!-- This is for displaying the messages page -->
@@ -42,8 +42,8 @@
 			<result name="success" type="tiles">messages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
-
-		<!-- This is for displaying all the conversations -->
+		
+		<!--  This is for displaying all the conversations -->
 		<action name="conversation" method="loadMessages"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -54,11 +54,10 @@
 
 		<!-- This is for replying to a message -->
 		<action name="reply" method="reply"
-			class="edu.iiitb.facebook.action.messages.ReplyAction">
-			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<!-- <result name="success" type="tiles">messages.tiles</result> -->
-			<result name="login">/login.jsp</result>
-			<result type="json" name="success" />
+		    class="edu.iiitb.facebook.action.messages.ReplyAction">
+		    <interceptor-ref name="secureAccess"></interceptor-ref>
+		    <result name="login">/login.jsp</result>
+		    <result type="json" name="success" /> 
 			<result type="json" name="input" />
 		</action>
 
@@ -162,94 +161,11 @@
 			<result name="login" type="redirectAction">login</result>
 
 		</action>
-		<action name="signup1"
-			class="edu.iiitb.facebook.action.login.FirstSignUpAction">
-			<result name="success">/login/signup2.jsp</result>
-			<result name="error">/login/signup1.jsp</result>
-			<result name="input">/login/signup1.jsp</result>
-
-
-		</action>
-		<action name="signup2"
-			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup2.jsp</result>
-
-		</action>
-		<action name="signup3"
-			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
-			<result name="success" type="tiles">newsfeeds.tiles</result>
-			<result name="error">/login/signup3.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
-
-		</action>
-		<action name="signup3.1"
-			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="profile">
-			<interceptor-ref name="fileUpload">
-				<param name="maximumSize">50971520</param>
-				<param name="allowedTypes">
-					image/png,image/gif,image/jpeg,image/jpg
-				</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
-
-		</action>
-		<action name="signup3.2"
-			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="cover">
-			<interceptor-ref name="fileUpload">
-				<param name="maximumSize">50971520</param>
-				<param name="allowedTypes">
-					image/png,image/gif,image/jpeg,image/jpg
-				</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
-
+		<action name="viewFriends" class="edu.iiitb.facebook.action.viewfriends.ViewFriendsAction" method="execute">
+		<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success">/friends/viewFriends.jsp</result>
 		</action>
 
-		<action name="myrecoveryAction" class="edu.iiitb.facebook.action.login.RecoveryAction">
-			<result name="success">/login/resetpassword.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
-			<result name="login" type="tiles">newsfeeds.tiles</result>
-		</action>
-		<action name="getquestion" class="edu.iiitb.facebook.action.login.RecoveryAction"
-			method="getsecretquestion">
-			<result name="success">/login/recovery.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
-			<result name="login" type="tiles">newsfeeds.tiles</result>
-		</action>
-		<action name="pswdreset"
-			class="edu.iiitb.facebook.action.login.PasswordResetAction">
-			<result name="success">/login.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
-			<result name="login" type="tiles">newsfeeds.tiles</result>
-		</action>
-
-
-		<action name="deletePostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction">
-			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="json" />
-		</action>
-		<action name="getPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
-			method="getPost">
-			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="json" />
-		</action>
-
-		<action name="editPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
-			method="editPost">
-			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="json" />
-		</action>
 	</package>
 
 </struts>

@@ -22,6 +22,16 @@
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
+	
+	<!-- Layout with no footer and right pane -->
+	<definition name="viewFriendsLayout" template="/WEB-INF/content/tiles/friendsProfile.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/content/tiles/Header.jsp" />
+		<put-attribute name="central-pane" value="" />
+		<put-attribute name="profile_menu-pane" value="" />
+		
+	</definition>
+	
 
 
 	<definition name="baseLayout_withoutleftPane"
@@ -71,6 +81,7 @@
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
+	
 
 	<!-- This is for the Events page -->
 	<definition name="eventsPage.tiles" extends="baseLayoutWithoutSidePanes">
@@ -88,6 +99,8 @@
 		<put-attribute name="central-pane" value="" />
 		<put-attribute name="footer" value="/WEB-INF/content/tiles/Footer.jsp" />
 	</definition>
+	
+	
 
 	<!-- This is for the event page of an event -->
 	<definition name="eventPage.tiles" extends="baseLayoutWithoutRightPane">
@@ -96,9 +109,10 @@
 	</definition>
 
 	<!-- This is for the friends page -->
-	<definition name="friends.tiles" extends="simpleLayout">
-		<put-attribute name="title" value="Messages" />
+	<definition name="friends.tiles" extends="viewFriendsLayout">
+		<put-attribute name="title" value="friends" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+		<put-attribute name="profile_menu-pane" value="/WEB-INF/content/tiles/profile_menu.jsp" />
 	</definition>
 
 	<definition name="error.tiles" extends="simpleLayout">

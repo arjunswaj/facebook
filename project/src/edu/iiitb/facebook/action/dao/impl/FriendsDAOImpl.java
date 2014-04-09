@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.iiitb.facebook.action.dao.FriendsDAO;
+import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.FriendInfo.RequestStatus;
 import edu.iiitb.facebook.action.model.FriendSuggestions;
@@ -120,6 +121,7 @@ public class FriendsDAOImpl implements FriendsDAO
 		"SET status = 'blocked' " +
 		"WHERE request_by IN (?,?) " +
 		"AND request_for IN (?, ?) ";
+	private static final String GET_FREINDS_QRY = "select first_name, id from user where id in (select request_by id from friends_with where request_for=? union select request_for id from friends_with where request_by=?)";
 	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
@@ -169,7 +171,39 @@ public class FriendsDAOImpl implements FriendsDAO
 	@Override
 	public List<User> getFriendsList(int userId)
 	{
-		return null;
+		ArrayList<User> friends = null;
+		User userDao = null;
+		Connection conn = ConnectionPool.getConnection();
+
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_FREINDS_QRY);
+			stmt.setInt(1, userId);
+			stmt.setInt(2, userId);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				friends = new ArrayList<User>();
+			} else {
+				return friends;
+			}
+			do {
+				userDao = new User();
+				userDao.setUserId(rs.getInt(UserDAO.ID));
+				userDao.setFirstName(rs.getString(UserDAO.FIRST_NAME));
+				System.out.println("*************" + userDao.getUserId());
+				friends.add(userDao);
+			} while (rs.next());
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnectionPool.freeConnection(conn);
+		}
+
+		return friends;
+
 	}
 
 
