@@ -49,17 +49,18 @@
 					url : "getdata.jsp",
 					type : "POST",
 					dataType : "json",
+					cache : false,
 					data : {
 						name : request.term
 					},
 					success : function(data) {
 
 						response($.map(data, function(item) {
-							$("#fref").val(item.userid);
 
 							return {
+
 								label : item.name,
-								value : item.name,
+								value : item.userid,
 							}
 						}));
 					},
@@ -68,7 +69,12 @@
 					}
 				});
 			},
-			minLength : 2
+			minLength : 2,
+			select : function(event, ui) {
+				event.preventDefault();
+				$(this).val(ui.item.label);
+				$("#fref").val(ui.item.value);
+			}
 		});
 	});
 </script>
@@ -121,23 +127,18 @@
 						onclick="gotoMessages();">
 						<span class="glyphicon glyphicon-comment"></span>
 					</button>
-					<button type="button" id="logout" class="btn btn-primary"
-						onclick="logoutEvent();">
-						<b>logout</b>
-					</button>
-				</div>
 
-				<%-- 	<div class="btn-group">
+					<div class="btn-group">
 					<button type="button" class="btn btn-primary dropdown-toggle"
 						data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li><a href="#">Settings</a></li>
+						<li><a href="accountSettings">Settings</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Logout</a></li>
+						<li><a href="logout">Logout</a></li>
 					</ul>
-				</div> --%>
+				</div> 
 
 
 

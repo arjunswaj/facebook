@@ -17,7 +17,8 @@
 	margin: 2px;
 	padding: 5px;
 	font-family: Arial Narrow, sans-serif;
-	width: 90%;
+	width : 90%;
+	
 }
 .clear {
 	height: 0;

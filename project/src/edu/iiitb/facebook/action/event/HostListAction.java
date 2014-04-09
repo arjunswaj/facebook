@@ -19,20 +19,21 @@ import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
 @Namespace("event")
-public class InvitedListAction extends ActionSupport implements SessionAware
+public class HostListAction extends ActionSupport implements SessionAware
 {
 	private String readOnly="false";
 	private String eventId;
 	private Map<String, String> map;
 	private Map<String, Object> session;
 	private User user;
+	private User inviter;
 	
 	@Action
 	(
-		value="/invitedList",
+		value="/hostList",
 		results=
 		{
-			@Result(name="success", location="/event/invitedList.jsp"),
+			@Result(name="success", location="/event/hostList.jsp"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
@@ -40,15 +41,14 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 	{
 		user = (User) session.get("user");
 		
-		
 		if(user==null)
 			return LOGIN;
 		
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'pending'");
-		
+		map=new HashMap<String, String>(); //populate appropriately in case need arises during exam
+		inviter=eventDAO.getInviter(cn, Integer.parseInt(eventId));
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
 	}
@@ -89,5 +89,13 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 
 	public void setReadOnly(String readOnly) {
 		this.readOnly = readOnly;
+	}
+
+	public User getInviter() {
+		return inviter;
+	}
+
+	public void setInviter(User inviter) {
+		this.inviter = inviter;
 	}
 }

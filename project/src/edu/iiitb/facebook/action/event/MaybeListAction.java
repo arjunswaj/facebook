@@ -47,7 +47,7 @@ public class MaybeListAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe");
+		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'maybe'");
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;

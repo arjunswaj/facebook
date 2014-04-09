@@ -142,6 +142,12 @@
 			<result name="error">/login.jsp</result>
 			<result name="login">/login.jsp</result>
 		</action>
+		<action name="unblockfriend"
+			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="unblockfriend">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
 			<result name="success" type="redirectAction">newsfeeds</result>
@@ -166,6 +172,54 @@
 			<result name="success">/friends/viewFriends.jsp</result>
 		</action>
 
+
+		<action name="myrecoveryAction" class="edu.iiitb.facebook.action.login.RecoveryAction">
+			<result name="success">/login/resetpassword.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+		<action name="getquestion" class="edu.iiitb.facebook.action.login.RecoveryAction"
+			method="getsecretquestion">
+			<result name="success">/login/recovery.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+		<action name="pswdreset"
+			class="edu.iiitb.facebook.action.login.PasswordResetAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/login/recovery.jsp</result>
+			<result name="input">/login/recovery.jsp</result>
+			<result name="login" type="tiles">newsfeeds.tiles</result>
+		</action>
+
+
+		<action name="deletePostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+		</action>
+		<action name="getPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
+			method="getPost">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+		</action>
+
+		<action name="editPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
+			method="editPost">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+		</action>
+		
+		<!-- This is for Settings Page -->
+		<action name="accountSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+		
 	</package>
 
 </struts>

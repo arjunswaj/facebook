@@ -25,10 +25,10 @@
 					<td colspan="2"><h3>Invite Friends</h3></td>
 					<td align="right">
 						<s:if test='caller.equals("eventsPage")'>
-							<a href='displayEvents'><input type="button" value="X" /></a>
+							<a style="text-decoration: none;" href='displayEvents'><input type="button" value="X" /></a>
 						</s:if>
 						<s:else>
-							<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a>
+							<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a>
 						</s:else>
 					</td>
 				</tr>
@@ -43,10 +43,10 @@
 					<td colspan="4" align="right">
 						<input style="background-color: #45619d; color: white;" type="button" value="Send" onclick="submitForm();" />
 						<s:if test='caller.equals("eventsPage")'>
-							<a href='displayEvents'><input type="button" value="Cancel" /></a>
+							<a style="text-decoration: none;" href='displayEvents'><input type="button" value="Cancel" /></a>
 						</s:if>
 						<s:else>
-							<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+							<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 						</s:else>
 					</td>
 				</tr>
@@ -58,7 +58,7 @@
 		for(var i=0; i<cbArray.length; i++)
 			if(cbArray[i].value<0)
 				cbArray[i].disabled="disabled";
-			
+		
 		function submitForm()
 		{
 			var cbArray=document.getElementsByName("cb");

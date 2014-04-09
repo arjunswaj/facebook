@@ -57,7 +57,7 @@
 	</div>
 	
 	<div style="margin-left: 70%;">
-		<a href="createEventPage.jsp"><input type="button" value="+ Create Event" /></a>
+		<a style="text-decoration: none;" href="createEventPage.jsp"><input type="button" value="+ Create Event" /></a>
 	</div>
 	
 	<hr />
@@ -126,10 +126,10 @@
 							<img height="110px" width="110px" src='image?userId=<s:property value="#invitation.getInviterId()" />' />
 						</div>
 						<div style="margin-left: 180px;">
-							<a href='event?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
+							<a style="text-decoration: none;" href='event?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
 							<s:property value="#invitation.getEventPlace()" /><br />
 							<s:property value="#invitation.getInviterName()" /> hosting<br />
-							<a href='invite?eventId=<s:property value="#invitation.getEventId()" />&caller=eventsPage'><input type="button" value="Invite Friends"></a>
+							<a style="text-decoration: none;" href='invite?eventId=<s:property value="#invitation.getEventId()" />&caller=eventsPage'><input type="button" value="Invite Friends"></a>
 						</div>
 					</div>
 				</s:else>
