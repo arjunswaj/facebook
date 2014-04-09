@@ -40,6 +40,7 @@
 	float: left;
 	margin: 2px;
 	padding: 5px;
+	width: 80%;
 	font-family: Arial Narrow, sans-serif;
 }
 
