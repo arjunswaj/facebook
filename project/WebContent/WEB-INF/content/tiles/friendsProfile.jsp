@@ -17,7 +17,7 @@
 	margin: 0px;
 	padding: 5px;
 	font-family: Arial Narrow, sans-serif;
-	width : 90%;
+	width : 100%;
 	
 }
 .clear {
@@ -54,8 +54,6 @@ body {
 			<tiles:insertAttribute name="central-pane" />
 		</div>
 		<div>
-			
-	
 	<div class="central-pane">
 		<tiles:insertAttribute name="profile_menu-pane"/>
 	</div>
