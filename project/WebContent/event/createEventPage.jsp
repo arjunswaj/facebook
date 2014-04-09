@@ -41,7 +41,7 @@
 				<tr>
 					<td colspan="3" align="right">
 						<input style="background-color: #45619d; color: white;" type="submit" value="Create">
-						<a href="displayEvents"><input type="button" value="Cancel"></a>
+						<a style="text-decoration: none;" href="displayEvents"><input type="button" value="Cancel"></a>
 					</td>
 				</tr>
 			</tbody>

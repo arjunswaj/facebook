@@ -35,7 +35,7 @@ public class EventDAOImpl implements EventDAO
 		//	"select user.id, user.first_name, user.last_name from user, invitation where invitation.sent_by=? and invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
 	
 	private static final String GET_INVITEES_QUERY=
-			"select user.id, user.first_name, user.last_name from user, invitation where invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
+			"select user.id, user.first_name, user.last_name from user, invitation where invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation in ";
 	
 	private static final String DELETE_INVITATION_QUERY=
 			"delete from invitation where sent_by=? and sent_to=? and event_id=?;";
@@ -125,7 +125,7 @@ public class EventDAOImpl implements EventDAO
 		ps.setInt(2, userId);
 		ResultSet rs=ps.executeQuery();
 		Map<String, String> m=new HashMap<String, String>();
-		Map<String, String> m2=getInvitees(cn, userId, eventId, "%");
+		Map<String, String> m2=getInvitees(cn, userId, eventId, "'join', 'maybe', 'pending', 'nope'");
 		while(rs.next())
 		{
 			if(m2.get(rs.getString(1))==null)
@@ -141,12 +141,12 @@ public class EventDAOImpl implements EventDAO
 	//confirmation could be %, join, maybe, nope
 	public Map<String, String> getInvitees(Connection cn, int inviterId, int eventId, String confirmation) throws SQLException
 	{
-		PreparedStatement ps=cn.prepareStatement(GET_INVITEES_QUERY);
+		PreparedStatement ps=cn.prepareStatement(GET_INVITEES_QUERY+"("+confirmation+");");
 		//ps.setInt(1, inviterId);
 		//ps.setInt(2, eventId);
 		ps.setInt(1, eventId);
 		//ps.setString(3, confirmation);
-		ps.setString(2, confirmation);
+		//ps.setString(2, confirmation);
 		ResultSet rs=ps.executeQuery();
 		Map<String, String> m=new HashMap<String, String>();
 		while(rs.next())

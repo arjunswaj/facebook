@@ -67,9 +67,9 @@ public class EventAction extends ActionSupport implements SessionAware
 		eventDate=e.getEventDate();
 		eventTime=e.getEventTime();
 		
-		going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "join").size()).toString();
-		maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "maybe").size()).toString();
-		invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "pending").size()).toString();
+		going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'join'").size()).toString();
+		maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'maybe'").size()).toString();
+		invited=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'pending'").size()).toString();
 		
 		setInviter(eventDAO.getInviter(cn, Integer.parseInt(eventId)));
 		confirmationIfUserIsInvitee=eventDAO.getConfirmationStatus(cn, Integer.parseInt(eventId), user.getUserId());

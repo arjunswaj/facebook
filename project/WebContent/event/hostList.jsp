@@ -14,10 +14,10 @@
 			window.location="maybeList?readOnly="+readOnly+"&eventId="+eventId;
 		else if(s=="Invited")
 			window.location="invitedList?readOnly="+readOnly+"&eventId="+eventId;
+		else if(s=="Going")
+			window.location="goingList?readOnly="+readOnly+"&eventId="+eventId;
 		else if(s=="All")
 			window.location="allList?readOnly="+readOnly+"&eventId="+eventId;
-		else if(s=="Host")
-			window.location="hostList?readOnly="+readOnly+"&eventId="+eventId;
 		else if(s=="Declined")
 			window.location="declinedList?readOnly="+readOnly+"&eventId="+eventId;
 	}
@@ -33,8 +33,8 @@
 			<tr style="background-color: #f0f1f2; height: 40px;">
 				<td colspan="2">
 					<select id='listType' onchange="displayAppropriateList('<s:property value="readOnly" />', '<s:property value="eventId" />')">
-						<option>Host</option>
-						<option selected="selected">*Going</option>
+						<option selected="selected">*Host</option>
+						<option>Going</option>
 						<option>Maybe</option>
 						<option>Invited</option>
 						<option>All</option>
@@ -60,7 +60,7 @@
 					<td><s:property value="#u.value" /></td>
 					<td align="right">
 						<s:if test='readOnly.equals("false")'>
-						<a style="text-decoration: none;" href='deleteInvitation?listName=going&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>
+						<a style="text-decoration: none;" href='deleteInvitation?listName=host&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>
 						</s:if>
 					</td>
 				</tr>

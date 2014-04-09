@@ -12,14 +12,14 @@
 		var s=document.getElementById('listType').value;
 		if(s=="Maybe")
 			window.location="maybeList?readOnly="+readOnly+"&eventId="+eventId;
-		else if(s=="Invited")
-			window.location="invitedList?readOnly="+readOnly+"&eventId="+eventId;
+		else if(s=="Going")
+			window.location="goingList?readOnly="+readOnly+"&eventId="+eventId;
 		else if(s=="All")
 			window.location="allList?readOnly="+readOnly+"&eventId="+eventId;
 		else if(s=="Host")
 			window.location="hostList?readOnly="+readOnly+"&eventId="+eventId;
-		else if(s=="Declined")
-			window.location="declinedList?readOnly="+readOnly+"&eventId="+eventId;
+		else if(s=="Invited")
+			window.location="invitedList?readOnly="+readOnly+"&eventId="+eventId;
 	}
 </script>
 </head>
@@ -34,25 +34,16 @@
 				<td colspan="2">
 					<select id='listType' onchange="displayAppropriateList('<s:property value="readOnly" />', '<s:property value="eventId" />')">
 						<option>Host</option>
-						<option selected="selected">*Going</option>
+						<option>Going</option>
 						<option>Maybe</option>
 						<option>Invited</option>
 						<option>All</option>
-						<option>Declined</option>
+						<option selected="selected">*Declined</option>
 					</select>
 				</td>
 			</tr>
 		</table>
-		
-		<div style="overflow-y: scroll; height: 502px;">
-			<table style="width: 96%; margin-left: 2%;">
-				<tr>
-					<td width="50px"><img width="40px" height="40px" src='image?userId=<s:property value="inviter.getUserId()" />' /></td>
-					<td><s:property value='inviter.getFirstName()+" "+inviter.getLastName()' /></td>
-					<td></td>
-				</tr>
-			</table>
-			<hr />
+		<div style="overflow-y: scroll; height: 502px;">	
 			<s:iterator value="map" var="u">
 			<table style="width: 96%; margin-left: 2%;">
 				<tr>
@@ -60,7 +51,7 @@
 					<td><s:property value="#u.value" /></td>
 					<td align="right">
 						<s:if test='readOnly.equals("false")'>
-						<a style="text-decoration: none;" href='deleteInvitation?listName=going&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>
+						<a style="text-decoration: none;" href='deleteInvitation?listName=declined&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>
 						</s:if>
 					</td>
 				</tr>

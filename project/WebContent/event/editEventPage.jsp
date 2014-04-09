@@ -43,7 +43,7 @@
 				<tr>
 					<td colspan="3" align="right">
 						<input style="background-color: #45619d; color: white;" type="submit" value="Save">
-						<a href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+						<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 					</td>
 				</tr>
 			</tbody>

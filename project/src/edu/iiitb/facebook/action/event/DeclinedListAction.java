@@ -19,7 +19,7 @@ import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
 @Namespace("event")
-public class InvitedListAction extends ActionSupport implements SessionAware
+public class DeclinedListAction extends ActionSupport implements SessionAware
 {
 	private String readOnly="false";
 	private String eventId;
@@ -29,10 +29,10 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 	
 	@Action
 	(
-		value="/invitedList",
+		value="/declinedList",
 		results=
 		{
-			@Result(name="success", location="/event/invitedList.jsp"),
+			@Result(name="success", location="/event/declinedList.jsp"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
@@ -47,7 +47,7 @@ public class InvitedListAction extends ActionSupport implements SessionAware
 		Connection cn=ConnectionPool.getConnection();
 		
 		EventDAO eventDAO=new EventDAOImpl();
-		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'pending'");
+		map=eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'nope'");
 		
 		ConnectionPool.freeConnection(cn);
 		return SUCCESS;
