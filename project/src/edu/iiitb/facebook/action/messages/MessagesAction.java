@@ -18,26 +18,31 @@ public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 	private Map<String, Object> session;
-	
-	private List<Message> conversation;
-	private List<LatestMessage> conversations;
-	private int otherUser = -1; // the other user with whom this 'user' is having the conversation.
+
+	private List<Message> selectedConversationThread;
+	private List<LatestMessage> latestConversations;
+	private int otherUser = -1; // the other user with whom this 'user' is
+								// having the conversation.
+
 	/**
-	 * Load the messages
+	 * Load the latest conversations and select the latest amongst them all for
+	 * the expanded selected conversation view
+	 * 
 	 * @return
 	 */
-	public String loadMessages()
+	public String load()
 	{
-		int user = ((User)(session.get(Constants.USER))).getUserId();
+		int user = ((User) (session.get(Constants.USER))).getUserId();
 
-		// latest messages list
 		MessageDAO dao = new MessageDAOImpl();
-		conversations = dao.getLatestConversationforAllUsersWith(user);
-		if (otherUser < 0 && !conversations.isEmpty())
-			otherUser = conversations.get(0).getOtherUser();
-		
-		// message thread
-		setConversation(dao.getMessages(otherUser, user));
+		latestConversations = dao.getLatestConversationsFor(user);
+
+		// set default conversation with latest other user
+		if (otherUser < 0 && !latestConversations.isEmpty())
+			otherUser = latestConversations.get(0).getOtherUser();
+
+		setSelectedConversationThread(dao
+				.getConversationThread(otherUser, user));
 		return SUCCESS;
 	}
 
@@ -51,33 +56,36 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		this.otherUser = otherUser;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.apache.struts2.interceptor.SessionAware#setSession(java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.apache.struts2.interceptor.SessionAware#setSession(java.util.Map)
 	 */
 	@Override
 	public void setSession(Map<String, Object> arg0)
 	{
 		this.session = arg0;
-		
 	}
 
-	public List<LatestMessage> getConversations()
+	public List<LatestMessage> getLatestConversations()
 	{
-		return conversations;
+		return latestConversations;
 	}
 
-	public void setConversations(List<LatestMessage> conversations)
+	public void setLatestConversations(List<LatestMessage> latestConversations)
 	{
-		this.conversations = conversations;
+		this.latestConversations = latestConversations;
 	}
 
-	public List<Message> getConversation()
+	public List<Message> getSelectedConversationThread()
 	{
-		return conversation;
+		return selectedConversationThread;
 	}
 
-	public void setConversation(List<Message> conversation)
+	public void setSelectedConversationThread(
+			List<Message> selectedConversationThread)
 	{
-		this.conversation = conversation;
+		this.selectedConversationThread = selectedConversationThread;
 	}
 }

@@ -39,6 +39,7 @@ public class ReplyAction extends ActionSupport implements SessionAware
 		replyMsg.setSenderLastName(thisUser.getLastName());
 
 		User toUser = new UserDAOImpl().getUserByUserId(replyMsg.getRecipient());
+		replyMsg.setRecipient(toUser.getUserId());
 		replyMsg.setRecipientFirstName(toUser.getFirstName());
 		replyMsg.setRecipientLastName(toUser.getLastName());
 
@@ -47,7 +48,7 @@ public class ReplyAction extends ActionSupport implements SessionAware
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 	    setNow(sdf.format(new Date()));
 
-		return SUCCESS;
+		return SUCCESS;		
 	}
 
 	/*

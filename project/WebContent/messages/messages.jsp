@@ -11,49 +11,72 @@
 </head>
 <body>
 	<div id="container" class="container">
-		<div id="conversations" class="conversations">
-			<s:iterator value="conversations">
-				<div>
-					<a id="conversation" class="conversation"
-						href="conversation.action?otherUser=<s:property value="otherUser" />">
-						<s:property value="senderFirstName" /> <s:property
-							value="senderLastName" /> <s:property value="latestMessage" /> <s:property
-							value="sentAt" />
-					</a>
-				</div>
-			</s:iterator>
+	
+		<div id="left" class="left">
+			
+			<!-- Inbox header -->
+			<div id="inbox" class="inbox">
+				<span class="inbox">Inbox</span>
+				<span class="unread">Unread</span>
+			</div>
+			
+			<!-- Latest conversations -->
+			<div id="latestConversations" class="latest-conversations">
+				<s:iterator value="latestConversations">
+					<div>
+						<a class="latest-conversation" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />">
+							<s:property value="otherUserFirstName" /> 
+							<s:property value="otherUserLastName" /> 
+							<s:property value="latestMessage" /> 
+							<s:property value="sentAt" />
+						</a>
+					</div>
+				</s:iterator>
+			</div>
+			
 		</div>
 
-		<div id="conversationThread" class="conversation-thread">
-			<s:iterator value="conversation">
-				<div class="message">
-					<div class="message-photo">
-						<img width="100%" height="100%"
-							src="image?userId=<s:property value="sender" />" />
+		<div id="right" class="right">
+		
+			<!-- Selected conversation header -->
+			<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">
+				Name : New Message : Action : Search
+			</div>
+			
+			<!-- Selected conversation thread -->
+			<div id="selectedConversationThread" class="selected-conversation-thread">
+				<s:iterator value="selectedConversationThread">
+					<div class="message">
+						<div class="message-photo">
+							<img width="100%" height="100%" src="image?userId=<s:property value="sender" />" />
+						</div>
+						<div class="message-header">
+							<b> 
+								<s:property value="senderFirstName" /> 
+								<s:property	value="senderLastName" />
+							</b>
+							<s:property value="sentAt" />
+						</div>
+						<div class="message-text">
+							<s:property value="text" />
+						</div>
 					</div>
-					<div class="message-header">
-						<b> <s:property value="senderFirstName" /> <s:property
-								value="senderLastName" />
-						</b>
-						<s:property value="sentAt" />
-					</div>
-					<div class="message-text">
-						<s:property value="text" />
-					</div>
-				</div>
-			</s:iterator>
-		</div>
+				</s:iterator>
+			</div>
 
-		<div id="replyBox" class="reply-box">
-			<form id="replyForm" action="reply">
-				<div>
-					<s:textarea id="reply" name="replyMsg.text" value="" cols="75"
-						rows="5" placeholder="Write a reply" />
-					<s:hidden name="replyMsg.recipient" value="%{otherUser}" />
-					<s:submit value="Reply"></s:submit>
-				</div>
-			</form>
+			<!-- Reply -->
+			<div id="replyBox" class="reply-box">
+				<form id="replyForm" action="reply">
+					<div>
+						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply" />
+						<s:hidden name="replyMsg.recipient" value="%{otherUser}" />
+						<s:submit value="Reply"></s:submit>
+					</div>
+				</form>
+			</div>
+			
 		</div>
+	
 	</div>
 	<script src="messages/messages.js"></script>
 </body>

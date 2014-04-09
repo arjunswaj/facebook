@@ -36,15 +36,15 @@
 		<!-- Start of messages related actions -->
 
 		<!-- This is for displaying the messages page -->
-		<action name="messages" method="loadMessages"
+		<action name="messages" method="load"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">messages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
 		
-		<!--  This is for displaying all the conversations -->
-		<action name="conversation" method="loadMessages"
+		<!--  This is for displaying all the latest conversations -->
+		<action name="latestConversations" method="load"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
@@ -52,13 +52,22 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<!--  This is for displaying the selected conversation thread -->
+		<action name="selectedConversationThread" method="load"
+			class="edu.iiitb.facebook.action.messages.MessagesAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
+		
 		<!-- This is for replying to a message -->
 		<action name="reply" method="reply"
 		    class="edu.iiitb.facebook.action.messages.ReplyAction">
 		    <interceptor-ref name="secureAccess"></interceptor-ref>
-		    <result name="login">/login.jsp</result>
-		    <result type="json" name="success" /> 
-			<result type="json" name="input" />
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<!-- End of messages related actions -->

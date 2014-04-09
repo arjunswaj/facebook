@@ -13,14 +13,14 @@ public interface MessageDAO
 	 * @param sender
 	 * @return
 	 */
-	public List<Message> getMessages(int sender, int recipient);
+	public List<Message> getConversationThread(int sender, int recipient);
 	
 	/**
 	 * Gets the latest conversation between the specified user and each of the other users
 	 * @param user The specified user
 	 * @return
 	 */
-	public List<LatestMessage> getLatestConversationforAllUsersWith(int user);
+	public List<LatestMessage> getLatestConversationsFor(int user);
 
 	/**
 	 * Insert the reply into the message table

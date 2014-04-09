@@ -18,10 +18,10 @@ public class MessageDAOImpl implements MessageDAO
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see edu.iiitb.facebook.action.dao.MessageDAO#getMessages(int, int)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#getConversationThread(int, int)
 	 */
 	@Override
-	public List<Message> getMessages(int sender, int recipient)
+	public List<Message> getConversationThread(int sender, int recipient)
 	{
 		final String query = "select * from user as from_user, message, user as to_user "
 				+ " where "
@@ -52,7 +52,7 @@ public class MessageDAOImpl implements MessageDAO
 				message.setSender(rs.getInt("sender"));
 				message.setRecipient(rs.getInt("recipient"));
 				
-				//TODO: Disambiguiting by default here
+				//TODO: Disambiguating by default here
 				message.setSenderFirstName(rs.getString("first_name"));
 				message.setSenderLastName(rs.getString("last_name"));
 				message.setRecipientFirstName(rs.getString("first_name"));
@@ -74,25 +74,30 @@ public class MessageDAOImpl implements MessageDAO
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * edu.iiitb.facebook.action.dao.MessageDAO#getLatestConversationforAllUsersWith
+	 * edu.iiitb.facebook.action.dao.MessageDAO#getLatestConversationsFor
 	 * (int)
 	 */
 	@Override
-	public List<LatestMessage> getLatestConversationforAllUsersWith(int user)
+	public List<LatestMessage> getLatestConversationsFor(int user)
 	{
-		//final String query = "select user.id, user.first_name, user.last_name, message.text, message.sent_at from user, message,  (select max(sent_at) as sent_at, sender, recipient from message group by sender, recipient) as latest_message where user.id = message.sender and message.sender = latest_message.sender and message.sent_at = latest_message.sent_at and message.recipient = latest_message.recipient and message.recipient = ?";
-		final String query = "select"
-				+ " user.id, user.first_name, user.last_name, message.text,"
-				+ " message.sent_at"
+		final String query = "select" 
+				+ " *"
 				+ " from"
-				+ " user, message, (select max(sent_at) as sent_at, sender, recipient"
-					+ " from message group by sender, recipient) as latest_message"
+				+ " user as sender, message," 
+				+ " (select "
+				+ "		message.conversation_id, max(message.sent_at) as sent_at"
+				+ "		from message "
+				+ "		where "
+				+ "		(message.sender = ? or message.recipient = ? ) "
+				+ "		group by conversation_id) as latest_message,"
+				+ " user as recipient"
 				+ " where"
-				+ " user.id = message.sender"
-				+ " and message.sender = latest_message.sender"
+				+ " sender.id = message.sender"
+				+ " and message.conversation_id = latest_message.conversation_id"
 				+ " and message.sent_at = latest_message.sent_at"
-				+ " and message.recipient = latest_message.recipient"
-				+ " and message.recipient = ?";
+				+ " and message.recipient = recipient.id"
+				+ " order by latest_message.sent_at desc;";
+		
 
 		List<LatestMessage> latestMsgs = new LinkedList<LatestMessage>();
 
@@ -102,14 +107,24 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, user);
+			stmt.setInt(2, user);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
 				LatestMessage latestMsg = new LatestMessage();
 
-				latestMsg.setOtherUser(rs.getInt("id"));
-				latestMsg.setSenderFirstName(rs.getString("first_name"));
-				latestMsg.setSenderLastName(rs.getString("last_name"));
+				int other = rs.getInt("sender.id");
+				String firstName = rs.getString("sender.first_name");
+				String lastName = rs.getString("sender.last_name");
+				if (other == user)
+				{
+					other = rs.getInt("recipient.id");
+					firstName = rs.getString("recipient.first_name");
+					lastName = rs.getString("recipient.last_name");
+				}
+				latestMsg.setOtherUser(other);
+				latestMsg.setOtherUserFirstName(firstName);
+				latestMsg.setOtherUserLastName(lastName);
 				latestMsg.setLatestMessage(rs.getString("text"));
 				latestMsg.setSentAt(rs.getTimestamp("sent_at"));
 				latestMsg.setUser(user);
@@ -137,20 +152,34 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public int insert(Message reply)
 	{
-		final String insert = "insert into message (text, sender, recipient) values (?, ? , ?)";
+		final String insert = "insert into message (text, sender, recipient, conversation_id) values (?, ? , ?, ?)";
+		final String query = "select id from friends_with where (request_by = ? and request_for = ?) or (request_by = ? and request_for = ?)";
 		int id = -1;
+		int conversationId = -1;
 	
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
 		try
 		{
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, reply.getSender());
+			stmt.setInt(2, reply.getRecipient());
+			stmt.setInt(3, reply.getRecipient());
+			stmt.setInt(4, reply.getSender());
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next())
+				conversationId = rs.getInt("id");
+			else
+				throw new RuntimeException("TODO: Handle this. People who are not friends are being allowed to message");
+			
 			stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, reply.getText());
 			stmt.setInt(2,  reply.getSender());
 			stmt.setInt(3, reply.getRecipient());
+			stmt.setInt(4, conversationId);
 			stmt.executeUpdate();
 			
-			ResultSet rs = stmt.getGeneratedKeys();
+			rs = stmt.getGeneratedKeys();
 			if(rs.next())
 				id = rs.getInt(1);
 		}
