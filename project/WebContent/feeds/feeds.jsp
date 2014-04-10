@@ -44,6 +44,21 @@
 	font-family: Arial Narrow, sans-serif;
 }
 
+.left-likers {
+	float: left;
+	margin: 2px;	
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-likers {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	width: 80%;
+	font-family: Arial Narrow, sans-serif;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
 .timestamp {
 	padding: 15px 0px;
 	font-size: 12px;
@@ -63,17 +78,17 @@
 }
 
 .delete_post {
-	padding: 2px;	
+	padding: 2px;
 	text-align: left;
-	float:left;
-	width:auto;
+	float: left;
+	width: auto;
 }
 
 .edit_post {
-	padding: 2px;	
+	padding: 2px;
 	text-align: left;
-	float:left;
-	width:auto;
+	float: left;
+	width: auto;
 }
 
 .fullname {
@@ -100,19 +115,103 @@
 	line-height: 0;
 	clear: both;
 }
+
 .status-description {
-	float:left; 
-	width:70%;
+	float: left;
+	width: 70%;
 }
 
 .status-options {
-	float:left; 
-	width:30%;
+	float: left;
+	width: 30%;
+}
+
+.like {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.like:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.liked {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.liked:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.people-who-like {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.people-who-like:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.overlay {
+	background-color: rgba(204, 204, 204, 0.5);
+	color: #333;
+	position: absolute;
+	width: 100%;
+	z-index: 400;
+	height: 100%;
+	top: 0px;
+	display: none;
+}
+
+.show,.show2 {
+	width: 50px;
+	height: 50px;
+	left: 20%;
+	top: 30%;
+	background-color: #9C9C9C;
+	position: absolute;
+}
+
+.show2 {
+	left: 60%;
+	top: 40%;
+}
+
+.Absolute-Center {
+  width: 90%;
+  height: auto;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  background-color: rgba(204, 204, 204, 0.8);
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.like-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 10 px;
+}
+.likers {
+	padding: 10 px;
 }
 </style>
 
 </head>
 <body>
+	<div id="Overlay" name="Overlay" class="overlay" onclick="funcClose(this);">		
+	</div>
 	<h1>News Feeds</h1>
 
 	<s:set name="loggedInUser" value="userId" />
@@ -194,13 +293,14 @@
 					<div class="timestamp">
 						<s:property value="updatedTime" />
 						<s:if test="#feeds.haveILiked == true">
-							<span>Liked</span>
+							<span id='liked_<s:property value="#feeds.postId"/>' class="liked">Liked</span>
 						</s:if>
 						<s:elseif test="#feeds.haveILiked == false">
-							<span>Like</span>
+							<span id='like_<s:property value="#feeds.postId"/>' class="like">Like</span>
 						</s:elseif>
-						<s:property value="#feeds.likeCount" />
-						likes
+						<span id='post_likers_<s:property value="#feeds.postId"/>' class="people-who-like">
+							<s:property value="#feeds.likeCount" />	likes
+						</span>
 					</div>
 					<div>
 						<s:iterator value="#feeds.postComments" var="comments">
@@ -220,13 +320,14 @@
 								<div class="timestamp">
 									<s:property value="#comments.commentTime" />
 									<s:if test="#comments.haveILiked == true">
-										<span>Liked</span>
+										<span id='<s:property value="#comments.commentId"/>' class="liked-comment">Liked</span>
 									</s:if>
 									<s:elseif test="#comments.haveILiked == false">
-										<span>Like</span>
+										<span id='<s:property value="#comments.commentId"/>' class="like-comment">Like</span>
 									</s:elseif>
-									<s:property value="#comments.likeCount" />
-									likes
+									<span id='comment_likers_<s:property value="#comments.commentId"/>' class="people-who-like-comment">
+										<s:property value="#comments.likeCount" /> likes
+									</span>
 								</div>
 							</div>
 							<div class="clear"></div>
@@ -257,6 +358,117 @@
 </body>
 <script src="js/jquery-1.9.1.js"></script>
 <script type="text/javascript">
+
+	function funcShow(_btn) {
+	    var ov = $("#Overlay");
+	    var pos = $(_btn).offset();
+	    var doc = $(document);
+	    ov.css({
+	        left: pos.left + 'px',
+	        top: pos.top + 'px',
+	        width: 0,
+	        height: 0
+	    })
+	    .show()
+	    .animate({
+	        left: pos.left + 'px',
+	        top: pos.right + 'px',
+	        width: '30%',
+	        height: '60%'
+	        }, "slow");
+	    
+	}
+	
+	function funcClose() {
+	   $("#Overlay").hide("slow");
+	}
+
+	$(document).on("click", ".like",
+			function(event) {		
+		var postId = $(this)[0].id.split("_")[1];		
+		$.ajax({
+            url:  '/facebook/likepost',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"postId" : postId
+            },
+            success: function(likeData) {
+            	$("#post_likers_"+likeData.postId)[0].innerHTML = likeData.likersCount + " likes";
+            	$("#like_"+likeData.postId)[0].innerHTML = "Liked";
+            	$("#like_"+likeData.postId)[0].className = "liked";
+            	$("#like_"+likeData.postId)[0].id = "liked_"+likeData.postId;
+            }
+        });
+	});
+
+	$(document).on("click", ".liked",
+			function(event) {
+		var postId = $(this)[0].id.split("_")[1];		
+		$.ajax({
+            url:  '/facebook/unlikepost',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"postId" : postId
+            },
+            success: function(likeData) {
+            	$("#post_likers_"+likeData.postId)[0].innerHTML = likeData.likersCount + " likes";
+            	$("#liked_"+likeData.postId)[0].innerHTML = "Like";
+            	$("#liked_"+likeData.postId)[0].className = "like";
+            	$("#liked_"+likeData.postId)[0].id = "like_"+likeData.postId;
+            }
+        });
+	});
+	
+	$(document).on("click", ".people-who-like",
+			function(event) {
+		var postId = $(this)[0].id.split("_")[2];		
+		$.ajax({
+            url:  '/facebook/postlikers',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"postId" : postId
+            },
+            success: function(likeData) {
+            	var html = [];
+            	var postLikers = likeData.likers;
+            	html.push("<div class=\"Absolute-Center\">");
+	            	html.push("<span class=\"like-title\">");
+		            	if (postLikers.length > 0) {            	
+		            		html.push("This post has been liked by following people");				       
+		            	} else {
+		            		html.push("No one has liked this post yet.");
+		            	}
+	            	html.push("</span>");
+	            	html.push("<div class=\"likers\">");
+	            	for (var index = 0; index < postLikers.length; index += 1) {
+	            		var user = postLikers[index];
+	            		html.push("<div>");
+	            			html.push("<div class=\"left-likers\">");
+	            				html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            			html.push("</div>");
+	            			html.push("<div class=\"right-likers\">");
+		            			html.push("<span>");
+		            				html.push(user.firstName);
+		            			html.push("</span>");
+		            			html.push("<span>");
+		        					html.push(user.lastName);
+		        				html.push("</span>");
+	            			html.push("</div>");
+	            			html.push("<div class=\"clear\"></div> ");
+	            		html.push("</div>");
+	            	}
+	            	html.push("</div>");
+	            html.push("</div>");
+            	$("#Overlay")[0].innerHTML = html.join(" ");
+            	funcShow($(event)[0].target);
+            }
+        });		
+			
+	});
+	
 	$(document).on("submit", ".comment-form",
 			function(event) {
 

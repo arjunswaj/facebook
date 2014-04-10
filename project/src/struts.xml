@@ -101,6 +101,30 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<!-- 		This is for liking a post -->
+		<action name="likepost"
+			class="edu.iiitb.facebook.action.posts.LikesAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		<!-- 		This is for unliking a post -->
+		<action name="unlikepost"
+			class="edu.iiitb.facebook.action.posts.LikesAction" method="unlike">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		<!-- 		This is for finding post likers -->
+		<action name="postlikers"
+			class="edu.iiitb.facebook.action.posts.LikesAction" method="postlikers">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
 		<!-- This is for Friend Suggestions -->
 		<action name="friendsuggestions"
 			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">

@@ -13,6 +13,7 @@ import java.util.List;
 import edu.iiitb.facebook.action.dao.PostsDAO;
 import edu.iiitb.facebook.action.model.NewsFeed;
 import edu.iiitb.facebook.action.model.PostComment;
+import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
 public class PostsDAOImpl implements PostsDAO
@@ -115,6 +116,14 @@ public class PostsDAOImpl implements PostsDAO
 	private static final String STATUS_UPDATE_FOR_USER = "INSERT INTO post(text, type, created, posted_by, posted_for) "
 			+ "VALUES(?, ?, CURRENT_TIMESTAMP, ?, ?);";
 
+	private static final String LIKE_POST_BY_USER = "INSERT INTO post_like(user_id, post_id) "
+      + "VALUES(?, ?);";
+	private static final String UNLIKE_POST_BY_USER = "DELETE FROM post_like WHERE user_id = ? AND post_id = ? ;";
+	
+	private static final String UPDATE_LIKE_COUNT = "UPDATE post set like_count = ? WHERE id = ? ;";      
+	
+	private static final String LIKERS_COUNT_OF_POST = "SELECT COUNT(*) AS likers_count FROM post_like where post_id  = ? ;";
+	
 	private static final String STATUS = "status";
 
 	private static final String DELETE_POST = "delete from post where id=?";
@@ -123,6 +132,16 @@ public class PostsDAOImpl implements PostsDAO
 	
 	private static final String UPDATE_POST = "update post set text=? where id=?";
 
+	private static final String POST_LIKERS = "SELECT  " + 
+			"    user.id AS user_id, " + 
+			"    user.first_name AS first_name, " + 
+			"    user.last_name AS last_name " + 
+			"FROM " + 
+			"    post_like " + 
+			"        JOIN " + 
+			"    user ON user.id = post_like.user_id " + 
+			"where " + 
+			"    post_id = ? ;";
 	@Override
 	public List<NewsFeed> getNewsFeedsForUser(int userId)
 	{
@@ -244,7 +263,6 @@ public class PostsDAOImpl implements PostsDAO
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -269,7 +287,6 @@ public class PostsDAOImpl implements PostsDAO
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -301,7 +318,6 @@ public class PostsDAOImpl implements PostsDAO
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -311,5 +327,103 @@ public class PostsDAOImpl implements PostsDAO
 
 		return postText;
 	}
+
+  @Override
+  public void likeAPost(int postId, int userId) {
+    Connection conn = ConnectionPool.getConnection();    
+    try {
+      PreparedStatement stmt = conn.prepareStatement(LIKE_POST_BY_USER);
+      int index = 1;
+      stmt.setInt(index++, userId);
+      stmt.setInt(index++, postId);      
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }   
+  }
+  
+  @Override
+  public void unlikeAPost(int postId, int userId) {
+    Connection conn = ConnectionPool.getConnection();    
+    try {
+      PreparedStatement stmt = conn.prepareStatement(UNLIKE_POST_BY_USER);
+      int index = 1;
+      stmt.setInt(index++, userId);
+      stmt.setInt(index++, postId);      
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }  
+  }
+
+  @Override
+  public List<User> peopleWholikeThePost(int postId) {
+    Connection conn = ConnectionPool.getConnection();   
+    List<User> likerList = new ArrayList<User>();
+    try {
+      PreparedStatement stmt = conn.prepareStatement(POST_LIKERS);
+      stmt.setInt(1, postId);
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        int userId = rs.getInt("user_id");
+        String firstName = rs.getString("first_name");
+        String lastName = rs.getString("last_name");
+        User liker = new User(userId, firstName, lastName);
+        likerList.add(liker);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }
+    return likerList;
+  }
+  
+  private void updateLikeCountOfThePost(int likersCount, int postId) {
+    Connection conn = ConnectionPool.getConnection();
+    try {
+      PreparedStatement stmt = conn.prepareStatement(UPDATE_LIKE_COUNT);
+      int index = 1;      
+      stmt.setInt(index++, likersCount);
+      stmt.setInt(index++, postId);
+      stmt.executeUpdate();            
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }
+  }
+  
+  private int likersCountOfThePost(int postId) {
+    Connection conn = ConnectionPool.getConnection();
+    int likersCount = -1;
+    try {
+      PreparedStatement stmt = conn.prepareStatement(LIKERS_COUNT_OF_POST);
+      int index = 1;      
+      stmt.setInt(index++, postId);      
+      ResultSet rs = stmt.executeQuery();
+      
+      if (rs.next()) {
+        likersCount = rs.getInt("likers_count");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }
+    return likersCount;
+  }
+
+  @Override
+  public int updateLikersCount(int postId) {
+    int likersCount = likersCountOfThePost(postId);
+    updateLikeCountOfThePost(likersCount, postId);
+    return likersCount;
+  }
 
 }

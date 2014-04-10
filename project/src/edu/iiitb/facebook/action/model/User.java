@@ -19,9 +19,15 @@ public class User
 	private String secretAnswer;
 	private String place;
 	private Timestamp created;
-	
-	
-	public User(String email, String password)
+		
+	public User(int userId, String firstName, String lastName) {
+    super();
+    this.userId = userId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public User(String email, String password)
 	{
 		super();
 		this.email = email;
