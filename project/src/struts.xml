@@ -32,7 +32,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-		
+
 		<!-- Start of messages related actions -->
 
 		<!-- This is for displaying the messages page -->
@@ -42,8 +42,8 @@
 			<result name="success" type="tiles">messages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
-		
-		<!--  This is for displaying all the latest conversations -->
+
+		<!-- This is for displaying all the latest conversations -->
 		<action name="latestConversations" method="load"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -52,7 +52,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-		<!--  This is for displaying the selected conversation thread -->
+		<!-- This is for displaying the selected conversation thread -->
 		<action name="selectedConversationThread" method="load"
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -60,25 +60,25 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
 		<!-- This is for replying to a message -->
 		<action name="reply" method="reply"
-		    class="edu.iiitb.facebook.action.messages.ReplyAction">
-		    <interceptor-ref name="secureAccess"></interceptor-ref>
+			class="edu.iiitb.facebook.action.messages.ReplyAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
 		<!-- This is for sending a new message -->
 		<action name="send" method="send"
-		    class="edu.iiitb.facebook.action.messages.SendNewMessageAction">
-		    <interceptor-ref name="secureAccess"></interceptor-ref>
+			class="edu.iiitb.facebook.action.messages.SendNewMessageAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
 
 		<!-- End of messages related actions -->
 
@@ -101,25 +101,24 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-		<!-- 		This is for liking a post -->
-		<action name="likepost"
-			class="edu.iiitb.facebook.action.posts.LikesAction">
+		<!-- This is for liking a post -->
+		<action name="likepost" class="edu.iiitb.facebook.action.posts.LikesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
 			<result name="login">/login.jsp</result>
 		</action>
-		<!-- 		This is for unliking a post -->
-		<action name="unlikepost"
-			class="edu.iiitb.facebook.action.posts.LikesAction" method="unlike">
+		<!-- This is for unliking a post -->
+		<action name="unlikepost" class="edu.iiitb.facebook.action.posts.LikesAction"
+			method="unlike">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
 			<result name="login">/login.jsp</result>
 		</action>
-		<!-- 		This is for finding post likers -->
-		<action name="postlikers"
-			class="edu.iiitb.facebook.action.posts.LikesAction" method="postlikers">
+		<!-- This is for finding post likers -->
+		<action name="postlikers" class="edu.iiitb.facebook.action.posts.LikesAction"
+			method="postlikers">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
@@ -210,10 +209,63 @@
 			<result name="login" type="redirectAction">login</result>
 
 		</action>
-		<action name="viewFriends" class="edu.iiitb.facebook.action.viewfriends.ViewFriendsAction" method="execute">
-		<interceptor-ref name="secureAccess"></interceptor-ref>
+		<action name="viewFriends"
+			class="edu.iiitb.facebook.action.viewfriends.ViewFriendsAction"
+			method="execute">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/friends/viewFriends.jsp</result>
 			<result name="error">/friends/noFriends.jsp</result>
+		</action>
+
+		<action name="firstsignup"
+			class="edu.iiitb.facebook.action.login.FirstSignUpAction">
+			<result name="success">/login/signup2.jsp</result>
+			<result name="error">/login/signup1.jsp</result>
+			<result name="input">/login/signup1.jsp</result>
+
+
+		</action>
+		<action name="secondsignup"
+			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup2.jsp</result>
+
+		</action>
+		<action name="thirdsignup"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
+			<result name="success" type="tiles">newsfeeds.tiles</result>
+			<result name="error">/login/signup3.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
+		</action>
+		<action name="profilepicupload"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="profile">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">50971520</param>
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/jpg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
+		</action>
+		<action name="coverpicupload"
+			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="cover">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">50971520</param>
+				<param name="allowedTypes">
+					image/png,image/gif,image/jpeg,image/jpg
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/login/signup3.jsp</result>
+			<result name="error">/login/signup2.jsp</result>
+			<result name="input">/login/signup3.jsp</result>
+
 		</action>
 
 
@@ -254,7 +306,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 		</action>
-		
+
 		<!-- This is for Settings Page -->
 		<action name="accountSettings"
 			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">
@@ -263,7 +315,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
-		
+
 	</package>
 
 </struts>

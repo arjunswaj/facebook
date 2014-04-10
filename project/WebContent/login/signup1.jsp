@@ -41,7 +41,15 @@ return false;
 }
 
 }
+<link rel="stylesheet" href="/css/jquery-ui.css"></link>
+<script src="/js/jquery-1.10.2.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script>
+$(function() {
+$( "#datepicker" ).datepicker();
+});
 </script>
+
 </head>
 <body bgcolor="#3b5998">
 
@@ -50,7 +58,7 @@ return false;
 		<h1>Sign Up</h1>
 		<h4>It’s free and always will be.</h4>
 
-		<s:form action="signup1" name="myForm" method="post"
+		<s:form action="firstsignup" name="myForm" method="post"
 			onsubmit="return validateEmail();" autocomplete="off">
 
 			<s:textfield key="first_name" label="First name" />

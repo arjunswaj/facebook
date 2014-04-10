@@ -18,8 +18,8 @@ public class UserDAOImpl implements UserDAO {
 	final String GET_USER_BY_EMAIL_QRY = "select * from user where email=?";
 	final String TO_ADD_A_USER = "INSERT INTO user (email, password, dob, phone_number,current_profile_pic,current_cover_pic, first_name, last_name, place, secret_question, secret_answer) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	final String ADDING_SECURITY_DETAILS = "UPDATE user SET phone_number=?, secret_question=?, secret_answer=? WHERE id=?";
-	final String SET_PROFILE_PIC_BY_USERID = "UPDATE user SET current_profile_pic=?,  WHERE id=?";
-	final String SET_COVER_PIC_BY_USERID = "UPDATE user SET current_cover_pic=?,  WHERE id=?";
+	final String SET_PROFILE_PIC_BY_USERID = "UPDATE user SET current_profile_pic=?  WHERE id=?";
+	final String SET_COVER_PIC_BY_USERID = "UPDATE user SET current_cover_pic=?  WHERE id=?";
 	final String CHANGE_PASSWORD = "update user set password=? where email=?";
 
 	@Override

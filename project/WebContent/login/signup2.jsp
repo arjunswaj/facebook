@@ -31,7 +31,7 @@ return false;
 		<h1>Sign Up</h1>
 		<h4>It’s free and always will be.</h4>
 
-		<s:form action="signup2" name="myForm" onsubmit="validate()" enctype="multipart/form-data"
+		<s:form action="secondsignup" name="myForm" onsubmit="validate()" enctype="multipart/form-data"
 			autocomplete="off">
 
 			<s:textfield key="phone_number" label="Phone number" value="9876"/>
