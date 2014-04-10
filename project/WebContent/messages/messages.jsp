@@ -46,11 +46,9 @@
 						<s:property value="latestConversations.get(0).getOtherUserLastName()" />
 				</div>
 				<div class="new-message-button">
-					<form id="newMessageForm" action="reply">
-						<div>
-							<s:submit value="+ New Message"></s:submit>
-						</div>
-					</form>
+					<div>
+						<s:submit value="+ New Message"></s:submit>
+					</div>
 				</div>
 			</div>
 			
@@ -81,7 +79,7 @@
 					<div>
 						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply" />
 						<s:hidden name="replyMsg.recipient" value="%{selectedLatestConversation.getOtherUser()}" />
-						<s:submit value="Reply"></s:submit>
+						<s:submit class="reply-button" value="Reply"></s:submit>
 					</div>
 				</form>
 			</div>

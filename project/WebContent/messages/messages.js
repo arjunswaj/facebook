@@ -4,16 +4,32 @@
 var div = document.getElementById("selectedConversationThread");
 div.scrollTop = div.scrollHeight;
 
+/*
+ * When you click on any conversation thread
+ */
 $(document).on("click", ".latest-conversation", function(event) {
 	event.preventDefault();
 	var anchor = $(this);
 	var url = anchor[0].href.split('?')[0];
 	var otherUser = anchor[0].href.split('=')[1];
 	var posting = $.post(url, {"selectedLatestConversation.otherUser" : otherUser});
-	alert("Posted");
 	
 	posting.done(function(responses) {
 		
+		// generate the header for the selected conversation thread
+		var selectedConversationThreadHeader =
+			'<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">\
+				<div class="conversation-with">'
+						 + responses.selectedLatestConversation.otherUserFirstName + ' ' + responses.selectedLatestConversation.otherUserLastName +
+				'</div>\
+				<div class="new-message-button">\
+					<div>\
+					 	<input class="new-message-button" type="submit" value="+ New Message" />\
+					</div>\
+				</div>\
+			</div>';
+		
+		// generate selected conversation thread
 		var selectedConversationThread = '<div id="selectedConversationThread" class="selected-conversation-thread"> ';
 		$.each(responses.selectedConversationThread, function(index, message) {
 			selectedConversationThread += 
@@ -30,24 +46,31 @@ $(document).on("click", ".latest-conversation", function(event) {
 				</div>';
 		});
 		selectedConversationThread += '</div>';
-		$("#selectedConversationThread").replaceWith(selectedConversationThread);
 		
+		// generated the reply box
 		var replyBox = 
 			'<div id="replyBox" class="reply-box">\
 				<form id="replyForm" action="reply">\
 					<div>\
 						<textarea id="reply" name="replyMsg.text" cols="75" rows="5" placeholder="Write a reply" />\
 						<input type="hidden" id="replyMsg_recipient" name="replyMsg.recipient" value="' + otherUser + '" />\
-						<input id="" type="submit" value="Reply" />\
+						<input class="reply-button" type="submit" value="Reply" />\
 					</div>\
 				</form>\
 			</div>';
-		$("#replyBox").replaceWith(replyBox);
+		
+		// Now replace the entire right pane
+		var right = '<div id="right" class="right">';
+		right += selectedConversationThreadHeader + selectedConversationThread + replyBox;
+		right += '</div>';
+		$('#right').replaceWith(right);
 
 	});
 });
 
-
+/**
+ * When you reply
+ */
 $(document).on("submit", "#replyForm", function(event) {
 	event.preventDefault();
 	var form = $(this);
@@ -96,4 +119,11 @@ $(document).on("submit", "#replyForm", function(event) {
 		$("#latestConversations").replaceWith(latestConversations);
 	});
 	div.scrollTop = div.scrollHeight;
+});
+
+/**
+ * When you want to send a new message
+ */
+$(document).on("click", ".new-message-button", function(event) {
+	alert("+ New message");
 });

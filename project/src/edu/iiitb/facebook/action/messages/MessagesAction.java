@@ -39,11 +39,16 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		if (selectedLatestConversation == null && !latestConversations.isEmpty())
 			selectedLatestConversation = latestConversations.get(0);
 
-		setSelectedConversationThread(dao
-				.getConversationThread(selectedLatestConversation.getOtherUser(), user));
+		selectedConversationThread = dao
+				.getConversationThread(selectedLatestConversation.getOtherUser(), user);
 		for (LatestConversation latestMessage : latestConversations)
-			if (latestMessage.getUser() == selectedLatestConversation.getOtherUser())
+		{
+			if (latestMessage.getOtherUser() == selectedLatestConversation.getOtherUser())
+			{
 				selectedLatestConversation = latestMessage;
+				break;
+			}
+		}
 		
 		return SUCCESS;
 	}
