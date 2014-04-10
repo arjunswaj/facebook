@@ -30,6 +30,9 @@ $(document).on("submit", "#replyForm", function(event) {
 				</div>';
 								
 		$("#selectedConversationThread").append(newReply);
+		
+		// scroll down the selected conversation thread
+		$("#selectedConversationThread").scrollTop($("#selectedConversationThread")[0].scrollHeight);
 	});
 	
 	/*
