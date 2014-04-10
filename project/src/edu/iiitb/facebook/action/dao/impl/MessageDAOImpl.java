@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
-import edu.iiitb.facebook.action.model.LatestMessage;
+import edu.iiitb.facebook.action.model.LatestConversation;
 import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.util.ConnectionPool;
 
@@ -78,7 +78,7 @@ public class MessageDAOImpl implements MessageDAO
 	 * (int)
 	 */
 	@Override
-	public List<LatestMessage> getLatestConversationsFor(int user)
+	public List<LatestConversation> getLatestConversationsFor(int user)
 	{
 		final String query = "select" 
 				+ " *"
@@ -99,7 +99,7 @@ public class MessageDAOImpl implements MessageDAO
 				+ " order by latest_message.sent_at desc;";
 		
 
-		List<LatestMessage> latestMsgs = new LinkedList<LatestMessage>();
+		List<LatestConversation> latestMsgs = new LinkedList<LatestConversation>();
 
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
@@ -111,7 +111,7 @@ public class MessageDAOImpl implements MessageDAO
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
-				LatestMessage latestMsg = new LatestMessage();
+				LatestConversation latestMsg = new LatestConversation();
 
 				int other = rs.getInt("sender.id");
 				String firstName = rs.getString("sender.first_name");

@@ -2,7 +2,7 @@ package edu.iiitb.facebook.action.model;
 
 import java.sql.Timestamp;
 
-public class LatestMessage
+public class LatestConversation
 {
 	private int user;
 	private int otherUser;

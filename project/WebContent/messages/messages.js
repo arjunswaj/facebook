@@ -6,11 +6,11 @@ div.scrollTop = div.scrollHeight;
 
 $(document).on("click", ".latest-conversation", function(event) {
 	event.preventDefault();
-	
 	var anchor = $(this);
 	var url = anchor[0].href.split('?')[0];
 	var otherUser = anchor[0].href.split('=')[1];
-	var posting = $.post(url, {"otherUser" : otherUser});
+	var posting = $.post(url, {"selectedLatestConversation.otherUser" : otherUser});
+	alert("Posted");
 	
 	posting.done(function(responses) {
 		
@@ -43,7 +43,7 @@ $(document).on("click", ".latest-conversation", function(event) {
 				</form>\
 			</div>';
 		$("#replyBox").replaceWith(replyBox);
-			
+
 	});
 });
 
@@ -95,6 +95,5 @@ $(document).on("submit", "#replyForm", function(event) {
 		
 		$("#latestConversations").replaceWith(latestConversations);
 	});
-	
 	div.scrollTop = div.scrollHeight;
 });

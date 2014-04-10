@@ -41,7 +41,17 @@
 		
 			<!-- Selected conversation header -->
 			<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">
-				Name : New Message : Action : Search
+				<div class="conversation-with">
+						<s:property value="latestConversations.get(0).getOtherUserFirstName()" />
+						<s:property value="latestConversations.get(0).getOtherUserLastName()" />
+				</div>
+				<div class="new-message-button">
+					<form id="newMessageForm" action="reply">
+						<div>
+							<s:submit value="+ New Message"></s:submit>
+						</div>
+					</form>
+				</div>
 			</div>
 			
 			<!-- Selected conversation thread -->
@@ -70,7 +80,7 @@
 				<form id="replyForm" action="reply">
 					<div>
 						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply" />
-						<s:hidden name="replyMsg.recipient" value="%{otherUser}" />
+						<s:hidden name="replyMsg.recipient" value="%{selectedLatestConversation.getOtherUser()}" />
 						<s:submit value="Reply"></s:submit>
 					</div>
 				</form>

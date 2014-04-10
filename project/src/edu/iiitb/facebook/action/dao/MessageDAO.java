@@ -2,7 +2,7 @@ package edu.iiitb.facebook.action.dao;
 
 import java.util.List;
 
-import edu.iiitb.facebook.action.model.LatestMessage;
+import edu.iiitb.facebook.action.model.LatestConversation;
 import edu.iiitb.facebook.action.model.Message;
 
 public interface MessageDAO
@@ -20,7 +20,7 @@ public interface MessageDAO
 	 * @param user The specified user
 	 * @return
 	 */
-	public List<LatestMessage> getLatestConversationsFor(int user);
+	public List<LatestConversation> getLatestConversationsFor(int user);
 
 	/**
 	 * Insert the reply into the message table
