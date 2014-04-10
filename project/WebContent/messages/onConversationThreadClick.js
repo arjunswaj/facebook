@@ -56,6 +56,8 @@ $(document).on("click", ".latest-conversation", function(event) {
 		right += selectedConversationThreadHeader + selectedConversationThread + replyBox;
 		right += '</div>';
 		$('#right').replaceWith(right);
-
+		
+		// scroll down the selected conversation thread
+		$("#selectedConversationThread").scrollTop($("#selectedConversationThread")[0].scrollHeight);
 	});
 });
