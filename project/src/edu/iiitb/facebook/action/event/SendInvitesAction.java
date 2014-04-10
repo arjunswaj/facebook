@@ -22,7 +22,6 @@ import edu.iiitb.facebook.action.model.Event;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 @ParentPackage("tiles-default")
 public class SendInvitesAction extends ActionSupport implements SessionAware
 {
@@ -38,7 +37,7 @@ public class SendInvitesAction extends ActionSupport implements SessionAware
 		value="/sendInvites",
 		results=
 		{
-			@Result(name="success", type="chain", location="event"),
+			@Result(name="success", type="chain", location="displayEvent"),
 			@Result(name="success2", type="redirect", location="displayEvents"),
 			@Result(name="login", location="/index.jsp")
 		}

@@ -18,7 +18,6 @@ import edu.iiitb.facebook.action.dao.impl.EventDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 public class DeclinedListAction extends ActionSupport implements SessionAware
 {
 	private String readOnly="false";
