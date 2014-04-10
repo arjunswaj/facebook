@@ -562,8 +562,9 @@
 										html.push(commentData.status);
 									html.push("</div>");
 									html.push("<div class=\"timestamp\">");
-										html.push(commentData.now);
-										html.push("<span>Like</span> <span>0 Likes</span>");
+										html.push(commentData.now);										
+										html.push("<span id='like_"+commentData.postId+"' class=\"like\">Like</span>");																												
+										html.push("<span id='post_likers_"+commentData.postId+"' class=\"people-who-like\">0 likes</span>");										
 									html.push("</div>");
 									html.push("<div>");					   
 										html.push("<form id=\"commentForm_"+commentData.postId+"\" class=\"comment-form\" action=\"postcomment\" method=\"post\"> ");
