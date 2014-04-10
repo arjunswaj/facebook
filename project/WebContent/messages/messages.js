@@ -10,10 +10,27 @@ $(document).on("click", ".latest-conversation", function(event) {
 	var url = anchor[0].href.split('?')[0];
 	var otherUser = anchor[0].href.split('=')[1];
 	var posting = $.post(url, {"selectedLatestConversation.otherUser" : otherUser});
-	alert("Posted");
 	
 	posting.done(function(responses) {
 		
+		// generate the header for the selected conversation thread
+		var selectedConversationThreadHeader =
+			'<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">\
+				<div class="conversation-with">'
+						 + responses.selectedLatestConversation.otherUserFirstName + ' ' + responses.selectedLatestConversation.otherUserLastName +
+				'</div>\
+				<div class="new-message-button">\
+					<form id="newMessageForm" action="reply">\
+						<div>\
+						 	<input class="new-message-button" type="submit" value="+ New Message" />\
+						</div>\
+					</form>\
+				</div>\
+			</div>';
+		selectedConversationThreadHeader += '</div>';
+		$("#selectedConversationThreadHeader").replaceWith(selectedConversationThreadHeader);
+		
+		// generate selected conversation thread
 		var selectedConversationThread = '<div id="selectedConversationThread" class="selected-conversation-thread"> ';
 		$.each(responses.selectedConversationThread, function(index, message) {
 			selectedConversationThread += 
@@ -32,13 +49,14 @@ $(document).on("click", ".latest-conversation", function(event) {
 		selectedConversationThread += '</div>';
 		$("#selectedConversationThread").replaceWith(selectedConversationThread);
 		
+		// generated the reply box
 		var replyBox = 
 			'<div id="replyBox" class="reply-box">\
 				<form id="replyForm" action="reply">\
 					<div>\
 						<textarea id="reply" name="replyMsg.text" cols="75" rows="5" placeholder="Write a reply" />\
 						<input type="hidden" id="replyMsg_recipient" name="replyMsg.recipient" value="' + otherUser + '" />\
-						<input id="" type="submit" value="Reply" />\
+						<input class="reply-button" type="submit" value="Reply" />\
 					</div>\
 				</form>\
 			</div>';

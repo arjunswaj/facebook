@@ -72,6 +72,10 @@
 	float: left;
 }
 
+.reply-button {
+	float:right;
+}
+
 .message {
 	width: 100%;
 	float: left;
