@@ -69,6 +69,16 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
+		
+		<!-- This is for sending a new message -->
+		<action name="send" method="send"
+		    class="edu.iiitb.facebook.action.messages.SendNewMessageAction">
+		    <interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
+		
 
 		<!-- End of messages related actions -->
 

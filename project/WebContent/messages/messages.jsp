@@ -76,17 +76,18 @@
 			<!-- Reply -->
 			<div id="replyBox" class="reply-box">
 				<form id="replyForm" action="reply">
-					<div>
-						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply" />
+						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply..." />
 						<s:hidden name="replyMsg.recipient" value="%{selectedLatestConversation.getOtherUser()}" />
 						<s:submit class="reply-button" value="Reply"></s:submit>
-					</div>
 				</form>
 			</div>
 
 		</div>
 	
 	</div>
-	<script src="messages/messages.js"></script>
+	<script src="messages/onConversationThreadClick.js"></script>
+	<script src="messages/onCreateNewMessage.js"></script>
+	<script src="messages/onReplySubmit.js"></script>
+	<script src="messages/onSendNewMessage.js"></script>
 </body>
 </html>
