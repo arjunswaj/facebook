@@ -55,12 +55,12 @@ public class PostAction extends ActionSupport implements SessionAware
 		if (result > 0)
 		{
 			setValue("true");
-			System.out.println("true");
+			//System.out.println("true");
 		}
 		else
 		{
 			setValue("false");
-			System.out.println("false");
+			//System.out.println("false");
 		}
 
 		return SUCCESS;
@@ -75,12 +75,12 @@ public class PostAction extends ActionSupport implements SessionAware
 		if (result > 0)
 		{
 			setValue("true");
-			System.out.println("true");
+			//System.out.println("true");
 		}
 		else
 		{
 			setValue("false");
-			System.out.println("false");
+			//System.out.println("false");
 		}
 
 		return SUCCESS;

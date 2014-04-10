@@ -63,15 +63,17 @@
 }
 
 .delete_post {
-	padding: 3px 0px;
-	width: 100%;
+	padding: 2px;	
 	text-align: left;
+	float:left;
+	width:auto;
 }
 
 .edit_post {
-	padding: 3px 0px;
-	width: 100%;
+	padding: 2px;	
 	text-align: left;
+	float:left;
+	width:auto;
 }
 
 .fullname {
@@ -97,6 +99,15 @@
 	padding: 0;
 	line-height: 0;
 	clear: both;
+}
+.status-description {
+	float:left; 
+	width:70%;
+}
+
+.status-options {
+	float:left; 
+	width:30%;
 }
 </style>
 
@@ -126,24 +137,27 @@
 				</div>
 				<div class="right-status">
 					<s:if test="#feeds.postType == 'status'">
-						<div>
+						<div class="status-description">
 							<span class="fullname"> <s:property
 									value="fromUserFirstName" /> <s:property
 									value="fromUserLastName" />
-							</span> updated the status <span> <s:if
-									test="#loggedInUser==#feeds.toUserId">
+							</span> updated the status 
+						</div>
+						<div class="status-options">
+							<span> 
+								<s:if test="#loggedInUser==#feeds.toUserId">
 									<form id='<s:property value="#feeds.postId"/>'
 										class="delete_post" method="post">
-										<s:submit value="delete" />
+										<input type="submit" value="delete" />
 									</form>
 									<form id='<s:property value="#feeds.postId"/>'
 										class="edit_post" method="post">
-										<s:submit value="edit" />
-									</form>
+										<input type="submit" value="edit" />
+									</form>									
 								</s:if>
 							</span>
 						</div>
-
+						<div class="clear"></div>
 					</s:if>
 					<s:elseif test="#feeds.postType == 'wallpost'">
 						<div>
@@ -152,25 +166,26 @@
 									value="fromUserLastName" />
 							</span> posted on <span class="fullname"> <s:property
 									value="toUserFirstName" /> <s:property value="toUserLastName" />
-							</span>'s Wall <span> <s:if test="#loggedInUser==#feeds.toUserId">
-
+							</span>'s Wall 
+							<span> 
+								<s:if test="#loggedInUser==#feeds.toUserId">
 									<form id='<s:property value="#feeds.postId"/>'
 										class="delete_post" method="post">
-										<s:submit value="delete" />
+										<input type="submit" value="delete" />
 									</form>
-								</s:if> <s:elseif test="#loggedInUser==#feeds.fromUserId">
-
+								</s:if> 
+								<s:elseif test="#loggedInUser==#feeds.fromUserId">
 									<form id='<s:property value="#feeds.postId"/>'
 										class="delete_post" method="post">
-										<s:submit value="delete" />
+										<input type="submit" value="delete" />
 									</form>
 									<form id='<s:property value="#feeds.postId"/>'
 										class="edit_post" method="post">
-										<s:submit value="edit" />
+										<input type="submit" value="edit" />
 									</form>
-
-								</s:elseif>
+								</s:elseif>								
 							</span>
+							<div class="clear"></div>
 						</div>
 					</s:elseif>
 					<div id='post_<s:property value="#feeds.postId"/>' class="post">
@@ -316,17 +331,22 @@
 										html.push("</div> ");
 									html.push("<div class=\"right-status\">");
 										html.push("<div>");
-											html.push("<span class=\"fullname\"> ");
-											html.push(commentData.fullName);
-											html.push("</span> ");
-											html.push("updated the status ");
-											html.push(" ");
-											html.push("<span><form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
+											html.push("<div class=\"status-description\">");
+												html.push("<span class=\"fullname\"> ");
+												html.push(commentData.fullName);
+												html.push("</span> ");
+												html.push("updated the status ");
+												html.push(" ");
+											html.push("</div> ");
+											html.push("<div class=\"status-options\">");
+												html.push("<span><form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
 												html.push("<div align=\"right\"><input type=\"submit\"  value=\"delete\">");
 												html.push("</div></form><form id='"+commentData.postId+"' class=\"edit_post\" method=\"post\">");
-											html.push("<div align=\"right\"><input type=\"submit\"  value=\"edit\"></div></form></span>");
+												html.push("<div align=\"right\"><input type=\"submit\"  value=\"edit\"></div></form></span>");
+											html.push("</div> ");
+											html.push("<div class=\"clear\"></div> ");
 										html.push("</div> ");
-									html.push("<div class=\"post\"> ");
+									html.push("<div id='post_"+commentData.postId+"' class=\"post\"> ");
 										html.push(commentData.status);
 									html.push("</div>");
 									html.push("<div class=\"timestamp\">");
