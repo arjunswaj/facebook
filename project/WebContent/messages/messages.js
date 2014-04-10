@@ -4,6 +4,9 @@
 var div = document.getElementById("selectedConversationThread");
 div.scrollTop = div.scrollHeight;
 
+/*
+ * When you click on any conversation thread
+ */
 $(document).on("click", ".latest-conversation", function(event) {
 	event.preventDefault();
 	var anchor = $(this);
@@ -20,15 +23,11 @@ $(document).on("click", ".latest-conversation", function(event) {
 						 + responses.selectedLatestConversation.otherUserFirstName + ' ' + responses.selectedLatestConversation.otherUserLastName +
 				'</div>\
 				<div class="new-message-button">\
-					<form id="newMessageForm" action="reply">\
-						<div>\
-						 	<input class="new-message-button" type="submit" value="+ New Message" />\
-						</div>\
-					</form>\
+					<div>\
+					 	<input class="new-message-button" type="submit" value="+ New Message" />\
+					</div>\
 				</div>\
 			</div>';
-		selectedConversationThreadHeader += '</div>';
-		$("#selectedConversationThreadHeader").replaceWith(selectedConversationThreadHeader);
 		
 		// generate selected conversation thread
 		var selectedConversationThread = '<div id="selectedConversationThread" class="selected-conversation-thread"> ';
@@ -47,7 +46,6 @@ $(document).on("click", ".latest-conversation", function(event) {
 				</div>';
 		});
 		selectedConversationThread += '</div>';
-		$("#selectedConversationThread").replaceWith(selectedConversationThread);
 		
 		// generated the reply box
 		var replyBox = 
@@ -60,12 +58,19 @@ $(document).on("click", ".latest-conversation", function(event) {
 					</div>\
 				</form>\
 			</div>';
-		$("#replyBox").replaceWith(replyBox);
+		
+		// Now replace the entire right pane
+		var right = '<div id="right" class="right">';
+		right += selectedConversationThreadHeader + selectedConversationThread + replyBox;
+		right += '</div>';
+		$('#right').replaceWith(right);
 
 	});
 });
 
-
+/**
+ * When you reply
+ */
 $(document).on("submit", "#replyForm", function(event) {
 	event.preventDefault();
 	var form = $(this);
@@ -114,4 +119,11 @@ $(document).on("submit", "#replyForm", function(event) {
 		$("#latestConversations").replaceWith(latestConversations);
 	});
 	div.scrollTop = div.scrollHeight;
+});
+
+/**
+ * When you want to send a new message
+ */
+$(document).on("click", ".new-message-button", function(event) {
+	alert("+ New message");
 });

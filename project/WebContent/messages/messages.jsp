@@ -46,11 +46,9 @@
 						<s:property value="latestConversations.get(0).getOtherUserLastName()" />
 				</div>
 				<div class="new-message-button">
-					<form id="newMessageForm" action="reply">
-						<div>
-							<s:submit value="+ New Message"></s:submit>
-						</div>
-					</form>
+					<div>
+						<s:submit value="+ New Message"></s:submit>
+					</div>
 				</div>
 			</div>
 			
