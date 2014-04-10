@@ -90,7 +90,7 @@ margin:20px;
 			src="image?userId=<s:property value="fref" />" />
 			<s:form id="friendstatus_form" method="post">
 		<s:set name="checkFriend" value="requestStatus" />
-		<s:hidden name="fref" value='<s:property value="fref" />'/>
+
 		<!-- Button for Pending status -->
 		<s:if test="%{#checkFriend=='pending'}">
 			<input class="friends_status" type="button"
