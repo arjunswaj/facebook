@@ -1,5 +1,7 @@
 package edu.iiitb.facebook.action.login;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -19,7 +21,7 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 	private String email;
 	private String reemail;
 	private String password;
-	private Date dob = null;
+	private Date dob;
 	private String first_name;
 	private String last_name;
 	private String place;
@@ -51,6 +53,8 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 
 		return ret;
 	}
+
+	
 
 	public String getReemail() {
 		return reemail;

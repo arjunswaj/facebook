@@ -17,11 +17,8 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 import javax.naming.NamingException;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
-
 
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
@@ -29,16 +26,15 @@ import edu.iiitb.facebook.action.model.User;
 
 public class ThirdSignUpAction extends ActionSupport implements SessionAware,
 		ServletRequestAware {
-	
-	private String profileContentType;
-	private String coverContentType;
+
+	String profileContentType;
+	String coverContentType;
 	private String profileFileName;
 	private String coverFileName;
-	File profile;
-	File cover;
-	File fileToCreate ;
-	
-	
+	private File profile;
+	private File cover;
+	File fileToCreate;
+
 	public String getProfileContentType() {
 		return profileContentType;
 	}
@@ -88,12 +84,12 @@ public class ThirdSignUpAction extends ActionSupport implements SessionAware,
 	}
 
 	private HttpServletRequest servletRequest;
-	
+
 	public void setServletRequest(HttpServletRequest servletRequest) {
 		this.servletRequest = servletRequest;
 
 	}
-	
+
 	private Map<String, Object> session;
 
 	public Map<String, Object> getSession() {
@@ -109,93 +105,79 @@ public class ThirdSignUpAction extends ActionSupport implements SessionAware,
 
 	public String execute() throws NamingException, FileNotFoundException {
 		user = (User) session.get("user");
-	/*
-		if (user.getCurrentProfilePic() == null
-				&& user.getCurrentCoverPic() == null) {
-			addFieldError("current_profile_pic",
-					"ADD current_profile_pic then press proceed");
-			addFieldError("current_cover_pic",
-					"ADD current_cover_pic then press proceed");
-			return ERROR;
-		} else if (user.getCurrentProfilePic() == null) {
-			addFieldError("current_profile_pic",
-					"ADD current_profile_pic then press proceed");
-			return ERROR;
-		} else if (user.getCurrentCoverPic() == null) {
-			addFieldError("current_cover_pic",
-					"ADD current_cover_pic then press proceed");
-			return ERROR;
-		} else
-		*/
-			return SUCCESS;
+		/*
+		 * if (user.getCurrentProfilePic() == null && user.getCurrentCoverPic()
+		 * == null) { addFieldError("current_profile_pic",
+		 * "ADD current_profile_pic then press proceed");
+		 * addFieldError("current_cover_pic",
+		 * "ADD current_cover_pic then press proceed"); return ERROR; } else if
+		 * (user.getCurrentProfilePic() == null) {
+		 * addFieldError("current_profile_pic",
+		 * "ADD current_profile_pic then press proceed"); return ERROR; } else
+		 * if (user.getCurrentCoverPic() == null) {
+		 * addFieldError("current_cover_pic",
+		 * "ADD current_cover_pic then press proceed"); return ERROR; } else
+		 */
+		return SUCCESS;
 
 	}
 
 	public String profile() throws NamingException, FileNotFoundException {
 		user = (User) session.get("user");
-		session.remove("user");
+		try {
+		      String destpath = servletRequest.getSession().getServletContext()
+		              .getRealPath("/");
+		          System.out.println("Server path:" + destpath);
+		          File destFile = new File(destpath, profileFileName);
 
-try {
-HttpSession session = servletRequest.getSession();
-ServletContext context = session.getServletContext();
-String filePath = context.getRealPath("/");
-System.out.println("Server path:" + filePath);
+		          try {
+		            FileUtils.copyFile(profile, destFile);
 
-fileToCreate = new File(filePath, this.profileFileName);
-
-FileUtils.copyFile(this.profile, fileToCreate);
-
-FileInputStream inputStream = new FileInputStream(fileToCreate);
-System.out.println("place4 in 3rdsignup");
-user.setCurrentProfilePic(inputStream);
-dao.setProfileImageByUserId(user.getUserId(), inputStream);
-
-
-} catch (Exception e) {
-e.printStackTrace();
-addActionError(e.getMessage());
-
-return INPUT;
-}
-	session.put("user", user);
-
-		
+		          } catch (IOException e) {
+		            e.printStackTrace();
+		            return ERROR;
+		          }
+		          FileInputStream inputStream = new FileInputStream(destFile);
+			// System.out.println("in input Stream :" + inputStream);
+			System.out.println("place4 in 3rdsignup");
+			user.setCurrentProfilePic(inputStream);
+			dao.setProfileImageByUserId(user.getUserId(), inputStream);
+		} catch (Exception e) {
+			e.printStackTrace();
+			addActionError(e.getMessage());
+			return INPUT;
+		}
+		session.put("user", user);
 		return SUCCESS;
-
 	}
 
 	public String cover() throws NamingException, FileNotFoundException {
 		user = (User) session.get("user");
-		session.remove("user");
+		// session.remove("user");
 
-try {
-HttpSession session = servletRequest.getSession();
-ServletContext context = session.getServletContext();
-String filePath = context.getRealPath("/");
-System.out.println("Server path:" + filePath);
+		try {
+			HttpSession session = servletRequest.getSession();
+			ServletContext context = session.getServletContext();
+			String filePath = context.getRealPath("/");
+			System.out.println("Server path:" + filePath);
+			fileToCreate = new File(filePath, this.coverFileName);
+			// FileUtils.copyFile(this.cover, fileToCreate);
 
-fileToCreate = new File(filePath, this.coverFileName);
+			FileInputStream inputStream = new FileInputStream(fileToCreate);
+			System.out.println("place4 in 3rdsignup");
+			user.setCurrentProfilePic(inputStream);
+			dao.setProfileImageByUserId(user.getUserId(), inputStream);
 
-FileUtils.copyFile(this.cover, fileToCreate);
+		} catch (Exception e) {
+			e.printStackTrace();
+			addActionError(e.getMessage());
 
-FileInputStream inputStream = new FileInputStream(fileToCreate);
-System.out.println("place4 in 3rdsignup");
-user.setCurrentProfilePic(inputStream);
-dao.setProfileImageByUserId(user.getUserId(), inputStream);
+			return INPUT;
+		}
+		session.put("user", user);
 
-
-} catch (Exception e) {
-e.printStackTrace();
-addActionError(e.getMessage());
-
-return INPUT;
-}
-	session.put("user", user);
-
-		
 		return SUCCESS;
 
 	}
 
-	
 }
