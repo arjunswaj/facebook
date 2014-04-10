@@ -13,6 +13,9 @@
 	margin: 20px;
 	top: 20px;
 	left: 50px;
+	-moz-column-count:3; /* Firefox */
+     column-count:3;
+	
 }
 
 div.img {
@@ -23,6 +26,12 @@ div.img {
 	width: auto;
 	float: left;
 	text-align: center;
+	-moz-column-count:3;
+	/* Firefox */
+    column-count:3;
+	
+}
+	
 }
 /*opacity*/
 img {
@@ -32,8 +41,8 @@ img {
 }
 
 img:hover {
-	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	opacity: 0.7;
+	filter: alpha(opacity = 100);
 	/* For IE8 and earlier */
 }
 
@@ -46,12 +55,14 @@ div.img img {
 div.desc {
 	text-align: center;
 	font-weight: normal;
+	text-shadow: 5px 5px 5px #FF0000;
+	color:#0000FF;
 	width: 120px;
 	margin: 5px;
 }
 h1
 {
-color:orange;
+color:blue;
 text-align:center;
 }
 
@@ -63,7 +74,7 @@ text-align:center;
 <div class="img">
  <a href='profile?fref=<s:property value="%{userId}"/>'> <img align="left" width="120px" height="130px" 
 					src="image?userId=<s:property value="%{userId}"/>" alt="klematis"></a>
- <div class="desc"><s:property value="#a.firstName" /></div>
+ <div class="desc"><a href='profile?fref=<s:property value="%{userId}"/>'><s:property value="#a.firstName" /></a></div>
 </div>
 		
 </s:iterator>

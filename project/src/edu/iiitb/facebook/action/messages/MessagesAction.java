@@ -9,87 +9,86 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
-import edu.iiitb.facebook.action.model.LatestMessage;
+import edu.iiitb.facebook.action.model.LatestConversation;
 import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.Constants;
 
-// TODO: Fix names
 public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 	private Map<String, Object> session;
-	
-	private List<Message> messages;
-	private List<LatestMessage> latestMessages;
-	private int withUser = -1; // the current other user with whom this 'user' is having the conversation.
-	private int user;
+
+	private List<Message> selectedConversationThread;
+	private List<LatestConversation> latestConversations;
+	private LatestConversation selectedLatestConversation;
 	/**
-	 * Load the messages
+	 * Load the latest conversations and select the latest amongst them all for
+	 * the expanded selected conversation view
+	 * 
 	 * @return
 	 */
-	public String loadMessages()
+	public String load()
 	{
-		int user = ((User)(session.get(Constants.USER))).getUserId();
+		int user = ((User) (session.get(Constants.USER))).getUserId();
 
-		// latest messages list
 		MessageDAO dao = new MessageDAOImpl();
-		latestMessages = dao.getLatestConversationforAllUsersWith(user);
-		if (withUser < 0 && !latestMessages.isEmpty())
-			withUser = latestMessages.get(0).getOtherUser();
+		latestConversations = dao.getLatestConversationsFor(user);
+
+		// set default conversation with latest other user
+		if (selectedLatestConversation == null && !latestConversations.isEmpty())
+			selectedLatestConversation = latestConversations.get(0);
+
+		setSelectedConversationThread(dao
+				.getConversationThread(selectedLatestConversation.getOtherUser(), user));
+		for (LatestConversation latestMessage : latestConversations)
+			if (latestMessage.getUser() == selectedLatestConversation.getOtherUser())
+				selectedLatestConversation = latestMessage;
 		
-		// message thread
-		messages = dao.getMessages(withUser, user);
 		return SUCCESS;
 	}
 
-	public List<Message> getMessages()
-	{
-		return messages;
-	}
-
-	public void setMessages(List<Message> messages)
-	{
-		this.messages = messages;
-	}
-
-	public int getWithUser()
-	{
-		return withUser;
-	}
-
-	public void setWithUser(int withUser)
-	{
-		this.withUser = withUser;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.apache.struts2.interceptor.SessionAware#setSession(java.util.Map)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.apache.struts2.interceptor.SessionAware#setSession(java.util.Map)
 	 */
 	@Override
 	public void setSession(Map<String, Object> arg0)
 	{
 		this.session = arg0;
-		
 	}
 
-	public List<LatestMessage> getLatestMessages()
+	public List<LatestConversation> getLatestConversations()
 	{
-		return latestMessages;
+		return latestConversations;
 	}
 
-	public void setLatestMessages(List<LatestMessage> latestMessages)
+
+	public void setLatestConversations(List<LatestConversation> latestConversations)
 	{
-		this.latestMessages = latestMessages;
+		this.latestConversations = latestConversations;
 	}
 
-	public int getUser()
+	public List<Message> getSelectedConversationThread()
 	{
-		return user;
+		return selectedConversationThread;
 	}
 
-	public void setUser(int user)
+	public void setSelectedConversationThread(
+			List<Message> selectedConversationThread)
 	{
-		this.user = user;
+		this.selectedConversationThread = selectedConversationThread;
+	}
+
+	public LatestConversation getSelectedLatestConversation()
+	{
+		return selectedLatestConversation;
+	}
+
+	public void setSelectedLatestConversation(LatestConversation selectedLatestConversation)
+	{
+		this.selectedLatestConversation = selectedLatestConversation;
 	}
 }

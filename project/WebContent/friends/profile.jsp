@@ -36,7 +36,7 @@ margin:20px;
 
 .cover_pic {
 	position: relative;
-	margin: 20px;
+	margin: 30px;
 	width: 100%;
 	z-index: -1;
 }
@@ -44,8 +44,8 @@ margin:20px;
 .profile_pic {
 	position: relative;
 	margin: 20px;
-	top: -150px;
-	left: 50px;
+	top: -160px;
+	left: 60px;
 }
 
 .friends_status {
@@ -80,13 +80,17 @@ margin:20px;
 	</script>
 
 	<div class="container">
+	<% session.setAttribute("profileReferece", (String)request.getAttribute("fref")); %>
+	
+	 
 	<div class="coverpic">
-		<img class="cover_pic" height="350px" 
+		<img class="cover_pic" height="420px" 
 			src="image?picType=cover&userId=<s:property value="fref" />" /> <img
 			class="profile_pic" width="120px" height="140px"
 			src="image?userId=<s:property value="fref" />" />
 			<s:form id="friendstatus_form" method="post">
 		<s:set name="checkFriend" value="requestStatus" />
+		<s:hidden name="fref" value='<s:property value="fref" />'/>
 		<!-- Button for Pending status -->
 		<s:if test="%{#checkFriend=='pending'}">
 			<input class="friends_status" type="button"
