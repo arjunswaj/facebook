@@ -1,5 +1,7 @@
 package edu.iiitb.facebook.action.friends;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -11,12 +13,15 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import edu.iiitb.facebook.action.dao.EventDAO;
 import edu.iiitb.facebook.action.dao.FriendsDAO;
 import edu.iiitb.facebook.action.dao.UserDAO;
+import edu.iiitb.facebook.action.dao.impl.EventDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.FriendsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.User;
+import edu.iiitb.facebook.util.ConnectionPool;
 
 /**
  * @author prashanth
@@ -269,7 +274,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		return SUCCESS;
 	}
 
-	public String blockfriend()
+	public String blockfriend() throws SQLException
 	{
 		User user = (User) session.get("user");
 		if (user != null)
@@ -285,6 +290,11 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				else
 				{
 					setRequestStatus(FriendInfo.RequestStatus.BLOCKED.getReqstat());
+					
+					Connection cn=ConnectionPool.getConnection();
+					EventDAO eventDAO=new EventDAOImpl();
+					eventDAO.deleteAllInvitationsBetweenUsers(cn, Integer.parseInt(lref), Integer.parseInt(fref));
+					ConnectionPool.freeConnection(cn);
 				}
 			}
 			else

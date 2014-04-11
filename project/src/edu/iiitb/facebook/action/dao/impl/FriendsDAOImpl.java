@@ -137,7 +137,7 @@ public class FriendsDAOImpl implements FriendsDAO
 		"WHERE request_by = ? " +
 		"AND request_for = ? " +
 		"AND status = 'blocked'";
-	private static final String GET_FREINDS_QRY = "select first_name, id from user where id in (select request_by id from friends_with where request_for=? union select request_for id from friends_with where request_by=?)";
+	private static final String GET_FREINDS_QRY = "select first_name, id from user where id in (select request_by id from friends_with where request_for=? and status = 'accepted' union select request_for id from friends_with where request_by=? and status = 'accepted')";
 	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)

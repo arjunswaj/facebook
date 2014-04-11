@@ -212,7 +212,7 @@
 		<action name="unblockfriend"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="unblockfriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="tiles">settings.tiles</result>
+			<result name="success"  type="redirectAction">accountSettings</result>
 			<result name="login">/login.jsp</result>
 		</action>
 

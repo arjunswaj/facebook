@@ -1,7 +1,5 @@
 package edu.iiitb.facebook.action.model;
 
-import java.sql.Timestamp;
-
 public class LatestConversation
 {
 	private int user;
@@ -10,13 +8,13 @@ public class LatestConversation
 	private String otherUserFirstName;
 	private String otherUserLastName;
 	private String latestMessage;
-	private Timestamp sentAt;
+	private String sentAt;
 	
-	public Timestamp getSentAt()
+	public String getSentAt()
 	{
 		return sentAt;
 	}
-	public void setSentAt(Timestamp sentAt)
+	public void setSentAt(String sentAt)
 	{
 		this.sentAt = sentAt;
 	}
