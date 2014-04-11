@@ -23,6 +23,8 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public List<Message> getConversationThread(int sender, int recipient)
 	{
+		// TODO : Use StringBuilder and append here
+		// Assuming that a conversation thread with a blocked user will not be asked for
 		final String query = "select * from user as from_user, message, user as to_user "
 				+ " where "
 				+ " from_user.id = message.sender and to_user.id = message.recipient "
@@ -80,6 +82,7 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public List<LatestConversation> getLatestConversationsFor(int user)
 	{
+		// TODO : Use StringBuilder and append here
 		final String query = "select" 
 				+ " *"
 				+ " from"
@@ -90,14 +93,16 @@ public class MessageDAOImpl implements MessageDAO
 				+ "		where "
 				+ "		(message.sender = ? or message.recipient = ? ) "
 				+ "		group by conversation_id) as latest_message,"
-				+ " user as recipient"
+				+ " user as recipient, "
+				+ " friends_with "
 				+ " where"
 				+ " sender.id = message.sender"
 				+ " and message.conversation_id = latest_message.conversation_id"
 				+ " and message.sent_at = latest_message.sent_at"
 				+ " and message.recipient = recipient.id"
+				+ " and message.conversation_id = friends_with.id"
+				+ " and friends_with.status = 'accepted'"
 				+ " order by latest_message.sent_at desc;";
-		
 
 		List<LatestConversation> latestMsgs = new LinkedList<LatestConversation>();
 
@@ -152,6 +157,7 @@ public class MessageDAOImpl implements MessageDAO
 	@Override
 	public int insert(Message reply)
 	{
+		// TODO : Use StringBuilder and append here
 		final String insert = "insert into message (text, sender, recipient, conversation_id) values (?, ? , ?, ?)";
 		final String query = "select id from friends_with where (request_by = ? and request_for = ?) or (request_by = ? and request_for = ?)";
 		int id = -1;
