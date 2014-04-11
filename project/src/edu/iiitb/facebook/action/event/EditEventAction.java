@@ -60,7 +60,7 @@ public class EditEventAction extends ActionSupport implements SessionAware
 			eventDescription=e.getEventDescription();
 			eventPlace=e.getEventPlace();
 			eventDate=e.getEventDate();
-			eventTime=e.getEventTime();
+			eventTime=e.getEventTime().substring(0, 5);
 			ConnectionPool.freeConnection(cn);
 			return "edit";
 		}

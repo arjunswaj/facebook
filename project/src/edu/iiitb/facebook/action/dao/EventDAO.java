@@ -19,9 +19,12 @@ public interface EventDAO
 	public void deleteInvitation(Connection cn, int inviterId, int inviteeId, int eventId) throws SQLException;
 	public void editEvent(Connection cn, int userId, int eventId, Event e) throws SQLException;
 	public List<Invitation> getEvents(Connection cn, int inviteeId, String date) throws SQLException;
-	public List<String> getDatesOfEvents(Connection cn, int inviteeId) throws SQLException;
+	public List<String> getDatesOfEventsAndBirthdays(Connection cn, int inviteeId) throws SQLException;
 	public User getInviter(Connection cn, int eventId) throws SQLException;
 	public String getConfirmationStatus(Connection cn, int eventId, int inviteeId) throws SQLException;
 	public void setConfirmationStatus(Connection cn, int eventId, int inviteeId, String confirmation) throws SQLException;
 	public void deleteAllInvitationsBetweenUsers(Connection cn, int userId1, int userId2) throws SQLException;
+	public void deleteEventAndInvitations(Connection cn, int eventId) throws SQLException;
+	public List<User> getBirthdayPeople(Connection cn, int userId, String date) throws SQLException;
+	public List<String> getDatesOfBirthdays(Connection cn, int userId) throws SQLException;
 }

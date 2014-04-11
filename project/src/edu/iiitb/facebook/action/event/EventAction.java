@@ -64,7 +64,7 @@ public class EventAction extends ActionSupport implements SessionAware
 		eventDescription=e.getEventDescription();
 		eventPlace=e.getEventPlace();
 		eventDate=e.getEventDate();
-		eventTime=e.getEventTime();
+		eventTime=e.getEventTime().substring(0, 5);
 		
 		going=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'join'").size()).toString();
 		maybe=((Integer)eventDAO.getInvitees(cn, user.getUserId(), Integer.parseInt(eventId), "'maybe'").size()).toString();

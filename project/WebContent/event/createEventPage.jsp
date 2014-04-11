@@ -18,12 +18,19 @@
 		{
 			if(document.getElementById("nm").value=="")
 				alert("Name is empty.");
+			else if(document.getElementById("dc").value=="")
+				alert("Details are missing.");
 			else if(document.getElementById("wh").value=="")
 				alert("Place is empty.");
 			else if(document.getElementById("datepicker").value=="")
 				alert("Date is empty.");
+			else if(document.getElementById("tm").value=="")
+				alert("Time is empty.");
 			else
+			{
+				document.getElementById("tm").value+=":00";
 				document.getElementById("f1").submit();
+			}
 		}
 	</script>
 </head>
@@ -39,7 +46,7 @@
 					<td colspan="2"><input id='nm' type="text" name="eventName" style="width: 98%;"></td>
 				</tr>
 				<tr>
-					<td>Description: </td>
+					<td>Details: </td>
 					<td colspan="2"><textarea id='dc' rows="4" name="eventDescription" style="width: 98%;"></textarea></td>
 				</tr>
 				<tr>
@@ -49,7 +56,7 @@
 				<tr>
 					<td>When: </td>
 					<td><input type="text" name="eventDate" style="width: 96%;" id='datepicker' /></td>
-					<td><input id='tm' type="text" name="eventTime" style="width: 96%;" /></td>
+					<td><select id='tm' name="eventTime" style="width: 96%;" ></select></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="right">
@@ -60,5 +67,16 @@
 			</tbody>
 		</table>
 	</form>
+	<script type="text/javascript">
+		var hh="";
+		var mm="";
+		for(var h=0; h<24; h++)
+			for(var m=0; m<60; m+=5)
+			{
+				hh=("0"+h).substring(("0"+h).length-2);
+				mm=("0"+m).substring(("0"+m).length-2);
+				document.getElementById("tm").innerHTML+="<option>"+hh+":"+mm+"</option>";
+			}
+	</script>
 </body>
 </html>
