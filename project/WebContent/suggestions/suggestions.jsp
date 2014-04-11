@@ -8,8 +8,11 @@
 <title>Friend Suggestions</title>
 </head>
 <body>
-	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
+	<s:if test="%{getFriendSuggestionsList().isEmpty()}">
+	</s:if>
+	<s:else>
 	<div id="suggestions">
+		<h5 align="center">PEOPLE YOU MAY KNOW</h5>
 		<s:iterator value="friendSuggestionsList" var="fsl">
 			<s:set var="friendId" value="%{friendId}"/>
 			<%
@@ -32,6 +35,7 @@
 			<hr>
 		</s:iterator>
 	</div>
+	</s:else>
 </body>
 <%-- <script src="js/jquery-1.10.2.js"></script> --%>
 	<script type="text/javascript">	
