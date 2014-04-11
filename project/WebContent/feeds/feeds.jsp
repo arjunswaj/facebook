@@ -116,46 +116,46 @@
 	clear: both;
 }
 
-.status-description {
+.status-description, .comment-description {
 	float: left;
 	width: 70%;
 }
 
-.status-options {
+.status-options, .comment-options {
 	float: left;
 	width: 30%;
 }
 
-.like {
+.like, .like-comment {
 	color: #428bca;
 	text-decoration: none;
 }
 
-.like:hover {
-	color: #428bca;
-	text-decoration: none;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
-.liked {
-	color: #428bca;
-	text-decoration: none;
-}
-
-.liked:hover {
+.like:hover, .like-comment:hover {
 	color: #428bca;
 	text-decoration: none;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
-.people-who-like {
+.liked, .liked-comment {
 	color: #428bca;
 	text-decoration: none;
 }
 
-.people-who-like:hover {
+.liked:hover, .liked-comment:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.people-who-like, .people-who-like-comment {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.people-who-like:hover, .people-who-like-comment:hover {
 	color: #428bca;
 	text-decoration: none;
 	text-decoration: underline;
@@ -324,10 +324,10 @@
 								<div class="timestamp">
 									<s:property value="#comments.commentTime" />
 									<s:if test="#comments.haveILiked == true">
-										<span id='<s:property value="#comments.commentId"/>' class="liked-comment">Liked</span>
+										<span id='comment_liked_<s:property value="#comments.commentId"/>' class="liked-comment">Liked</span>
 									</s:if>
 									<s:elseif test="#comments.haveILiked == false">
-										<span id='<s:property value="#comments.commentId"/>' class="like-comment">Like</span>
+										<span id='comment_like_<s:property value="#comments.commentId"/>' class="like-comment">Like</span>
 									</s:elseif>
 									<span id='comment_likers_<s:property value="#comments.commentId"/>' class="people-who-like-comment">
 										<s:property value="#comments.likeCount" /> likes
@@ -406,6 +406,25 @@
         });
 	});
 
+	$(document).on("click", ".like-comment",
+			function(event) {		
+		var commentId = $(this)[0].id.split("_")[2];		
+		$.ajax({
+            url:  '/facebook/likecomment',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"commentId" : commentId
+            },
+            success: function(likeData) {
+            	$("#comment_likers_"+likeData.commentId)[0].innerHTML = likeData.likersCount + " likes";
+            	$("#comment_like_"+likeData.commentId)[0].innerHTML = "Liked";
+            	$("#comment_like_"+likeData.commentId)[0].className = "liked-comment";
+            	$("#comment_like_"+likeData.commentId)[0].id = "comment_liked_"+likeData.commentId;
+            }
+        });
+	});
+	
 	$(document).on("click", ".liked",
 			function(event) {
 		var postId = $(this)[0].id.split("_")[1];		
@@ -421,6 +440,25 @@
             	$("#liked_"+likeData.postId)[0].innerHTML = "Like";
             	$("#liked_"+likeData.postId)[0].className = "like";
             	$("#liked_"+likeData.postId)[0].id = "like_"+likeData.postId;
+            }
+        });
+	});
+	
+	$(document).on("click", ".liked-comment",
+			function(event) {
+		var commentId = $(this)[0].id.split("_")[2];		
+		$.ajax({
+            url:  '/facebook/unlikecomment',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"commentId" : commentId
+            },
+            success: function(likeData) {
+            	$("#comment_likers_"+likeData.commentId)[0].innerHTML = likeData.likersCount + " likes";            	
+            	$("#comment_liked_"+likeData.commentId)[0].innerHTML = "Like";
+            	$("#comment_liked_"+likeData.commentId)[0].className = "like-comment";
+            	$("#comment_liked_"+likeData.commentId)[0].id = "comment_like_"+likeData.commentId;
             }
         });
 	});
@@ -450,6 +488,55 @@
 	            	html.push("<div class=\"likers\">");
 	            	for (var index = 0; index < postLikers.length; index += 1) {
 	            		var user = postLikers[index];
+	            		html.push("<div>");
+	            			html.push("<div class=\"left-likers\">");
+	            				html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            			html.push("</div>");
+	            			html.push("<div class=\"right-likers\">");
+		            			html.push("<span>");
+		            				html.push(user.firstName);
+		            			html.push("</span>");
+		            			html.push("<span>");
+		        					html.push(user.lastName);
+		        				html.push("</span>");
+	            			html.push("</div>");
+	            			html.push("<div class=\"clear\"></div> ");
+	            		html.push("</div>");
+	            	}
+	            	html.push("</div>");
+	            html.push("</div>");
+            	$("#Overlay")[0].innerHTML = html.join(" ");
+            	funcShow($(event)[0].target);
+            }
+        });		
+			
+	});
+	
+	$(document).on("click", ".people-who-like-comment",
+			function(event) {
+		var commentId = $(this)[0].id.split("_")[2];		
+		$.ajax({
+            url:  '/facebook/commentlikers',
+            type: 'POST', 
+            dataType: 'json',
+            data: {
+            	"commentId" : commentId
+            },
+            success: function(likeData) {
+            	var html = [];
+            	var commentLikers = likeData.likers;
+            	$("#comment_likers_"+likeData.commentId)[0].innerHTML = commentLikers.length + " likes";
+            	html.push("<div class=\"Absolute-Center\">");
+	            	html.push("<span class=\"like-title\">");
+		            	if (commentLikers.length > 0) {            	
+		            		html.push("This comment has been liked by following people");				       
+		            	} else {
+		            		html.push("No one has liked this comment yet.");
+		            	}
+	            	html.push("</span>");
+	            	html.push("<div class=\"likers\">");
+	            	for (var index = 0; index < commentLikers.length; index += 1) {
+	            		var user = commentLikers[index];
 	            		html.push("<div>");
 	            			html.push("<div class=\"left-likers\">");
 	            				html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
@@ -506,7 +593,9 @@
 							html.push("<span class='comment-text'>" + commentData.comment + "</span>");
 						html.push("</div>");
 						html.push("<div class='timestamp'>");
-							html.push(commentData.now + " <span>Like</span> <span>0 Likes</span>");
+							html.push(commentData.now);
+							html.push("<span id='comment_like_"+commentData.commentId+"' class=\"like-comment\">Like</span>");																												
+							html.push("<span id='comment_likers_"+commentData.commentId+"' class=\"people-who-like-comment\">0 likes</span>");
 						html.push("</div>");
 					html.push("</div>");					
 					

@@ -38,6 +38,7 @@ public class PostsDAOImpl implements PostsDAO
       + "    commenter.first_name AS commenter_first_name, "
       + "    commenter.last_name AS commenter_last_name, "
       + "    comment.updated AS comment_updated_time, "
+      + "    comment.created AS comment_created_time, "      
       + "    comment.like_count AS comment_like_count, "
       + "    my_comment_likes.user_id AS me_liked_comment "
       + "FROM "
@@ -77,6 +78,7 @@ public class PostsDAOImpl implements PostsDAO
       + "    commenter.first_name AS commenter_first_name, "
       + "    commenter.last_name AS commenter_last_name, "
       + "    comment.updated AS comment_updated_time, "
+      + "    comment.created AS comment_created_time, "       
       + "    comment.like_count AS comment_like_count, "
       + "    friends_comment_likes.user_id AS me_liked_comment "
       + "FROM "
@@ -111,7 +113,7 @@ public class PostsDAOImpl implements PostsDAO
       + "        LEFT OUTER JOIN "
       + "    comment_like friends_comment_likes ON (friends_comment_likes.comment_id = comment.id "
       + "        AND friends_comment_likes.user_id = ?) "
-      + "ORDER BY post_id DESC , comment_updated_time , updated_time DESC; ";
+      + "ORDER BY post_id DESC , comment_created_time , updated_time DESC; ";
 
 	private static final String STATUS_UPDATE_FOR_USER = "INSERT INTO post(text, type, created, posted_by, posted_for) "
 			+ "VALUES(?, ?, CURRENT_TIMESTAMP, ?, ?);";

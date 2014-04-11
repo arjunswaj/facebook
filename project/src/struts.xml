@@ -124,6 +124,31 @@
 			<result type="json" name="input" />
 			<result name="login">/login.jsp</result>
 		</action>
+		
+		<!-- This is for liking a comment -->
+		<action name="likecomment" class="edu.iiitb.facebook.action.comment.CommentLikesAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		<!-- This is for unliking a comment -->
+		<action name="unlikecomment" class="edu.iiitb.facebook.action.comment.CommentLikesAction"
+			method="unlike">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		<!-- This is for finding comment likers -->
+		<action name="commentlikers" class="edu.iiitb.facebook.action.comment.CommentLikesAction"
+			method="commentlikers">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		
 		<!-- This is for Friend Suggestions -->
 		<action name="friendsuggestions"
 			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">
