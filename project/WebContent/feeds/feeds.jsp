@@ -434,6 +434,7 @@
             success: function(likeData) {
             	var html = [];
             	var postLikers = likeData.likers;
+            	$("#post_likers_"+likeData.postId)[0].innerHTML = postLikers.length + " likes";
             	html.push("<div class=\"Absolute-Center\">");
 	            	html.push("<span class=\"like-title\">");
 		            	if (postLikers.length > 0) {            	

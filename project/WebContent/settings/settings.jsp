@@ -23,6 +23,15 @@ body {background-color:#ffffff;}
 		fref = obj.value;
 		document.getElementById("unblockFriendForm_"+fref).action = 'unblockfriend?fref='+fref;
 	}
+	function toggle() {
+		if ( document.getElementById("pwdEditBlock").style.display == 'none' ){
+			document.getElementById("pwdViewBlock").style.display = 'none';
+			document.getElementById("pwdEditBlock").style.display = 'table-row'; // set to table-row instead of an empty string
+		 } else{
+			document.getElementById("pwdEditBlock").style.display = 'none';
+			document.getElementById("pwdViewBlock").style.display = 'inline';
+		 }
+	}
 </script>
 <div class="container">
 	<div class="page-header" align="left">
@@ -44,16 +53,26 @@ body {background-color:#ffffff;}
       	<hr>
  		<div class="row" align="center">
         	<div class="col-md-3"><strong>Password</strong></div>
-        	<div class="col-md-3">Click Edit to Change</div>
-        	<div class="col-md-3"><a href="#">Edit</a></div>
+        	<div class="col-md-3" id="pwdViewBlock">Click Edit to Change</div>
+         	<div class="col-md-3" id="pwdEditBlock" style="display:none;">
+        	<table>
+        		<tr>
+        			<td><input type="password"></td>
+        			<td><input type="submit" value="Submit"></td>
+        		</tr>
+        	</table>
+        	</div>
+        	<div class="col-md-3"><a id="EditPassword" href="#" onClick="toggle();">Edit</a></div>
       	</div>
       	<hr>
+      	<!--  
    		<div class="row" align="center">
         	<div class="col-md-3"><strong>Language</strong></div>
         	<div class="col-md-3">English</div>
         	<div class="col-md-3"><a href="#">Edit</a></div>
       	</div>
       	<hr>
+      	-->
 	</form>
 	
 	<h4>List of Blocked Users</h4>
