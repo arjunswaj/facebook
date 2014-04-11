@@ -3,16 +3,14 @@
 
 <style>
 .rpcenter {
-margin:auto;
-width:70%;
-background-color:#ffffff;
-border-style:solid;
-border-width:1px;
-border-color:#c1b9b9;
+	width:70%;
+	background-color:#ffffff;
+	border-style:solid;
+	border-width:1px;
+	border-color:#c1b9b9;
+	height:100%;
 }
 </style>
 <div class="rpcenter">
-	<br />
 	<s:action name="friendsuggestions" executeResult="true" />
-	<br />
 </div>
