@@ -28,7 +28,7 @@
 	}
 	function gotoMessages() {
 
-		document.getElementById("facebookHeader").action = "/facebook/listLatestMessages";
+		document.getElementById("facebookHeader").action = "/facebook/messages.action";
 		document.getElementById("facebookHeader").submit();
 	}
 	function search() {
