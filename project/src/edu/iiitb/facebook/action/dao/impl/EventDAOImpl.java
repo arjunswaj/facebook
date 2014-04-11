@@ -64,6 +64,9 @@ public class EventDAOImpl implements EventDAO
 	private static final String SET_CONFIRMATION_STATUS_QUERY=
 			"update invitation set confirmation=? where event_id=? and sent_to=?;";
 	
+	private static final String DELETE_ALL_INVITATIONS_QUERY=
+			"delete from invitation where (sent_by=? and sent_to=?);";
+	
 	@Override
 	public int createEvent(Connection cn, int userId, Event e) throws SQLException
 	{
@@ -83,6 +86,21 @@ public class EventDAOImpl implements EventDAO
 		rs.close();
 		ps.close();
 		return r;
+	}
+	
+	public void deleteAllInvitationsBetweenUsers(Connection cn, int userId1, int userId2) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(DELETE_ALL_INVITATIONS_QUERY);
+		
+		ps.setInt(1, userId1);
+		ps.setInt(2, userId2);
+		ps.executeUpdate();
+		
+		ps.setInt(1, userId2);
+		ps.setInt(2, userId1);
+		ps.executeUpdate();
+		
+		ps.close();
 	}
 	
 	public Event getEvent(Connection cn, int eventId) throws SQLException

@@ -28,7 +28,7 @@
 	</script>
 </head>
 <body style="background-color: #c5c5df;">
-	<form action="createEvent" method="post" id='f1'>
+	<form action="/facebook/createEvent" method="post" id='f1'>
 		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
 			<tbody>
 				<tr>
@@ -54,7 +54,7 @@
 				<tr>
 					<td colspan="3" align="right">
 						<input style="background-color: #45619d; color: white;" type="button" value="Create" onclick='validateAndSubmit()' />
-						<a style="text-decoration: none;" href="displayEvents"><input type="button" value="Cancel" /></a>
+						<a style="text-decoration: none;" href="/facebook/displayEvents"><input type="button" value="Cancel" /></a>
 					</td>
 				</tr>
 			</tbody>

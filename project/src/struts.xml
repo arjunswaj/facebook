@@ -234,7 +234,7 @@
 		</action>
 		<action name="thirdsignup"
 			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
-			<result name="success" type="tiles">newsfeeds.tiles</result>
+			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="error">/login/signup3.jsp</result>
 			<result name="input">/login/signup3.jsp</result>
 

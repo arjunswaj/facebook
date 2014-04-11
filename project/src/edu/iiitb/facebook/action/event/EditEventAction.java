@@ -19,7 +19,6 @@ import edu.iiitb.facebook.action.model.Event;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 @ParentPackage("tiles-default")
 public class EditEventAction extends ActionSupport implements SessionAware
 {
@@ -38,7 +37,7 @@ public class EditEventAction extends ActionSupport implements SessionAware
 		results=
 		{
 			@Result(name="edit", location="/event/editEventPage.jsp"),
-			@Result(name="success", type="chain", location="event"),
+			@Result(name="success", type="chain", location="displayEvent"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)
