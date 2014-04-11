@@ -85,6 +85,7 @@
 		</div>
 	
 	</div>
+	<script src="messages/divRenderers.js"></script>
 	<script src="messages/onConversationThreadClick.js"></script>
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>

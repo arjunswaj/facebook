@@ -48,7 +48,7 @@ public class MessageDAOImpl implements MessageDAO
 				Message message = new Message();
 				message.setId(rs.getInt("id"));
 				message.setText(rs.getString("text"));
-				message.setSentAt(rs.getTimestamp("sent_at"));
+				message.setSentAt(rs.getTimestamp("sent_at").toString());
 				message.setSender(rs.getInt("sender"));
 				message.setRecipient(rs.getInt("recipient"));
 				
@@ -126,7 +126,7 @@ public class MessageDAOImpl implements MessageDAO
 				latestMsg.setOtherUserFirstName(firstName);
 				latestMsg.setOtherUserLastName(lastName);
 				latestMsg.setLatestMessage(rs.getString("text"));
-				latestMsg.setSentAt(rs.getTimestamp("sent_at"));
+				latestMsg.setSentAt(rs.getTimestamp("sent_at").toString());
 				latestMsg.setUser(user);
 
 				latestMsgs.add(latestMsg);
