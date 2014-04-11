@@ -260,30 +260,34 @@
 					</s:if>
 					<s:elseif test="#feeds.postType == 'wallpost'">
 						<div>
-							<span class="fullname"> <s:property
-									value="fromUserFirstName" /> <s:property
-									value="fromUserLastName" />
-							</span> posted on <span class="fullname"> <s:property
-									value="toUserFirstName" /> <s:property value="toUserLastName" />
-							</span>'s Wall 
-							<span> 
-								<s:if test="#loggedInUser==#feeds.toUserId">
-									<form id='<s:property value="#feeds.postId"/>'
-										class="delete_post" method="post">
-										<input type="submit" value="delete" />
-									</form>
-								</s:if> 
-								<s:elseif test="#loggedInUser==#feeds.fromUserId">
-									<form id='<s:property value="#feeds.postId"/>'
-										class="delete_post" method="post">
-										<input type="submit" value="delete" />
-									</form>
-									<form id='<s:property value="#feeds.postId"/>'
-										class="edit_post" method="post">
-										<input type="submit" value="edit" />
-									</form>
-								</s:elseif>								
-							</span>
+							<div class="status-description">
+								<span class="fullname"> <s:property
+										value="fromUserFirstName" /> <s:property
+										value="fromUserLastName" />
+								</span> posted on <span class="fullname"> <s:property
+										value="toUserFirstName" /> <s:property value="toUserLastName" />
+								</span>'s Wall
+							</div>
+							<div class="status-options"> 
+								<span> 							
+									<s:if test="#loggedInUser==#feeds.toUserId">
+										<form id='<s:property value="#feeds.postId"/>'
+											class="delete_post" method="post">
+											<input type="submit" value="delete" />
+										</form>
+									</s:if> 
+									<s:elseif test="#loggedInUser==#feeds.fromUserId">
+										<form id='<s:property value="#feeds.postId"/>'
+											class="delete_post" method="post">
+											<input type="submit" value="delete" />
+										</form>
+										<form id='<s:property value="#feeds.postId"/>'
+											class="edit_post" method="post">
+											<input type="submit" value="edit" />
+										</form>
+									</s:elseif>								
+								</span>
+							</div>						
 							<div class="clear"></div>
 						</div>
 					</s:elseif>
