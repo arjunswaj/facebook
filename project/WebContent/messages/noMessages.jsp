@@ -21,16 +21,6 @@
 			
 			<!-- Latest conversations -->
 			<div id="latestConversations" class="latest-conversations">
-				<s:iterator value="latestConversations">
-					<div>
-						<a class="latest-conversation" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />">
-							<s:property value="otherUserFirstName" /> 
-							<s:property value="otherUserLastName" /> 
-							<s:property value="latestMessage" /> 
-							<s:property value="sentAt" />
-						</a>
-					</div>
-				</s:iterator>
 			</div>
 			
 		</div>
@@ -41,8 +31,7 @@
 			<!-- Selected conversation header -->
 			<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">
 				<div class="conversation-with">
-						<s:property value="latestConversations.get(0).getOtherUserFirstName()" />
-						<s:property value="latestConversations.get(0).getOtherUserLastName()" />
+						No Selection
 				</div>
 				<div class="new-message-button">
 					<div>
@@ -53,32 +42,8 @@
 			
 			<!-- Selected conversation thread -->
 			<div id="selectedConversationThread" class="selected-conversation-thread">
-				<s:iterator value="selectedConversationThread">
-					<div class="message">
-						<div class="message-photo">
-							<img width="100%" height="100%" src="image?userId=<s:property value="sender" />" />
-						</div>
-						<div class="message-header">
-							<b> 
-								<s:property value="senderFirstName" /> 
-								<s:property	value="senderLastName" />
-							</b>
-							<s:property value="sentAt" />
-						</div>
-						<div class="message-text">
-							<s:property value="text" />
-						</div>
-					</div>
-				</s:iterator>
-			</div>
-
-			<!-- Reply -->
-			<div id="replyBox" class="reply-box">
-				<form id="replyForm" action="reply">
-						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply..." />
-						<s:hidden name="replyMsg.recipient" value="%{selectedLatestConversation.getOtherUser()}" />
-						<s:submit class="reply-button" value="Reply"></s:submit>
-				</form>
+				<span>No Conversation selected</span>
+				<span>New Message . Show Unread </span>
 			</div>
 
 		</div>

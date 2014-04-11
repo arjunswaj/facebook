@@ -72,6 +72,13 @@
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="central-pane" value="/messages/messages.jsp" />
 	</definition>
+	
+	<!-- This is for the messages page with no messages or conversations-->
+	<definition name="noMessages.tiles" extends="messagesBaseLayout">
+		<put-attribute name="title" value="Messages" />
+		<put-attribute name="central-pane" value="/messages/noMessages.jsp" />
+	</definition>
+	
 
 	<!-- This is the base layout for the Events page -->
 	<definition name="BaseLayoutWithoutSidePanes"

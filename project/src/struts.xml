@@ -40,6 +40,7 @@
 			class="edu.iiitb.facebook.action.messages.MessagesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">messages.tiles</result>
+			<result name="no_conversations" type="tiles">noMessages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
 
