@@ -47,8 +47,8 @@
 			<s:iterator value="map" var="u">
 			<table style="width: 96%; margin-left: 2%;">
 				<tr>
-					<td width="50px"><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></td>
-					<td><s:property value="#u.value" /></td>
+					<td width="50px"><a style="text-decoration: none;" href='profile?fref=<s:property value="#u.key" />'><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></a></td>
+					<td><a style="text-decoration: none;" href='profile?fref=<s:property value="#u.key" />'><s:property value="#u.value" /></a></td>
 					<td align="right">
 						<s:if test='readOnly.equals("false")'>
 						<a style="text-decoration: none;" href='deleteInvitation?listName=maybe&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>

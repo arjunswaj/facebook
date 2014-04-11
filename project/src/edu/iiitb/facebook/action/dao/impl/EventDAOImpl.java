@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +35,11 @@ public class EventDAOImpl implements EventDAO
 	private static final String GET_POTENTIAL_INVITEES_QUERY=
 			"select u.id, u.first_name, u.last_name from user u where u.id in (select request_for from friends_with where request_by=? and status='accepted') or u.id in (select request_by from friends_with where request_for=? and status='accepted');";
 	
-	//private static final String GET_INVITEES_QUERY=
-		//	"select user.id, user.first_name, user.last_name from user, invitation where invitation.sent_by=? and invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation like ?;";
+	private static final String GET_BIRTHDAY_PEOPLE_QUERY=
+			"select u.id, u.first_name, u.last_name, u.dob from user u where u.dob like ? and (u.id=? or u.id in (select request_for from friends_with where request_by=? and status='accepted') or u.id in (select request_by from friends_with where request_for=? and status='accepted'));";
+	
+	private static final String GET_BIRTHDATES_QUERY=
+			"select distinct(concat(?, substr(u.dob, 5, 6))) from user u where (u.id=? or u.id in (select request_for from friends_with where request_by=? and status='accepted') or u.id in (select request_by from friends_with where request_for=? and status='accepted')) order by u.dob;";
 	
 	private static final String GET_INVITEES_QUERY=
 			"select user.id, user.first_name, user.last_name from user, invitation where invitation.event_id=? and invitation.sent_to=user.id and invitation.confirmation in ";
@@ -49,10 +56,12 @@ public class EventDAOImpl implements EventDAO
 			+"(select 0, id, title, place, time, ?, 'You', 'are', 'join' from event where created_by=? and time like ?)"
 			+" order by time;";
 	
-	private static final String GET_DATES_OF_EVENTS_QUERY=
+	private static final String GET_DATES_OF_EVENTS_AND_BIRTHDAYS_QUERY=
 			"(select distinct substr(e.time, 1, 10) as date from event e, invitation i where e.id=i.event_id and i.sent_to=? order by date)"
 			+" union "
 			+"(select distinct substr(e.time, 1, 10) as date from event e where e.created_by=?)"
+			+" union "
+			+"(select distinct(concat(?, substr(u.dob, 5, 6))) as date from user u where (u.id=? or u.id in (select request_for from friends_with where request_by=? and status='accepted') or u.id in (select request_by from friends_with where request_for=? and status='accepted')))"
 			+" order by date;";
 	
 	private static final String GET_INVITER_QUERY=
@@ -64,8 +73,65 @@ public class EventDAOImpl implements EventDAO
 	private static final String SET_CONFIRMATION_STATUS_QUERY=
 			"update invitation set confirmation=? where event_id=? and sent_to=?;";
 	
-	private static final String DELETE_ALL_INVITATIONS_QUERY=
+	private static final String DELETE_ALL_INVITATIONS_BETWEEN_USERS_QUERY=
 			"delete from invitation where (sent_by=? and sent_to=?);";
+	
+	private static final String DELETE_EVENT_QUERY=
+			"delete from event where id=?;";
+	
+	private static final String DELETE_EVENT_INVITATIONS_QUERY=
+			"delete from invitation where event_id=?;";
+	
+	public void deleteEventAndInvitations(Connection cn, int eventId) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(DELETE_EVENT_INVITATIONS_QUERY);
+		ps.setInt(1, eventId);
+		ps.executeUpdate();
+		
+		ps=cn.prepareStatement(DELETE_EVENT_QUERY);
+		ps.setInt(1, eventId);
+		ps.executeUpdate();
+		
+		ps.close();
+	}
+	
+	public List<User> getBirthdayPeople(Connection cn, int userId, String date) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_BIRTHDAY_PEOPLE_QUERY);
+		ps.setString(1, "____"+date.substring(4));
+		ps.setInt(2, userId);
+		ps.setInt(3, userId);
+		ps.setInt(4, userId);
+		ResultSet rs=ps.executeQuery();
+		List<User> birthdayPeople=new ArrayList<User>();
+		while(rs.next())
+		{
+			User u=new User();
+			u.setUserId(rs.getInt(1));
+			u.setFirstName(rs.getString(2));
+			u.setLastName(rs.getString(3));
+			birthdayPeople.add(u);
+		}
+		rs.close();
+		ps.close();
+		return birthdayPeople;
+	}
+	
+	public List<String> getDatesOfBirthdays(Connection cn, int userId) throws SQLException
+	{
+		PreparedStatement ps=cn.prepareStatement(GET_BIRTHDATES_QUERY);
+		ps.setString(1, ((Integer)Calendar.getInstance().get(Calendar.YEAR)).toString());
+		ps.setInt(2, userId);
+		ps.setInt(3, userId);
+		ps.setInt(4, userId);
+		ResultSet rs=ps.executeQuery();
+		List<String> birthDates=new ArrayList<String>();
+		while(rs.next())
+			birthDates.add(rs.getString(1));
+		rs.close();
+		ps.close();
+		return birthDates;
+	}
 	
 	@Override
 	public int createEvent(Connection cn, int userId, Event e) throws SQLException
@@ -90,7 +156,7 @@ public class EventDAOImpl implements EventDAO
 	
 	public void deleteAllInvitationsBetweenUsers(Connection cn, int userId1, int userId2) throws SQLException
 	{
-		PreparedStatement ps=cn.prepareStatement(DELETE_ALL_INVITATIONS_QUERY);
+		PreparedStatement ps=cn.prepareStatement(DELETE_ALL_INVITATIONS_BETWEEN_USERS_QUERY);
 		
 		ps.setInt(1, userId1);
 		ps.setInt(2, userId2);
@@ -156,15 +222,11 @@ public class EventDAOImpl implements EventDAO
 		return m;
 	}
 	
-	//confirmation could be %, join, maybe, nope
+	//confirmation could be pending, join, maybe, nope
 	public Map<String, String> getInvitees(Connection cn, int inviterId, int eventId, String confirmation) throws SQLException
 	{
 		PreparedStatement ps=cn.prepareStatement(GET_INVITEES_QUERY+"("+confirmation+");");
-		//ps.setInt(1, inviterId);
-		//ps.setInt(2, eventId);
 		ps.setInt(1, eventId);
-		//ps.setString(3, confirmation);
-		//ps.setString(2, confirmation);
 		ResultSet rs=ps.executeQuery();
 		Map<String, String> m=new HashMap<String, String>();
 		while(rs.next())
@@ -207,17 +269,23 @@ public class EventDAOImpl implements EventDAO
 		List<Invitation> l=new ArrayList<Invitation>();
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())
-			l.add(new Invitation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5).split("[ ]")[1].substring(1, 8), rs.getString(6), rs.getString(7)+" "+rs.getString(8), rs.getString(9)));
+			l.add(new Invitation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5).split("[ ]")[1].substring(0, 5), rs.getString(6), rs.getString(7)+" "+rs.getString(8), rs.getString(9)));
 		rs.close();
 		ps.close();
 		return l;
 	}
 	
-	public List<String> getDatesOfEvents(Connection cn, int inviteeId) throws SQLException
+	public List<String> getDatesOfEventsAndBirthdays(Connection cn, int inviteeId) throws SQLException
 	{
-		PreparedStatement ps=cn.prepareStatement(GET_DATES_OF_EVENTS_QUERY);
+		PreparedStatement ps=cn.prepareStatement(GET_DATES_OF_EVENTS_AND_BIRTHDAYS_QUERY);
 		ps.setInt(1, inviteeId);
 		ps.setInt(2, inviteeId);
+		
+		ps.setString(3, ((Integer)Calendar.getInstance().get(Calendar.YEAR)).toString());
+		ps.setInt(4, inviteeId);
+		ps.setInt(5, inviteeId);
+		ps.setInt(6, inviteeId);
+		
 		List<String> l=new ArrayList<String>();
 		ResultSet rs=ps.executeQuery();
 		while(rs.next())

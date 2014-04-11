@@ -47,8 +47,8 @@
 		<div style="overflow-y: scroll; height: 502px;">
 			<table style="width: 96%; margin-left: 2%;">
 				<tr>
-					<td width="50px"><img width="40px" height="40px" src='image?userId=<s:property value="inviter.getUserId()" />' /></td>
-					<td><s:property value='inviter.getFirstName()+" "+inviter.getLastName()' /></td>
+					<td width="50px"><a style="text-decoration: none;" href='profile?fref=<s:property value="inviter.getUserId()" />'><img width="40px" height="40px" src='image?userId=<s:property value="inviter.getUserId()" />' /></a></td>
+					<td><a style="text-decoration: none;" href='profile?fref=<s:property value="inviter.getUserId()" />'><s:property value='inviter.getFirstName()+" "+inviter.getLastName()' /></a></td>
 					<td></td>
 				</tr>
 			</table>
@@ -56,8 +56,8 @@
 			<s:iterator value="map" var="u">
 			<table style="width: 96%; margin-left: 2%;">
 				<tr>
-					<td width="50px"><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></td>
-					<td><s:property value="#u.value" /></td>
+					<td width="50px"><a style="text-decoration: none;" href='profile?fref=<s:property value="#u.key" />'><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></a></td>
+					<td><a style="text-decoration: none;" href='profile?fref=<s:property value="#u.key" />'><s:property value="#u.value" /></a></td>
 					<td align="right">
 						<s:if test='readOnly.equals("false")'>
 						<a style="text-decoration: none;" href='deleteInvitation?listName=host&eventId=<s:property value="eventId" />&inviteeId=<s:property value="#u.key" />'><input type="button" value="X" /></a>

@@ -15,7 +15,7 @@
 	</div>
 	<div style="background-color: #FFFFFF; float: left; width: 520px;">
 		<br />
-		&nbsp;Hosted by <s:property value="inviter.getFirstName()"/> <s:property value="inviter.getLastName()"/>
+		&nbsp;Hosted by <a style="color: blue;" href='profile?fref=<s:property value="inviter.getUserId()" />'><s:property value="inviter.getFirstName()"/> <s:property value="inviter.getLastName()"/></a>
 		<br /><br />
 	</div>
 	<div style="background-color: #FFFFFF;">
