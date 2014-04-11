@@ -23,4 +23,5 @@ public interface EventDAO
 	public User getInviter(Connection cn, int eventId) throws SQLException;
 	public String getConfirmationStatus(Connection cn, int eventId, int inviteeId) throws SQLException;
 	public void setConfirmationStatus(Connection cn, int eventId, int inviteeId, String confirmation) throws SQLException;
+	public void deleteAllInvitationsBetweenUsers(Connection cn, int userId1, int userId2) throws SQLException;
 }

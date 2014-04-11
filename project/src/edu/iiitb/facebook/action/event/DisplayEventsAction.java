@@ -23,7 +23,6 @@ import edu.iiitb.facebook.action.model.Invitation;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 @ParentPackage("tiles-default")
 public class DisplayEventsAction extends ActionSupport implements SessionAware
 {

@@ -12,6 +12,9 @@ public class FriendSuggestions {
 		this.lastName = lastName;
 	}
 	
+	public FriendSuggestions() {
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

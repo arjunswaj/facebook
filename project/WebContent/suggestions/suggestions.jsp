@@ -8,8 +8,11 @@
 <title>Friend Suggestions</title>
 </head>
 <body>
-	<h4 align="center">PEOPLE YOU MAY KNOW</h4>
+	<s:if test="%{getFriendSuggestionsList().isEmpty()}">
+	</s:if>
+	<s:else>
 	<div id="suggestions">
+		<h5 style="color:gray";" align="center">PEOPLE YOU MAY KNOW</h5>
 		<s:iterator value="friendSuggestionsList" var="fsl">
 			<s:set var="friendId" value="%{friendId}"/>
 			<%
@@ -19,12 +22,13 @@
 			<div class="suggFriendForm" align="center">
 				<img width="80px" src="image?userId=<s:property value="friendId" />" />
 				<div><a href="profile?fref=<s:property value="friendId" />" >
-					<b><s:property value="firstName" /></b>
-					<b><s:property value="lastName" /></b>
+					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
 					</a>
 					<br>
-					<a href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
-					<s:submit align="center" id="AddFriend" value="+ Add Friend" />
+					<a style="color:gray;" href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
+					<br>
+					<input type="submit" class="btn btn-default" id="AddFriend" value="+ Add Friend"/>
+<%-- 					<s:submit  align="center" id="AddFriend" value="+ Add Friend" /> --%>
 					<s:hidden name="friendId" value="%{friendId}" />
 				</div>
 			</div>
@@ -32,6 +36,7 @@
 			<hr>
 		</s:iterator>
 	</div>
+	</s:else>
 </body>
 <%-- <script src="js/jquery-1.10.2.js"></script> --%>
 	<script type="text/javascript">	

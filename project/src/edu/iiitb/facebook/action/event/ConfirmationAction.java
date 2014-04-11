@@ -17,7 +17,6 @@ import edu.iiitb.facebook.action.dao.impl.EventDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 @ParentPackage("tiles-default")
 public class ConfirmationAction extends ActionSupport implements SessionAware
 {
@@ -34,7 +33,7 @@ public class ConfirmationAction extends ActionSupport implements SessionAware
 		results=
 		{
 			@Result(name="success1", location="/event/confirmationDropDownInnerHTML.html"),
-			@Result(name="success2", type="chain", location="event"),
+			@Result(name="success2", type="chain", location="displayEvent"),
 			@Result(name="login", location="/index.jsp")
 		}
 	)

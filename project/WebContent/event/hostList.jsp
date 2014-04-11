@@ -28,7 +28,7 @@
 		<table style="width: 100%">
 			<tr style="background-color: #f5f6f7; height: 50px;">
 				<td><b>Guests</b></td>
-				<td align="right"><a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a></td>
+				<td align="right"><a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a></td>
 			</tr>
 			<tr style="background-color: #f0f1f2; height: 40px;">
 				<td colspan="2">

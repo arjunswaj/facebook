@@ -22,7 +22,6 @@ import edu.iiitb.facebook.action.model.Event;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
-@Namespace("event")
 @ParentPackage("tiles-default")
 public class EventAction extends ActionSupport implements SessionAware
 {
@@ -42,7 +41,7 @@ public class EventAction extends ActionSupport implements SessionAware
 	
 	@Action
 	(
-		value="/event",
+		value="/displayEvent",
 		results=
 		{
 			@Result(name="success", type="tiles", location="eventPage.tiles"),

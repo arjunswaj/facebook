@@ -28,7 +28,7 @@
 							<a style="text-decoration: none;" href='displayEvents'><input type="button" value="X" /></a>
 						</s:if>
 						<s:else>
-							<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a>
+							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="eventId" />'><input type="button" value="X" /></a>
 						</s:else>
 					</td>
 				</tr>
@@ -46,7 +46,7 @@
 							<a style="text-decoration: none;" href='displayEvents'><input type="button" value="Cancel" /></a>
 						</s:if>
 						<s:else>
-							<a style="text-decoration: none;" href='event?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
+							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 						</s:else>
 					</td>
 				</tr>

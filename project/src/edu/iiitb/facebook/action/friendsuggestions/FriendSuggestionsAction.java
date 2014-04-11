@@ -1,5 +1,6 @@
 package edu.iiitb.facebook.action.friendsuggestions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class FriendSuggestionsAction extends ActionSupport implements SessionAwa
 	public String execute() {
 		User user = (User) session.get("user");
 	    userId = user.getUserId();
+	    this.friendSuggestionsList = new ArrayList<FriendSuggestions>();
 		setFriendSuggestionsList(friendsDAO.getFriendSuggestions(userId));
 		return SUCCESS;
 	}

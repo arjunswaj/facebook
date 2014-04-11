@@ -18,15 +18,14 @@
 </head>
 <body>
 	<div id="mutualfriends" class="pop-up">
-		<b> <h4 align="center">Mutual Friends</h4>  </b>
+		<b> <h5 style="color:gray;" align="center" > MUTUAL FRIENDS</h5>  </b>
 		<s:iterator value="mutualFriendsList">
 			<div align="center" >	
 				<div >
 				<img width="80px" class="img-thumbnail" src="image?userId=<s:property value="friendId" />" />
 				</div>
 				<div >
-					<strong><s:property value="firstName" /></strong>
-					<strong><s:property value="lastName" /></strong>
+					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
 				</div>
 			</div>
 			<hr>
