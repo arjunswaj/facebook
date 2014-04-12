@@ -21,6 +21,9 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 	private String email;
 	private String reemail;
 	private String password;
+	private String day;
+	private String month;
+	private String year;
 	private Date dob;
 	private String first_name;
 	private String last_name;
@@ -37,7 +40,23 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 
 	@Override
 	public String execute() {
-		System.out.println("place1");
+		
+		System.out.println("day value"+day);
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd"); 
+
+	      String input = year+"-"+month+"-"+day; 
+
+	      System.out.print(input + " Parses as "); 
+
+	      Date t; 
+
+	      try { 
+	        setDob( ft.parse(input)); 
+	          System.out.println( ft.parse(input)); 
+	      } catch (ParseException e) { 
+	          System.out.println("Unparseable using " + ft); 
+	      }
+
 		user.setEmail(getEmail());
 		user.setPassword(getPassword());
 		user.setDob(getDob());
@@ -54,7 +73,29 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 		return ret;
 	}
 
-	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day=day;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
 
 	public String getReemail() {
 		return reemail;
