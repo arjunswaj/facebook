@@ -55,9 +55,9 @@ var messageDiv = {
 	get : function() {
 		var div = '<div class="message"> \
 						<div class="message-photo"> \
-							<a href="profile?fref=' + messageDiv.message.sender + '>\
+							<a href="profile?fref=' + messageDiv.message.sender + '">\
 								<img width="32" height="32"	src="image?userId='	+ messageDiv.message.sender + '" /> \
-							<\a>\
+							</a>\
 						</div> \
 						<div class="message-header"> \
 							<strong> \
@@ -105,10 +105,19 @@ var latestConversationDiv = {
 		
 		get : function() {
 			var div
-				= '<div>\
-						<a class="latest-conversation" href="selectedConversationThread.action?otherUser=' + latestConversationDiv.latestConversation.otherUser + '">'
-						+ latestConversationDiv.latestConversation.otherUserFirstName + ' ' + latestConversationDiv.latestConversation.otherUserLastName + ' ' + latestConversationDiv.latestConversation.latestMessage + ' ' + latestConversationDiv.latestConversation.sentAt +
-						'</a>\
+				= '<div class="latest-conversation">\
+						<div class="latest-conversation-photo">\
+							<a href="profile?fref=' + latestConversationDiv.latestConversation.otherUser + '" >\
+								<img width="50" height="50" src="image?userId='  + latestConversationDiv.latestConversation.otherUser + '"/>\
+							</a>\
+						</div>\
+						<div class="latest-conversation-header">\
+						</div>\
+						<div class="latest-conversation-text">\
+							<a class="latest-conversation" href="selectedConversationThread.action?otherUser=' + latestConversationDiv.latestConversation.otherUser + '">'
+							+ latestConversationDiv.latestConversation.otherUserFirstName + ' ' + latestConversationDiv.latestConversation.otherUserLastName + ' ' + latestConversationDiv.latestConversation.latestMessage + ' ' + latestConversationDiv.latestConversation.sentAt +
+							'</a>\
+						</div>\
 				   </div>';
 			return div;
 		}

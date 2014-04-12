@@ -21,13 +21,22 @@
 			<!-- Latest conversations -->
 			<div id="latestConversations" class="latest-conversations">
 				<s:iterator value="latestConversations">
-					<div>
-						<a class="latest-conversation" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />">
-							<s:property value="otherUserFirstName" /> 
-							<s:property value="otherUserLastName" /> 
-							<s:property value="latestMessage" /> 
-							<s:property value="sentAt" />
-						</a>
+					<div class="latest-conversation">
+						<div class="latest-conversation-photo">
+							<a href="profile?fref=<s:property value="otherUser" />" >
+								<img width="50" height="50" src="image?userId=<s:property value="otherUser" />" />
+							</a>
+						</div>
+						<div class="latest-conversation-header">
+						</div>
+						<div class="latest-conversation-text">
+							<a class="latest-conversation" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />">
+								<s:property value="otherUserFirstName" /> 
+								<s:property value="otherUserLastName" /> 
+								<s:property value="latestMessage" /> 
+								<s:property value="sentAt" />
+							</a>
+						</div>
 					</div>
 				</s:iterator>
 			</div>

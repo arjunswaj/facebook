@@ -35,9 +35,24 @@
 }
 
 .latest-conversation {
+	height : 11%;
+	overflow: auto;
+}
+
+.latest-conversation-header {
 	
 }
 
+.latest-conversation-photo {
+	width: 20%;
+	height: 100%;
+	float: left;
+	
+}
+
+.latest-conversation-text {
+	
+}
 .right {
 	width: 64%;
 	height: 100%;
