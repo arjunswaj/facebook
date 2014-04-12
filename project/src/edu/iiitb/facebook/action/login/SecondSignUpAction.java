@@ -59,13 +59,15 @@ public class SecondSignUpAction extends ActionSupport implements SessionAware {
 
 	public String execute() {
 		user = (User) session.get("user");
+		session.remove("user");
 		System.out.println(getPhone_number());
 		user.setPhoneNumber(getPhone_number());
 		user.setSecretQuestion(getSecret_question());
 		user.setSecretAnswer(getSecret_answer());
+		
+		ret = dao.setUserwithoutphotos(user);
 		session.put("user", user);
 
-		ret = dao.setUserwithoutphotos(user);
 		System.out.println(ret);
 		return ret;
 	}

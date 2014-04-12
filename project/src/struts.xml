@@ -219,24 +219,24 @@
 
 		<action name="firstsignup"
 			class="edu.iiitb.facebook.action.login.FirstSignUpAction">
-			<result name="success">/login/signup2.jsp</result>
-			<result name="error">/login/signup1.jsp</result>
-			<result name="input">/login/signup1.jsp</result>
+			<result name="success">/signup2.jsp</result>
+			<result name="error">/signup1.jsp</result>
+			<result name="input">/signup1.jsp</result>
 
 
 		</action>
 		<action name="secondsignup"
 			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup2.jsp</result>
+			<result name="success">/signup3.jsp</result>
+			<result name="error">/signup2.jsp</result>
+			<result name="input">/signup2.jsp</result>
 
 		</action>
 		<action name="thirdsignup"
 			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
 			<result name="success" type="redirectAction">newsfeeds</result>
-			<result name="error">/login/signup3.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
+			<result name="error">/signup3.jsp</result>
+			<result name="input">/signup3.jsp</result>
 
 		</action>
 		<action name="profilepicupload"
@@ -248,9 +248,9 @@
 				</param>
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
+			<result name="success">/signup3.jsp</result>
+			<result name="error">/signup2.jsp</result>
+			<result name="input">/signup3.jsp</result>
 
 		</action>
 		<action name="coverpicupload"
@@ -262,31 +262,31 @@
 				</param>
 			</interceptor-ref>
 			<interceptor-ref name="defaultStack"></interceptor-ref>
-			<result name="success">/login/signup3.jsp</result>
-			<result name="error">/login/signup2.jsp</result>
-			<result name="input">/login/signup3.jsp</result>
+			<result name="success">/signup3.jsp</result>
+			<result name="error">/signup2.jsp</result>
+			<result name="input">/signup3.jsp</result>
 
 		</action>
 
 
 		<action name="myrecoveryAction" class="edu.iiitb.facebook.action.login.RecoveryAction">
-			<result name="success">/login/resetpassword.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
+			<result name="success">/resetpassword.jsp</result>
+			<result name="error">/recovery.jsp</result>
+			<result name="input">/recovery.jsp</result>
 			<result name="login" type="tiles">newsfeeds.tiles</result>
 		</action>
 		<action name="getquestion" class="edu.iiitb.facebook.action.login.RecoveryAction"
 			method="getsecretquestion">
-			<result name="success">/login/recovery.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
+			<result name="success">/recovery.jsp</result>
+			<result name="error">/recovery.jsp</result>
+			<result name="input">/recovery.jsp</result>
 			<result name="login" type="tiles">newsfeeds.tiles</result>
 		</action>
 		<action name="pswdreset"
 			class="edu.iiitb.facebook.action.login.PasswordResetAction">
 			<result name="success">/login.jsp</result>
-			<result name="error">/login/recovery.jsp</result>
-			<result name="input">/login/recovery.jsp</result>
+			<result name="error">/recovery.jsp</result>
+			<result name="input">/recovery.jsp</result>
 			<result name="login" type="tiles">newsfeeds.tiles</result>
 		</action>
 
