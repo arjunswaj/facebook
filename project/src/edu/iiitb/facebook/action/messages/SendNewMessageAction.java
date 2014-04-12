@@ -1,5 +1,7 @@
 package edu.iiitb.facebook.action.messages;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +44,8 @@ public class SendNewMessageAction extends ActionSupport implements SessionAware
 		newMessage.setRecipientFirstName(otherUser.getFirstName());
 		newMessage.setRecipientLastName(otherUser.getLastName());
 		dao.insert(newMessage);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	    newMessage.setSentAt(sdf.format(new Date()));
 
 		// set latest conversations
 		latestConversations = dao.getLatestConversationsFor(user.getUserId());

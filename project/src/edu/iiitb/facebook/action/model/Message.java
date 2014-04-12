@@ -1,7 +1,5 @@
 package edu.iiitb.facebook.action.model;
 
-import java.sql.Timestamp;
-
 /**
  * Models an entity of the 'message' class in the DB
  * @author kempa
@@ -11,7 +9,7 @@ public class Message
 {
 	private int id;
 	private String text;
-	private Timestamp sentAt;
+	private String sentAt;
 	private int sender;
 	private String senderFirstName;
 	private String senderLastName;
@@ -35,11 +33,11 @@ public class Message
 	{
 		this.text = text;
 	}
-	public Timestamp getSentAt()
+	public String getSentAt()
 	{
 		return sentAt;
 	}
-	public void setSentAt(Timestamp sentAt)
+	public void setSentAt(String sentAt)
 	{
 		this.sentAt = sentAt;
 	}

@@ -18,10 +18,12 @@ public class MessagesAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 	private Map<String, Object> session;
+	private final static String NO_CONVERSATIONS = "no_conversations";
 
-	private List<Message> selectedConversationThread;
 	private List<LatestConversation> latestConversations;
 	private LatestConversation selectedLatestConversation;
+	private List<Message> selectedConversationThread;
+	
 	/**
 	 * Load the latest conversations and select the latest amongst them all for
 	 * the expanded selected conversation view
@@ -36,8 +38,15 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		latestConversations = dao.getLatestConversationsFor(user);
 
 		// set default conversation with latest other user
-		if (selectedLatestConversation == null && !latestConversations.isEmpty())
+		if (selectedLatestConversation == null)
+		{
+			if (latestConversations.isEmpty())
+			{
+				return NO_CONVERSATIONS;
+			}
 			selectedLatestConversation = latestConversations.get(0);
+		}
+			
 
 		selectedConversationThread = dao
 				.getConversationThread(selectedLatestConversation.getOtherUser(), user);

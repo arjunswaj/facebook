@@ -19,12 +19,19 @@
 		{
 			if(document.getElementById("nm").value=="")
 				alert("Name is empty.");
+			else if(document.getElementById("dc").value=="")
+				alert("Details are missing.");
 			else if(document.getElementById("wh").value=="")
 				alert("Place is empty.");
 			else if(document.getElementById("datepicker").value=="")
 				alert("Date is empty.");
+			else if(document.getElementById("tm").value=="")
+				alert("Time is empty.");
 			else
+			{
+				document.getElementById("tm").value+=":00";
 				document.getElementById("f1").submit();
+			}
 		}
 	</script>
 </head>
@@ -41,7 +48,7 @@
 					<td colspan="2"><input id="nm" type="text" name="eventName" style="width: 98%;" value='<s:property value="eventName" />'></td>
 				</tr>
 				<tr>
-					<td>Description: </td>
+					<td>Details: </td>
 					<td colspan="2"><textarea id="dc" rows="4" style="width: 98%;" name="eventDescription"><s:property value="eventDescription" /></textarea></td>
 				</tr>
 				<tr>
@@ -51,7 +58,7 @@
 				<tr>
 					<td>When: </td>
 					<td><input id='datepicker' type="text" name="eventDate" style="width: 96%;" value='<s:property value="eventDate" />'></td>
-					<td><input id="tm" type="text" name="eventTime" style="width: 96%;" value='<s:property value="eventTime" />'></td>
+					<td><input id="tm" type="text" name="eventTime" style="width: 96%;" maxlength="5" value='<s:property value="eventTime" />'></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="right">

@@ -52,7 +52,7 @@
  	font-style: italic;
  }
 body {
-	background-color:#e9eaed;
+	
 }
 </style>
 </head>

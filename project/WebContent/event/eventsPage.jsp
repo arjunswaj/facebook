@@ -1,3 +1,6 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
@@ -47,7 +50,29 @@
 			getChildElementById(div, 'content').value=c;
 			loadXmlDoc(e);
 		}
-
+		
+		function tafocus(taId)
+		{
+			var ta=document.getElementById(taId);
+			if(ta.value=="Write a birthday wish on his timeline...")
+				ta.value="";
+		}
+		
+		function tablur(taId)
+		{
+			var ta=document.getElementById(taId);
+			if(ta.value=="")
+				ta.value="Write a birthday wish on his timeline...";
+		}
+		
+		function taCheckEnter(event)
+		{
+			if(event.keyCode==13)
+			{
+				//post using ajax
+				alert("posting");
+			}
+		}
 	</script>
 </head>
 <body>
@@ -67,22 +92,25 @@
 		<br />
 		<s:iterator value="invitationListMap" var="entry">
 			<div style="background-color: #f0f1f2; height: 30px;">
-				<b>&nbsp;<s:property value="#entry.getKey()" /></b>
+				<s:if test='dateTodayString.equals(#entry.getKey())'>
+					<b>&nbsp;Today</b>
+				</s:if>
+				<s:else>
+					<b>&nbsp;<s:property value="#entry.getKey()" /></b>
+				</s:else>
 			</div>
 			<br />
 			<s:iterator value="#entry.getValue()" var="invitation">
-
-				
 				<s:if test="user.getUserId()!=#invitation.getInviterId()">
 					<div style="margin-left: 80px; height: 110px;">
 						<div style="float: left;">
 							<s:property value="#invitation.getEventTime()" />
 						</div>
 						<div style="float: left; margin-left: 10px;">
-							<img height="90px" width="90px" src='image?userId=<s:property value="#invitation.getInviterId()" />' />
+							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="#invitation.getEventId()" />'><img height="90px" width="90px" src='image?userId=<s:property value="#invitation.getInviterId()" />' /></a>
 						</div>
 						<div style="margin-left: 160px;">
-							<a href='displayEvent?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
+							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
 							<s:property value="#invitation.getEventPlace()" /><br />
 							<s:property value="#invitation.getInviterName()" /> invited you<br />
 							
@@ -123,7 +151,7 @@
 							<s:property value="#invitation.getEventTime()" />
 						</div>
 						<div style="float: left; margin-left: 10px;">
-							<img height="110px" width="110px" src='image?userId=<s:property value="#invitation.getInviterId()" />' />
+							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="#invitation.getEventId()" />'><img height="110px" width="110px" src='image?userId=<s:property value="#invitation.getInviterId()" />' /></a>
 						</div>
 						<div style="margin-left: 180px;">
 							<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="#invitation.getEventId()" />'><s:property value="#invitation.getEventName()" /><br /></a>
@@ -135,6 +163,57 @@
 				</s:else>
 				<br />
 			</s:iterator>
+			
+			<s:if test="birthdayPeopleListMap.get(#entry.getKey())!=null">
+				<s:if test="#entry.getValue().size()>0">
+					<hr /><br />
+				</s:if>
+				<div style="margin-left: 80px;">
+					<div style="float: left;">
+						Birthdays
+					</div>
+					
+					<s:if test='dateTodayString.equals(#entry.getKey())'>
+						<% int i=0, cols=1, rowHeight=80; %>
+						<div style="margin-left: 80px;">
+						<table>
+						<s:iterator value='birthdayPeopleListMap.get(#entry.getKey())' var="u">
+							<%if(i++%cols==0){%><tr height="<%=rowHeight%>px"><%}%>
+							<td style="padding-right: 5px;">
+								<a href='profile?fref=<s:property value="#u.getUserId()" />' title='<s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" />&apos;s birthday'><img height="70px" width="70px" src='image?userId=<s:property value="#u.getUserId()" />' /></a>
+							</td>
+							<td>
+								<s:if test='#u.getUserId()==user.getUserId()'>
+									Happy Birthday!
+								</s:if>
+								<s:else>
+									<a href='profile?fref=<s:property value="#u.getUserId()" />' title='<s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" />&apos;s birthday'><s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" /></a><br />
+									<input type="text" value="Write a birthday wish on his timeline..." onkeypress="taCheckEnter(event)" size="30" id='ta<s:property value="#u.getUserId()" />' onfocus="tafocus('ta<s:property value="#u.getUserId()" />')" onblur="tablur('ta<s:property value="#u.getUserId()" />')" />
+								</s:else>
+							</td>
+							<%if(i%cols==0){%></tr><%}%>
+						</s:iterator>
+						</table>
+						</div>
+					</s:if>
+					<s:else>
+						<% int i=0, cols=5, rowHeight=80; %>
+						<div style="margin-left: 80px;">
+						<table>
+						<s:iterator value='birthdayPeopleListMap.get(#entry.getKey())' var="u">
+							<%if(i++%cols==0){%><tr height="<%=rowHeight%>px"><%}%>
+							<td style="padding-right: 5px;">
+								<a href='profile?fref=<s:property value="#u.getUserId()" />' title='<s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" />&apos;s birthday'><img height="70px" width="70px" src='image?userId=<s:property value="#u.getUserId()" />' /></a>
+							</td>
+							<%if(i%cols==0){%></tr><%}%>
+						</s:iterator>
+						</table>
+						</div>
+					</s:else>
+				</div>
+				<br /><br />
+			</s:if>
+			
 			<br /><br />
 		</s:iterator>
 	</div>

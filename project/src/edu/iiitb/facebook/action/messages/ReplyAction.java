@@ -45,8 +45,8 @@ public class ReplyAction extends ActionSupport implements SessionAware
 
 		MessageDAO dao = new MessageDAOImpl();
 		dao.insert(replyMsg);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-	    setNow(sdf.format(new Date()));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	    replyMsg.setSentAt(sdf.format(new Date()));
 
 		return SUCCESS;		
 	}

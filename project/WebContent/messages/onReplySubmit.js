@@ -16,20 +16,8 @@ $(document).on("submit", "#replyForm", function(event) {
 		"replyMsg.recipient" : to
 	});
 	posting.done(function(response) {
-		var newReply 
-			= '<div class="message"> \
-					<div class="message-photo"> \
-						<img width="100%" height="100%" src="image?userId='	+ response.replyMsg.sender + '"/> \
-					</div> \
-					<div class="message-header"> \
-						<b> ' + response.replyMsg.senderFirstName + " "	+ response.replyMsg.senderLastName + '</b> ' + response.now + 
-					'</div> \
-					<div class="message-text">'
-						+ response.replyMsg.text + 
-					'</div> \
-				</div>';
-								
-		$("#selectedConversationThread").append(newReply);
+		messageDiv.init(response.replyMsg);
+		$("#selectedConversationThread").append(messageDiv.get());
 		
 		// scroll down the selected conversation thread
 		$("#selectedConversationThread").scrollTop($("#selectedConversationThread")[0].scrollHeight);
@@ -40,17 +28,7 @@ $(document).on("submit", "#replyForm", function(event) {
 	 */
 	var posting = $.post('latestConversations.action', {});
 	posting.done(function(response) {
-		var latestConversations = '<div id="latestConversations" class="latest-conversations">';
-		$.each(response.latestConversations, function(index, latestConversation) {
-			latestConversations 
-				+= '<div>\
-						<a class="latest-conversation" href="selectedConversationThread.action?otherUser=' + latestConversation.otherUser + '">'
-						+ latestConversation.otherUserFirstName + ' ' + latestConversation.otherUserLastName + ' ' + latestConversation.latestMessage + ' ' + latestConversation.sentAt +
-						'</a>\
-					</div>';
-		});
-		latestConversations += '</div>';
-		
-		$("#latestConversations").replaceWith(latestConversations);
+		latestConversationsDiv.init(response.latestConversations);
+		$("#latestConversations").replaceWith(latestConversationsDiv.get());
 	});
 });
