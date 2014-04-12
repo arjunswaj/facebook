@@ -89,7 +89,7 @@
 			<!-- Reply -->
 			<div id="replyBox" class="reply-box">
 				<form id="replyForm" action="reply">
-						<s:textarea id="reply" name="replyMsg.text" value="" cols="75" rows="5" placeholder="Write a reply..." />
+						<s:textarea id="reply" name="replyMsg.text" value="" cols="96" rows="5" placeholder="Write a reply..." />
 						<s:hidden name="replyMsg.recipient" value="%{selectedLatestConversation.getOtherUser()}" />
 						<s:submit class="reply-button" value="Reply"></s:submit>
 				</form>
