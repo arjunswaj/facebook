@@ -8,7 +8,7 @@ $(document).on("submit", "#sendForm", function(event) {
 	var form = $(this);
 	var url = form[0].action;
 	var msg = form[0][0].value;
-	var to = $("textarea#to").val();
+	var to = $("input#to").val();
 
 	var posting = $.post(url, {
 		"newMessage.text" : msg,

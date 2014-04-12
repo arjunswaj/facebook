@@ -55,11 +55,18 @@ var messageDiv = {
 	get : function() {
 		var div = '<div class="message"> \
 						<div class="message-photo"> \
-							<img width="100%" height="100%"	src="image?userId='	+ messageDiv.message.sender + '" /> \
+							<a href="profile?fref=' + messageDiv.message.sender + '>\
+								<img width="32" height="32"	src="image?userId='	+ messageDiv.message.sender + '" /> \
+							<\a>\
 						</div> \
 						<div class="message-header"> \
-							<b> ' + messageDiv.message.senderFirstName	+ ' ' + messageDiv.message.senderLastName + '</b>'	+ messageDiv.message.sentAt +
-						'</div> \
+							<strong> \
+								<a href="profile?fref=' + messageDiv.message.sender + '">' + messageDiv.message.senderFirstName	+ ' ' + messageDiv.message.senderLastName + '</a>' + 
+							'</strong>\
+							<span class="message-header-date">' 
+								+ messageDiv.message.sentAt +
+							'</span>\
+						</div> \
 						<div class="message-text">'
 							+ messageDiv.message.text	+ '\
 						</div> \

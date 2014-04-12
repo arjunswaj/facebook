@@ -16,7 +16,6 @@
 			<!-- Inbox header -->
 			<div id="inboxHeader" class="inbox-header">
 				<span class="inbox">Inbox</span>
-				<span class="unread">Unread</span>
 			</div>
 			
 			<!-- Latest conversations -->
@@ -56,14 +55,20 @@
 				<s:iterator value="selectedConversationThread">
 					<div class="message">
 						<div class="message-photo">
-							<img width="100%" height="100%" src="image?userId=<s:property value="sender" />" />
+							<a href="profile?fref=<s:property value="sender" />" >
+								<img width="32" height="32" src="image?userId=<s:property value="sender" />" />
+							</a>
 						</div>
 						<div class="message-header">
-							<b> 
-								<s:property value="senderFirstName" /> 
-								<s:property	value="senderLastName" />
-							</b>
-							<s:property value="sentAt" />
+							<strong>
+								<a href="profile?fref=<s:property value="sender" />" >
+									<s:property value="senderFirstName" /> 
+									<s:property	value="senderLastName" />
+								</a>
+							</strong>
+							<span class="message-header-date">
+								<s:property value="sentAt" />
+							</span>
 						</div>
 						<div class="message-text">
 							<s:property value="text" />
