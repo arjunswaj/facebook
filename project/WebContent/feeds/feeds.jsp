@@ -8,18 +8,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>News Feeds</title>
 <style type="text/css" media="screen">
-.status-container {
-	width: 88%;
-}
 
-.feed-container {
-	width: 100%;
+.feed-container, .status-container {
+	width: 90%;
 	padding: 15px 0px 15px 0px;
+	margin:  15px 0px 15px 0px;
+	background-color: whitesmoke;
+	overflow: auto;
+	height: 100%;
 }
 
+.status-form {
+	text-align: center;
+}
+
+.status-action {
+	width: 98%; 
+	text-align: right;	
+}
 .left-status {
 	float: left;
 	width: 20%;
+	padding-left: 15px;
 	font-family: Arial Narrow, sans-serif;
 }
 
@@ -78,16 +88,14 @@
 }
 
 .delete_post {
-	padding: 2px;
-	text-align: left;
-	float: left;
+	margin: 0 0 0 0;
+	text-align: center;	
 	width: auto;
 }
 
 .edit_post {
-	padding: 2px;
-	text-align: left;
-	float: left;
+	margin: 0 0 0 0;
+	text-align: center;	
 	width: auto;
 }
 
@@ -108,22 +116,21 @@
 }
 
 .clear {
-	height: 0;
-	font-size: 1px;
-	margin: 0;
-	padding: 0;
-	line-height: 0;
-	clear: both;
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 .status-description, .comment-description {
 	float: left;
-	width: 70%;
+	width: 95%;
 }
 
 .status-options, .comment-options {
 	float: left;
-	width: 30%;
+	width: 5%;
 }
 
 .like, .like-comment {
@@ -222,7 +229,7 @@
 				<s:textarea name="status" cols="75" rows="5" id="statusUpdate"
 					placeholder="What's on your mind?" style="width: 95%;" />
 			</div>
-			<div style="width: 95%; text-align: right;">
+			<div class="status-action">
 				<s:submit value="Post" />
 			</div>
 		</form>
@@ -246,17 +253,30 @@
 								</span> 
 							</a> updated the status 
 						</div>
-						<div class="status-options">
+						<div class="status-options">							
 							<span> 
 								<s:if test="#loggedInUser==#feeds.toUserId">
-									<form id='<s:property value="#feeds.postId"/>'
-										class="delete_post" method="post">
-										<input type="submit" value="delete" />
-									</form>
-									<form id='<s:property value="#feeds.postId"/>'
-										class="edit_post" method="post">
-										<input type="submit" value="edit" />
-									</form>									
+									<div class="btn-group">
+										<button type="button" class="btn dropdown-toggle"
+											data-toggle="dropdown">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<form id='<s:property value="#feeds.postId"/>'
+														class="delete_post" method="post">
+													<input type="submit" value="Delete..." />
+												</form>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<form id='<s:property value="#feeds.postId"/>'
+														class="edit_post" method="post">
+													<input type="submit" value="Edit..." />
+												</form>	
+											</li>
+										</ul>
+									</div> 																										
 								</s:if>
 							</span>
 						</div>
@@ -281,20 +301,43 @@
 							<div class="status-options"> 
 								<span> 							
 									<s:if test="#loggedInUser==#feeds.toUserId">
-										<form id='<s:property value="#feeds.postId"/>'
-											class="delete_post" method="post">
-											<input type="submit" value="delete" />
-										</form>
+										<div class="btn-group">
+											<button type="button" class="btn dropdown-toggle"
+												data-toggle="dropdown">
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li>
+													<form id='<s:property value="#feeds.postId"/>'
+														class="delete_post" method="post">
+														<input type="submit" value="delete" />
+													</form>
+												</li>												
+											</ul>
+										</div> 											
 									</s:if> 
 									<s:elseif test="#loggedInUser==#feeds.fromUserId">
-										<form id='<s:property value="#feeds.postId"/>'
-											class="delete_post" method="post">
-											<input type="submit" value="delete" />
-										</form>
-										<form id='<s:property value="#feeds.postId"/>'
-											class="edit_post" method="post">
-											<input type="submit" value="edit" />
-										</form>
+										<div class="btn-group">
+											<button type="button" class="btn dropdown-toggle"
+												data-toggle="dropdown">
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li>
+													<form id='<s:property value="#feeds.postId"/>'
+														class="delete_post" method="post">
+														<input type="submit" value="Delete..." />
+													</form>
+												</li>
+												<li class="divider"></li>
+												<li>
+													<form id='<s:property value="#feeds.postId"/>'
+														class="edit_post" method="post">
+														<input type="submit" value="Edit..." />
+													</form>	
+												</li>												
+											</ul>
+										</div> 																				
 									</s:elseif>								
 								</span>
 							</div>						
@@ -676,10 +719,24 @@
 												html.push(" ");
 											html.push("</div> ");
 											html.push("<div class=\"status-options\">");
-												html.push("<span><form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
-												html.push("<div align=\"right\"><input type=\"submit\"  value=\"delete\">");
-												html.push("</div></form><form id='"+commentData.postId+"' class=\"edit_post\" method=\"post\">");
-												html.push("<div align=\"right\"><input type=\"submit\"  value=\"edit\"></div></form></span>");
+												html.push("<div class=\"btn-group\">");
+													html.push("<button type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\">");
+														html.push("<span class=\"caret\"></span>");
+													html.push("</button>");
+													html.push("<ul class=\"dropdown-menu dropdown-menu-right\">");
+														html.push("<li>");
+															html.push("<form id='"+commentData.postId+"' class=\"delete_post\" method=\"post\">");
+																html.push("<input type=\"submit\"  value=\"Delete...\">");
+															html.push("</form>");
+														html.push("</li>");
+														html.push("<li class=\"divider\"></li>");
+														html.push("<li>");
+															html.push("<form id='"+commentData.postId+"' class=\"edit_post\" method=\"post\">");
+																html.push("<input type=\"submit\"  value=\"Edit...\">");
+															html.push("</form>");																
+														html.push("</li>");												
+													html.push("</ul>");
+												html.push("</div>");																								
 											html.push("</div> ");
 											html.push("<div class=\"clear\"></div> ");
 										html.push("</div> ");
