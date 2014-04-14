@@ -231,16 +231,20 @@
 		<s:iterator value="newsFeeds" var="feeds">
 			<div id='<s:property value="#feeds.postId"/>' class="feed-container">
 				<div class="left-status">
-					<img width="80px"
-						src="image?userId=<s:property value="fromUserId" />" />
+					<a href="/facebook/profile?fref=<s:property value="fromUserId" />">
+						<img width="80px"
+							src="image?userId=<s:property value="fromUserId" />" />
+					</a>
 				</div>
 				<div class="right-status">
 					<s:if test="#feeds.postType == 'status'">
 						<div class="status-description">
-							<span class="fullname"> <s:property
-									value="fromUserFirstName" /> <s:property
-									value="fromUserLastName" />
-							</span> updated the status 
+							<a href="/facebook/profile?fref=<s:property value="fromUserId" />">
+								<span class="fullname"> <s:property
+										value="fromUserFirstName" /> <s:property
+										value="fromUserLastName" />
+								</span> 
+							</a> updated the status 
 						</div>
 						<div class="status-options">
 							<span> 
@@ -261,12 +265,18 @@
 					<s:elseif test="#feeds.postType == 'wallpost'">
 						<div>
 							<div class="status-description">
-								<span class="fullname"> <s:property
-										value="fromUserFirstName" /> <s:property
-										value="fromUserLastName" />
-								</span> posted on <span class="fullname"> <s:property
-										value="toUserFirstName" /> <s:property value="toUserLastName" />
-								</span>'s Wall
+								<a href="/facebook/profile?fref=<s:property value="fromUserId" />">
+									<span class="fullname"> <s:property
+											value="fromUserFirstName" /> <s:property
+											value="fromUserLastName" />
+									</span> 
+								</a>
+								posted on
+								<a href="/facebook/profile?fref=<s:property value="toUserId" />"> 
+									<span class="fullname"> <s:property
+											value="toUserFirstName" /> <s:property value="toUserLastName" />
+									</span>
+								</a>'s Wall
 							</div>
 							<div class="status-options"> 
 								<span> 							
@@ -309,17 +319,22 @@
 					<div>
 						<s:iterator value="#feeds.postComments" var="comments">
 							<div class="left-comment">
-								<img width="40px"
-									src="image?userId=<s:property value="#comments.commenterUserId" />" />
+								<a href="/facebook/profile?fref=<s:property value="#comments.commenterUserId" />">
+									<img width="40px"
+										src="image?userId=<s:property value="#comments.commenterUserId" />" />
+								</a>
 							</div>
 							<div class="right-comment">
 								<div class="comment-post">
-									<span class="fullname"> <s:property
+									<a href="/facebook/profile?fref=<s:property value="#comments.commenterUserId" />">
+										<span class="fullname"> <s:property
 											value="#comments.commenterFirstName" /> <s:property
 											value="#comments.commenterLastName" />
-									</span> <span class="comment-text"> <s:property
+										</span>
+									</a> 
+										<span class="comment-text"> <s:property
 											value="#comments.commentText" />
-									</span>
+										</span>
 								</div>
 								<div class="timestamp">
 									<s:property value="#comments.commentTime" />
@@ -490,15 +505,19 @@
 	            		var user = postLikers[index];
 	            		html.push("<div>");
 	            			html.push("<div class=\"left-likers\">");
-	            				html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            				html.push("<a href=\"/facebook/profile?fref="+user.userId+"\">");
+	            					html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            				html.push("</a>");
 	            			html.push("</div>");
 	            			html.push("<div class=\"right-likers\">");
-		            			html.push("<span>");
-		            				html.push(user.firstName);
-		            			html.push("</span>");
-		            			html.push("<span>");
-		        					html.push(user.lastName);
-		        				html.push("</span>");
+	            				html.push("<a href=\"/facebook/profile?fref="+user.userId+"\" >");
+			            			html.push("<span>");
+			            				html.push(user.firstName);
+			            			html.push("</span>");
+			            			html.push("<span>");
+			        					html.push(user.lastName);
+			        				html.push("</span>");
+		        				html.push("</a>");
 	            			html.push("</div>");
 	            			html.push("<div class=\"clear\"></div> ");
 	            		html.push("</div>");
@@ -539,15 +558,19 @@
 	            		var user = commentLikers[index];
 	            		html.push("<div>");
 	            			html.push("<div class=\"left-likers\">");
-	            				html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            				html.push("<a href=\"/facebook/profile?fref="+user.userId+"\" >");
+	            					html.push("<img width=\"60px\" src=\"image?userId="+user.userId+"\" />");
+	            				html.push("</a>");
 	            			html.push("</div>");
 	            			html.push("<div class=\"right-likers\">");
-		            			html.push("<span>");
-		            				html.push(user.firstName);
-		            			html.push("</span>");
-		            			html.push("<span>");
-		        					html.push(user.lastName);
-		        				html.push("</span>");
+	            				html.push("<a href=\"/facebook/profile?fref="+user.userId+"\" >");
+			            			html.push("<span>");
+			            				html.push(user.firstName);
+			            			html.push("</span>");
+			            			html.push("<span>");
+			        					html.push(user.lastName);
+			        				html.push("</span>");
+		        				html.push("</a>");
 	            			html.push("</div>");
 	            			html.push("<div class=\"clear\"></div> ");
 	            		html.push("</div>");
@@ -584,12 +607,16 @@
 
 					var html = [];
 					html.push("<div class='left-comment'>");
-						html.push("<img width='40px'" + "src='image?userId=" + commentData.userId + "'/>");
+						html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\" >");
+							html.push("<img width='40px'" + "src='image?userId=" + commentData.userId + "'/>");
+						html.push("</a>");
 					html.push("</div>");
 
 					html.push("<div class='right-comment'>");
 						html.push("<div class='comment-post'>");
-							html.push("<span class='fullname'> " + commentData.fullname + "</span>");
+							html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\" >");
+								html.push("<span class='fullname'> " + commentData.fullname + "</span>");
+							html.push("</a>");
 							html.push("<span class='comment-text'>" + commentData.comment + "</span>");
 						html.push("</div>");
 						html.push("<div class='timestamp'>");
@@ -631,16 +658,20 @@
 									//html.push("<div id=\"feeds\"> ");
 									html.push("<div id=\""+commentData.postId+"\" class=\"feed-container\">");
 										html.push("<div class=\"left-status\">");
-											html.push("<img width=\"80px\" ");
-											html.push("src=\"image?userId="
-												+ commentData.userId + "\" /> ");
+											html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\">");
+												html.push("<img width=\"80px\" ");
+												html.push("src=\"image?userId="
+													+ commentData.userId + "\" /> ");
+											html.push("</a>");
 										html.push("</div> ");
 									html.push("<div class=\"right-status\">");
 										html.push("<div>");
 											html.push("<div class=\"status-description\">");
-												html.push("<span class=\"fullname\"> ");
-												html.push(commentData.fullName);
-												html.push("</span> ");
+												html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\">");
+													html.push("<span class=\"fullname\"> ");
+													html.push(commentData.fullName);
+													html.push("</span> ");
+												html.push("</a>");
 												html.push("updated the status ");
 												html.push(" ");
 											html.push("</div> ");
