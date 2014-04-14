@@ -20,6 +20,8 @@ public interface FriendsDAO
 
 	public List<User> getFriendsList(int userId);
 
+	public List<User> getFriendsRequestsByStrangers(int userId);
+	
 	public boolean addFriend(int loggedInUserId, int otherUserId);
 
 	public boolean confirmFriend(int loggedInUserId, int otherUserId);
