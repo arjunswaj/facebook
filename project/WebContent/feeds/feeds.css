@@ -2,7 +2,7 @@
 .feed-container, .status-container {
 	width: 90%;
 	padding: 15px 0px 15px 0px;
-	margin:  15px 0px 15px 0px;
+	margin:  0px 0px 15px 0px;
 	background-color: whitesmoke;
 	overflow: auto;
 	height: 100%;

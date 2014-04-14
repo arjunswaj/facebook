@@ -11,9 +11,7 @@
 </head>
 <body>
 	<div id="Overlay" name="Overlay" class="overlay" onclick="funcClose(this);">		
-	</div>
-	<h1>News Feeds</h1>
-
+	</div>	
 	<s:set name="loggedInUser" value="userId" />
 	<div id="status" class="status-container">
 
