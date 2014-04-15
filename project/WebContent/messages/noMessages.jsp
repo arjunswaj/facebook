@@ -16,7 +16,6 @@
 			<!-- Inbox header -->
 			<div id="inboxHeader" class="inbox-header">
 				<span class="inbox">Inbox</span>
-				<span class="unread">Unread</span>
 			</div>
 			
 			<!-- Latest conversations -->
@@ -31,7 +30,7 @@
 			<!-- Selected conversation header -->
 			<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">
 				<div class="conversation-with">
-						No Selection
+						No Conversation Selected
 				</div>
 				<div class="new-message-button">
 					<div>
@@ -42,8 +41,6 @@
 			
 			<!-- Selected conversation thread -->
 			<div id="selectedConversationThread" class="selected-conversation-thread">
-				<span>No Conversation selected</span>
-				<span>New Message . Show Unread </span>
 			</div>
 
 		</div>
