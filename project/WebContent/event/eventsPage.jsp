@@ -188,7 +188,7 @@
 								</s:if>
 								<s:else>
 									<a href='profile?fref=<s:property value="#u.getUserId()" />' title='<s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" />&apos;s birthday'><s:property value="#u.getFirstName()" /> <s:property value="#u.getLastName()" /></a><br />
-									<input type="text" value="Write a birthday wish on his timeline..." onkeypress="taCheckEnter(event)" size="30" id='ta<s:property value="#u.getUserId()" />' onfocus="tafocus('ta<s:property value="#u.getUserId()" />')" onblur="tablur('ta<s:property value="#u.getUserId()" />')" />
+									<!-- <input type="text" value="Write a birthday wish on his timeline..." onkeypress="taCheckEnter(event)" size="30" id='ta<s:property value="#u.getUserId()" />' onfocus="tafocus('ta<s:property value="#u.getUserId()" />')" onblur="tablur('ta<s:property value="#u.getUserId()" />')" /> -->
 								</s:else>
 							</td>
 							<%if(i%cols==0){%></tr><%}%>

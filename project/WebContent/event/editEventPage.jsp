@@ -68,6 +68,11 @@
 						<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="3">
+						<a style="text-decoration: none;" href='cancelEvent?eventId=<s:property value="eventId" />'>Cancel Event</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</form>
