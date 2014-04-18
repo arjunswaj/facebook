@@ -3,9 +3,15 @@
  */
 $(document).on("click", ".latest-conversation", function(event) {
 	event.preventDefault();
-	var anchor = $(this);
-	var url = anchor[0].href.split('?')[0];
-	var otherUser = anchor[0].href.split('=')[1];
+	
+	// Change color of selected conversation
+	$(this).parent().find(".latest-conversation").css('background-color', 'white');
+	$(this).css('background-color', 'teal');
+	
+	// load selected conversation
+	var href = $(this).children("a:first")[0].href;
+	var url = href.split('?')[0];
+	var otherUser = href.split('=')[1];
 	var posting = $.post(url, {"selectedLatestConversation.otherUser" : otherUser});
 	
 	posting.done(function(response) {
