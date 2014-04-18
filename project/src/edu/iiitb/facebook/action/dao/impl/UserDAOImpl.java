@@ -259,7 +259,7 @@ public class UserDAOImpl implements UserDAO {
 			preparedStmt = conn.prepareStatement(TO_ADD_A_USER);
 			preparedStmt.setString(1, user.getEmail());
 			preparedStmt.setString(2, user.getPassword());
-			preparedStmt.setString(3, "1990-05-05");
+			preparedStmt.setString(3, user.getDate());
 			preparedStmt.setString(4, user.getPhoneNumber());
 			preparedStmt.setString(5, "null");
 			preparedStmt.setString(6, "null");

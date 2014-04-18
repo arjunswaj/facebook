@@ -40,25 +40,26 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 
 	@Override
 	public String execute() {
-		
-		System.out.println("day value"+day);
-		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd"); 
 
-	      String input = year+"-"+month+"-"+day; 
+		System.out.println("day value" + day);
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 
-	      System.out.print(input + " Parses as "); 
+		String input = year + "-" + month + "-" + day;
 
-	      Date t; 
+		System.out.print(input + " Parses as ");
 
-	      try { 
-	        setDob( ft.parse(input)); 
-	          System.out.println( ft.parse(input)); 
-	      } catch (ParseException e) { 
-	          System.out.println("Unparseable using " + ft); 
-	      }
+		Date t;
+
+		try {
+			setDob(ft.parse(input));
+			System.out.println(ft.parse(input));
+		} catch (ParseException e) {
+			System.out.println("Unparseable using " + ft);
+		}
 
 		user.setEmail(getEmail());
 		user.setPassword(getPassword());
+		user.setDate(input);
 		user.setDob(getDob());
 		user.setPhoneNumber(null);
 		user.setFirstName(getFirst_name());
@@ -78,7 +79,7 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 	}
 
 	public void setDay(String day) {
-		this.day=day;
+		this.day = day;
 	}
 
 	public String getMonth() {
