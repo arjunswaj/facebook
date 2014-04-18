@@ -16,6 +16,7 @@ public class Message
 	private int recipient;
 	private String recipientFirstName;
 	private String recipientLastName;
+	private boolean readStatus;
 	
 	public int getId()
 	{
@@ -88,6 +89,14 @@ public class Message
 	public void setSenderLastName(String senderLastName)
 	{
 		this.senderLastName = senderLastName;
+	}
+	public boolean isReadStatus()
+	{
+		return readStatus;
+	}
+	public void setReadStatus(boolean readStatus)
+	{
+		this.readStatus = readStatus;
 	}
 
 }

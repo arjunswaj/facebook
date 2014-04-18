@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input.css" />
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input-facebook.css" />
 <link rel="stylesheet" type="text/css" href="messages/messages.css" />
 </head>
 <body>
@@ -104,5 +106,6 @@
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>
 	<script src="messages/onSendNewMessage.js"></script>
+	<script src="js/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 </body>
 </html>

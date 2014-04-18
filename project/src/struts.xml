@@ -79,7 +79,14 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-
+		
+		<action name="newMessage" method="friendsList"
+			class="edu.iiitb.facebook.action.messages.CreateNewMessageAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<!-- End of messages related actions -->
 

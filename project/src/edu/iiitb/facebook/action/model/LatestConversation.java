@@ -9,6 +9,7 @@ public class LatestConversation
 	private String otherUserLastName;
 	private String latestMessage;
 	private String sentAt;
+	private int unreadMessagesCount;
 	
 	public String getSentAt()
 	{
@@ -57,5 +58,13 @@ public class LatestConversation
 	public void setLatestMessage(String latestMessage)
 	{
 		this.latestMessage = latestMessage;
+	}
+	public int getUnreadMessagesCount()
+	{
+		return unreadMessagesCount;
+	}
+	public void setUnreadMessagesCount(int unreadMessagesCount)
+	{
+		this.unreadMessagesCount = unreadMessagesCount;
 	}
 }

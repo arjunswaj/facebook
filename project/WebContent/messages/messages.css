@@ -175,7 +175,7 @@ div.latest-conversation:hover {
 	width: 3.5%
 }
 
-.to-names {
+#to {
 	float: left;
 	width: 96.5%
 }

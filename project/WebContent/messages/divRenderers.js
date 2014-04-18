@@ -143,3 +143,29 @@ var latestConversationsDiv = {
 			return div;
 		}
 };
+
+var toFieldSearchResultsFormatterDiv = {
+		friend : {},
+		
+		init : function(friend) {
+			toFieldSearchResultsFormatterDiv.friend = friend;
+		},
+		
+		get : function() {
+			var div = "<li>" + toFieldSearchResultsFormatterDiv.friend.firstName + " " + toFieldSearchResultsFormatterDiv.friend.lastName + " " + toFieldSearchResultsFormatterDiv.friend.id + "</li>";
+			return div;
+		}
+};
+
+var tokenFormatterDiv = {
+		name : {},
+		
+		init : function(name) {
+			tokenFormatterDiv = name;
+		},
+		
+		get : function() {
+			var div = "<li><strong>" + tokenFormatterDiv.name.firstName + " " + tokenFormatterDiv.name.lastName + "</strong></li>";
+			return div;
+		}
+};

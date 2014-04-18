@@ -104,7 +104,7 @@ public class MessageDAOImpl implements MessageDAO
 				+ " and friends_with.status = 'accepted'"
 				+ " order by latest_message.sent_at desc;";
 
-		List<LatestConversation> latestMsgs = new LinkedList<LatestConversation>();
+		List<LatestConversation> latestConversations = new LinkedList<LatestConversation>();
 
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
@@ -116,7 +116,7 @@ public class MessageDAOImpl implements MessageDAO
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
-				LatestConversation latestMsg = new LatestConversation();
+				LatestConversation latestConversation = new LatestConversation();
 
 				int other = rs.getInt("sender.id");
 				String firstName = rs.getString("sender.first_name");
@@ -127,14 +127,14 @@ public class MessageDAOImpl implements MessageDAO
 					firstName = rs.getString("recipient.first_name");
 					lastName = rs.getString("recipient.last_name");
 				}
-				latestMsg.setOtherUser(other);
-				latestMsg.setOtherUserFirstName(firstName);
-				latestMsg.setOtherUserLastName(lastName);
-				latestMsg.setLatestMessage(rs.getString("text"));
-				latestMsg.setSentAt(rs.getTimestamp("sent_at").toString());
-				latestMsg.setUser(user);
+				latestConversation.setOtherUser(other);
+				latestConversation.setOtherUserFirstName(firstName);
+				latestConversation.setOtherUserLastName(lastName);
+				latestConversation.setLatestMessage(rs.getString("text"));
+				latestConversation.setSentAt(rs.getTimestamp("sent_at").toString());
+				latestConversation.setUser(user);
 
-				latestMsgs.add(latestMsg);
+				latestConversations.add(latestConversation);
 			}
 		}
 		catch (SQLException e)
@@ -144,7 +144,7 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}
-		return latestMsgs;
+		return latestConversations;
 	}
 
 	/*

@@ -137,7 +137,7 @@ public class FriendsDAOImpl implements FriendsDAO
 		"WHERE request_by = ? " +
 		"AND request_for = ? " +
 		"AND status = 'blocked'";
-	private static final String GET_FREINDS_QRY = "select first_name, id from user where id in (select request_by id from friends_with where request_for=? and status = 'accepted' union select request_for id from friends_with where request_by=? and status = 'accepted')";
+	private static final String GET_FREINDS_QRY = "select first_name, last_name, email, id from user where id in (select request_by id from friends_with where request_for=? and status = 'accepted' union select request_for id from friends_with where request_by=? and status = 'accepted')";
 	
 	private static final String FRIEND_REQUESTS_BY_STRANGERS = 
 	    "SELECT  " + 
@@ -220,7 +220,8 @@ public class FriendsDAOImpl implements FriendsDAO
 				userDao = new User();
 				userDao.setUserId(rs.getInt(UserDAO.ID));
 				userDao.setFirstName(rs.getString(UserDAO.FIRST_NAME));
-				System.out.println("*************" + userDao.getUserId());
+				userDao.setLastName(rs.getString(UserDAO.LAST_NAME));
+				userDao.setEmail(rs.getString(UserDAO.EMAIL));
 				friends.add(userDao);
 			} while (rs.next());
 
