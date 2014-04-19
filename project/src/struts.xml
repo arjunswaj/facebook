@@ -94,7 +94,14 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-
+		
+		<action name="newMessage" method="friendsList"
+			class="edu.iiitb.facebook.action.messages.CreateNewMessageAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<!-- End of messages related actions -->
 
@@ -173,13 +180,39 @@
 			<result name="login">/login.jsp</result>
 		</action>
 		
+		<!-- This is for finding friend requests -->
+		<action name="friendrequests" class="edu.iiitb.facebook.action.friends.FriendRequestFromStrangersAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>			
+			<result name="success">/friends/friendRequests.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+		<!-- This is for adding friends through Friends Requests -->
+		<action name="confirmfriend"
+			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction" >
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+		<!-- This is for rejecting friends through Friends Requests -->
+		<action name="rejectfriend"
+			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction" method="rejectFriend">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result type="json" name="success" />
+			<result type="json" name="input" />
+			<result name="login">/login.jsp</result>
+		</action>
+				
+		
 		<!-- This is for Friend Suggestions -->
 		<action name="friendsuggestions"
 			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/suggestions/suggestions.jsp</result>
 			<result name="login">/login.jsp</result>
-		</action>
+		</action>		
+		
 		<!-- This is for displaying Mutual Friends -->
 		<action name="mutualfriends"
 			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
@@ -356,6 +389,21 @@
 			<result name="success" type="json" />
 		</action>
 
+		<!-- 		This is for delete comment -->	
+		<action name="deleteCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
+		    method="deleteComment">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+		</action>
+		<!-- 		This is for edit comment -->
+		<action name="editCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
+			method="updateComment">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+		</action>
+		
 		<!-- This is for Settings Page -->
 		<action name="accountSettings"
 			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">

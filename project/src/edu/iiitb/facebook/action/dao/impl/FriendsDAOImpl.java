@@ -137,7 +137,20 @@ public class FriendsDAOImpl implements FriendsDAO
 		"WHERE request_by = ? " +
 		"AND request_for = ? " +
 		"AND status = 'blocked'";
-	private static final String GET_FREINDS_QRY = "select first_name, id from user where id in (select request_by id from friends_with where request_for=? and status = 'accepted' union select request_for id from friends_with where request_by=? and status = 'accepted')";
+	private static final String GET_FREINDS_QRY = "select first_name, last_name, email, id from user where id in (select request_by id from friends_with where request_for=? and status = 'accepted' union select request_for id from friends_with where request_by=? and status = 'accepted')";
+	
+	private static final String FRIEND_REQUESTS_BY_STRANGERS = 
+	    "SELECT  " + 
+	    "    stranger.id AS strangers_id, " + 
+	    "    stranger.first_name AS strangers_first_name, " + 
+	    "    stranger.last_name AS strangers_last_name " + 
+	    "FROM " + 
+	    "    friends_with " + 
+	    "        JOIN " + 
+	    "    user stranger ON friends_with.request_by = stranger.id " + 
+	    "WHERE " + 
+	    "    friends_with.request_for = ? " + 
+	    "        AND friends_with.status = 'pending';";
 	
 	@Override
 	public FriendInfo getFriendRequestStatus(int loggedInUserId, int otherUserId)
@@ -207,7 +220,8 @@ public class FriendsDAOImpl implements FriendsDAO
 				userDao = new User();
 				userDao.setUserId(rs.getInt(UserDAO.ID));
 				userDao.setFirstName(rs.getString(UserDAO.FIRST_NAME));
-				System.out.println("*************" + userDao.getUserId());
+				userDao.setLastName(rs.getString(UserDAO.LAST_NAME));
+				userDao.setEmail(rs.getString(UserDAO.EMAIL));
 				friends.add(userDao);
 			} while (rs.next());
 
@@ -492,5 +506,33 @@ public class FriendsDAOImpl implements FriendsDAO
 
 		return blockedFriendsList;
 	}
+
+  @Override
+  public List<User> getFriendsRequestsByStrangers(int userId) {
+    List<User> strangers = new ArrayList<User>();    
+    Connection conn = ConnectionPool.getConnection();
+    try {
+      PreparedStatement stmt = conn
+          .prepareStatement(FRIEND_REQUESTS_BY_STRANGERS);
+      stmt.setInt(1, userId);
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        int strangersId = rs.getInt("strangers_id");
+        String strangersFirstName = rs.getString("strangers_first_name");
+        String strangersLastName = rs.getString("strangers_last_name");
+        User stranger = new User(strangersId, strangersFirstName,
+            strangersLastName);
+        strangers.add(stranger);
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }
+
+    return strangers;
+  }
 }
 

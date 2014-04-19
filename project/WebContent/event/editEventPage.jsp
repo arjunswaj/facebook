@@ -38,6 +38,7 @@
 <body style="background-color: #c5c5df;">
 	<form action="editEvent" method="post" id="f1">
 		<input type="hidden" name="eventId" value='<s:property value="eventId" />' />
+		<input id="tmHidden" type="hidden" value='<s:property value="eventTime" />'>
 		<table style="margin-left: 25%; margin-top: 150px; width: 50%; border: thin; border-style: solid; background-color: #ffffff;">
 			<tbody>
 				<tr>
@@ -58,7 +59,8 @@
 				<tr>
 					<td>When: </td>
 					<td><input id='datepicker' type="text" name="eventDate" style="width: 96%;" value='<s:property value="eventDate" />'></td>
-					<td><input id="tm" type="text" name="eventTime" style="width: 96%;" maxlength="5" value='<s:property value="eventTime" />'></td>
+					
+					<td><select id='tm' name="eventTime" style="width: 96%;" ></select></td>
 				</tr>
 				<tr>
 					<td colspan="3" align="right">
@@ -66,8 +68,28 @@
 						<a style="text-decoration: none;" href='displayEvent?eventId=<s:property value="eventId" />'><input type="button" value="Cancel" /></a>
 					</td>
 				</tr>
+				<tr>
+					<td colspan="3">
+						<a style="text-decoration: none;" href='cancelEvent?eventId=<s:property value="eventId" />'>Cancel Event</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</form>
+	<script type="text/javascript">
+		var s=document.getElementById("tmHidden").value;
+		var hh="";
+		var mm="";
+		for(var h=0; h<24; h++)
+			for(var m=0; m<60; m+=5)
+			{
+				hh=("0"+h).substring(("0"+h).length-2);
+				mm=("0"+m).substring(("0"+m).length-2);
+				if(s==hh+":"+mm)
+					document.getElementById("tm").innerHTML+="<option selected='selected'>"+hh+":"+mm+"</option>";
+				else
+					document.getElementById("tm").innerHTML+="<option>"+hh+":"+mm+"</option>";
+			}
+	</script>
 </body>
 </html>

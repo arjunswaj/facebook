@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input.css" />
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input-facebook.css" />
 <link rel="stylesheet" type="text/css" href="messages/messages.css" />
 </head>
 <body>
@@ -22,20 +24,21 @@
 			<div id="latestConversations" class="latest-conversations">
 				<s:iterator value="latestConversations">
 					<div class="latest-conversation">
+						<a class="latest-conversation-link" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />"></a>
 						<div class="latest-conversation-photo">
-							<a href="profile?fref=<s:property value="otherUser" />" >
-								<img width="50" height="50" src="image?userId=<s:property value="otherUser" />" />
-							</a>
+							<img width="50" height="50" src="image?userId=<s:property value="otherUser" />" />
 						</div>
 						<div class="latest-conversation-header">
+							<strong>
+								<s:property value="otherUserFirstName" /> 
+								<s:property value="otherUserLastName" />
+							</strong>
+							<span class="latest-conversation-header-date">
+								<s:property value="sentAt" />
+							</span>
 						</div>
 						<div class="latest-conversation-text">
-							<a class="latest-conversation" href="selectedConversationThread.action?otherUser=<s:property value="otherUser" />">
-								<s:property value="otherUserFirstName" /> 
-								<s:property value="otherUserLastName" /> 
 								<s:property value="latestMessage" /> 
-								<s:property value="sentAt" />
-							</a>
 						</div>
 					</div>
 				</s:iterator>
@@ -103,5 +106,6 @@
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>
 	<script src="messages/onSendNewMessage.js"></script>
+	<script src="js/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 </body>
 </html>

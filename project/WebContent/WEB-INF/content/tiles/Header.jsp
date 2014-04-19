@@ -7,6 +7,13 @@
 <head>
 <title>Auto Complete in JSP Java</title>
 <link rel="stylesheet" href="css/jquery-ui.css">
+<style>
+	.popover {
+		 width: 500px; 
+		 height: 350px;
+		 overflow: auto;
+	 }
+</style>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -14,6 +21,44 @@
 	function noBack() {
 		window.history.forward();
 	}
+</script>
+<script type="text/javascript">
+
+$(document).on('click', '.accept-request',
+		function(event) {
+
+			event.preventDefault();			
+			var form = $(this);
+			var url = form[0].action;
+			var friendId = form[0][0].value;		
+			
+			var posting = $.post(url, {
+				"friendId" : friendId
+			});
+				
+			posting.done(function(data) {
+				if (data) {
+					$("div[id='stranger_" + friendId + "']").remove();
+				}
+			});
+});
+
+$(document).on('click', '.reject-request',
+		function(event) {
+			event.preventDefault();			
+			var form = $(this);
+			var url = form[0].action;
+			var friendId = form[0][0].value;				
+			var posting = $.post(url, {
+					"friendId" : friendId
+			});
+				
+			posting.done(function(data) {
+				if (data) {
+						$("div[id='stranger_" + friendId + "']").remove();
+				}
+			});
+});
 </script>
 <script>
 	function gotoProfile() {
@@ -42,6 +87,7 @@
 		document.getElementById("facebookHeader").submit();
 
 	}
+	
 	$(function() {
 		$("#names").autocomplete({
 			source : function(request, response) {
@@ -77,6 +123,29 @@
 			}
 		});
 	});
+		
+	$(document).on("click", "#friendReq", function(e) {
+        if (!this.shown) {              
+	        $.ajax({
+	            url: '/facebook/friendrequests',
+	            data: {},
+	            dataType: 'html',
+	            success: function(html) {
+	            	$("#friendReq").popover({
+	                    title: 'Friends Requests',
+	                    content: html,
+	                    placement: 'bottom',
+	                    html: true                    
+	                }).popover('show');
+	            }
+	        });
+	        this.shown = true;
+        } else {
+        	$("#friendReq").popover('destroy');
+        	this.shown = false;
+        }
+    });	
+	
 </script>
 </head>
 
@@ -118,10 +187,11 @@
 						onclick="gotoNewsFeeds();">
 						<b>Home</b>
 					</button>
-					<!-- My Friends Button -->
-					<button type="button" id="friends" class="btn btn-primary">
-						<span class="glyphicon glyphicon-user"></span>
-					</button>
+					<!-- My Friends Request -->
+					<a id="friendReq" class="btn btn-primary" rel="popover" >
+						<span class="glyphicon glyphicon-user"></span>						
+					</a>
+					
 					<!-- Messages button -->
 					<button type="button" id="messages" class="btn btn-primary"
 						onclick="gotoMessages();">
@@ -133,9 +203,9 @@
 						onclick="logoutEvent();">
 						<b>logout</b>
 					</button>
-				</div>
+				
 				-->
-
+					</div>
 					<div class="btn-group">
 					<button type="button" class="btn btn-primary dropdown-toggle"
 						data-toggle="dropdown">

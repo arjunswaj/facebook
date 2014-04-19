@@ -11,6 +11,13 @@
 	height:100%;
 }
 </style>
+
+<div class="rpcenter">
+	<hr />
+	<s:action name="displayEventsToday" executeResult="true" />
+	<hr />
+</div>
+
 <div class="rpcenter">
 	<s:action name="friendsuggestions" executeResult="true" />
 </div>

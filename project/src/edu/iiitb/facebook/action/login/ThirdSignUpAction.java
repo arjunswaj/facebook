@@ -153,31 +153,31 @@ public class ThirdSignUpAction extends ActionSupport implements SessionAware,
 
 	public String cover() throws NamingException, FileNotFoundException {
 		user = (User) session.get("user");
-		// session.remove("user");
-
 		try {
-			HttpSession session = servletRequest.getSession();
-			ServletContext context = session.getServletContext();
-			String filePath = context.getRealPath("/");
-			System.out.println("Server path:" + filePath);
-			fileToCreate = new File(filePath, this.coverFileName);
-			// FileUtils.copyFile(this.cover, fileToCreate);
+		      String destpath = servletRequest.getSession().getServletContext()
+		              .getRealPath("/");
+		          System.out.println("Server path:" + destpath);
+		          File destFile = new File(destpath, coverFileName);
 
-			FileInputStream inputStream = new FileInputStream(fileToCreate);
+		          try {
+		            FileUtils.copyFile(cover, destFile);
+
+		          } catch (IOException e) {
+		            e.printStackTrace();
+		            return ERROR;
+		          }
+		          FileInputStream inputStream = new FileInputStream(destFile);
+			// System.out.println("in input Stream :" + inputStream);
 			System.out.println("place4 in 3rdsignup");
-			user.setCurrentProfilePic(inputStream);
-			dao.setProfileImageByUserId(user.getUserId(), inputStream);
-
+			user.setCurrentCoverPic(inputStream);
+			dao.setCoverImageByUserId(user.getUserId(), inputStream);
 		} catch (Exception e) {
 			e.printStackTrace();
 			addActionError(e.getMessage());
-
 			return INPUT;
 		}
 		session.put("user", user);
-
 		return SUCCESS;
-
 	}
 
 }

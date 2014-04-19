@@ -106,18 +106,21 @@ var latestConversationDiv = {
 		get : function() {
 			var div
 				= '<div class="latest-conversation">\
+					<a class="latest-conversation-link" href="selectedConversationThread.action?otherUser=' + latestConversationDiv.latestConversation.otherUser + '"></a>\
 						<div class="latest-conversation-photo">\
-							<a href="profile?fref=' + latestConversationDiv.latestConversation.otherUser + '" >\
 								<img width="50" height="50" src="image?userId='  + latestConversationDiv.latestConversation.otherUser + '"/>\
-							</a>\
 						</div>\
 						<div class="latest-conversation-header">\
+							<strong>'
+								+ latestConversationDiv.latestConversation.otherUserFirstName + ' ' + latestConversationDiv.latestConversation.otherUserLastName + 
+							'</strong>\
+							<span class="latest-conversation-header-date">'
+								+ latestConversationDiv.latestConversation.sentAt +
+							'</span>\
 						</div>\
-						<div class="latest-conversation-text">\
-							<a class="latest-conversation" href="selectedConversationThread.action?otherUser=' + latestConversationDiv.latestConversation.otherUser + '">'
-							+ latestConversationDiv.latestConversation.otherUserFirstName + ' ' + latestConversationDiv.latestConversation.otherUserLastName + ' ' + latestConversationDiv.latestConversation.latestMessage + ' ' + latestConversationDiv.latestConversation.sentAt +
-							'</a>\
-						</div>\
+						<div class="latest-conversation-text">'
+							+ latestConversationDiv.latestConversation.latestMessage + 
+						'</div>\
 				   </div>';
 			return div;
 		}
@@ -137,6 +140,32 @@ var latestConversationsDiv = {
 				div	+= latestConversationDiv.get();
 			});
 			div += '</div>';
+			return div;
+		}
+};
+
+var toFieldSearchResultsFormatterDiv = {
+		friend : {},
+		
+		init : function(friend) {
+			toFieldSearchResultsFormatterDiv.friend = friend;
+		},
+		
+		get : function() {
+			var div = "<li>" + toFieldSearchResultsFormatterDiv.friend.firstName + " " + toFieldSearchResultsFormatterDiv.friend.lastName + " " + toFieldSearchResultsFormatterDiv.friend.id + "</li>";
+			return div;
+		}
+};
+
+var tokenFormatterDiv = {
+		name : {},
+		
+		init : function(name) {
+			tokenFormatterDiv = name;
+		},
+		
+		get : function() {
+			var div = "<li><strong>" + tokenFormatterDiv.name.firstName + " " + tokenFormatterDiv.name.lastName + "</strong></li>";
 			return div;
 		}
 };

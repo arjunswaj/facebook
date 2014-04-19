@@ -9,6 +9,7 @@ public class User
 	private int userId;
 	private String email;
 	private String password;
+	private String date;
 	private Date dob;
 	private String phoneNumber;
 	private String firstName;
@@ -169,6 +170,14 @@ public class User
 	{
 		this.password = password;
 	}
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 
 	public Date getDob()
 	{
