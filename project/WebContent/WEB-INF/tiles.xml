@@ -122,6 +122,21 @@
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 		<put-attribute name="profile_menu-pane" value="/WEB-INF/content/tiles/profile_menu.jsp" />
 	</definition>
+	
+	<!-- This is for the timeline page -->
+	<definition name="timeline.tiles" extends="viewFriendsLayout">
+		<put-attribute name="title" value="Timeline" />
+		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+		<put-attribute name="profile_menu-pane" value="/WEB-INF/content/tiles/profile_menu.jsp" />		
+		
+	</definition>
+	<!-- This is for the about page -->
+	<definition name="about.tiles" extends="viewFriendsLayout">
+		<put-attribute name="title" value="about" />
+		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+		<put-attribute name="profile_menu-pane" value="/WEB-INF/content/tiles/profile_menu.jsp" />		
+		
+	</definition> 
 
 	<definition name="error.tiles" extends="simpleLayout">
 		<put-attribute name="title" value="Messages" />

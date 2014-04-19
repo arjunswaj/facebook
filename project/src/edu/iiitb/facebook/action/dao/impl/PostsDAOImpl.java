@@ -117,6 +117,9 @@ public class PostsDAOImpl implements PostsDAO
 
 	private static final String STATUS_UPDATE_FOR_USER = "INSERT INTO post(text, type, created, posted_by, posted_for) "
 			+ "VALUES(?, ?, CURRENT_TIMESTAMP, ?, ?);";
+	
+	private static final String WALLPOST_UPDATE_FOR_USER = "INSERT INTO post(text, type, created, posted_by, posted_for) "
+			+ "VALUES(?, ?, CURRENT_TIMESTAMP, ?, ?);";
 
 	private static final String LIKE_POST_BY_USER = "INSERT INTO post_like(user_id, post_id) "
       + "VALUES(?, ?);";
@@ -127,7 +130,9 @@ public class PostsDAOImpl implements PostsDAO
 	private static final String LIKERS_COUNT_OF_POST = "SELECT COUNT(*) AS likers_count FROM post_like where post_id  = ? ;";
 	
 	private static final String STATUS = "status";
-
+	
+	private static final String WALLPOST = "wallpost";
+	
 	private static final String DELETE_POST = "delete from post where id=?";
 
 	private static final String GET_POST = "select text from post where id=?";
@@ -233,6 +238,36 @@ public class PostsDAOImpl implements PostsDAO
 			stmt.setString(index++, STATUS);
 			stmt.setInt(index++, userId);
 			stmt.setInt(index++, userId);
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next())
+			{
+				statusId = rs.getInt(1);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return statusId;
+	}
+	
+	public int updatewallpostForUser(int userId,int refuserId,String wallpost)
+	{
+		int statusId = -1;
+		Connection connection = ConnectionPool.getConnection();
+		try
+		{
+			PreparedStatement stmt = connection.prepareStatement(WALLPOST_UPDATE_FOR_USER, Statement.RETURN_GENERATED_KEYS);
+			int index = 1;
+			stmt.setString(index++, wallpost);
+			stmt.setString(index++, WALLPOST);
+			stmt.setInt(index++, userId);
+			stmt.setInt(index++, refuserId);
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next())

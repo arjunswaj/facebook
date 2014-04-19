@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.iiitb.facebook.action.status;
+package edu.iiitb.facebook.action.timeline;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,39 +14,56 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
+import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
+import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
 import edu.iiitb.facebook.action.model.User;
 
 /**
- * @author arjun
+ * @author saigv
  * 
  */
-public class StatusUpdateAction extends ActionSupport implements SessionAware {
+public class TimelineUpdateAction extends ActionSupport implements SessionAware {
 
   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+/**
    * serialVersionUID
    */
-  private static final long serialVersionUID = 5907009549083317309L;
+  
 
   private Map<String, Object> session;
 
   private PostsDAO postsDAO = new PostsDAOImpl();
 
   private int userId;
+  private int refuserId;
   private int postId;
-  private String status;
+  private String wallpost;
   private String fullName;
   private String now;
 
+  @Override
   public String execute() {
-	  System.out.println("Called..");
     User user = (User) session.get("user");
-    if (null != user) {
-      userId = user.getUserId();
-      postId = postsDAO.updateStatusForUser(userId, status);
+    String tmp = (String) session.get("profileReference");
+    UserDAO p = new UserDAOImpl();
+    User ruser = p.getUserByUserId(Integer.parseInt(tmp));
+    System.out.println("Wallpost"+wallpost);
+    if(user!=null)
+    	userId = user.getUserId();
+    if(ruser!=null)
+    	refuserId = Integer.parseInt(tmp);
+    if (null != user && userId != refuserId) {
+      postId = postsDAO.updatewallpostForUser(userId,refuserId , wallpost);
+      System.out.println("Testing:"+postId);
       SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
       now = sdf.format(new Date());
       fullName = user.getFirstName() + " " + user.getLastName();
+      System.out.println("Full Name : "+fullName);
       return SUCCESS;
     } else {
       return LOGIN;
@@ -62,12 +79,12 @@ public class StatusUpdateAction extends ActionSupport implements SessionAware {
   }
 
   @RequiredStringValidator(type = ValidatorType.FIELD, message = "This is a required field!")
-  public String getStatus() {
-    return status;
+  public String getWallpost() {
+    return wallpost;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setWallpost(String wallpost) {
+    this.wallpost = wallpost;
   }
 
   @Override

@@ -18,6 +18,101 @@ public class User
 	private String secretQuestion;
 	private String secretAnswer;
 	private String place;
+	private String profession;
+	private String school;
+	private String currentplace;
+	private String nativeplace;
+	private String relationship;
+	private String workplace;
+	private String degree1;
+	private String degree2;
+	private String gender;
+	private String university;
+	
+	public String getDegree1() {
+		return degree1;
+	}
+
+	public void setDegree1(String degree1) {
+		this.degree1 = degree1;
+	}
+
+	public String getDegree2() {
+		return degree2;
+	}
+
+	public void setDegree2(String degree2) {
+		this.degree2 = degree2;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getUniversity() {
+		return university;
+	}
+
+	public void setUniversity(String university) {
+		this.university = university;
+	}
+
+	public String getWorkplace() {
+		return workplace;
+	}
+
+	public void setWorkplace(String workplace) {
+		this.workplace = workplace;
+	}
+
+	public String getRelationship() {
+		return relationship;
+	}
+
+	public void setRelationship(String relationship) {
+		this.relationship = relationship;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+
+	public String getSchool() {
+		return school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public String getCurrentplace() {
+		return currentplace;
+	}
+
+	public void setCurrentplace(String currentplace) {
+		this.currentplace = currentplace;
+	}
+
+	public String getNativeplace() {
+		return nativeplace;
+	}
+
+	public void setNativeplace(String nativeplace) {
+		this.nativeplace = nativeplace;
+	}
+
 	private Timestamp created;
 		
 	public User(int userId, String firstName, String lastName) {

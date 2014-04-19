@@ -72,6 +72,7 @@ public class UserDAOImpl implements UserDAO {
 				user.setEmail(resultSet.getString(UserDAO.EMAIL));
 
 				user.setPassword(resultSet.getString(UserDAO.PASSWORD));
+				System.out.println(resultSet.getString(UserDAO.PASSWORD));
 				user.setDob(resultSet.getDate(UserDAO.DOB));
 
 				user.setPhoneNumber(resultSet.getString(UserDAO.PHONE_NUMBER));
@@ -92,6 +93,17 @@ public class UserDAOImpl implements UserDAO {
 
 				user.setSecretAnswer(resultSet.getString(UserDAO.SECRET_ANSWER));
 				user.setCreated(resultSet.getTimestamp(UserDAO.CREATED));
+				user.setCurrentplace(resultSet.getString(UserDAO.CURRENTPLACE));
+				user.setNativeplace(resultSet.getString(UserDAO.NATIVEPLACE));
+				user.setRelationship(resultSet.getString(UserDAO.RELATIONSHIP));
+				user.setWorkplace(resultSet.getString(UserDAO.WORKPLACE));
+				user.setSchool(resultSet.getString(UserDAO.SCHOOL));
+				user.setProfession(resultSet.getString(UserDAO.PROFESSION));
+				user.setGender(resultSet.getString(UserDAO.GENDER));
+				user.setDegree1(resultSet.getString(UserDAO.DEGREE1));
+				user.setDegree2(resultSet.getString(UserDAO.DEGREE2));
+				user.setUniversity(resultSet.getString(UserDAO.UNIVERSITY));
+				
 
 			}
 		} catch (SQLException e) {

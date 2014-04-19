@@ -50,6 +50,8 @@ public class PostAction extends ActionSupport implements SessionAware
 	{
 
 		PostsDAO dao = new PostsDAOImpl();
+		System.out.println("Delete Post");
+		System.out.println("Delete Post2");
 
 		int result = dao.deletePost(postId);
 		if (result > 0)

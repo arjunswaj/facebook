@@ -80,7 +80,7 @@ margin:20px;
 	</script>
 
 	<div class="container">
-	<% session.setAttribute("profileReferece", (String)request.getAttribute("fref")); %>
+	<% session.setAttribute("profileReference", (String)request.getAttribute("fref")); %>
 	
 	 
 	<div class="coverpic">
