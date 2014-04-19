@@ -10,9 +10,6 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.IntRangeFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.CommentsDAO;
 import edu.iiitb.facebook.action.dao.impl.CommentsDAOImpl;
@@ -52,7 +49,30 @@ public class PostCommentsAction extends ActionSupport implements SessionAware {
     }
   }
 
-  @IntRangeFieldValidator(message = "The postId must be positive", min = "1")
+  public String updateComment() {
+    User user = (User) session.get("user");
+    if (null != user) {
+      userId = user.getUserId();
+      commentsDAO.updateComment(commentId, comment);      
+      fullname = user.getFirstName() + " " + user.getLastName();
+      return SUCCESS;
+    } else {
+      return LOGIN;
+    }
+  }
+  
+  public String deleteComment() {
+    User user = (User) session.get("user");
+    if (null != user) {
+      userId = user.getUserId();
+      commentsDAO.deleteComment(commentId);
+      fullname = user.getFirstName() + " " + user.getLastName();
+      return SUCCESS;
+    } else {
+      return LOGIN;
+    }
+  }
+  
   public int getPostId() {
     return postId;
   }
@@ -61,7 +81,6 @@ public class PostCommentsAction extends ActionSupport implements SessionAware {
     this.postId = postId;
   }
 
-  @RequiredStringValidator(type = ValidatorType.FIELD, message = "This is a required field!")
   public String getComment() {
     return comment;
   }

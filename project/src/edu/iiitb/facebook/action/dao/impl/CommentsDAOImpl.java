@@ -43,6 +43,10 @@ public class CommentsDAOImpl implements CommentsDAO {
       "where " + 
       "    comment_id = ? ;";
   
+  private static final String DELETE_COMMENT = "DELETE FROM comment where id=?";  
+  
+  private static final String UPDATE_COMMENT = "UPDATE comment set text=? where id=?";
+  
   /* (non-Javadoc)
    * @see edu.iiitb.facebook.action.dao.CommentsDAO#addCommentForPost(int, int, java.lang.String)
    */
@@ -167,6 +171,37 @@ public class CommentsDAOImpl implements CommentsDAO {
       ConnectionPool.freeConnection(conn);
     }
     return likerList;
+  }
+
+  @Override
+  public void updateComment(int commentId, String updatedComment) {
+    Connection conn = ConnectionPool.getConnection();
+    try {
+      PreparedStatement stmt = conn.prepareStatement(UPDATE_COMMENT);
+      int index = 1;            
+      stmt.setString(index++, updatedComment);
+      stmt.setInt(index++, commentId);
+      stmt.executeUpdate();            
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    }
+  }
+
+  @Override
+  public void deleteComment(int commentId) {
+    Connection conn = ConnectionPool.getConnection();    
+    try {
+      PreparedStatement stmt = conn.prepareStatement(DELETE_COMMENT);
+      int index = 1;
+      stmt.setInt(index++, commentId);      
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      ConnectionPool.freeConnection(conn);
+    } 
   }
 
 }

@@ -226,25 +226,49 @@
 				posting.done(function(commentData) {
 
 					var html = [];
-					html.push("<div class='left-comment'>");
-						html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\" >");
-							html.push("<img width='40px'" + "src='image?userId=" + commentData.userId + "'/>");
-						html.push("</a>");
-					html.push("</div>");
-
-					html.push("<div class='right-comment'>");
-						html.push("<div class='comment-post'>");
+					html.push("<div id='comment_"+ commentData.commentId +"'>");
+						html.push("<div class='left-comment'>");
 							html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\" >");
-								html.push("<span class='fullname'> " + commentData.fullname + "</span>");
+								html.push("<img width='40px'" + "src='image?userId=" + commentData.userId + "'/>");
 							html.push("</a>");
-							html.push("<span class='comment-text'>" + commentData.comment + "</span>");
 						html.push("</div>");
-						html.push("<div class='timestamp'>");
-							html.push(commentData.now);
-							html.push("<span id='comment_like_"+commentData.commentId+"' class=\"like-comment\">Like</span>");																												
-							html.push("<span id='comment_likers_"+commentData.commentId+"' class=\"people-who-like-comment\">0 likes</span>");
-						html.push("</div>");
-					html.push("</div>");					
+	
+						html.push("<div class='right-comment'>");
+							html.push("<div class='comment-description'>");
+								html.push("<div class='comment-post'>");
+									html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\" >");
+										html.push("<span class='fullname'> " + commentData.fullname + "</span>");
+									html.push("</a>");
+									html.push("<span id='comment_text_"+commentData.commentId+"' class='comment-text'>" + commentData.comment + "</span>");
+								html.push("</div>");
+							html.push("</div>");
+							html.push("<div class='comment-options'>");
+								html.push("<div class=\"btn-group\">");
+									html.push("<button type=\"button\" class=\"btn dropdown-toggle comment-options-button\" data-toggle=\"dropdown\">");										
+									html.push("</button>");
+									html.push("<ul class=\"dropdown-menu dropdown-menu-right\">");
+										html.push("<li>");
+											html.push("<form id='"+commentData.commentId+"' class=\"delete_comment\" method=\"post\">");
+												html.push("<input type=\"submit\"  value=\"Delete...\">");
+											html.push("</form>");
+										html.push("</li>");
+										html.push("<li class=\"divider\"></li>");
+										html.push("<li>");
+											html.push("<form id='"+commentData.commentId+"' class=\"edit_comment\" method=\"post\">");
+												html.push("<input type=\"submit\"  value=\"Edit...\">");
+											html.push("</form>");																
+										html.push("</li>");												
+									html.push("</ul>");
+								html.push("</div>");
+							
+							html.push("</div>");
+							html.push("<div class='timestamp'>");
+								html.push(commentData.now);
+								html.push("<span id='comment_like_"+commentData.commentId+"' class=\"like-comment\">Like</span>");																												
+								html.push("<span id='comment_likers_"+commentData.commentId+"' class=\"people-who-like-comment\">0 likes</span>");
+							html.push("</div>");
+						html.push("</div>");											
+					html.push("</div>");
 					
 					html.push("<div class=\"clear\"></div> ");
 					html.push($("#commentForm_" + commentData.postId)[0].outerHTML);
@@ -276,7 +300,7 @@
 						posting.done(function(commentData) {
 									var html = [];
 									//html.push("<div id=\"feeds\"> ");
-									html.push("<div id=\""+commentData.postId+"\" class=\"feed-container\">");
+									html.push("<div id=\"status_"+commentData.postId+"\" class=\"feed-container\">");
 										html.push("<div class=\"left-status\">");
 											html.push("<a href=\"/facebook/profile?fref="+commentData.userId+"\">");
 												html.push("<img width=\"80px\" ");
@@ -297,8 +321,7 @@
 											html.push("</div> ");
 											html.push("<div class=\"status-options\">");
 												html.push("<div class=\"btn-group\">");
-													html.push("<button type=\"button\" class=\"btn dropdown-toggle\" data-toggle=\"dropdown\">");
-														html.push("<span class=\"caret\"></span>");
+													html.push("<button type=\"button\" class=\"btn dropdown-toggle status-options-button\" data-toggle=\"dropdown\">");														
 													html.push("</button>");
 													html.push("<ul class=\"dropdown-menu dropdown-menu-right\">");
 														html.push("<li>");
@@ -355,7 +378,7 @@
 		function(event) {
 
 		event.preventDefault();
-		var answer = confirm("Are you sure you want to delete this post ?");
+		var answer = confirm("Are you sure you want to delete this post?");
 		if (answer) {
 
 			var url = "deletePostAction";
@@ -369,7 +392,7 @@
 
 				if (data.value == "true") {
 
-					$("div[id='" + postidvalue + "']").remove();
+					$("div[id='status_" + postidvalue + "']").remove();
 				}
 
 			});
@@ -379,6 +402,33 @@
 		return false;
 	});
 
+	$(document).on("submit", ".delete_comment",
+			function(event) {
+
+			event.preventDefault();
+			var answer = confirm("Are you sure you want to delete this comment?");
+			if (answer) {
+
+				var url = "deleteCommentAction";
+				var commentidvalue = $(this).attr("id");
+
+				var posting = $.post(url, {
+					"commentId" : commentidvalue
+				});
+
+				posting.done(function(data) {
+
+					if (data) {
+						$("div[id='comment_" + commentidvalue + "']").remove();
+					}
+
+				});
+
+			}
+
+			return false;
+		});
+	
 	$(document).on("submit", ".edit_post", function(event) {
 
 		event.preventDefault();
@@ -417,4 +467,26 @@
 
 		});
 
+	});
+	
+	$(document).on("submit", ".edit_comment", function(event) {
+
+		event.preventDefault();
+		var url = "editCommentAction";
+		var commentidvalue = $(this).attr("id");
+		var commentText = document.getElementById("comment_text_" + commentidvalue).innerText;
+		var text = prompt("edit the post", commentText);
+		if (text != null) {									
+			var newPosting = $.post(url, {
+				"commentId" : commentidvalue,
+				"comment" : text
+			});			
+			newPosting.done(function(newdata) {
+				if(newdata)
+				document.getElementById("comment_text_" + commentidvalue).innerText = text;
+
+			});
+
+			
+		}
 	});

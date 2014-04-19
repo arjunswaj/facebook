@@ -14,4 +14,8 @@ public interface CommentsDAO {
   public void unlikeAComment(int commentId, int userId);
 
   public List<User> peopleWholikeTheComment(int commentId);
+  
+  public void updateComment(int commentId, String updatedComment);
+  
+  public void deleteComment(int commentId);
 }

@@ -366,6 +366,21 @@
 			<result name="success" type="json" />
 		</action>
 
+		<!-- 		This is for delete comment -->	
+		<action name="deleteCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
+		    method="deleteComment">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+		</action>
+		<!-- 		This is for edit comment -->
+		<action name="editCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
+			method="updateComment">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+		</action>
+		
 		<!-- This is for Settings Page -->
 		<action name="accountSettings"
 			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">
