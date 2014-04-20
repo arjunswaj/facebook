@@ -69,7 +69,13 @@ public class SecondSignUpAction extends ActionSupport implements SessionAware
 	public String execute()
 	{
 		user = (User) session.get("user");
+		// when user already exist then goes to HOME page
+		if(dao.getUserByUserEmail(user.getEmail()) != null)
+		{
+		return "exist";	
+		}
 
+		
 		System.out.println(getPhone_number());
 		user.setPhoneNumber(getPhone_number());
 		user.setSecretQuestion(getSecret_question());

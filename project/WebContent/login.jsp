@@ -39,6 +39,9 @@ var y=document.forms["signupform"]["reemail"].value;
 var p=document.forms["signupform"]["first_name"].value;
 var q=document.forms["signupform"]["last_name"].value;
 var r=document.forms["signupform"]["password"].value;
+var a=document.forms["signupform"]["day"].value;
+var b=document.forms["signupform"]["month"].value;
+var c=document.forms["signupform"]["year"].value;
 
 var atpos=x.indexOf("@");
 var dotpos=x.lastIndexOf(".");
@@ -64,18 +67,23 @@ if(x!=y)
 alert("Email & Re-Email entered were not same");
 return false;
 }
+if( a == -1 || b == -1 || c == -1)
+	{
+	alert(" Enter a valid Bithday date ");
+	return false;
+	}
 
 }
 </script>
 </head>
 
-<body  style="background-color: #EBEEF5;">
+<body style="background-color: #EBEEF5;">
 
 	<div
 		style="position: absolute; width: 700px; height: 85px; background-color: #3b5998; left: 0px; top: 0px">
 		<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color="white" size="6"><b>
-				facebook </b></font>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="login.jsp"><img
+			src="images/facebook-logo.jpg" alt="Facebook" width="200" height="65" /></a>
 	</div>
 
 	<div
@@ -122,7 +130,8 @@ return false;
 			<form action="firstsignup" name="signupform"
 				onsubmit="return validatesignup()" method="post">
 
-				<br>
+				<br> <span style="color: red"><s:property
+						value="notification" /></span> <br>
 				<tr>
 					<input type="text" name="first_name" placeholder="First Name"
 						size="21" style="height: 35px">
@@ -322,15 +331,27 @@ return false;
 					</select>
 					<br>
 					<br>
+
 				</tr>
 				<tr>
-
-					<input type="submit" value="Sign Up"
-						style="height: 45px; width: 160px; background-color: #5CAD5C; color: white">
+					<input type="radio" name="gender" value="male" checked>Male
+					<input type="radio" name="gender" value="female">Female
+				<tr>
+				</tr>
+				<br> <br> <input type="submit" value="Sign Up"
+					style="height: 45px; width: 160px; background-color: #5CAD5C; color: white">
 				</tr>
 				<br>
 			</form>
+
 		</table>
+		<div align="left">
+			<h6>
+				Facebook's Replica Copyrights @ GROUP1 of OOAD-2014 IIITB<BR>
+			</h6>
+		</div>
+
 	</div>
+
 </body>
 </html>

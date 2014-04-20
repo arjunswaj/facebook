@@ -9,8 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 
 import edu.iiitb.facebook.action.dao.UserDAO;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
@@ -28,7 +26,9 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 	private String first_name;
 	private String last_name;
 	private String place;
+	private String gender;
 	String ret;
+	private String notification;
 	private Map<String, Object> session;
 
 	public Map<String, Object> getSession() {
@@ -41,6 +41,11 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 	@Override
 	public String execute() {
 
+		if(dao.getUserByUserEmail(getEmail()) != null)
+		{
+			setNotification("Email already exist, So re-enter new EmailId");
+		return "exist";	
+		}
 		System.out.println("day value" + day);
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -65,8 +70,10 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 		user.setFirstName(getFirst_name());
 		user.setLastName(getLast_name());
 		user.setPlace(getPlace());
+		user.setGender(getGender());
 		user.setSecretQuestion("fornowitsnull");
 		user.setSecretAnswer("fornowitsnull");
+
 		System.out.println(user.getPassword());
 		session.put("user", user);
 		ret = SUCCESS;// dao.setUserwithoutphotos(user);
@@ -154,6 +161,22 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 		this.place = place;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getNotification() {
+		return notification;
+	}
+
+	public void setNotification(String notification) {
+		this.notification = notification;
+	}
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -181,4 +204,5 @@ public class FirstSignUpAction extends ActionSupport implements SessionAware {
 			addFieldError(last_name, "last name cannot be empty");
 		}
 	}
+
 }

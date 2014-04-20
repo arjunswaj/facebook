@@ -302,17 +302,17 @@
 		<action name="firstsignup"
 			class="edu.iiitb.facebook.action.login.FirstSignUpAction">
 			<result name="success">/signup2.jsp</result>
-			<result name="error">/signup1.jsp</result>
-			<result name="input">/signup1.jsp</result>
-
-
+			<result name="error">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+			<result name="exist">/login.jsp</result>
+			
 		</action>
 		<action name="secondsignup"
 			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
 			<result name="success">/signup3.jsp</result>
 			<result name="error">/signup2.jsp</result>
 			<result name="input">/signup2.jsp</result>
-
+	   		<result name="exist" type="redirectAction">newsfeeds</result>
 		</action>
 		<action name="thirdsignup"
 			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
