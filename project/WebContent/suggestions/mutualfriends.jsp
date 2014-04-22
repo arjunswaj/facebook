@@ -1,35 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Mutual Friends</title>
 <style type="text/css" media="screen">
-.pop-up {
-	float: center;
-	margin: 2px;
-	padding: 5px;
-	font-family: Arial Narrow, sans-serif;
-	width: 90%;
+
+.mutualfriend {	
+	padding: 15px 0px 15px 0px;
+	margin:  15px 0px 15px 0px;
+	background-color: whitesmoke;
+	overflow: auto;
+	height: 100%;
+}
+
+.mutualfriend-pic {
+	float: left;
+	padding: 10px;
+}
+
+.mutualfriend-actions{
+	float: left;
+	padding: 10px;
+	text-align: center;
+	margin:  0px;
+}
+
+.mutualfriend-clear {
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.mutualfriend-fullname {
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px;	
 }
 </style>
-</head>
-<body>
-	<div id="mutualfriends" class="pop-up">
-		<b> <h5 style="color:gray;" align="center" > MUTUAL FRIENDS</h5>  </b>
-		<s:iterator value="mutualFriendsList">
-			<div align="center" >	
-				<div >
-				<img width="80px" class="img-thumbnail" src="image?userId=<s:property value="friendId" />" />
+
+    <div class="modal-header">
+         <h4 class="modal-title" id="myModalLabel"> Mutual Friends </h4>
+    </div>
+	<div class="mutualfriends">
+		<s:iterator value="mutualFriendsList" var="mf">
+			<s:set var="mutualFriendId" value="%{#mf.friendId}" />
+				<%
+				  int mutualFriendId = (Integer) pageContext.getAttribute("mutualFriendId");
+				%>
+			<div class="mutualfriend" id="mutualfriend_<%=mutualFriendId %>">				
+				<div class="mutualfriend-pic">
+					<a href="/facebook/profile?fref=<s:property value="#mf.friendId" />">
+						<img width="60px" src="image?userId=<s:property value="#mf.friendId" />" />
+					</a>
 				</div>
-				<div >
-					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
+				<div class="mutualfriend-actions">
+					<div class="mutualfriend-fullname">
+						<a href="/facebook/profile?fref=<s:property value="#mf.friendId" />">
+							<span> 
+								<s:property	value="#mf.firstName" /> 
+								<s:property	value="#mf.lastName" />
+							</span>
+						</a>
+					</div>
 				</div>
+
 			</div>
-			<hr>
+			<div class="mutualfriend-clear"></div>
+
 		</s:iterator>
-	</div>
-</body>
-</html>
+	</div>	
+	<div class="modal-footer">
+    	<button id="CloseMutualFriend" type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+    </div>
+    
+    <script>
+	$(document).ready(function(){
+		  $("#CloseMutualFriend").click(function(){
+        	$("#mutualFriends").popover('destroy');
+        	this.shown = false;
+		  });
+	});
+    </script>
+    
+

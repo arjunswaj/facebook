@@ -27,7 +27,7 @@
 	</div>
 	<div id="feeds">
 		<s:iterator value="newsFeeds" var="feeds">
-			<div id='<s:property value="#feeds.postId"/>' class="feed-container">
+			<div id='status_<s:property value="#feeds.postId"/>' class="feed-container">
 				<div class="left-status">
 					<a href="/facebook/profile?fref=<s:property value="fromUserId" />">
 						<img width="80px"
@@ -48,9 +48,8 @@
 							<span> 
 								<s:if test="#loggedInUser==#feeds.toUserId">
 									<div class="btn-group">
-										<button type="button" class="btn dropdown-toggle"
+										<button type="button" class="btn dropdown-toggle status-options-button"
 											data-toggle="dropdown">
-											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu dropdown-menu-right">
 											<li>
@@ -93,15 +92,14 @@
 								<span> 							
 									<s:if test="#loggedInUser==#feeds.toUserId">
 										<div class="btn-group">
-											<button type="button" class="btn dropdown-toggle"
+											<button type="button" class="btn dropdown-toggle status-options-button"
 												data-toggle="dropdown">
-												<span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-right">
 												<li>
 													<form id='<s:property value="#feeds.postId"/>'
 														class="delete_post" method="post">
-														<input type="submit" value="delete" />
+														<input type="submit" value="Delete..." />
 													</form>
 												</li>												
 											</ul>
@@ -109,9 +107,8 @@
 									</s:if> 
 									<s:elseif test="#loggedInUser==#feeds.fromUserId">
 										<div class="btn-group">
-											<button type="button" class="btn dropdown-toggle"
+											<button type="button" class="btn dropdown-toggle status-options-button"
 												data-toggle="dropdown">
-												<span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-right">
 												<li>
@@ -152,38 +149,83 @@
 					</div>
 					<div>
 						<s:iterator value="#feeds.postComments" var="comments">
-							<div class="left-comment">
-								<a href="/facebook/profile?fref=<s:property value="#comments.commenterUserId" />">
-									<img width="40px"
-										src="image?userId=<s:property value="#comments.commenterUserId" />" />
-								</a>
-							</div>
-							<div class="right-comment">
-								<div class="comment-post">
+							<div id='comment_<s:property value="#comments.commentId"/>'>
+								<div class="left-comment">
 									<a href="/facebook/profile?fref=<s:property value="#comments.commenterUserId" />">
-										<span class="fullname"> <s:property
-											value="#comments.commenterFirstName" /> <s:property
-											value="#comments.commenterLastName" />
-										</span>
-									</a> 
-										<span class="comment-text"> <s:property
-											value="#comments.commentText" />
-										</span>
+										<img width="40px"
+											src="image?userId=<s:property value="#comments.commenterUserId" />" />
+									</a>
 								</div>
-								<div class="timestamp">
-									<s:property value="#comments.commentTime" />
-									<s:if test="#comments.haveILiked == true">
-										<span id='comment_liked_<s:property value="#comments.commentId"/>' class="liked-comment">Liked</span>
-									</s:if>
-									<s:elseif test="#comments.haveILiked == false">
-										<span id='comment_like_<s:property value="#comments.commentId"/>' class="like-comment">Like</span>
-									</s:elseif>
-									<span id='comment_likers_<s:property value="#comments.commentId"/>' class="people-who-like-comment">
-										<s:property value="#comments.likeCount" /> likes
-									</span>
+								<div class="right-comment">
+									<div class="comment-description">
+										<div class="comment-post">
+											<a href="/facebook/profile?fref=<s:property value="#comments.commenterUserId" />">
+												<span class="fullname"> <s:property
+													value="#comments.commenterFirstName" /> <s:property
+													value="#comments.commenterLastName" />
+												</span>
+											</a> 
+												<span id='comment_text_<s:property value="#comments.commentId"/>' class="comment-text"> <s:property
+													value="#comments.commentText" />
+												</span>
+										</div>
+									</div>
+									<div class="comment-options"> 
+										<span> 							
+											<s:if test="#loggedInUser==#feeds.toUserId && #loggedInUser!=#comments.commenterUserId">
+												<div class="btn-group">
+													<button type="button" class="btn dropdown-toggle comment-options-button"
+														data-toggle="dropdown">
+													</button>
+													<ul class="dropdown-menu dropdown-menu-right">
+														<li>
+															<form id='<s:property value="#comments.commentId"/>'
+																class="delete_comment" method="post">
+																<input type="submit" value="Delete..." />
+															</form>
+														</li>																									
+													</ul>
+												</div> 											
+											</s:if> 
+											<s:elseif test="#loggedInUser==#comments.commenterUserId">
+												<div class="btn-group">
+													<button type="button" class="btn dropdown-toggle comment-options-button"
+														data-toggle="dropdown">
+													</button>
+													<ul class="dropdown-menu dropdown-menu-right">
+														<li>
+															<form id='<s:property value="#comments.commentId"/>'
+																class="delete_comment" method="post">
+																<input type="submit" value="Delete..." />
+															</form>
+														</li>
+														<li class="divider"></li>
+														<li>
+															<form id='<s:property value="#comments.commentId"/>'
+																class="edit_comment" method="post">
+																<input type="submit" value="Edit..." />
+															</form>	
+														</li>												
+													</ul>
+												</div> 																				
+											</s:elseif>								
+										</span>
+									</div>	
+									<div class="timestamp">
+										<s:property value="#comments.commentTime" />
+										<s:if test="#comments.haveILiked == true">
+											<span id='comment_liked_<s:property value="#comments.commentId"/>' class="liked-comment">Liked</span>
+										</s:if>
+										<s:elseif test="#comments.haveILiked == false">
+											<span id='comment_like_<s:property value="#comments.commentId"/>' class="like-comment">Like</span>
+										</s:elseif>
+										<span id='comment_likers_<s:property value="#comments.commentId"/>' class="people-who-like-comment">
+											<s:property value="#comments.likeCount" /> likes
+										</span>
+									</div>
 								</div>
+								<div class="clear"></div>
 							</div>
-							<div class="clear"></div>
 						</s:iterator>
 						<s:set var="postId" value="%{postId}" />
 						<%

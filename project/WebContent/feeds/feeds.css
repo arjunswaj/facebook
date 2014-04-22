@@ -40,7 +40,7 @@
 	float: left;
 	margin: 2px;
 	padding: 5px;
-	width: 80%;
+	width: 86%;
 	font-family: Arial Narrow, sans-serif;
 }
 
@@ -77,13 +77,13 @@
 	text-align: left;
 }
 
-.delete_post {
+.delete_post, .delete_comment {
 	margin: 0 0 0 0;
 	text-align: center;	
 	width: auto;
 }
 
-.edit_post {
+.edit_post, .edit_comment {
 	margin: 0 0 0 0;
 	text-align: center;	
 	width: auto;
@@ -96,7 +96,7 @@
 }
 
 .comment-form {
-	width: 90%;
+	width: 103%;
 }
 
 .comment-text {
@@ -115,12 +115,12 @@
 
 .status-description, .comment-description {
 	float: left;
-	width: 95%;
+	width: 99%;
 }
 
 .status-options, .comment-options {
 	float: left;
-	width: 5%;
+	width: 1%;
 }
 
 .like, .like-comment {
@@ -203,4 +203,30 @@
 
 .likers {
 	padding: 10 px;
+}
+
+.status-options-button {
+	background-image: url(/facebook/feeds/fbsprite.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: 0 -267px;
+	height: 24px;
+	width: 21px;
+	border: none;
+	padding: 0px;
+	background-color: whitesmoke;
+}
+
+.comment-options-button {
+	background-image: url(/facebook/feeds/fbsprite2.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: -1px -142px;
+	height: 14px;
+	margin-right: 0;
+	margin-top: 10px;
+	width: 14px;
+	border: none;
+	padding: 0px;
+	background-color: whitesmoke;
 }

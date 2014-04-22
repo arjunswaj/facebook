@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 
 	final String GET_USER_BY_ID_QRY = "select * from user where id=?";
 	final String GET_USER_BY_EMAIL_QRY = "select * from user where email=?";
-	final String TO_ADD_A_USER = "INSERT INTO user (email, password, dob, phone_number,current_profile_pic,current_cover_pic, first_name, last_name, place, secret_question, secret_answer) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	final String TO_ADD_A_USER = "INSERT INTO user (email, password, dob, phone_number,current_profile_pic,current_cover_pic, first_name, last_name, place, secret_question, secret_answer, gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 	final String ADDING_SECURITY_DETAILS = "UPDATE user SET phone_number=?, secret_question=?, secret_answer=? WHERE id=?";
 	final String SET_PROFILE_PIC_BY_USERID = "UPDATE user SET current_profile_pic=?  WHERE id=?";
 	final String SET_COVER_PIC_BY_USERID = "UPDATE user SET current_cover_pic=?  WHERE id=?";
@@ -72,6 +72,7 @@ public class UserDAOImpl implements UserDAO {
 				user.setEmail(resultSet.getString(UserDAO.EMAIL));
 
 				user.setPassword(resultSet.getString(UserDAO.PASSWORD));
+				System.out.println(resultSet.getString(UserDAO.PASSWORD));
 				user.setDob(resultSet.getDate(UserDAO.DOB));
 
 				user.setPhoneNumber(resultSet.getString(UserDAO.PHONE_NUMBER));
@@ -92,6 +93,17 @@ public class UserDAOImpl implements UserDAO {
 
 				user.setSecretAnswer(resultSet.getString(UserDAO.SECRET_ANSWER));
 				user.setCreated(resultSet.getTimestamp(UserDAO.CREATED));
+				user.setCurrentplace(resultSet.getString(UserDAO.CURRENTPLACE));
+				user.setNativeplace(resultSet.getString(UserDAO.NATIVEPLACE));
+				user.setRelationship(resultSet.getString(UserDAO.RELATIONSHIP));
+				user.setWorkplace(resultSet.getString(UserDAO.WORKPLACE));
+				user.setSchool(resultSet.getString(UserDAO.SCHOOL));
+				user.setProfession(resultSet.getString(UserDAO.PROFESSION));
+				user.setGender(resultSet.getString(UserDAO.GENDER));
+				user.setDegree1(resultSet.getString(UserDAO.DEGREE1));
+				user.setDegree2(resultSet.getString(UserDAO.DEGREE2));
+				user.setUniversity(resultSet.getString(UserDAO.UNIVERSITY));
+				
 
 			}
 		} catch (SQLException e) {
@@ -268,6 +280,7 @@ public class UserDAOImpl implements UserDAO {
 			preparedStmt.setString(9, user.getPlace());
 			preparedStmt.setString(10, user.getSecretQuestion());
 			preparedStmt.setString(11, user.getSecretAnswer());
+			preparedStmt.setString(12, user.getGender());
 			if (preparedStmt.executeUpdate() > 0)
 				ret = "success";
 			else

@@ -12,7 +12,9 @@
 <div
 		style="position: absolute; width: 100%; height: 85px; background-color: #3b5998; left: 0px; top: 0px">
 		<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
-			href="login.jsp"><img src="images/icon.jpg" /></a>
+			href='login.action'><img src="images/facebook-logo.jpg" alt="Facebook" width="200" height="65"/></a>
+			 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		 <s:property value="#user.first_name"/>
 	
 	</div>
 	<br>

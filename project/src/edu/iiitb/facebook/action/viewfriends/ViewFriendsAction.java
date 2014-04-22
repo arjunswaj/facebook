@@ -68,13 +68,11 @@ public class ViewFriendsAction extends ActionSupport implements SessionAware,
 		FriendsDAO friendsDao = new FriendsDAOImpl();
 		loggedInUserId = user.getUserId();
 
-		// for(User userr: friendsList){
-		// System.out.println(user.getEmail());
-		//
-		// }
+		
 		System.out.println("fref   ");
+		
 
-		fref = (String) session.get("profileReferece");
+		fref = (String) session.get("profileReference");
 
 		if (fref == null) {
 			friendsList = friendsDao.getFriendsList(loggedInUserId);

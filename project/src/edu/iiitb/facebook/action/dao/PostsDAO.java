@@ -11,6 +11,8 @@ public interface PostsDAO
 
 	public int updateStatusForUser(int userId, String status);
 	
+	public int updatewallpostForUser(int userId,int refuserId,String wallpost);
+	
 	public void likeAPost(int postId, int userId);
 	
 	public int updateLikersCount(int postId);
