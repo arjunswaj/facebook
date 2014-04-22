@@ -22,31 +22,57 @@
 				<interceptor-ref name="authenticationInterceptor" />
 				<interceptor-ref name="defaultStack" />
 			</interceptor-stack>
+
+			<interceptor name="loginInterceptort"
+				class="edu.iiitb.facebook.interceptors.LoginInterceptor">
+			</interceptor>
+			<interceptor-stack name="loginAccess">
+				<interceptor-ref name="loginInterceptort" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
 		</interceptors>
+
+
+
+
+		<action name="checkCookie">
+			<interceptor-ref name="loginAccess"></interceptor-ref>
+			<result name="success" type="redirectAction">newsfeeds</result>
+			<result name="input">/login.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+
+		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">			
+			<result name="success" type="redirectAction">newsfeeds</result>
+			<result name="input">/login.jsp</result>
+			<result name="login">/login.jsp</result>
+		</action>
+
+
 
 		<!-- This is for News Feeds -->
 		<action name="newsfeeds"
 			class="edu.iiitb.facebook.action.newsfeeds.NewsFeedsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">newsfeeds.tiles</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for Timeline -->
 		<action name="timeline"
 			class="edu.iiitb.facebook.action.timeline.TimelineAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/timeline/timeline.jsp</result>
-			<result name="login">/login.jsp</result>
+			<result name="success" type="tiles">viewtimeline.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for About -->
-		<action name="about"
-			class="edu.iiitb.facebook.action.about.AboutAction">
+		<action name="about" class="edu.iiitb.facebook.action.about.AboutAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/about/about.jsp</result>
-			<result name="login">/login.jsp</result>
+			<result name="success" type="tiles">about.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-		
-		
+
+
 
 		<!-- Start of messages related actions -->
 
@@ -56,7 +82,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">messages.tiles</result>
 			<result name="no_conversations" type="tiles">noMessages.tiles</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for displaying all the latest conversations -->
@@ -65,7 +91,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for displaying the selected conversation thread -->
@@ -74,7 +100,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for replying to a message -->
@@ -83,7 +109,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for sending a new message -->
@@ -92,15 +118,15 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-		
+
 		<action name="newMessage" method="friendsList"
 			class="edu.iiitb.facebook.action.messages.CreateNewMessageAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- End of messages related actions -->
@@ -112,7 +138,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for Status Update -->
@@ -121,7 +147,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for Timeline Update -->
 		<action name="timelineupdate"
@@ -129,7 +155,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for liking a post -->
@@ -137,7 +163,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for unliking a post -->
 		<action name="unlikepost" class="edu.iiitb.facebook.action.posts.LikesAction"
@@ -145,7 +171,7 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for finding post likers -->
 		<action name="postlikers" class="edu.iiitb.facebook.action.posts.LikesAction"
@@ -153,72 +179,75 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-		
+
 		<!-- This is for liking a comment -->
-		<action name="likecomment" class="edu.iiitb.facebook.action.comment.CommentLikesAction">
+		<action name="likecomment"
+			class="edu.iiitb.facebook.action.comment.CommentLikesAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for unliking a comment -->
-		<action name="unlikecomment" class="edu.iiitb.facebook.action.comment.CommentLikesAction"
-			method="unlike">
+		<action name="unlikecomment"
+			class="edu.iiitb.facebook.action.comment.CommentLikesAction" method="unlike">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for finding comment likers -->
-		<action name="commentlikers" class="edu.iiitb.facebook.action.comment.CommentLikesAction"
-			method="commentlikers">
+		<action name="commentlikers"
+			class="edu.iiitb.facebook.action.comment.CommentLikesAction" method="commentlikers">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-		
+
 		<!-- This is for finding friend requests -->
-		<action name="friendrequests" class="edu.iiitb.facebook.action.friends.FriendRequestFromStrangersAction">
-			<interceptor-ref name="secureAccess"></interceptor-ref>			
+		<action name="friendrequests"
+			class="edu.iiitb.facebook.action.friends.FriendRequestFromStrangersAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/friends/friendRequests.jsp</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for adding friends through Friends Requests -->
 		<action name="confirmfriend"
-			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction" >
+			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<!-- This is for rejecting friends through Friends Requests -->
 		<action name="rejectfriend"
-			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction" method="rejectFriend">
+			class="edu.iiitb.facebook.action.friends.FriendRequestAcceptRejectAction"
+			method="rejectFriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-				
-		
+
+
 		<!-- This is for Friend Suggestions -->
 		<action name="friendsuggestions"
 			class="edu.iiitb.facebook.action.friendsuggestions.FriendSuggestionsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/suggestions/suggestions.jsp</result>
-			<result name="login">/login.jsp</result>
-		</action>		
-		
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
+
 		<!-- This is for displaying Mutual Friends -->
 		<action name="mutualfriends"
 			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success">/suggestions/mutualfriends.jsp</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 			<result name="input">/suggestions/mutualfriends.jsp</result>
 		</action>
 		<!-- This is for adding a suggested Friend -->
@@ -227,29 +256,29 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result type="json" name="success" />
 			<result type="json" name="input" />
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<action name="profile"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="tiles">friends.tiles</result>
+			<result name="success" type="tiles">viewtimeline.tiles</result>
 			<result name="error" type="tiles">error.tiles</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 
 		</action>
 		<action name="addfriend"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="addfriendReqeust">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 
 		</action>
 		<action name="confirmRequest"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="confirmAddFriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 
 		</action>
 		<action name="rejectRequest"
@@ -264,25 +293,22 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="error">/login.jsp</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 		<action name="unblockfriend"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction" method="unblockfriend">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success"  type="redirectAction">accountSettings</result>
-			<result name="login">/login.jsp</result>
+			<result name="success" type="redirectAction">accountSettings</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
-		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">
-			<result name="success" type="redirectAction">newsfeeds</result>
-			<result name="input">/login.jsp</result>
-		</action>
+
 
 		<action name="search" class="edu.iiitb.facebook.action.search.SearchAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="error" type="tiles">error.tiles</result>
 			<result name="success" type="redirectAction">profile?fref=${fref}</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<action name="logout" class="edu.iiitb.facebook.action.login.LogoutAction">
@@ -295,7 +321,7 @@
 			class="edu.iiitb.facebook.action.viewfriends.ViewFriendsAction"
 			method="execute">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/friends/viewFriends.jsp</result>
+			<result name="success" type="tiles">viewFriends.tiles</result>
 			<result name="error">/friends/noFriends.jsp</result>
 		</action>
 
@@ -305,14 +331,14 @@
 			<result name="error">/login.jsp</result>
 			<result name="input">/login.jsp</result>
 			<result name="exist">/login.jsp</result>
-			
+
 		</action>
 		<action name="secondsignup"
 			class="edu.iiitb.facebook.action.login.SecondSignUpAction">
 			<result name="success">/signup3.jsp</result>
 			<result name="error">/signup2.jsp</result>
 			<result name="input">/signup2.jsp</result>
-	   		<result name="exist" type="redirectAction">newsfeeds</result>
+			<result name="exist" type="redirectAction">newsfeeds</result>
 		</action>
 		<action name="thirdsignup"
 			class="edu.iiitb.facebook.action.login.ThirdSignUpAction" method="execute">
@@ -386,30 +412,33 @@
 		<action name="editPostAction" class="edu.iiitb.facebook.action.newsfeeds.PostAction"
 			method="editPost">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="login" type="redirectAction">checkCookie</result>
 			<result name="success" type="json" />
 		</action>
 
-		<!-- 		This is for delete comment -->	
-		<action name="deleteCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
-		    method="deleteComment">
+		<!-- This is for delete comment -->
+		<action name="deleteCommentAction"
+			class="edu.iiitb.facebook.action.comment.PostCommentsAction" method="deleteComment">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
+			<result name="login" type="redirectAction">checkCookie</result>
 			<result name="input" type="json" />
 		</action>
-		<!-- 		This is for edit comment -->
-		<action name="editCommentAction" class="edu.iiitb.facebook.action.comment.PostCommentsAction"
-			method="updateComment">
+		<!-- This is for edit comment -->
+		<action name="editCommentAction"
+			class="edu.iiitb.facebook.action.comment.PostCommentsAction" method="updateComment">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
+			<result name="login" type="redirectAction">checkCookie</result>
 			<result name="input" type="json" />
 		</action>
-		
+
 		<!-- This is for Settings Page -->
 		<action name="accountSettings"
 			class="edu.iiitb.facebook.action.settings.AccountSettingsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">settings.tiles</result>
-			<result name="login">/login.jsp</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 

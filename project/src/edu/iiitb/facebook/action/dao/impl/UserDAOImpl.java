@@ -111,7 +111,7 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.freeConnection(conn);
-			;
+			
 		}
 
 		return user;
