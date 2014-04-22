@@ -73,7 +73,7 @@ $(document).on('click', '.reject-request',
 	}
 	function gotoMessages() {
 
-		document.getElementById("facebookHeader").action = "/facebook/messages.action";
+		document.getElementById("facebookHeader").action = "/facebook/inbox";
 		document.getElementById("facebookHeader").submit();
 	}
 	function search() {

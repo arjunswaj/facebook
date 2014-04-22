@@ -7,40 +7,45 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Messages</title>
 <link rel="stylesheet" type="text/css" href="messages/messages.css" />
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input.css" />
+<link rel="stylesheet" type="text/css" href="js/loopj-jquery-tokeninput/styles/token-input-facebook.css" />
 </head>
 <body>
-	<div id="container" class="container">
+	<div id="container-div">
 	
-		<div id="left" class="left">
+		<div id="left-div">
 			
 			<!-- Inbox header -->
-			<div id="inboxHeader" class="inbox-header">
-				<span class="inbox">Inbox</span>
+			<div id="inbox-header-div">
+				<span id="inbox-heading-span">Inbox</span>
 			</div>
 			
 			<!-- Latest conversations -->
-			<div id="latestConversations" class="latest-conversations">
+			<div id="conversations-div" style="text-align:center;">
+			<strong>
+				No conversations
+			</strong>
 			</div>
 			
 		</div>
 
 
-		<div id="right" class="right">
+		<div id="right-div">
 		
 			<!-- Selected conversation header -->
-			<div id="selectedConversationThreadHeader" class="selected-conversation-thread-header">
-				<div class="conversation-with">
+			<div id="selected-conversation-thread-header-div">
+				<div id="other-participants-div">
 						No Conversation Selected
 				</div>
-				<div class="new-message-button">
+				<div id="new-message-button-div">
 					<div>
-						<s:submit value="+ New Message"></s:submit>
+						<s:submit id="new-message-button-submit" value="+ New Message"></s:submit>
 					</div>
 				</div>
 			</div>
 			
 			<!-- Selected conversation thread -->
-			<div id="selectedConversationThread" class="selected-conversation-thread">
+			<div id="selected-conversation-thread-div">
 			</div>
 
 		</div>
@@ -51,5 +56,6 @@
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>
 	<script src="messages/onSendNewMessage.js"></script>
+	<script src="js/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 </body>
 </html>

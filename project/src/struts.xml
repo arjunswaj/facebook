@@ -36,17 +36,17 @@
 		<!-- Start of messages related actions -->
 
 		<!-- This is for displaying the messages page -->
-		<action name="messages" method="load"
-			class="edu.iiitb.facebook.action.messages.MessagesAction">
+		<action name="inbox" method="load"
+			class="edu.iiitb.facebook.action.messages.InboxAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="tiles">messages.tiles</result>
+			<result name="success" type="tiles">inbox.tiles</result>
 			<result name="no_conversations" type="tiles">noMessages.tiles</result>
 			<result name="login">/login.jsp</result>
 		</action>
 
 		<!-- This is for displaying all the latest conversations -->
-		<action name="latestConversations" method="load"
-			class="edu.iiitb.facebook.action.messages.MessagesAction">
+		<action name="loadConversations" method="load"
+			class="edu.iiitb.facebook.action.messages.InboxAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />
@@ -54,8 +54,8 @@
 		</action>
 
 		<!-- This is for displaying the selected conversation thread -->
-		<action name="selectedConversationThread" method="load"
-			class="edu.iiitb.facebook.action.messages.MessagesAction">
+		<action name="loadSelectedConversationThread" method="load"
+			class="edu.iiitb.facebook.action.messages.InboxAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="json" />
 			<result name="input" type="json" />

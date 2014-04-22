@@ -68,9 +68,9 @@
 	</definition>
 
 	<!-- This is for the messages page -->
-	<definition name="messages.tiles" extends="messagesBaseLayout">
+	<definition name="inbox.tiles" extends="messagesBaseLayout">
 		<put-attribute name="title" value="Messages" />
-		<put-attribute name="central-pane" value="/messages/messages.jsp" />
+		<put-attribute name="central-pane" value="/messages/inbox.jsp" />
 	</definition>
 	
 	<!-- This is for the messages page with no messages or conversations-->

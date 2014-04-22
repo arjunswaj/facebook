@@ -8,15 +8,14 @@ package edu.iiitb.facebook.action.model;
 public class Message
 {
 	private int id;
+	private int conversation;
 	private String text;
 	private String sentAt;
 	private int sender;
+	private int inbox;
 	private String senderFirstName;
 	private String senderLastName;
-	private int recipient;
-	private String recipientFirstName;
-	private String recipientLastName;
-	private boolean readStatus;
+	private String readStatus;
 	
 	public int getId()
 	{
@@ -42,38 +41,6 @@ public class Message
 	{
 		this.sentAt = sentAt;
 	}
-	public int getSender()
-	{
-		return sender;
-	}
-	public void setSender(int sender)
-	{
-		this.sender = sender;
-	}
-	public int getRecipient()
-	{
-		return recipient;
-	}
-	public void setRecipient(int recipient)
-	{
-		this.recipient = recipient;
-	}
-	public String getRecipientFirstName()
-	{
-		return recipientFirstName;
-	}
-	public void setRecipientFirstName(String recipientFirstName)
-	{
-		this.recipientFirstName = recipientFirstName;
-	}
-	public String getRecipientLastName()
-	{
-		return recipientLastName;
-	}
-	public void setRecipientLastName(String recipientLastName)
-	{
-		this.recipientLastName = recipientLastName;
-	}
 	public String getSenderFirstName()
 	{
 		return senderFirstName;
@@ -90,13 +57,36 @@ public class Message
 	{
 		this.senderLastName = senderLastName;
 	}
-	public boolean isReadStatus()
+	public String getReadStatus()
 	{
 		return readStatus;
 	}
-	public void setReadStatus(boolean readStatus)
+	public void setReadStatus(String readStatus)
 	{
 		this.readStatus = readStatus;
 	}
-
+	public int getSender()
+	{
+		return sender;
+	}
+	public void setSender(int sender)
+	{
+		this.sender = sender;
+	}
+	public int getInbox()
+	{
+		return inbox;
+	}
+	public void setInbox(int inbox)
+	{
+		this.inbox = inbox;
+	}
+	public int getConversation()
+	{
+		return conversation;
+	}
+	public void setConversation(int conversation)
+	{
+		this.conversation = conversation;
+	}
 }
