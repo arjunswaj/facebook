@@ -98,11 +98,9 @@
 			<!-- Reply -->
 			<s:if test="%{selectedConversation.otherParticipants.size != 1 or selectedConversation.allFriends}">
 				<div id="reply-box-div">
-					<form id="reply-form" action="reply.action">
-							<s:textarea id="reply-textarea" name="replyMsg.text" value="" cols="96" rows="5" placeholder="Write a reply..." />
-							<s:hidden name="replyMsg.conversation" value="%{selectedConversation.id}" />
-							<s:submit id="reply-button" value="Reply"></s:submit>
-					</form>
+					<s:textarea id="reply-textarea" name="replyMsg.text" value="" cols="96" rows="5" placeholder="Write a reply..." />
+					<s:hidden id="conversation-hidden" name="replyMsg.conversation" value="%{selectedConversation.id}" />
+					<s:submit id="reply-button" value="Reply"></s:submit>
 				</div>
 			</s:if>
 			<s:else>

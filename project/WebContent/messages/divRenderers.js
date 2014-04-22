@@ -88,11 +88,9 @@ var replyBoxDiv = {
 			}
 			var div = 
 			'<div id="reply-box-div">\
-				<form id="reply-form" action="reply.action">\
-					<textarea id="reply-textarea" name="replyMsg.text" value="" cols="96" rows="5" placeholder="Write a reply..." />\
-					<input type="hidden" id="replyMsg_conversation" name="replyMsg.conversation" value="' + replyBoxDiv.selectedConversation.id + '" />\
-					<input class="reply-button" type="submit" value="Reply" />\
-				</form>\
+				<textarea id="reply-textarea" name="replyMsg.text" value="" cols="96" rows="5" placeholder="Write a reply..." />\
+				<input type="hidden" id="conversation-hidden" name="replyMsg.conversation" value="' + replyBoxDiv.selectedConversation.id + '" />\
+				<input id="reply-button" type="submit" value="Reply" />\
 			</div>';
 			return div;
 		}

@@ -1,21 +1,22 @@
 /**
  * When you reply
  */
-$(document).on("submit", "#reply-form", function(event) {
+$(document).on("click", "#reply-button", function(event) {
 	event.preventDefault();
-	var form = $(this);
-	var url = form[0].action;
-	var reply = form[0][0].value;
-	var conversation = form[0][1].value;
 
 	/**
 	 * Post reply
 	 */
-	var posting = $.post(url, {
-		"replyMsg.text" : reply,
-		"replyMsg.conversation" : conversation
+	var posting = $.post("reply.action", {
+		"replyMsg.text" : $("#reply-textarea").val(),
+		"replyMsg.conversation" : $("#conversation-hidden").val()
 	});
 	posting.done(function(response) {
+		
+		$("#reply-textarea").val(""); // clear reply box
+		$(".conversation-div:first-of-type").css('background-color', 'teal'); // highlight the first conversation
+		
+		
 		messageDiv.init(response.replyMsg);
 		$("#selected-conversation-thread-div").append(messageDiv.get());
 		
