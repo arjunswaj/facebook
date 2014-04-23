@@ -19,7 +19,7 @@ $(document).on("click", "#new-message-button", function(event) {
 					<textarea id="new-message-textarea" cols="96" rows="5" placeholder="Write a message..." />\
 				</div>\
 				<div>\
-					<input id="send-button" type="submit" value="Send" />\
+					<input id="send-button" type="button" value="Send" />\
 				</div>\
 			</div>';
 	

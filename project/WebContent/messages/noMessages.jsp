@@ -39,7 +39,7 @@
 				</div>
 				<div id="new-message-button-div">
 					<div>
-						<s:submit id="new-message-button-submit" value="+ New Message"></s:submit>
+						<s:submit id="new-message-button" value="+ New Message"></s:submit>
 					</div>
 				</div>
 			</div>
