@@ -20,7 +20,7 @@
 	<s:iterator value="eventsToday" var="inv">
 		* <a href='displayEvent?eventId=<s:property value="#inv.getEventId()" />'><s:property value="#inv.getEventName()" /></a>
 		at
-		<s:property value="#inv.getEventTime()" />
+		<s:property value="#inv.getEventTime()" /><br />
 	</s:iterator>
 </body>
 </html>
