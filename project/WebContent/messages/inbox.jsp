@@ -20,7 +20,7 @@
 				<span id="inbox-heading-span">Inbox</span>
 			</div>
 			
-			<!-- Latest conversations -->
+			<!-- Conversations -->
 			<div id="conversations-div">
 				<s:iterator value="conversations">
 					<div class="conversation-div">
@@ -37,10 +37,11 @@
 									</s:iterator>
 							</div>
 							<div class="conversation-date-div">								
-									<s:property value="sentAt" />
+									<s:property value="latestMessage.sentAt" />
 							</div>	
 							<div class="conversation-text-div">
-								<s:property value="latestMessageText" /> 
+								<s:property value="latestMessage.text" />
+								<input type="hidden" value='<s:property value="id"/>' />
 							</div>
 						</div>	
 					</div>
@@ -78,18 +79,21 @@
 							</a>
 						</div>
 						<div class="message-header-div">
-							<strong>
 								<a href="profile?fref=<s:property value="sender" />" >
 									<s:property value="senderFirstName" /> 
 									<s:property	value="senderLastName" />
 								</a>
-							</strong>
 							<span class="message-date-div">
 								<s:property value="sentAt" />
 							</span>
 						</div>
 						<div class="message-text-div">
 							<s:property value="text" />
+						</div>
+						<div class="delete-message-div">
+							<input type="button" class="delete-message-button" value="x" />
+							<input type="hidden" value='<s:property value="id"/>' />
+							<input type="hidden" value='<s:property value="conversation"/>' />
 						</div>
 					</div>
 				</s:iterator>
@@ -118,6 +122,7 @@
 	<script src="messages/onReplySubmit.js"></script>
 	<script src="messages/onSendNewMessage.js"></script>
 	<script src="messages/onDeleteConversation.js"></script>
+	<script src="messages/onDeleteMessage.js"></script>
 	<script src="js/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 	<script src="js/jquery.timeago.js" type="text/javascript"></script>
 </body>

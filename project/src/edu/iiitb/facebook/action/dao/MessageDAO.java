@@ -61,4 +61,11 @@ public interface MessageDAO
 	 * @param user
 	 */
 	public void deleteMessagesFromConversation(int conversation, int inbox);
+
+	/**
+	 * Delete specified message from specified inbox
+	 * @param id
+	 * @param uinbox
+	 */
+	public void deleteMessageFromInbox(int id, int inbox);
 }

@@ -138,7 +138,16 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
+		<!-- This is for deleting a message -->
+		<action name="deleteMessage" method="delete"
+			class="edu.iiitb.facebook.action.messages.DeleteMessageAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
+				
 		<!-- End of messages related actions -->
 
 

@@ -61,16 +61,19 @@ var messageDiv = {
 							</a>\
 						</div> \
 						<div class="message-header-div"> \
-							<strong> \
 								<a href="profile?fref=' + messageDiv.message.sender + '">' + messageDiv.message.senderFirstName	+ ' ' + messageDiv.message.senderLastName + '</a>' + 
-							'</strong>\
-							<span class="message-date-div">' 
+							'<span class="message-date-div">' 
 								+ jQuery.timeago(messageDiv.message.sentAt) +
 							'</span>\
 						</div> \
 						<div class="message-text-div">'
 							+ messageDiv.message.text	+ '\
 						</div> \
+						<div class="delete-message-div">\
+							<input type="button" class="delete-message-button" value="x" />\
+							<input type="hidden" value="' + messageDiv.message.id + '" />\
+							<input type="hidden" value="' + messageDiv.message.conversation + '" />\
+						</div>\
 					</div>';
 		return div;
 	}
@@ -119,11 +122,12 @@ var conversationDiv = {
 			});
 			div += '		</div>\
 							<div class="conversation-date-div">'
-								+ jQuery.timeago(conversationDiv.conversation.sentAt) +
+								+ jQuery.timeago(conversationDiv.conversation.latestMessage.sentAt) +
 							'</div>\
 							<div class="conversation-text-div">'
-								+ conversationDiv.conversation.latestMessageText + 
-							'</div>\
+								+ conversationDiv.conversation.latestMessage.text + 
+								'<input type="hidden" value="' + conversationDiv.conversation.id + '"/> \
+							</div>\
 						</div>\
 				   </div>';
 			return div;

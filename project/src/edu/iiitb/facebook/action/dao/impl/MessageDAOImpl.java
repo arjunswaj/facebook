@@ -166,9 +166,13 @@ public class MessageDAOImpl implements MessageDAO
 	{
 		// TODO : Use StringBuilder and append here
 		final String query = "select "
+				+ " message.id,"
 				+ " message.conversation,"
 			    + " message.text,"
 			    + " message.sent_at,"
+			    + " message.sender,"
+			    + " message.inbox,"
+			    + " message.read_status,"
 			    + " conversation.unread_count"
 			+ " from"
 			    + " user,"
@@ -202,10 +206,19 @@ public class MessageDAOImpl implements MessageDAO
 			{
 				Conversation conversation = new Conversation();
 				conversation.setId(rs.getInt("conversation"));
-				conversation.setLatestMessageText(rs.getString("text"));
-				conversation.setSentAt(rs.getTimestamp("sent_at").toString());
-				conversation.setUnreadMessagesCount(rs.getInt("unread_count"));
 				
+				Message latestMessage = new Message();
+				latestMessage.setId(rs.getInt("id"));
+				latestMessage.setConversation(rs.getInt("conversation"));
+				latestMessage.setText(rs.getString("text"));
+				latestMessage.setSentAt(rs.getTimestamp("sent_at").toString());
+				latestMessage.setSender(rs.getInt("sender"));
+				latestMessage.setInbox(rs.getInt("inbox"));
+				latestMessage.setReadStatus(rs.getString("read_status"));
+				
+				conversation.setLatestMessage(latestMessage);
+				conversation.setUnreadMessagesCount(rs.getInt("unread_count"));
+				// TODO: Can this db call be avoided??
 				conversation.setOtherParticipants(getOtherParticipants(rs.getInt("conversation"), user));
 				
 				conversations.add(conversation);
@@ -247,7 +260,6 @@ public class MessageDAOImpl implements MessageDAO
 
 	/**
 	 * @param user
-	 * @param participantsAcrossAllConversations
 	 * @return
 	 */
 	private Map<Integer, String> getFriendShipStatus(int user)
@@ -390,6 +402,33 @@ public class MessageDAOImpl implements MessageDAO
 			stmt = connection.prepareStatement(deleteMessages);
 			stmt.setInt(1, inbox);
 			stmt.setInt(2, conversation);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#deleteMessageFromInbox(int, int)
+	 */
+	@Override
+	public void deleteMessageFromInbox(int id, int inbox)
+	{
+		// TODO : Use StringBuilder and append here
+		final String deleteMessage = "delete from message where inbox = ? and id = ?";
+			
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessage);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, id);
 			stmt.executeUpdate();
 		}
 		catch (SQLException e)
