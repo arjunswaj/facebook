@@ -322,7 +322,7 @@
 			method="execute">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">viewFriends.tiles</result>
-			<result name="error">/friends/noFriends.jsp</result>
+			<result name="error" type="tiles">viewFriendserror.tiles</result>
 		</action>
 
 		<action name="firstsignup"

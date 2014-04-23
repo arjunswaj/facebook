@@ -138,6 +138,16 @@
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 		<put-attribute name="profile_menu-pane" value="/friends/viewFriends.jsp" />
 	</definition>
+	
+	
+		<!-- This is for the friends page -->
+	<definition name="viewFriendserror.tiles" extends="viewFriendsLayout">
+		<put-attribute name="title" value="friends" />
+		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+		<put-attribute name="profile_menu-pane" value="/friends/noFriends.jsp" />
+	</definition>
+	
+	
 
 	<!-- This is for the friends page -->
 	<definition name="viewtimeline.tiles" extends="viewFriendsLayout">
