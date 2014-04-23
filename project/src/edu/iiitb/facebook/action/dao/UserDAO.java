@@ -20,17 +20,10 @@ public interface UserDAO
 	String SECRET_QUESTION = "secret_question";
 	String SECRET_ANSWER = "secret_answer";
 	String CREATED = "created";
-	String PROFESSION = "profession";
 	String RELATIONSHIP = "relationship";
-	String WORKPLACE = "workplace";
 	String NATIVEPLACE = "nativeplace";
-	
-	String CURRENTPLACE = "currentplace";
-	String SCHOOL = "school";
 	String GENDER = "gender";
-	String DEGREE1 = "degree1";
-	String DEGREE2 = "degree2";
-	String UNIVERSITY = "university";
+	
 	
 	
 

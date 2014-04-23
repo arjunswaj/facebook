@@ -2,15 +2,19 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<sj:head />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>About</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <style type="text/css" media="screen">
 
-ta`ble {
+table {
     border:none;
     border-collapse:collapse;
 }
@@ -48,7 +52,7 @@ border-color: #eeeff4;
 border-style: solid;background-color:#eeeff4 ;
 border-width: 3px
 }
-b.q
+b.r
 {
 font-size:25px;
 padding-right: 800px;
@@ -123,6 +127,11 @@ img.wne
 height:40px;
 width:40px;
 }
+b.q
+{
+color: grey;
+font-size:16px;
+}
 
 </style>
 </head>
@@ -136,16 +145,15 @@ width:40px;
 <table>
 <tr>
 <td>
-<b class="q">About</b>
+<b class="r">Edit Information</b>
 </td>
 <td>
-<s:form action="editabout" method="post">
-      <s:submit type="button" label="Edit" align="right"/>
+<s:form action="submitabout" method="post">
+      <s:submit type="button" label="Submit" align="right"/>
 </s:form>
 </td>
 </tr>
 </table>
-
 </div>
 
 
@@ -156,28 +164,52 @@ width:40px;
 <tr>
 <th class="p" colspan="2">Work and Education</th>
 </tr>
-
-<s:iterator value="organization_details" var="org" status="status">
-<tr>
-<td width="70px"><img src="about/job.png" class="wne"></img></td>
-<td><b class="a"><s:property value="#org.name"/></b><br/><b class="b"><s:property value="#org.position"/></b></td>
-</tr>
-
-</s:iterator>
-<s:iterator value="institute_details" var="ins" status="status">
-<tr>
-<td><img src="about/school.png" class="wne"></img></td>
-<td><b class="a"><s:property value="#ins.name"/></b><br/><b class="b"><s:property value="#ins.description"/></b></td>
-</tr>
-</s:iterator>
 </table>
+
+
+
+<s:textfield value="Where have you worked?" size="50" cssStyle="height:35px"></s:textfield>
+<br/>
+<s:textfield value="What is your role?" size="30" cssStyle="height:35px"></s:textfield>
+<br/>
+
+<sj:datepicker id="1" name="workstartstate" displayFormat="dd-mm-yy" value="When did you start working?" size="30" />
+<br/>
+<sj:datepicker id="2" name="workenddate" displayFormat="dd-mm-yy" value="when did you leave?" size="30"/>
+<br/>
+<br/>
+<s:textfield value="Where did you go to college?" size="50" cssStyle="height:35px"></s:textfield>
+<br/>
+<s:textfield value="What did you study there?" size="30" cssStyle="height:35px"></s:textfield>
+<br/>
+<sj:datepicker id="3" name="collegestartdate" displayFormat="dd-mm-yy" value="When did you join college?" size="30"/>
+<br/>
+<sj:datepicker id="4" name="collegeenddate" displayFormat="dd-mm-yy" value="when did you leave the college?" size="30"/>
+<br/>
+<br/>
+<s:textfield value="Where did you go to high school?" size="50" cssStyle="height:35px"></s:textfield>
+<br/>
+<s:textfield value="What did you study there?" size="30" cssStyle="height:35px"></s:textfield>
+<br/>
+<sj:datepicker id="5" name="schoolstartdate" displayFormat="dd-mm-yy" value="when did you join school?" size="30"/>
+<br/>
+<sj:datepicker id="6" name="schoolenddate" displayFormat="dd-mm-yy" value="when did you leve school?" size="30"/>
+
+
 <br/>
 <br/>
 <table>
 <tr>
-<th class="p">Relationship</th></tr>
-<tr class="b"><td><img src="about/relationships.png" height="50px" width="50px" alt="test" align="middle">&nbsp&nbsp&nbsp&nbsp<b><s:property value="relationship"/></b></img></td></tr>
+<th class="p">Relationship</th>
+</tr>
 </table>
+<h5>
+<b class="q">Add You Relationship</b>
+&nbsp
+<s:select 
+		list="#{'1':'Single', '2':'Committed', '3':'Married', '4':'Divorced', '5':'Engaged'}" 
+		name="relationship"/></h5>
+
 </div>
 </div>
 <div class="col-md-4"  align="left" >
@@ -189,38 +221,30 @@ width:40px;
 <th class="p">Places Lived</th>
 </tr>
 <tr>
-<td ><img src="about/location.jpeg" class="loc"></img></td>
-<td><b class="a"><s:property value="place"/></b><br/><b class="b">Current City</b></td>
-</tr>
-<tr>
-<td><img src="about/location.jpeg" class="loc"></img></td>
-<td><b class="a"><s:property value="nativePlace"/></b><br/><b class="b">Hometown</b></td>
-</tr>
 </table>
+<s:textfield value="What is your hometown?" size="30" cssStyle="height:35px"></s:textfield>
+<br/>
+<br/>
+<s:textfield value="Where do you stay now?" size="30" cssStyle="height:35px"></s:textfield>
+
 <br/>
 <br/>
 <table>
 <tr>
 <th class="p">Basic Information</th>
 </tr>
-<tr>
-<td ><b class="b">Birth Date</b></td>
-<td><b class="c"><s:property value="date_month"/></b></td>
-</tr>
-<tr>
-<td ><b class="b">Birth Year</b></td>
-<td class="c"><s:property value="year"/></td>
-</tr>
-<tr>
-<td ><b class="b">Gender</b></td>
-<td ><b class="c"><s:property value="gender"/></b></td>
-</tr>
-<tr>
-<td ><b class="b">Relationship</b></td>
-<td><b class="c"><s:property value="relationship"/></b></td>
-</tr>
-
 </table>
+<b class="q">Birth Date</b> &nbsp
+<sj:datepicker id="7" name="birthday" displayFormat="dd-mm-yy" />
+
+<br/>
+<br/>
+<h5>
+<b class="q">Gender</b>&nbsp &nbsp &nbsp &nbsp 
+<s:select 
+		list="#{'1':'Male', '2':'Female', '3':'Other'}" 
+		name="gender"  /></h5>
+
 </div>
 </div>
 <div class="col-md-1"  align="left" >
