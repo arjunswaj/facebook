@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
-import edu.iiitb.facebook.action.model.LatestConversation;
+import edu.iiitb.facebook.action.model.Conversation;
 import edu.iiitb.facebook.action.model.Message;
+import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
 public class MessageDAOImpl implements MessageDAO
@@ -21,17 +24,25 @@ public class MessageDAOImpl implements MessageDAO
 	 * @see edu.iiitb.facebook.action.dao.MessageDAO#getConversationThread(int, int)
 	 */
 	@Override
-	public List<Message> getConversationThread(int sender, int recipient)
+	public List<Message> getConversationThread(int inbox, int conversation)
 	{
 		// TODO : Use StringBuilder and append here
-		// Assuming that a conversation thread with a blocked user will not be asked for
-		final String query = "select * from user as from_user, message, user as to_user "
-				+ " where "
-				+ " from_user.id = message.sender and to_user.id = message.recipient "
-				+ " and "
-				+ " ((message.sender = ? and message.recipient = ? ) or "
-				+ " (message.sender = ? and message.recipient = ?))"
-				+ " order by sent_at asc";
+		final String query = "select" 
+								+ " message.id,"
+								+ " message.sent_at,"
+								+ " message.text,"
+								+ " message.read_status,"
+								+ " message.sender,"
+								+ " user.first_name,"
+								+ " user.last_name"
+							+ " from"
+								+ "     message,"
+								+ " 	user"
+							+ " where"
+								+ " message.inbox = ?"
+								+ " and message.conversation = ?"
+								+ " and message.sender = user.id"
+								+ " order by message.sent_at asc;";
 
 		List<Message> messages = new LinkedList<Message>();
 
@@ -40,25 +51,21 @@ public class MessageDAOImpl implements MessageDAO
 		try
 		{
 			stmt = connection.prepareStatement(query);
-			stmt.setInt(1, sender);
-			stmt.setInt(2, recipient);
-			stmt.setInt(3, recipient);
-			stmt.setInt(4, sender);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
 				Message message = new Message();
 				message.setId(rs.getInt("id"));
+				message.setConversation(conversation);
+				message.setInbox(inbox);
 				message.setText(rs.getString("text"));
 				message.setSentAt(rs.getTimestamp("sent_at").toString());
+				message.setReadStatus(rs.getString("read_status"));
 				message.setSender(rs.getInt("sender"));
-				message.setRecipient(rs.getInt("recipient"));
-				
-				//TODO: Disambiguating by default here
 				message.setSenderFirstName(rs.getString("first_name"));
 				message.setSenderLastName(rs.getString("last_name"));
-				message.setRecipientFirstName(rs.getString("first_name"));
-				message.setRecipientLastName(rs.getString("last_name"));
 				messages.add(message);
 			}
 		}
@@ -72,39 +79,116 @@ public class MessageDAOImpl implements MessageDAO
 		return messages;
 	}
 
+	public List<User> getOtherParticipants(int conversationId, int loggedInUser)
+	{
+		final String query = "select" 
+			    + " user.id, user.first_name, user.last_name"
+			    + " from"
+			        + " user,"
+			        + " user_conversation"
+			    + " where"
+			        + " user_conversation.conversation = ?"
+			            + " and user.id = user_conversation.user"
+			            + " and user.id != ?";
+		
+		List<User> participants = new LinkedList<User>();
+
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, conversationId);
+			stmt.setInt(2, loggedInUser);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next())
+			{
+				User participant = new User();
+				participant.setUserId(rs.getInt("id"));
+				participant.setFirstName(rs.getString("first_name"));
+				participant.setLastName(rs.getString("last_name"));
+				participants.add(participant);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return participants;
+		
+	}
+	
+	private List<Integer> getParticipants(int conversationId)
+	{
+		final String query = "select" 
+			    + " user.id"
+			    + " from"
+			        + " user,"
+			        + " user_conversation"
+			    + " where"
+			        + " user_conversation.conversation = ?"
+			            + " and user.id = user_conversation.user";
+		
+		List<Integer> participants = new LinkedList<Integer>();
+
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, conversationId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next())
+				participants.add(rs.getInt("id"));
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return participants;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * edu.iiitb.facebook.action.dao.MessageDAO#getLatestConversationsFor
+	 * edu.iiitb.facebook.action.dao.MessageDAO#getConversations
 	 * (int)
 	 */
 	@Override
-	public List<LatestConversation> getLatestConversationsFor(int user)
+	public List<Conversation> getConversations(int user)
 	{
 		// TODO : Use StringBuilder and append here
-		final String query = "select" 
-				+ " *"
-				+ " from"
-				+ " user as sender, message," 
-				+ " (select "
-				+ "		message.conversation_id, max(message.sent_at) as sent_at"
-				+ "		from message "
-				+ "		where "
-				+ "		(message.sender = ? or message.recipient = ? ) "
-				+ "		group by conversation_id) as latest_message,"
-				+ " user as recipient, "
-				+ " friends_with "
-				+ " where"
-				+ " sender.id = message.sender"
-				+ " and message.conversation_id = latest_message.conversation_id"
-				+ " and message.sent_at = latest_message.sent_at"
-				+ " and message.recipient = recipient.id"
-				+ " and message.conversation_id = friends_with.id"
-				+ " and friends_with.status = 'accepted'"
-				+ " order by latest_message.sent_at desc;";
+		final String query = "select "
+				+ " message.conversation,"
+			    + " message.text,"
+			    + " message.sent_at,"
+			    + " conversation.unread_count"
+			+ " from"
+			    + " user,"
+				+ " message,"
+			    + " (select "
+			        + " message.conversation as id,"
+			            + " max(message.sent_at) as sent_at,"
+			            + " count(*) as unread_count"
+			    + " from"
+			        + " message"
+				+ " where message.inbox = ?"
+			    + " group by message.conversation) as conversation"
+			+ " where"
+			    	+ " message.inbox = ?"
+			        + " and user.id = message.inbox"
+					+ " and message.conversation = conversation.id"
+					+ " and message.sent_at = conversation.sent_at"
+			+ " order by message.sent_at desc;";
 
-		List<LatestConversation> latestConversations = new LinkedList<LatestConversation>();
+		List<Conversation> conversations = new LinkedList<Conversation>();
 
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
@@ -116,25 +200,39 @@ public class MessageDAOImpl implements MessageDAO
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 			{
-				LatestConversation latestConversation = new LatestConversation();
-
-				int other = rs.getInt("sender.id");
-				String firstName = rs.getString("sender.first_name");
-				String lastName = rs.getString("sender.last_name");
-				if (other == user)
+				Conversation conversation = new Conversation();
+				conversation.setId(rs.getInt("conversation"));
+				conversation.setLatestMessageText(rs.getString("text"));
+				conversation.setSentAt(rs.getTimestamp("sent_at").toString());
+				conversation.setUnreadMessagesCount(rs.getInt("unread_count"));
+				
+				conversation.setOtherParticipants(getOtherParticipants(rs.getInt("conversation"), user));
+				
+				conversations.add(conversation);
+			}
+			
+			// Mark all conversations which have only accepted friends in them
+			Map<Integer, String> friendshipStatus = getFriendShipStatus(user);
+			for (Conversation conversation: conversations)
+			{
+				conversation.setAllFriends(true);
+				for(User otherParticipant : conversation.getOtherParticipants())
 				{
-					other = rs.getInt("recipient.id");
-					firstName = rs.getString("recipient.first_name");
-					lastName = rs.getString("recipient.last_name");
+					if (friendshipStatus.get(otherParticipant.getUserId()) == null)
+					{
+						// This guy is not a friend and he is yet a participant in a conversation
+						// => He was blocked and then unblocked
+						conversation.setAllFriends(false);
+						break;
+					}
+						
+					if (!friendshipStatus.get(otherParticipant.getUserId()).equals("accepted"))
+					{
+						// This guy is a friend but is either blocked or has not accepted the friend request(or vice versa)
+						conversation.setAllFriends(false);
+						break;
+					}
 				}
-				latestConversation.setOtherUser(other);
-				latestConversation.setOtherUserFirstName(firstName);
-				latestConversation.setOtherUserLastName(lastName);
-				latestConversation.setLatestMessage(rs.getString("text"));
-				latestConversation.setSentAt(rs.getTimestamp("sent_at").toString());
-				latestConversation.setUser(user);
-
-				latestConversations.add(latestConversation);
 			}
 		}
 		catch (SQLException e)
@@ -144,50 +242,37 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}
-		return latestConversations;
+		return conversations;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * edu.iiitb.facebook.action.dao.MessageDAO#insert(edu.iiitb.facebook.action
-	 * .model.Message)
+	/**
+	 * @param user
+	 * @param participantsAcrossAllConversations
+	 * @return
 	 */
-	@Override
-	public int insert(Message reply)
+	private Map<Integer, String> getFriendShipStatus(int user)
 	{
-		// TODO : Use StringBuilder and append here
-		final String insert = "insert into message (text, sender, recipient, conversation_id) values (?, ? , ?, ?)";
-		final String query = "select id from friends_with where (request_by = ? and request_for = ?) or (request_by = ? and request_for = ?)";
-		int id = -1;
-		int conversationId = -1;
-	
+		final String query = "select * from friends_with where request_by = ? or request_for = ?";
+
+		Map<Integer, String> friendshipStatus = new HashMap<Integer, String>();
 		Connection connection = ConnectionPool.getConnection();
 		PreparedStatement stmt;
 		try
 		{
 			stmt = connection.prepareStatement(query);
-			stmt.setInt(1, reply.getSender());
-			stmt.setInt(2, reply.getRecipient());
-			stmt.setInt(3, reply.getRecipient());
-			stmt.setInt(4, reply.getSender());
+			stmt.setInt(1, user);
+			stmt.setInt(2, user);
 			ResultSet rs = stmt.executeQuery();
-			if(rs.next())
-				conversationId = rs.getInt("id");
-			else
-				throw new RuntimeException("TODO: Handle this. People who are not friends are being allowed to message");
-			
-			stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, reply.getText());
-			stmt.setInt(2,  reply.getSender());
-			stmt.setInt(3, reply.getRecipient());
-			stmt.setInt(4, conversationId);
-			stmt.executeUpdate();
-			
-			rs = stmt.getGeneratedKeys();
-			if(rs.next())
-				id = rs.getInt(1);
+			while (rs.next())
+			{
+				int request_by = rs.getInt("request_by");
+				int request_for = rs.getInt("request_for");
+				
+				if (request_by == user)
+					friendshipStatus.put(request_for, rs.getString("status"));
+				else
+					friendshipStatus.put(request_by, rs.getString("status"));
+			}			
 		}
 		catch (SQLException e)
 		{
@@ -196,6 +281,123 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}
-		return id;
+		return friendshipStatus;
+	}
+
+	private void insert(Message message)
+	{
+		// TODO : Use StringBuilder and append here
+		final String insert = "insert into message (conversation, inbox, text, sender, read_status) values (?, ? , ?, ?, ?)";
+			
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, message.getConversation());
+			stmt.setInt(2, message.getInbox());
+			stmt.setString(3, message.getText());
+			stmt.setInt(4, message.getSender());
+			if (message.getSender() == message.getInbox())
+				stmt.setString(5, "read");
+			else
+				stmt.setString(5, "unread");
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#insertIntoNewConversation(edu.iiitb.facebook.action.model.Message, java.util.List)
+	 */
+	@Override
+	public int insertIntoNewConversation(Message message,
+			List<Integer> participants)
+	{
+		String createNewConversation = "insert into conversation () values ();";
+		String createNewUserConversationMapping = "insert into user_conversation (user, conversation) values (?, ?);";
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		int cid = -1;
+		try
+		{
+			// Create new conversation
+			stmt = connection.prepareStatement(createNewConversation, Statement.RETURN_GENERATED_KEYS);
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys();
+			rs.next();
+			cid = rs.getInt(1);
+
+			// Associate participants with new conversation and save message in their respective inboxes
+			for (int participant : participants )
+			{
+				stmt = connection.prepareStatement(createNewUserConversationMapping, Statement.RETURN_GENERATED_KEYS);
+				stmt.setInt(1, participant);
+				stmt.setInt(2, cid);
+				stmt.executeUpdate();
+				
+				message.setConversation(cid);
+				message.setInbox(participant);
+				insert(message);
+			}
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return cid;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.iiitb.facebook.action.dao.MessageDAO#insertIntoExistingConversation
+	 * (edu.iiitb.facebook.action.model.Message)
+	 */
+	@Override
+	public void insertIntoExistingConversation(Message message)
+	{
+		for (int participant : getParticipants(message.getConversation()))
+		{
+			message.setInbox(participant);
+			insert(message);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#deleteMesagesFromConversation(int, int)
+	 */
+	@Override
+	public void deleteMessagesFromConversation(int conversation, int inbox)
+	{
+		// TODO : Use StringBuilder and append here
+		final String deleteMessages = "delete from message where inbox = ? and conversation = ?";
+			
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessages);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
 	}
 }

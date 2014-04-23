@@ -25,10 +25,10 @@
 					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
 					</a>
 					<br>
-					<a style="color:gray;" href="javascript:getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>)">Mutual Friends</a>
+						<a id="mutualFriends" style="color:gray;" onclick="getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>);"> Mutual Friends </a>
 					<br>
 					<input type="submit" class="btn btn-default" id="AddFriend" value="+ Add Friend"/>
-<%-- 					<s:submit  align="center" id="AddFriend" value="+ Add Friend" /> --%>
+
 					<s:hidden name="friendId" value="%{friendId}" />
 				</div>
 			</div>
@@ -38,7 +38,6 @@
 	</div>
 	</s:else>
 </body>
-<%-- <script src="js/jquery-1.10.2.js"></script> --%>
 	<script type="text/javascript">	
 	$(".suggFriendForm").submit(function(event) {
 
@@ -64,15 +63,19 @@
 	});
 		
 		
-	function getMutualFriends(userId, friendId) {
-		var w = 300;
-		var h = 600;
-		var l = (screen.width/2) - (w/2);
-		var t = (screen.height/2) - (h/2);
-		if (userId != null && friendId != null) {
-			var url="mutualfriends?userId="+userId+"+&friendId="+friendId;
-			window.open(url,"_blank",'directories=no, location=no,resizable=no, titlebar=no, status=no, width = ' + w +', height =' + h + ',top = ' + t +',left = ' + l);
-		}
+	function getMutualFriends(userId, friendId) {   
+        $.ajax({
+            url: 'facebook/mutualfriends?userId=' + userId + '&friendId=' + friendId,
+            data: {},
+            dataType: 'html',
+            success: function(html) {
+            	$("#mutualFriends").popover({
+                    content: html,
+                    placement: 'bottom',
+                    html: true                    
+                }).popover('show');
+            }
+        });
 	}
 	
 	$(document).ready(function(){
@@ -80,6 +83,6 @@
 		   	$(this).html('Friend Request Sent');
 		  });
 	});
-		
+			
 	</script>
 </html>

@@ -15,6 +15,6 @@ width:70%;
 <hr>
 <div class="lpcenter">
 	  <a href="/facebook/newsfeeds"><h4 style="color:black;"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;News Feeds</h4></a>
-	  <a href="messages.action"><h4 style="color:black;"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Messages</h4></a>
+	  <a href="inbox"><h4 style="color:black;"><span class="glyphicon glyphicon-envelope"></span>&nbsp;Messages</h4></a>
 	  <a href="/facebook/displayEvents"><h4 style="color:black;"><span class="glyphicon glyphicon-calendar"></span>&nbsp;Events</h4></a>
 </div>

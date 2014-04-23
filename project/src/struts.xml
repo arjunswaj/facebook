@@ -68,9 +68,7 @@
 		<!-- This is for About -->
 		<action name="about" class="edu.iiitb.facebook.action.about.AboutAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="tiles">about.tiles</result>
-			<result name="login" type="redirectAction">checkCookie</result>
-		</action>
+
 		
 		<action name="editabout"
 			class="edu.iiitb.facebook.action.about.EditAboutAction">
@@ -78,7 +76,6 @@
 			<result name="success">/about/aboutedit.jsp</result>
 <result name="login" type="redirectAction">checkCookie</result>
 		</action>
-
 
 
 

@@ -9,23 +9,23 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.MessageDAO;
 import edu.iiitb.facebook.action.dao.impl.MessageDAOImpl;
-import edu.iiitb.facebook.action.model.LatestConversation;
+import edu.iiitb.facebook.action.model.Conversation;
 import edu.iiitb.facebook.action.model.Message;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.Constants;
 
-public class MessagesAction extends ActionSupport implements SessionAware
+public class InboxAction extends ActionSupport implements SessionAware
 {
 	private static final long serialVersionUID = 7253053184925533403L;
 	private Map<String, Object> session;
 	private final static String NO_CONVERSATIONS = "no_conversations";
 
-	private List<LatestConversation> latestConversations;
-	private LatestConversation selectedLatestConversation;
+	private List<Conversation> conversations;
+	private Conversation selectedConversation;
 	private List<Message> selectedConversationThread;
 	
 	/**
-	 * Load the latest conversations and select the latest amongst them all for
+	 * Load the conversations of the logged in user and select the latest amongst them all for
 	 * the expanded selected conversation view
 	 * 
 	 * @return
@@ -33,31 +33,29 @@ public class MessagesAction extends ActionSupport implements SessionAware
 	public String load()
 	{
 		int user = ((User) (session.get(Constants.USER))).getUserId();
-
 		MessageDAO dao = new MessageDAOImpl();
-		latestConversations = dao.getLatestConversationsFor(user);
-
-		// set default conversation with latest other user
-		if (selectedLatestConversation == null)
-		{
-			if (latestConversations.isEmpty())
-			{
+		
+		conversations = dao.getConversations(user);
+		
+		// set default conversation
+		if (selectedConversation == null)
+		{ 
+			if (conversations.isEmpty()) // No conversations
 				return NO_CONVERSATIONS;
-			}
-			selectedLatestConversation = latestConversations.get(0);
+			selectedConversation = conversations.get(0); // Intial load of inbox
 		}
-			
-
+		
+		// else selected conversation id is set by the view
 		selectedConversationThread = dao
-				.getConversationThread(selectedLatestConversation.getOtherUser(), user);
-		for (LatestConversation latestMessage : latestConversations)
-		{
-			if (latestMessage.getOtherUser() == selectedLatestConversation.getOtherUser())
+				.getConversationThread(user, selectedConversation.getId());
+
+		// now based on the selected conversation id set by the view set the selected conversation 
+		for (Conversation conversation : conversations)
+			if (conversation.getId() == selectedConversation.getId())
 			{
-				selectedLatestConversation = latestMessage;
+				selectedConversation = conversation;
 				break;
 			}
-		}
 		
 		return SUCCESS;
 	}
@@ -74,15 +72,14 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		this.session = arg0;
 	}
 
-	public List<LatestConversation> getLatestConversations()
+	public List<Conversation> getConversations()
 	{
-		return latestConversations;
+		return conversations;
 	}
 
-
-	public void setLatestConversations(List<LatestConversation> latestConversations)
+	public void setConversations(List<Conversation> conversations)
 	{
-		this.latestConversations = latestConversations;
+		this.conversations = conversations;
 	}
 
 	public List<Message> getSelectedConversationThread()
@@ -96,13 +93,13 @@ public class MessagesAction extends ActionSupport implements SessionAware
 		this.selectedConversationThread = selectedConversationThread;
 	}
 
-	public LatestConversation getSelectedLatestConversation()
+	public Conversation getSelectedConversation()
 	{
-		return selectedLatestConversation;
+		return selectedConversation;
 	}
 
-	public void setSelectedLatestConversation(LatestConversation selectedLatestConversation)
+	public void setSelectedConversation(Conversation selectedConversation)
 	{
-		this.selectedLatestConversation = selectedLatestConversation;
+		this.selectedConversation = selectedConversation;
 	}
 }

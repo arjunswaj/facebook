@@ -10,6 +10,7 @@
 	function validate() {
 		var x = document.forms["myForm"]["secret_question"].value;
 		var y = document.forms["myForm"]["secret_answer"].value;
+		
 		if (!x) {
 			alert("secret_question cannot be null");
 			return false;
@@ -27,8 +28,10 @@
 	<div
 		style="position: absolute; width: 100%; height: 85px; background-color: #3b5998; left: 0px; top: 0px">
 		<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
-			href="login.jsp"><img src="images/icon.jpg" /></a>
-		
+			href="login.jsp"><img src="images/facebook-logo.jpg"
+			alt="Facebook" width="200" height="65" /></a> &nbsp; &nbsp; &nbsp; &nbsp;
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<s:property value="first_name" />
 	</div>
 	<br>
 	<br>

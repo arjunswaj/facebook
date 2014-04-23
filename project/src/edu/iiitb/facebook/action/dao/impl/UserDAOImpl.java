@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
 
 	final String GET_USER_BY_ID_QRY = "select * from user where id=?";
 	final String GET_USER_BY_EMAIL_QRY = "select * from user where email=?";
-	final String TO_ADD_A_USER = "INSERT INTO user (email, password, dob, phone_number,current_profile_pic,current_cover_pic, first_name, last_name, place, secret_question, secret_answer) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	final String TO_ADD_A_USER = "INSERT INTO user (email, password, dob, phone_number,current_profile_pic,current_cover_pic, first_name, last_name, place, secret_question, secret_answer, gender) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 	final String ADDING_SECURITY_DETAILS = "UPDATE user SET phone_number=?, secret_question=?, secret_answer=? WHERE id=?";
 	final String SET_PROFILE_PIC_BY_USERID = "UPDATE user SET current_profile_pic=?  WHERE id=?";
 	final String SET_COVER_PIC_BY_USERID = "UPDATE user SET current_cover_pic=?  WHERE id=?";
@@ -90,10 +90,12 @@ public class UserDAOImpl implements UserDAO {
 						.getString(UserDAO.SECRET_QUESTION));
 				user.setSecretAnswer(resultSet.getString(UserDAO.SECRET_ANSWER));
 				user.setCreated(resultSet.getTimestamp(UserDAO.CREATED));
+
 				user.setNativeplace(resultSet.getString(UserDAO.NATIVEPLACE));
 				user.setRelationship(resultSet.getString(UserDAO.RELATIONSHIP));
 				user.setGender(resultSet.getString(UserDAO.GENDER));
 				
+
 				
 
 			}
@@ -102,7 +104,7 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		} finally {
 			ConnectionPool.freeConnection(conn);
-			;
+			
 		}
 
 		return user;
@@ -271,6 +273,7 @@ public class UserDAOImpl implements UserDAO {
 			preparedStmt.setString(9, user.getPlace());
 			preparedStmt.setString(10, user.getSecretQuestion());
 			preparedStmt.setString(11, user.getSecretAnswer());
+			preparedStmt.setString(12, user.getGender());
 			if (preparedStmt.executeUpdate() > 0)
 				ret = "success";
 			else

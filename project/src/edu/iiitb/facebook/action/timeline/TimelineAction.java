@@ -4,6 +4,7 @@
 package edu.iiitb.facebook.action.timeline;
 
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,9 @@ import edu.iiitb.facebook.action.model.NewsFeed;
 import edu.iiitb.facebook.action.model.OrganizationDetails;
 import edu.iiitb.facebook.action.model.User;
 
-public class TimelineAction extends ActionSupport implements SessionAware,RequestAware {
+public class TimelineAction extends ActionSupport implements SessionAware, RequestAware
+{
+
 
   private Map<String, Object> session;
   private Map<String, Object> request;
@@ -76,10 +79,6 @@ public void setNativePlace(String nativePlace) {
 	this.nativePlace = nativePlace;
 }
 
-private List<UserDAO> user;
-  private String fref;
-  private int userId;
-  private int fuserId;
  
 
  
@@ -101,95 +100,194 @@ public void setInstitute_details(List<InstituteDetails> institute_details) {
 }
 
 
+	
 
-  public List<Integer> getFriendIds() {
-	return friendIds;
-}
+	public List<Integer> getFriendIds()
+	{
+		return friendIds;
+	}
 
-public void setFriendIds(List<Integer> friendIds) {
-	this.friendIds = friendIds;
-}
+	public void setFriendIds(List<Integer> friendIds)
+	{
+		this.friendIds = friendIds;
+	}
 
-public UserDAO getUserDAO() {
-	return userDAO;
-}
+	public UserDAO getUserDAO()
+	{
+		return userDAO;
+	}
 
-public void setUserDAO(UserDAO userDAO) {
-	this.userDAO = userDAO;
-}
+	public void setUserDAO(UserDAO userDAO)
+	{
+		this.userDAO = userDAO;
+	}
 
-private List<NewsFeed> newsFeeds;
-  private List<NewsFeed> timelineFeeds;
-  public PostsDAO getPostsDAO() {
-	return postsDAO;
-}
+	private List<NewsFeed> newsFeeds;
+	private List<NewsFeed> timelineFeeds;
 
-public void setPostsDAO(PostsDAO postsDAO) {
-	this.postsDAO = postsDAO;
-}
+	public PostsDAO getPostsDAO()
+	{
+		return postsDAO;
+	}
 
-public List<NewsFeed> getTimelineFeeds() {
-	return timelineFeeds;
-}
+	public void setPostsDAO(PostsDAO postsDAO)
+	{
+		this.postsDAO = postsDAO;
+	}
 
-public void setTimelineFeeds(List<NewsFeed> timelineFeeds) {
-	this.timelineFeeds = timelineFeeds;
-}
+	public List<NewsFeed> getTimelineFeeds()
+	{
+		return timelineFeeds;
+	}
 
-public List<UserDAO> getUser() {
-	return user;
-}
+	public void setTimelineFeeds(List<NewsFeed> timelineFeeds)
+	{
+		this.timelineFeeds = timelineFeeds;
+	}
 
-public void setUser(List<UserDAO> user) {
-	this.user = user;
-}
+	public List<UserDAO> getUser()
+	{
+		return user;
+	}
 
-public String getFref() {
-	return fref;
-}
+	public void setUser(List<UserDAO> user)
+	{
+		this.user = user;
+	}
 
-public void setFref(String fref) {
-	this.fref = fref;
-}
+	public String getFref()
+	{
+		return fref;
+	}
 
-public int getFuserId() {
-	return fuserId;
-}
+	public void setFref(String fref)
+	{
+		this.fref = fref;
+	}
 
-public void setFuserId(int fuserId) {
-	this.fuserId = fuserId;
-}
+	public int getFuserId()
+	{
+		return fuserId;
+	}
 
-public Map<String, Object> getSession() {
-	return session;
-}
+	public void setFuserId(int fuserId)
+	{
+		this.fuserId = fuserId;
+	}
 
-public Map<String, Object> getRequest() {
-	return request;
-}
-public List<NewsFeed> getNewsFeeds() {
-    return newsFeeds;
-  }
+	public Map<String, Object> getSession()
+	{
+		return session;
+	}
 
-  public void setNewsFeeds(List<NewsFeed> newsFeeds) {
-    this.newsFeeds = newsFeeds;
-  }
+	public Map<String, Object> getRequest()
+	{
+		return request;
+	}
 
-  @Override
-  public void setSession(Map<String, Object> session) {
-    this.session = session;
-  }
+	private List<UserDAO> user;
+	private String fref;
+	private String profession;
+	private String school;
+	private String currentplace;
+	private String nativeplace;
+	private String workplace;
+	private String relationship;
 
-  public int getUserId() {
-    return userId;
-  }
+	public String getRelationship()
+	{
+		return relationship;
+	}
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
-  
+	public void setRelationship(String relationship)
+	{
+		this.relationship = relationship;
+	}
+
+	public String getWorkplace()
+	{
+		return workplace;
+	}
+
+	public void setWorkplace(String workplace)
+	{
+		this.workplace = workplace;
+	}
+
+	public String getProfession()
+	{
+		return profession;
+	}
+
+	public void setProfession(String profession)
+	{
+		this.profession = profession;
+	}
+
+	public String getSchool()
+	{
+		return school;
+	}
+
+	public void setSchool(String school)
+	{
+		this.school = school;
+	}
+
+	public String getCurrentplace()
+	{
+		return currentplace;
+	}
+
+	public void setCurrentplace(String currentplace)
+	{
+		this.currentplace = currentplace;
+	}
+
+	public String getNativeplace()
+	{
+		return nativeplace;
+	}
+
+	public void setNativeplace(String nativeplace)
+	{
+		this.nativeplace = nativeplace;
+	}
+
+	private int userId;
+	private int fuserId;
+
+	
+
+	public List<NewsFeed> getNewsFeeds()
+	{
+		return newsFeeds;
+	}
+
+	public void setNewsFeeds(List<NewsFeed> newsFeeds)
+	{
+		this.newsFeeds = newsFeeds;
+	}
+
 	@Override
-	public void setRequest(Map<String, Object> arg0) {
+	public void setSession(Map<String, Object> session)
+	{
+		this.session = session;
+	}
+
+	public int getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(int userId)
+	{
+		this.userId = userId;
+	}
+
+	@Override
+	public void setRequest(Map<String, Object> arg0)
+	{
 		this.request = arg0;
 	}
   public String execute() {

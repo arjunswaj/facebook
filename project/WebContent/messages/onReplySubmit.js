@@ -1,34 +1,35 @@
 /**
  * When you reply
  */
-$(document).on("submit", "#replyForm", function(event) {
+$(document).on("click", "#reply-button", function(event) {
 	event.preventDefault();
-	var form = $(this);
-	var url = form[0].action;
-	var reply = form[0][0].value;
-	var to = form[0][1].value;
 
 	/**
 	 * Post reply
 	 */
-	var posting = $.post(url, {
-		"replyMsg.text" : reply,
-		"replyMsg.recipient" : to
+	var posting = $.post("reply.action", {
+		"replyMsg.text" : $("#reply-textarea").val(),
+		"replyMsg.conversation" : $("#conversation-hidden").val()
 	});
 	posting.done(function(response) {
+		
+		$("#reply-textarea").val(""); // clear reply box
+		$(".conversation-div:first-of-type").css('background-color', 'teal'); // highlight the first conversation
+		
+		
 		messageDiv.init(response.replyMsg);
-		$("#selectedConversationThread").append(messageDiv.get());
+		$("#selected-conversation-thread-div").append(messageDiv.get());
 		
 		// scroll down the selected conversation thread
-		$("#selectedConversationThread").scrollTop($("#selectedConversationThread")[0].scrollHeight);
+		$("#selected-conversation-thread-div").scrollTop($("#selected-conversation-thread-div")[0].scrollHeight);
 	});
 	
 	/*
 	 * Reload the latest Conversations
 	 */
-	var posting = $.post('latestConversations.action', {});
+	var posting = $.post('loadConversations.action', {});
 	posting.done(function(response) {
-		latestConversationsDiv.init(response.latestConversations);
-		$("#latestConversations").replaceWith(latestConversationsDiv.get());
+		conversationsDiv.init(response.conversations);
+		$("#conversations-div").replaceWith(conversationsDiv.get());
 	});
 });

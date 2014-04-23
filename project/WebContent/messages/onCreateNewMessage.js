@@ -2,34 +2,32 @@
 /**
  * When you want to create a new message
  */
-$(document).on("click", ".new-message-button", function(event) {
+$(document).on("click", "#new-message-button", function(event) {
 	event.preventDefault();
 	
 	// TODO: move this to divRenderer
-	var newMessageHeaderDiv = '<div class="new-message-header">New Message</div>';
-	var newMessageSuggestionsDiv = '<div class="new-message-to-suggestions"></div>';
+	var newMessageHeaderDiv = '<div id="new-message-header-div">New Message</div>';
+	var newMessageSuggestionsAreaDiv = '<div id="new-message-suggestions-area-div"></div>';
 	var newMessageToDiv 
-		= '<div class="new-message-to">\
-				<span class="to-label">To:</span>\
-				<input type="text" class="to-names" id="to" placeholder="Name"/>\
+		= '<div id="new-message-to-div">\
+				<span id="to-span">To:</span>\
+				<span id="recipients-span"><input type="text" id="recipients-text" placeholder="Name"/></span>\
 			</div>';
 	var newMessageBoxDiv
 		= '<div>\
-				<form id="sendForm" action="send">\
-					<div>\
-					<textarea class="new-message-box" id="new" cols="96" rows="5" placeholder="Write a message..." />\
-					</div>\
-					<div>\
-					<input class="send-button" type="submit" value="Send" />\
-					</div>\
-				</form>\
+				<div>\
+					<textarea id="new-message-textarea" cols="96" rows="5" placeholder="Write a message..." />\
+				</div>\
+				<div>\
+					<input id="send-button" type="button" value="Send" />\
+				</div>\
 			</div>';
 	
 	// Now replace the entire right pane
-	var rightDiv = '<div id="right" class="right">';
-	rightDiv += newMessageHeaderDiv + newMessageToDiv + newMessageSuggestionsDiv + newMessageBoxDiv;
+	var rightDiv = '<div id="right-div">';
+	rightDiv += newMessageHeaderDiv + newMessageToDiv  + newMessageSuggestionsAreaDiv + newMessageBoxDiv;
 	rightDiv += '</div>';
-	$('#right').replaceWith(rightDiv);
+	$('#right-div').replaceWith(rightDiv);
 
 	// Pre-populate friends list for "To:" suggestions 
 	var posting = $.post("newMessage.action");
@@ -41,7 +39,7 @@ $(document).on("click", ".new-message-button", function(event) {
 		});
 		
 		// Now pre-populate
-		$("#to").tokenInput(friends, {
+		$("#recipients-text").tokenInput(friends, {
 			propertyToSearch: "searchIn",
 			theme: "facebook",
 			preventDuplicates: true,
@@ -54,8 +52,7 @@ $(document).on("click", ".new-message-button", function(event) {
 				//return tokenFormatterDiv.get(); // TODO: why is this not working?
 				return "<li><strong>" + item.firstName + " " + item.lastName + "</strong></li>"; 
 			}, 
-			hintText: "Type in a name to start searching...",
-			tokenLimit: "1" // TODO: remove this after proper implementation of conversation
+			hintText: "Type in a name or email-id to start searching..."
 			});
 	});
 });

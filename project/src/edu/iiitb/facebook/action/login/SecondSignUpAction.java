@@ -2,6 +2,9 @@ package edu.iiitb.facebook.action.login;
 
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -65,11 +68,19 @@ public class SecondSignUpAction extends ActionSupport implements SessionAware
 
 	UserDAO dao = new UserDAOImpl();
 	User user = new User();
+	SendingEmail email = new SendingEmail();
 
 	public String execute()
 	{
 		user = (User) session.get("user");
+		
+		// when user already exist then goes to HOME page
+		if(dao.getUserByUserEmail(user.getEmail()) != null)
+		{
+		return "exist";	
+		}
 
+		
 		System.out.println(getPhone_number());
 		user.setPhoneNumber(getPhone_number());
 		user.setSecretQuestion(getSecret_question());
@@ -80,6 +91,18 @@ public class SecondSignUpAction extends ActionSupport implements SessionAware
 		session.put("user", user);
 
 		System.out.println(ret);
+		try {
+			if(email.sendmail(user.getEmail(), user.getPassword()))
+			{
+				System.out.println("An Email is sent to your entered Email. CheckOut");
+			}
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ret;
 	}
 
