@@ -1,5 +1,5 @@
 /**
- * When the send button for a new message is clicked
+ * Delete conversation
  */
 $(document).on("click", "#delete-conversation-button", function(event) {
 	event.preventDefault();
