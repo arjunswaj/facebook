@@ -16,12 +16,12 @@
 </style>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
-<%-- <script type="text/javascript">
+<script type="text/javascript">
 	window.history.forward();
 	function noBack() {
 		window.history.forward();
 	}
-</script> --%>
+</script>
 <script type="text/javascript">
 
 $(document).on('click', '.accept-request',
