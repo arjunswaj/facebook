@@ -360,7 +360,7 @@ p.padding {
   		<br/>
   	<div>	
 	<p class="padding"><b>&#160;Friends</b></p>
-    <ul class="rig columns-3">
+    <ul class="rig columns-3" style="left:30px;top:10px;">
     <s:iterator value="friendIds" var="id">
     <li>
     <s:if test="#id!=0">
@@ -376,55 +376,7 @@ p.padding {
     </s:iterator>
     </ul>                                
 
-		<div id="Overlay" name="Overlay" class="overlay"
-			onclick="funcClose(this);"></div>
-		<div class="col-md-1" align="left"></div>
-		<div class="col-md-4" align="left">
-			<div style="background-color:">
-				<table style="width: 600px" bgcolor="#FFFFFF">
-					<tr>
-						<td bgcolor="#eeeff4" height="50" style="text-indent: 2em;"><b>
-								About </b></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b><s:property
-									value="profession" />&#160;at&#160;<font color="#3b5999"><s:property
-										value="workplace" /></font></b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>Studied
-								at <font color="#3b5999"><s:property value="school" /></font>
-						</b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>Lives
-								in <font color="#3b5999"><s:property value="currentplace" /></font>
-						</b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>From
-								<font color="#3b5999"><s:property value="nativeplace" /></font>
-						</b></br></td>
-					</tr>
-				</table>
-			</div>
-			<br /> <br /> <br />
-			<div>
-				<p class="padding">
-					<b>&#160;Friends</b>
-				</p>
-				<ul class="rig columns-3" style="left:30px;top:10px;">
-					<s:iterator value="friendIds" var="id">
-						<li><s:if test="#id!=0">
-
-								<img src="image?userId=<s:property value="#id" />" />
-
-							</s:if> <s:else>
-
-								<img src="timeline/stylesheets/blank.jpg" />
-							</s:else></li>
-					</s:iterator>
-				</ul>
+	
 
 			</div>
 		</div>

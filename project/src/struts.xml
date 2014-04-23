@@ -65,10 +65,7 @@
 			<result name="success" type="tiles">viewtimeline.tiles</result>
 			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-		<!-- This is for About -->
-		<action name="about" class="edu.iiitb.facebook.action.about.AboutAction">
-			<interceptor-ref name="secureAccess"></interceptor-ref>
-
+	
 		
 		<action name="editabout"
 			class="edu.iiitb.facebook.action.about.EditAboutAction">
@@ -77,7 +74,12 @@
 <result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
-
+		<!-- This is for About -->
+		<action name="about" class="edu.iiitb.facebook.action.about.AboutAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">about.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
 
 
 		<!-- Start of messages related actions -->
