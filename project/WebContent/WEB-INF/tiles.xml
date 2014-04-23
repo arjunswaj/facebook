@@ -172,7 +172,7 @@
 		<put-attribute name="title" value="about" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 		<put-attribute name="profile_menu-pane"
-			value="/WEB-INF/content/tiles/profile_menu.jsp" />
+			value="/about/about.jsp" />
 
 	</definition>
 

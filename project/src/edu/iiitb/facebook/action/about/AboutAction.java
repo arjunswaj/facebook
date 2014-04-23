@@ -30,6 +30,17 @@ private String nativePlace;
 private String year;
 private String date_month;
 private String gender;
+private String fref;
+
+public String getFref() {
+	return fref;
+}
+
+
+public void setFref(String fref) {
+	this.fref = fref;
+}
+
 
 public String getNativePlace() {
 	return nativePlace;
@@ -114,9 +125,9 @@ public String execute()
 	 User user = (User) session.get("user");
 	 int ref = user.getUserId();
 	 String tmp_ref = (String) session.get("profileReference");
-	 int fref = -1;
 	 if(tmp_ref!=null)
-	 fref = Integer.parseInt(tmp_ref);
+	 this.fref = tmp_ref;
+	 int id=Integer.parseInt(fref);
 	 System.out.println("Friend reference:"+fref);
 	 userDAO = new UserDAOImpl();
 	 User userdetails;
@@ -126,7 +137,7 @@ public String execute()
 	 }
 	 else
 	 {
-	 userdetails=userDAO.getUserByUserId(fref);
+	 userdetails=userDAO.getUserByUserId(id);
 	 }
 	 relationship = userdetails.getRelationship();
 	 if(relationship==null)

@@ -66,6 +66,16 @@ $(document).on('click', '.reject-request',
 		document.getElementById("facebookHeader").action = "/facebook/profile";
 		document.getElementById("facebookHeader").submit();
 	}
+	
+	
+	function gotoTimeline() {
+
+		document.getElementById("facebookHeader").action = "/facebook/timeline.action";
+		document.getElementById("facebookHeader").submit();
+	}
+	
+	
+	
 	function gotoNewsFeeds() {
 
 		document.getElementById("facebookHeader").action = "/facebook/newsfeeds";
@@ -179,7 +189,7 @@ $(document).on('click', '.reject-request',
 				<div class="btn-group">
 					<!-- Profile Button -->
 					<button type="button" id="profile" class="btn btn-primary"
-						onclick="gotoProfile();">
+						onclick="gotoTimeline();">
 						<b><s:property value="#session['user'].firstName" /></b>
 					</button>
 					<!-- Home Button -->
