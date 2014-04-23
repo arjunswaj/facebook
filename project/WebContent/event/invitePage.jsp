@@ -35,7 +35,14 @@
 				<s:iterator value="map" var="u">
 				<tr>
 					<td valign="middle"><input type="checkbox" name="cb" value='<s:property value="#u.key" />' /></td>
-					<td><img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' /></td>
+					<td>
+						<s:if test="#u.key>0">
+							<img width="40px" height="40px" src='image?userId=<s:property value="#u.key" />' />
+						</s:if>
+						<s:else>
+							<img width="40px" height="40px" src='image?userId=<s:property value="#u.key.substring(1)" />' />
+						</s:else>
+					</td>
 					<td colspan="2"><s:property value="#u.value" /></td>
 				</tr>
 				</s:iterator>

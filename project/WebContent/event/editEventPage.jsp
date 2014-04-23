@@ -29,7 +29,7 @@
 				alert("Time is empty.");
 			else
 			{
-				document.getElementById("tm").value+=":00";
+				//document.getElementById("tm").value+=":00";
 				document.getElementById("f1").submit();
 			}
 		}

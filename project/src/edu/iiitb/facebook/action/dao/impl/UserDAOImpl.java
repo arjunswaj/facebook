@@ -85,24 +85,17 @@ public class UserDAOImpl implements UserDAO {
 				user.setLastName(resultSet.getString(UserDAO.LAST_NAME));
 				user.setCurrentProfilePic(currentProfilePic);
 				user.setCurrentCoverPic(currentCoverPic);
-
 				user.setPlace(resultSet.getString(UserDAO.PLACE));
-
 				user.setSecretQuestion(resultSet
 						.getString(UserDAO.SECRET_QUESTION));
-
 				user.setSecretAnswer(resultSet.getString(UserDAO.SECRET_ANSWER));
 				user.setCreated(resultSet.getTimestamp(UserDAO.CREATED));
-			//	user.setCurrentplace(resultSet.getString(UserDAO.CURRENTPLACE));
-			//	user.setNativeplace(resultSet.getString(UserDAO.NATIVEPLACE));
-			//	user.setRelationship(resultSet.getString(UserDAO.RELATIONSHIP));
-//				user.setWorkplace(resultSet.getString(UserDAO.WORKPLACE));
-//				user.setSchool(resultSet.getString(UserDAO.SCHOOL));
-//				user.setProfession(resultSet.getString(UserDAO.PROFESSION));
-//				user.setGender(resultSet.getString(UserDAO.GENDER));
-//				user.setDegree1(resultSet.getString(UserDAO.DEGREE1));
-//				user.setDegree2(resultSet.getString(UserDAO.DEGREE2));
-//				user.setUniversity(resultSet.getString(UserDAO.UNIVERSITY));
+
+				user.setNativeplace(resultSet.getString(UserDAO.NATIVEPLACE));
+				user.setRelationship(resultSet.getString(UserDAO.RELATIONSHIP));
+				user.setGender(resultSet.getString(UserDAO.GENDER));
+				
+
 				
 
 			}

@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -292,55 +294,89 @@ p.padding {
 </head>
 <body>
 	<div class="row" style="background-color: #f7f7f7">
-		<div id="Overlay" name="Overlay" class="overlay"
-			onclick="funcClose(this);"></div>
-		<div class="col-md-1" align="left"></div>
-		<div class="col-md-4" align="left">
-			<div style="background-color:">
-				<table style="width: 600px" bgcolor="#FFFFFF">
-					<tr>
-						<td bgcolor="#eeeff4" height="50" style="text-indent: 2em;"><b>
-								About </b></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b><s:property
-									value="profession" />&#160;at&#160;<font color="#3b5999"><s:property
-										value="workplace" /></font></b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>Studied
-								at <font color="#3b5999"><s:property value="school" /></font>
-						</b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>Lives
-								in <font color="#3b5999"><s:property value="currentplace" /></font>
-						</b></br></td>
-					</tr>
-					<tr>
-						<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>From
-								<font color="#3b5999"><s:property value="nativeplace" /></font>
-						</b></br></td>
-					</tr>
-				</table>
-			</div>
-			<br /> <br /> <br />
-			<div>
-				<p class="padding">
-					<b>&#160;Friends</b>
-				</p>
-				<ul class="rig columns-3" style="left:30px;top:10px;">
-					<s:iterator value="friendIds" var="id">
-						<li><s:if test="#id!=0">
 
-								<img src="image?userId=<s:property value="#id" />" />
+	<div id="Overlay" name="Overlay" class="overlay" onclick="funcClose(this);">		
+	</div>
+	<div class="col-md-1" align="left">
+	</div>
+	<div class="col-md-4"  align="left" >
+		<div style="background-color: ">
+		<table style="width:1200px" bgcolor="#FFFFFF">
+		<tr>
+  		<td bgcolor="#eeeff4" height="50" style="text-indent: 2em;"><b>   About </b></td>
+  		</tr>
+  				<s:if test="%{position!='undefined'}">
+  				<tr>  
+  				<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b><s:property value="position" /> &#160;at&#160;<font color="#3b5999"><s:property value="name"/></font></b><br/> </td>
+  				</tr>
+  				</s:if>
+  		<s:iterator value="organization_details" var="org" status="status">
+  			
+				<s:if test="%{#status.count ==1}">
+  				<tr>
+  			 	<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><font color="grey"><b>Past</b></font><br/> </td>
+  				</tr>
+  				</s:if>
+  				<tr>
+  				<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b><s:property value="#org.position" /> &#160;at&#160;</b><font color="#3b5999"><b><s:property value="#org.name"/></b></font><br/> </td>
+  				</tr>
+  			
+  		</s:iterator>
+  		
+  		<s:iterator value="institute_details" var="ins" status="status" >
+  			<s:if test="%{#ins.has_graduated == 0}">
+    			<tr>
+  				<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><font color="grey"><b>Current</b></font><br/> </td>
+  			 	</tr>
+    			<tr>  
+    			<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>studies <b>&#160;</b><s:property value="#ins.description" /> &#160;at&#160;<font color="#3b5999"><s:property value="#ins.name"/></font></b><br/> </td>
+  				</tr>
+  			</s:if>
+			<s:if test="%{#ins.has_graduated == 1}">
+				<s:if test="%{#status.index == 1}">
+  				<tr>
+  				<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><font color="grey"><b>Past</b></font><br/> </td>
+  			 	</tr>
+  			 	</s:if>
+  			 	<tr>
+  				<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>studied <b>&#160;</b><s:property value="#ins.description" /> &#160;at&#160;<font color="#3b5999"><s:property value="#ins.name"/></font></b><br/> </td>
+  				</tr>
+  			</s:if>
+  				
+  			
+  		</s:iterator>
+  	
+  		<tr>  
+  			<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>Lives in <b>&#160;</b><font color="#3b5999"><s:property value="place"/></font></b><br/> </td>
+  		</tr>
+  		<tr>  
+  			<td bgcolor="#FFFFFF" height="50" style="text-indent: 2em;"><b>From <b>&#160;</b><font color="#3b5999"><s:property value="nativePlace"/></font></b><br/> </td>
+  		</tr>
+  		
+  		</table>
+  		</div>
+  		<br/>
+  		<br/>
+  		<br/>
+  	<div>	
+	<p class="padding"><b>&#160;Friends</b></p>
+    <ul class="rig columns-3" style="left:30px;top:10px;">
+    <s:iterator value="friendIds" var="id">
+    <li>
+    <s:if test="#id!=0">
+    
+     <img src="image?userId=<s:property value="#id" />" />
+     
+    </s:if>
+    <s:else>
+    
+      <img src="timeline/stylesheets/blank.jpg" />
+    </s:else>
+    </li>
+    </s:iterator>
+    </ul>                                
 
-							</s:if> <s:else>
-
-								<img src="timeline/stylesheets/blank.jpg" />
-							</s:else></li>
-					</s:iterator>
-				</ul>
+	
 
 			</div>
 		</div>

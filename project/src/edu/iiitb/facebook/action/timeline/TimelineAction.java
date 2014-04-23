@@ -3,7 +3,10 @@
  */
 package edu.iiitb.facebook.action.timeline;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.iiitb.facebook.action.dao.*;
@@ -16,102 +19,145 @@ import org.apache.struts2.interceptor.RequestAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
+import edu.iiitb.facebook.action.dao.UserDAO;
+import edu.iiitb.facebook.action.dao.impl.DetailsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.FriendsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
+import edu.iiitb.facebook.action.model.InstituteDetails;
 import edu.iiitb.facebook.action.model.NewsFeed;
+import edu.iiitb.facebook.action.model.OrganizationDetails;
 import edu.iiitb.facebook.action.model.User;
 
-public class TimelineAction extends ActionSupport implements SessionAware, RequestAware
-{
+public class TimelineAction extends ActionSupport implements SessionAware,
+		RequestAware {
 
 	private Map<String, Object> session;
 	private Map<String, Object> request;
 	private List<Integer> friendIds;
-
 	private PostsDAO postsDAO = new PostsDAOImpl();
 	private UserDAO userDAO = new UserDAOImpl();
+	private DetailsDAO detailsDAO = new DetailsDAOImpl();
+	private List<OrganizationDetails> organization_details = new ArrayList<OrganizationDetails>();
+	private List<InstituteDetails> institute_details;
+	private String place;
+	private String nativePlace;
+	private String position;
+	private String name;
 
-	public List<Integer> getFriendIds()
-	{
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public String getNativePlace() {
+		return nativePlace;
+	}
+
+	public void setNativePlace(String nativePlace) {
+		this.nativePlace = nativePlace;
+	}
+
+	public List<OrganizationDetails> getOrganization_details() {
+		return organization_details;
+	}
+
+	public void setOrganization_details(
+			List<OrganizationDetails> organization_details) {
+		this.organization_details = organization_details;
+	}
+
+	public List<InstituteDetails> getInstitute_details() {
+		return institute_details;
+	}
+
+	public void setInstitute_details(List<InstituteDetails> institute_details) {
+		this.institute_details = institute_details;
+	}
+
+	public List<Integer> getFriendIds() {
 		return friendIds;
 	}
 
-	public void setFriendIds(List<Integer> friendIds)
-	{
+	public void setFriendIds(List<Integer> friendIds) {
 		this.friendIds = friendIds;
 	}
 
-	public UserDAO getUserDAO()
-	{
+	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
-	public void setUserDAO(UserDAO userDAO)
-	{
+	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
 	private List<NewsFeed> newsFeeds;
 	private List<NewsFeed> timelineFeeds;
 
-	public PostsDAO getPostsDAO()
-	{
+	public PostsDAO getPostsDAO() {
 		return postsDAO;
 	}
 
-	public void setPostsDAO(PostsDAO postsDAO)
-	{
+	public void setPostsDAO(PostsDAO postsDAO) {
 		this.postsDAO = postsDAO;
 	}
 
-	public List<NewsFeed> getTimelineFeeds()
-	{
+	public List<NewsFeed> getTimelineFeeds() {
 		return timelineFeeds;
 	}
 
-	public void setTimelineFeeds(List<NewsFeed> timelineFeeds)
-	{
+	public void setTimelineFeeds(List<NewsFeed> timelineFeeds) {
 		this.timelineFeeds = timelineFeeds;
 	}
 
-	public List<UserDAO> getUser()
-	{
+	public List<UserDAO> getUser() {
 		return user;
 	}
 
-	public void setUser(List<UserDAO> user)
-	{
+	public void setUser(List<UserDAO> user) {
 		this.user = user;
 	}
 
-	public String getFref()
-	{
+	public String getFref() {
 		return fref;
 	}
 
-	public void setFref(String fref)
-	{
+	public void setFref(String fref) {
 		this.fref = fref;
 	}
 
-	public int getFuserId()
-	{
+	public int getFuserId() {
 		return fuserId;
 	}
 
-	public void setFuserId(int fuserId)
-	{
+	public void setFuserId(int fuserId) {
 		this.fuserId = fuserId;
 	}
 
-	public Map<String, Object> getSession()
-	{
+	public Map<String, Object> getSession() {
 		return session;
 	}
 
-	public Map<String, Object> getRequest()
-	{
+	public Map<String, Object> getRequest() {
 		return request;
 	}
 
@@ -124,73 +170,89 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 	private String workplace;
 	private String relationship;
 
-	public String getRelationship()
-	{
+	public String getRelationship() {
 		return relationship;
 	}
 
-	public void setRelationship(String relationship)
-	{
+	public void setRelationship(String relationship) {
 		this.relationship = relationship;
 	}
 
-	public String getWorkplace()
-	{
+	public String getWorkplace() {
 		return workplace;
 	}
 
-	public void setWorkplace(String workplace)
-	{
+	public void setWorkplace(String workplace) {
 		this.workplace = workplace;
 	}
 
-	public String getProfession()
-	{
+	public String getProfession() {
 		return profession;
 	}
 
-	public void setProfession(String profession)
-	{
+	public void setProfession(String profession) {
 		this.profession = profession;
 	}
 
-	public String getSchool()
-	{
+	public String getSchool() {
 		return school;
 	}
 
-	public void setSchool(String school)
-	{
+	public void setSchool(String school) {
 		this.school = school;
 	}
 
-	public String getCurrentplace()
-	{
+	public String getCurrentplace() {
 		return currentplace;
 	}
 
-	public void setCurrentplace(String currentplace)
-	{
+	public void setCurrentplace(String currentplace) {
 		this.currentplace = currentplace;
 	}
 
-	public String getNativeplace()
-	{
+	public String getNativeplace() {
 		return nativeplace;
 	}
 
-	public void setNativeplace(String nativeplace)
-	{
+	public void setNativeplace(String nativeplace) {
 		this.nativeplace = nativeplace;
 	}
 
 	private int userId;
 	private int fuserId;
 
-	public String execute()
-	{
+	public List<NewsFeed> getNewsFeeds() {
+		return newsFeeds;
+	}
+
+	public void setNewsFeeds(List<NewsFeed> newsFeeds) {
+		this.newsFeeds = newsFeeds;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public void setRequest(Map<String, Object> arg0) {
+		this.request = arg0;
+	}
+
+	public String execute() {
 		User user = (User) session.get("user");
 		fref = (String) session.get("profileReference");
+		if(fref==null){
+			fref=user.getUserId()+"";
+		}
 		System.out.println("Friend reference:" + fref);
 		userId = user.getUserId();
 		if (fref != null)
@@ -202,55 +264,81 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 		FriendsDAO friendsDao = new FriendsDAOImpl();
 		List<User> friendsList;
 
-		if (fref == null)
-		{
+		if (fref == null) {
 			newsFeeds = postsDAO.getNewsFeedsForUser(userId);
 			userdetails = userDAO.getUserByUserId(userId);
+			place = userdetails.getPlace();
+			System.out.println(place);
+			nativePlace = userdetails.getNativeplace();
+			if (nativePlace == null)
+				nativePlace = place;
+			List<OrganizationDetails> tmp = detailsDAO
+					.getOrganizationDetailsForUser(fuserId);
+			for (OrganizationDetails p : tmp) {
+				if (p.getWorking_to() == null) {
+					position = p.getPosition();
+					name = p.getName();
+
+				} else {
+					organization_details.add(p);
+				}
+			}
+
+			institute_details = detailsDAO.getInstituteDetailsForUser(userId);
 			friendsList = friendsDao.getFriendsList(userId);
 
-		}
-		else
-		{
+		} else {
 			newsFeeds = postsDAO.getNewsFeedsForUser(fuserId);
 			userdetails = userDAO.getUserByUserId(fuserId);
+			place = userdetails.getPlace();
+			nativePlace = userdetails.getNativeplace();
+			if (nativePlace == null)
+				nativePlace = place;
+			List<OrganizationDetails> tmp = detailsDAO
+					.getOrganizationDetailsForUser(fuserId);
+			for (OrganizationDetails p : tmp) {
+				if (p.getWorking_to() == null) {
+					position = p.getPosition();
+					name = p.getName();
+
+				} else {
+					organization_details.add(p);
+				}
+			}
+
+			institute_details = detailsDAO.getInstituteDetailsForUser(fuserId);
+			for (InstituteDetails p : institute_details)
+				System.out.println(p.getName() + " " + p.getDescription() + " "
+						+ p.getWorking_from() + " " + p.getWorking_to());
+
 			friendsList = friendsDao.getFriendsList(fuserId);
+			if (position == null && name == null)
+				position = name = "undefined";
 
 		}
-		profession = userdetails.getProfession();
-		relationship = userdetails.getRelationship();
-		school = userdetails.getSchool();
-		currentplace = userdetails.getCurrentplace();
-		nativeplace = userdetails.getNativeplace();
-		workplace = userdetails.getWorkplace();
 
-		for (NewsFeed n : newsFeeds)
-		{
-			if (fuserId != -1)
-			{
+		for (NewsFeed n : newsFeeds) {
+			if (fuserId != -1) {
 				if (n.getToUserId() == fuserId)
 					timelineFeeds.add(n);
 
-			}
-			else
-			{
+			} else {
 				if (n.getToUserId() == userId)
 					timelineFeeds.add(n);
 			}
 		}
 		friendIds = new ArrayList<Integer>();
 		int count = -1;
-
-		if (friendsList != null)
-			for (User p : friendsList)
-			{
+		if (friendsList != null) {
+			for (User p : friendsList) {
 				if (count == 8)
 					break;
 				count++;
 				friendIds.add(p.getUserId());
 				System.out.println("Friend Id:" + p.getUserId());
 			}
-		if (count < 8)
-		{
+		}
+		if (count < 8) {
 			for (int j = count; j != 8; j++)
 				friendIds.add(0);
 		}
@@ -258,35 +346,12 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 		return SUCCESS;
 	}
 
-	public List<NewsFeed> getNewsFeeds()
-	{
-		return newsFeeds;
+	public DetailsDAO getDetailsDAO() {
+		return detailsDAO;
 	}
 
-	public void setNewsFeeds(List<NewsFeed> newsFeeds)
-	{
-		this.newsFeeds = newsFeeds;
+	public void setDetailsDAO(DetailsDAO detailsDAO) {
+		this.detailsDAO = detailsDAO;
 	}
 
-	@Override
-	public void setSession(Map<String, Object> session)
-	{
-		this.session = session;
-	}
-
-	public int getUserId()
-	{
-		return userId;
-	}
-
-	public void setUserId(int userId)
-	{
-		this.userId = userId;
-	}
-
-	@Override
-	public void setRequest(Map<String, Object> arg0)
-	{
-		this.request = arg0;
-	}
 }
