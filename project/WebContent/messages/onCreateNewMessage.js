@@ -2,7 +2,7 @@
 /**
  * When you want to create a new message
  */
-$(document).on("click", "#new-message-button-div", function(event) {
+$(document).on("click", "#new-message-button", function(event) {
 	event.preventDefault();
 	
 	// TODO: move this to divRenderer

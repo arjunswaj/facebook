@@ -9,15 +9,13 @@ $(document).on("click", ".conversation-div", function(event) {
 	$(this).css('background-color', 'teal');
 	
 	// load selected conversation
-	var href = $(this).children("a:first")[0].href;
-	var url = href.split('?')[0];
-	var selectedConversation = href.split('=')[1];
-	var posting = $.post(url, {"selectedConversation.id" : selectedConversation});
+	var selectedConversation = $(this).children("input").val();
+	var posting = $.post("loadSelectedConversationThread.action", {"selectedConversation.id" : selectedConversation});
 	
 	posting.done(function(response) {
 
 		// generate the header for the selected conversation thread
-		selectedConversationThreadHeaderDiv.init(response.selectedConversation.otherParticipants); 
+		selectedConversationThreadHeaderDiv.init(response.selectedConversation); 
 
 		// generate selected conversation thread
 		selectedConversationThreadDiv.init(response.selectedConversationThread);

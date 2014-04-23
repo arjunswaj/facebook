@@ -13,7 +13,7 @@ $(document).on("click", "#send-button", function(event) {
 	posting.done(function(response) {
 
 		// generate the header for the selected conversation thread
-		selectedConversationThreadHeaderDiv.init(response.selectedConversation.otherParticipants); 
+		selectedConversationThreadHeaderDiv.init(response.selectedConversation); 
 
 		// generate selected conversation thread
 		selectedConversationThreadDiv.init(response.selectedConversationThread);

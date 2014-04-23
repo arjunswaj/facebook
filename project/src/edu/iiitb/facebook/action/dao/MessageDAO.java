@@ -54,4 +54,11 @@ public interface MessageDAO
 	 * @param message
 	 */
 	public void insertIntoExistingConversation(Message message);
+
+	/**
+	 * Delete messages from the given conversation from the users inbox
+	 * @param conversation
+	 * @param user
+	 */
+	public void deleteMessagesFromConversation(int conversation, int inbox);
 }

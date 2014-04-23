@@ -95,6 +95,7 @@
 			<result name="login">/login.jsp</result>
 		</action>
 		
+		<!-- This is for getting the friends list -->
 		<action name="newMessage" method="friendsList"
 			class="edu.iiitb.facebook.action.messages.CreateNewMessageAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
@@ -103,6 +104,15 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<!-- This is for deleting a conversation -->
+		<action name="deleteConversation" method="delete"
+			class="edu.iiitb.facebook.action.messages.DeleteConversationAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
+		
 		<!-- End of messages related actions -->
 
 

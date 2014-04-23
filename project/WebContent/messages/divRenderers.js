@@ -2,22 +2,24 @@
  * Object literals used for rendering
  */
 var selectedConversationThreadHeaderDiv = {
-		otherParticipants : [],
+		selectedConversation : {},
 		
-		init : function(otherParticipants) {
-			selectedConversationThreadHeaderDiv.otherParticipants = otherParticipants; 
+		init : function(selectedConversation) {
+			selectedConversationThreadHeaderDiv.selectedConversation = selectedConversation; 
 		},
 		
 		get : function() {
 			var div = '<div id="selected-conversation-thread-header-div">\
 							<div id="other-participants-div">';
-			$.each(selectedConversationThreadHeaderDiv.otherParticipants, function(index, otherParticipant){
+			$.each(selectedConversationThreadHeaderDiv.selectedConversation.otherParticipants, function(index, otherParticipant){
 				div += otherParticipant.firstName + ' ' + otherParticipant.lastName + ', ';
 			});
 			div +=		'</div>\
-							<div id="new-message-button-div">\
+							<div id="action-buttons-div">\
 								<div>\
-									<input id="new-message-button-submit" type="submit" value="+ New Message" />\
+									<input id="delete-conversation-button" type="button" value="Delete Conversation" />\
+									<input type="hidden" value="' + selectedConversationThreadHeaderDiv.selectedConversation.id + '"/>\
+									<input id="new-message-button" type="button" value="+ New Message" />\
 								</div>\
 							</div>\
 						</div>';
@@ -106,7 +108,7 @@ var conversationDiv = {
 		get : function() {
 			var div
 				= '<div class="conversation-div">\
-					<a href="loadSelectedConversationThread.action?selectedConversation.id=' + conversationDiv.conversation.id + '"></a>\
+					<input type=hidden class="conversation-conversation-hidden" value="' + conversationDiv.conversation.id + '" />\
 						<div class="conversation-photo-div">\
 								<img width="50" height="50" src="image?userId='  + conversationDiv.conversation.otherParticipants[0].userId + '"/>\
 						</div>\

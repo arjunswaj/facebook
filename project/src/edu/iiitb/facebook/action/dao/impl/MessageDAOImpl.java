@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -373,5 +372,32 @@ public class MessageDAOImpl implements MessageDAO
 			message.setInbox(participant);
 			insert(message);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#deleteMesagesFromConversation(int, int)
+	 */
+	@Override
+	public void deleteMessagesFromConversation(int conversation, int inbox)
+	{
+		// TODO : Use StringBuilder and append here
+		final String deleteMessages = "delete from message where inbox = ? and conversation = ?";
+			
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessages);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
 	}
 }

@@ -22,9 +22,9 @@
 			
 			<!-- Latest conversations -->
 			<div id="conversations-div">
-				<s:iterator value="conversations" var="conversation">
+				<s:iterator value="conversations">
 					<div class="conversation-div">
-						<a href="loadSelectedConversationThread.action?selectedConversation.id=<s:property value="id" />"></a>
+						<input type=hidden value='<s:property value="id" />' />
 						<div class="conversation-photo-div">
 							<img width="50" height="50" src="image?userId=<s:property value="otherParticipants.get(0).userId" />" />
 						</div>
@@ -61,10 +61,10 @@
 						,
 					</s:iterator>
 				</div>
-				<div id="new-message-button-div">
-					<div>
-						<s:submit id="new-message-button-submit" value="+ New Message"></s:submit>
-					</div>
+				<div id="action-buttons-div">
+					<input type="button" id="delete-conversation-button" value="Delete Conversation"/>
+					<input type="hidden" value='<s:property value="%{selectedConversation.id}"/>' />
+					<input type="button" id="new-message-button" value="+ New Message"/>
 				</div>
 			</div>
 			
@@ -117,6 +117,7 @@
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>
 	<script src="messages/onSendNewMessage.js"></script>
+	<script src="messages/onDeleteConversation.js"></script>
 	<script src="js/loopj-jquery-tokeninput/src/jquery.tokeninput.js"></script>
 	<script src="js/jquery.timeago.js" type="text/javascript"></script>
 </body>
