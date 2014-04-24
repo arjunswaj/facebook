@@ -111,10 +111,6 @@ li {
 	</script>
 
 	<div class="container">
-		<%
-			session.setAttribute("profileReference", (String) request.getAttribute("fref"));
-		%>
-
 
 		<div class="coverpic">
 			<img class="cover_pic" height="420px"
@@ -132,7 +128,7 @@ li {
 				<li><a href="timeline.action">Timeline</a></li>
 			</ul>
 			<s:form id="friendstatus_form" method="post">
-				<s:set name="checkFriend" value="requestStatus" />
+				<s:set name="checkFriend" value="#session.requestStatus" />
 
 				<!-- Button for Pending status -->
 				<s:if test="%{#checkFriend=='pending'}">

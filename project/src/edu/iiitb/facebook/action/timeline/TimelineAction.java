@@ -20,6 +20,7 @@ import edu.iiitb.facebook.action.dao.impl.DetailsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.FriendsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
 import edu.iiitb.facebook.action.dao.impl.UserDAOImpl;
+import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.InstituteDetails;
 import edu.iiitb.facebook.action.model.NewsFeed;
 import edu.iiitb.facebook.action.model.OrganizationDetails;
@@ -305,9 +306,10 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 
 		if (fref == null || "".equals(fref))
 		{
-			if (myprofile != null)
+			if (myprofile != null && "true".equals(myprofile))
 			{
 				fref = user.getUserId() + "";
+				session.put("requestStatus", FriendInfo.RequestStatus.MYPROFILE.getReqstat());
 			}
 			else
 			{

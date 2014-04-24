@@ -158,6 +158,9 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				}
 			}
 
+			session.put("requestStatus", requestStatus);
+			session.put("profileReference", fref);
+
 		}
 		else
 		{
@@ -196,6 +199,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 
 				setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
 			}
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -231,6 +235,8 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 			{
 				return ERROR;
 			}
+
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -266,6 +272,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 			{
 				return ERROR;
 			}
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -296,6 +303,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 					eventDAO.deleteAllInvitationsBetweenUsers(cn, Integer.parseInt(lref), Integer.parseInt(fref));
 					ConnectionPool.freeConnection(cn);
 				}
+				session.put("requestStatus", requestStatus);
 			}
 			else
 			{
