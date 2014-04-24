@@ -64,20 +64,23 @@ var selectedConversationThreadHeaderDiv = {
 		},
 		
 		get : function() {
-			var div = '<div id="selected-conversation-thread-header-div">\
-							<div id="other-participants-div">';
-			$.each(selectedConversationThreadHeaderDiv.selectedConversation.otherParticipants, function(index, otherParticipant){
-				div += otherParticipant.firstName + ' ' + otherParticipant.lastName + ', ';
-			});
-			div +=		'</div>\
-							<div id="action-buttons-div">\
-								<div>\
-									<input id="delete-conversation-button" type="button" value="Delete Conversation" />\
-									<input type="hidden" value="' + selectedConversationThreadHeaderDiv.selectedConversation.id + '"/>\
-									<input id="new-message-button" type="button" value="+ New Message" />\
-								</div>\
-							</div>\
-						</div>';
+			var div = '<div id="selected-conversation-thread-header-div">'
+							
+			if (selectedConversationThreadHeaderDiv.selectedConversation != null) {
+				div += 		'<div id="other-participants-div">';
+				$.each(selectedConversationThreadHeaderDiv.selectedConversation.otherParticipants, function(index, otherParticipant){
+					div += otherParticipant.firstName + ' ' + otherParticipant.lastName + ', ';
+				});
+				div +=		'</div>\
+								<div id="action-buttons-div">\
+									<div>\
+										<input id="delete-conversation-button" type="button" value="Delete Conversation" />\
+										<input type="hidden" value="' + selectedConversationThreadHeaderDiv.selectedConversation.id + '"/>\
+										<input id="new-message-button" type="button" value="+ New Message" />\
+									</div>\
+								</div>';
+			}
+			div += '</div>';
 			
 			return div;
 		}

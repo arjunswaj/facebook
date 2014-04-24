@@ -13,19 +13,16 @@
 <body>
 	<div id="container-div">
 		<div id="left-div">
-			<!-- Inbox header -->
 			<div id="inbox-header-div">
 				<span id="inbox-heading-span">Inbox</span>
 			</div>
 			<!-- Conversations -->
-			<div id="conversations-div">
+			<div id="conversations-div" style="text-align:center">
+			No conversations
 			</div>
-			
 		</div>
 
-
 		<div id="right-div">
-			<!-- Selected conversation header -->
 			<div id="selected-conversation-thread-header-div">
 				<div id="other-participants-div">
 					No conversation selected
