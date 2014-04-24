@@ -98,7 +98,12 @@ li {
 			document.getElementById("friendstatus_form").action = 'addfriend?fref=<s:property value="%{fref}"/>';
 		}
 		function blockfriend() {
-			document.getElementById("friendstatus_form").action = 'blockfriend?fref=<s:property value="%{fref}"/>';
+			var r = confirm("Blocking means you won't be able to see or contact each other on facebook");
+			if (r == true) {
+				document.getElementById("friendstatus_form").action = 'blockfriend?fref=<s:property value="%{fref}"/>';
+			} else {
+				return false;
+			}
 		}
 
 		function confirmRequest() {
@@ -141,7 +146,7 @@ li {
 					<input class="friends_status" type="button" value="Friends"
 						disabled="disabled">
 					<input class="friends_status" type="submit" value="Block"
-						onclick="blockfriend();">
+						onclick="return blockfriend();">
 				</s:elseif>
 				<!-- Button for Confirm/Reject status -->
 				<s:elseif test="%{#checkFriend=='confirm_request'}">
