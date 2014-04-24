@@ -290,9 +290,9 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				else
 				{
 					setRequestStatus(FriendInfo.RequestStatus.BLOCKED.getReqstat());
-					
-					Connection cn=ConnectionPool.getConnection();
-					EventDAO eventDAO=new EventDAOImpl();
+
+					Connection cn = ConnectionPool.getConnection();
+					EventDAO eventDAO = new EventDAOImpl();
 					eventDAO.deleteAllInvitationsBetweenUsers(cn, Integer.parseInt(lref), Integer.parseInt(fref));
 					ConnectionPool.freeConnection(cn);
 				}
@@ -309,14 +309,18 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		}
 		return SUCCESS;
 	}
-	
-	public String unblockfriend() {
+
+	public String unblockfriend()
+	{
 		User user = (User) session.get("user");
-		if (user == null) return LOGIN;
+		if (user == null)
+			return LOGIN;
 		setLref(user.getUserId() + "");
-		if (fref == null) return ERROR;
+		if (fref == null)
+			return ERROR;
 		FriendsDAO friendsDAO = new FriendsDAOImpl();
-		if ( friendsDAO.unblockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) == false) return ERROR;
+		if (friendsDAO.unblockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) == false)
+			return ERROR;
 		return SUCCESS;
 	}
 
