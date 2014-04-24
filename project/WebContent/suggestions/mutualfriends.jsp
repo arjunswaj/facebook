@@ -38,7 +38,7 @@
 </style>
 
     <div class="modal-header">
-         <h4 class="modal-title" id="myModalLabel"> Mutual Friends </h4>
+         <h4 class="modal-title" id="myModalLabel"> <s:text name="global.mutualfriends"/> </h4>
     </div>
 	<div class="mutualfriends">
 		<s:iterator value="mutualFriendsList" var="mf">
@@ -69,7 +69,7 @@
 		</s:iterator>
 	</div>	
 	<div class="modal-footer">
-    	<button id="CloseMutualFriend" type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+    	<button id="CloseMutualFriend" type="button" class="btn btn-default"  data-dismiss="modal"><s:text name="global.close"/></button>
     </div>
     
     <script>

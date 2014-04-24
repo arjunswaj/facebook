@@ -334,10 +334,7 @@ public class UserDAOImpl implements UserDAO {
 				PreparedStatement stmt = connection.prepareStatement(UPDATE_LANGUAGE_FOR_USER);
 				stmt.setString(1, localeCode);
 				stmt.setInt(2, userId);
-				System.out.println(userId);
-				System.out.println(localeCode);
 				int result = stmt.executeUpdate();
-				System.out.println(result);
 				if (result < 0)
 					page = "error";	
 			}

@@ -47,6 +47,7 @@ public class AccountSettingsAction extends ActionSupport implements SessionAware
 		if (user == null) return LOGIN;
 		setUserId(user.getUserId());
 		userDAO.setLocale(userId, localeCode);
+		user.setLocale(localeCode);
 		return SUCCESS;
 	}
 	
