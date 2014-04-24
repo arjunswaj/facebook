@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
 import edu.iiitb.facebook.action.dao.impl.PostsDAOImpl;
+import edu.iiitb.facebook.action.model.FriendInfo;
 import edu.iiitb.facebook.action.model.NewsFeed;
 import edu.iiitb.facebook.action.model.User;
 
@@ -24,48 +25,58 @@ import edu.iiitb.facebook.action.model.User;
  * 
  */
 
-public class NewsFeedsAction extends ActionSupport implements SessionAware {
+public class NewsFeedsAction extends ActionSupport implements SessionAware
+{
 
-  /**
-   * serialVersionUID
-   */
-  private static final long serialVersionUID = -7724100238927300603L;
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -7724100238927300603L;
 
-  private Map<String, Object> session;
+	private Map<String, Object> session;
 
-  private PostsDAO postsDAO = new PostsDAOImpl();
+	private PostsDAO postsDAO = new PostsDAOImpl();
 
-  private List<NewsFeed> newsFeeds;
+	private List<NewsFeed> newsFeeds;
 
-  private int userId;
+	private int userId;
 
-  public String execute() {
-    User user = (User) session.get("user");      
-    userId = user.getUserId();
-    this.session.put("WW_TRANS_I18N_LOCALE", LocaleUtils.toLocale(user.getLocale()));
-    newsFeeds = postsDAO.getNewsFeedsForUser(userId);
-    return SUCCESS;
-  }
+	public String execute()
+	{
+		User user = (User) session.get("user");
+		userId = user.getUserId();
+		session.put("requestStatus", FriendInfo.RequestStatus.MYPROFILE.getReqstat());
+		session.put("profileReference", user.getUserId() + "");
 
-  public List<NewsFeed> getNewsFeeds() {
-    return newsFeeds;
-  }
+		this.session.put("WW_TRANS_I18N_LOCALE", LocaleUtils.toLocale(user.getLocale()));
+		newsFeeds = postsDAO.getNewsFeedsForUser(userId);
+		return SUCCESS;
+	}
 
-  public void setNewsFeeds(List<NewsFeed> newsFeeds) {
-    this.newsFeeds = newsFeeds;
-  }
+	public List<NewsFeed> getNewsFeeds()
+	{
+		return newsFeeds;
+	}
 
-  @Override
-  public void setSession(Map<String, Object> session) {
-    this.session = session;      
-  }
+	public void setNewsFeeds(List<NewsFeed> newsFeeds)
+	{
+		this.newsFeeds = newsFeeds;
+	}
 
-  public int getUserId() {
-    return userId;
-  }
+	@Override
+	public void setSession(Map<String, Object> session)
+	{
+		this.session = session;
+	}
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
- 
+	public int getUserId()
+	{
+		return userId;
+	}
+
+	public void setUserId(int userId)
+	{
+		this.userId = userId;
+	}
+
 }
