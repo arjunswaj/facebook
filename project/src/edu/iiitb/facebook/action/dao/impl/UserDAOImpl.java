@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import edu.iiitb.facebook.action.dao.UserDAO;
+import edu.iiitb.facebook.action.model.FriendSuggestions;
 import edu.iiitb.facebook.action.model.User;
 import edu.iiitb.facebook.util.ConnectionPool;
 
@@ -21,6 +22,8 @@ public class UserDAOImpl implements UserDAO {
 	final String SET_PROFILE_PIC_BY_USERID = "UPDATE user SET current_profile_pic=?  WHERE id=?";
 	final String SET_COVER_PIC_BY_USERID = "UPDATE user SET current_cover_pic=?  WHERE id=?";
 	final String CHANGE_PASSWORD = "update user set password=? where email=?";
+	
+	final String UPDATE_LANGUAGE_FOR_USER = "UPDATE user SET locale = ? WHERE id = ?";
 
 	@Override
 	public User getUserImageByUserId(int userId) {
@@ -98,6 +101,8 @@ public class UserDAOImpl implements UserDAO {
 
 				
 
+				
+
 			}
 		} catch (SQLException e) {
 
@@ -152,6 +157,8 @@ public class UserDAOImpl implements UserDAO {
 
 				user.setSecretAnswer(resultSet.getString(UserDAO.SECRET_ANSWER));
 				user.setCreated(resultSet.getTimestamp(UserDAO.CREATED));
+				
+				user.setLocale(resultSet.getString(UserDAO.LOCALE));
 
 			}
 		} catch (SQLException e) {
@@ -317,6 +324,27 @@ public class UserDAOImpl implements UserDAO {
 			ConnectionPool.freeConnection(conn);
 		}
 		return ret;
+	}
+
+	@Override
+	public String setLocale(int userId, String localeCode) {
+			String page = "success";;
+			Connection connection = ConnectionPool.getConnection();
+			try {
+				PreparedStatement stmt = connection.prepareStatement(UPDATE_LANGUAGE_FOR_USER);
+				stmt.setString(1, localeCode);
+				stmt.setInt(2, userId);
+				int result = stmt.executeUpdate();
+				if (result < 0)
+					page = "error";	
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				ConnectionPool.freeConnection(connection);
+			}
+			return page;
 	}
 
 }

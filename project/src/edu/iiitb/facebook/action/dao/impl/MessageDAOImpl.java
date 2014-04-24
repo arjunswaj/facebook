@@ -166,17 +166,19 @@ public class MessageDAOImpl implements MessageDAO
 	{
 		// TODO : Use StringBuilder and append here
 		final String query = "select "
+				+ " message.id,"
 				+ " message.conversation,"
 			    + " message.text,"
 			    + " message.sent_at,"
-			    + " conversation.unread_count"
+			    + " message.sender,"
+			    + " message.inbox,"
+			    + " message.read_status"
 			+ " from"
 			    + " user,"
 				+ " message,"
 			    + " (select "
 			        + " message.conversation as id,"
-			            + " max(message.sent_at) as sent_at,"
-			            + " count(*) as unread_count"
+			            + " max(message.sent_at) as sent_at"
 			    + " from"
 			        + " message"
 				+ " where message.inbox = ?"
@@ -202,10 +204,20 @@ public class MessageDAOImpl implements MessageDAO
 			{
 				Conversation conversation = new Conversation();
 				conversation.setId(rs.getInt("conversation"));
-				conversation.setLatestMessageText(rs.getString("text"));
-				conversation.setSentAt(rs.getTimestamp("sent_at").toString());
-				conversation.setUnreadMessagesCount(rs.getInt("unread_count"));
 				
+				Message latestMessage = new Message();
+				latestMessage.setId(rs.getInt("id"));
+				latestMessage.setConversation(rs.getInt("conversation"));
+				latestMessage.setText(rs.getString("text"));
+				latestMessage.setSentAt(rs.getTimestamp("sent_at").toString());
+				latestMessage.setSender(rs.getInt("sender"));
+				latestMessage.setInbox(rs.getInt("inbox"));
+				latestMessage.setReadStatus(rs.getString("read_status"));
+				
+				conversation.setLatestMessage(latestMessage);
+				
+				// TODO: Can these db calls be avoided??
+				conversation.setUnreadMessagesCount(getUnreadCount(rs.getInt("conversation"), user));
 				conversation.setOtherParticipants(getOtherParticipants(rs.getInt("conversation"), user));
 				
 				conversations.add(conversation);
@@ -246,8 +258,37 @@ public class MessageDAOImpl implements MessageDAO
 	}
 
 	/**
+	 * @param conversation
 	 * @param user
-	 * @param participantsAcrossAllConversations
+	 * @return
+	 */
+	private int getUnreadCount(int conversation, int inbox)
+	{
+		final String query = "select count(*) as unread_count from message where inbox = ? and conversation = ? and read_status = 'unread'";
+		Connection connection = ConnectionPool.getConnection();
+		int count = 9999999;
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next())
+				count = rs.getInt("unread_count");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return count;
+	}
+
+	/**
+	 * @param user
 	 * @return
 	 */
 	private Map<Integer, String> getFriendShipStatus(int user)
@@ -399,5 +440,60 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#deleteMessageFromInbox(int, int)
+	 */
+	@Override
+	public void deleteMessageFromInbox(int id, int inbox)
+	{
+		// TODO : Use StringBuilder and append here
+		final String deleteMessage = "delete from message where inbox = ? and id = ?";
+			
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessage);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, id);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#markAsRead(int, edu.iiitb.facebook.action.model.Conversation)
+	 */
+	@Override
+	public void markAsRead(int inbox, int conversation)
+	{
+		final String deleteMessage = "update message set read_status = 'read' where inbox = ? and conversation = ?";
+		
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessage);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
+
+		
 	}
 }

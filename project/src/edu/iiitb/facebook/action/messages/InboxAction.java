@@ -42,7 +42,7 @@ public class InboxAction extends ActionSupport implements SessionAware
 		{ 
 			if (conversations.isEmpty()) // No conversations
 				return NO_CONVERSATIONS;
-			selectedConversation = conversations.get(0); // Intial load of inbox
+			selectedConversation = conversations.get(0); // Initial load of inbox
 		}
 		
 		// else selected conversation id is set by the view
@@ -56,6 +56,9 @@ public class InboxAction extends ActionSupport implements SessionAware
 				selectedConversation = conversation;
 				break;
 			}
+		
+		if (selectedConversation.getUnreadMessagesCount() > 0)
+			dao.markAsRead(user, selectedConversation.getId());
 		
 		return SUCCESS;
 	}

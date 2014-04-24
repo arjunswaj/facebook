@@ -6,28 +6,11 @@ import java.util.List;
 public class Conversation
 {
 	private int id;
-	private String latestMessageText;
-	private String sentAt;
+	private Message latestMessage;
 	private int unreadMessagesCount;
 	private List<User> otherParticipants; // Except the logged in user
 	private boolean allFriends;
 	
-	public String getSentAt()
-	{
-		return sentAt;
-	}
-	public void setSentAt(String sentAt)
-	{
-		this.sentAt = sentAt;
-	}
-	public String getLatestMessageText()
-	{
-		return latestMessageText;
-	}
-	public void setLatestMessageText(String latestMessageText)
-	{
-		this.latestMessageText = latestMessageText;
-	}
 	public int getUnreadMessagesCount()
 	{
 		return unreadMessagesCount;
@@ -59,5 +42,13 @@ public class Conversation
 	public void setAllFriends(boolean allFriends)
 	{
 		this.allFriends = allFriends;
+	}
+	public Message getLatestMessage()
+	{
+		return latestMessage;
+	}
+	public void setLatestMessage(Message latestMessage)
+	{
+		this.latestMessage = latestMessage;
 	}
 }

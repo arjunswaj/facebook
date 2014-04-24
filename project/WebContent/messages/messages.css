@@ -134,6 +134,7 @@ div.conversation-div:hover {
 
 .message-header-div {
 	padding: 5px 0px 5px 5px;
+	font-weight: bold;
 }
 
 .message-date-div {
@@ -142,9 +143,14 @@ div.conversation-div:hover {
 }
 
 .message-text-div {
-	width: 90%;
+	width: 85%;
 	float: left;
 	word-wrap: break-word;
+}
+
+.delete-message-div {
+	width: 5%;
+	float: right;
 }
 
 #reply-box-div {
@@ -153,6 +159,9 @@ div.conversation-div:hover {
 	float: left;
 }
 
+#reply-textarea {
+	width: 97%;
+}
 #reply-button {
 	float: right;
 }
@@ -168,7 +177,7 @@ div.conversation-div:hover {
 
 #new-message-to-div {
 	float: left;
-	width: 100%
+	width: 100%;
 }
 
 #to-span {
@@ -192,6 +201,7 @@ div.conversation-div:hover {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	width: 98%;
 }
 
 #send-button {

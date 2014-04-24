@@ -36,7 +36,11 @@ public class LogoutAction extends ActionSupport implements SessionAware, Servlet
 	public String execute() throws NumberFormatException, SQLException
 	{
 		if (session.get("user") != null)
+		{
 			session.remove("user");
+			this.session.remove("profileReference");
+			session.remove("requestStatus");
+		}
 
 		Cookie cookies[] = this.request.getCookies();
 

@@ -23,6 +23,7 @@ public interface UserDAO
 	String RELATIONSHIP = "relationship";
 	String NATIVEPLACE = "nativeplace";
 	String GENDER = "gender";
+	String LOCALE = "locale";
 	
 	
 	
@@ -38,5 +39,7 @@ public interface UserDAO
 	String setProfileImageByUserId(int userId, FileInputStream inputStream);
 	String setUserwithoutphotos(User user);
 	String resetpassword(String email, String password);
+	
+	String setLocale(int userId, String localeCode);
 	
 }

@@ -20,8 +20,7 @@ $(document).on("click", "#delete-conversation-button", function(event) {
 		});
 		
 		// Modify the selected-conversation-thread-header-div
-		$("#other-participants-div").empty();
-		$("#other-participants-div").append("No conversation selected");
+		$("#other-participants-div").text("No conversation selected");
 		$("#delete-conversation-button").remove();
 		
 		// Empty the deleted thread

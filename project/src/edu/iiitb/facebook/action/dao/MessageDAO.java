@@ -61,4 +61,18 @@ public interface MessageDAO
 	 * @param user
 	 */
 	public void deleteMessagesFromConversation(int conversation, int inbox);
+
+	/**
+	 * Delete specified message from specified inbox
+	 * @param id
+	 * @param uinbox
+	 */
+	public void deleteMessageFromInbox(int id, int inbox);
+
+	/**
+	 * Mark all the unread messages in the inbox of the specified conversation as read
+	 * @param conversation
+	 * @param inbox
+	 */
+	public void markAsRead(int inbox, int conversation);
 }
