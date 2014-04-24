@@ -7,6 +7,7 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.convention.default.parent.package"
 		value="default" />
+	<constant name="struts.custom.i18n.resources" value="global" />
 
 	<package name="default" namespace="/" extends="struts-default,json-default">
 		<result-types>
@@ -32,15 +33,13 @@
 			</interceptor-stack>
 		</interceptors>
 
-
-
-
 		<action name="checkCookie">
 			<interceptor-ref name="loginAccess"></interceptor-ref>
 			<result name="success" type="redirectAction">newsfeeds</result>
 			<result name="input">/login.jsp</result>
 			<result name="login">/login.jsp</result>
 		</action>
+
 
 
 		<action name="login" class="edu.iiitb.facebook.action.login.LoginAction">			
@@ -70,8 +69,8 @@
 		<action name="editabout"
 			class="edu.iiitb.facebook.action.about.EditAboutAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/about/aboutedit.jsp</result>
-<result name="login" type="redirectAction">checkCookie</result>
+			<result name="success" type="tiles">editabout.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
 
 		<!-- This is for About -->
@@ -79,6 +78,15 @@
 			<interceptor-ref name="secureAccess"></interceptor-ref>
 			<result name="success" type="tiles">about.tiles</result>
 			<result name="login" type="redirectAction">checkCookie</result>
+			 
+		</action>
+		
+		<!-- This is for Submit About -->
+		<action name="submitabout" class="edu.iiitb.facebook.action.about.SubmitAboutAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">about.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+			<result name="input">about.tiles</result>
 		</action>
 
 
@@ -146,7 +154,16 @@
 			<result name="input" type="json" />
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
+		<!-- This is for deleting a message -->
+		<action name="deleteMessage" method="delete"
+			class="edu.iiitb.facebook.action.messages.DeleteMessageAction">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="json" />
+			<result name="input" type="json" />
+			<result name="login">/login.jsp</result>
+		</action>
+
 		<!-- End of messages related actions -->
 
 
@@ -264,9 +281,9 @@
 		<action name="mutualfriends"
 			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/suggestions/mutualfriends.jsp</result>
+			<result name="success">/suggestions/mutualfriendList.jsp</result>
 			<result name="login" type="redirectAction">checkCookie</result>
-			<result name="input">/suggestions/mutualfriends.jsp</result>
+			<result name="input">/suggestions/mutualfriendList.jsp</result>
 		</action>
 		<!-- This is for adding a suggested Friend -->
 		<action name="addSuggestedFriend"
@@ -280,7 +297,7 @@
 		<action name="profile"
 			class="edu.iiitb.facebook.action.friends.FriendProfileAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success" type="tiles">viewtimeline.tiles</result>
+			<result name="success" type="tiles">timeline.tiles</result>
 			<result name="error" type="tiles">error.tiles</result>
 			<result name="login" type="redirectAction">checkCookie</result>
 
@@ -458,8 +475,20 @@
 			<result name="success" type="tiles">settings.tiles</result>
 			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-
-
+		<action name="editSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction"
+			method="edit">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">editsettings.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
+		<action name="updateSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction"
+			method="update">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
 	</package>
 
 </struts>

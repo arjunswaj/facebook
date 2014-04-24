@@ -3,20 +3,40 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import edu.iiitb.facebook.action.dao.*;
+import edu.iiitb.facebook.action.dao.DetailsDAO;
 import edu.iiitb.facebook.action.model.InstituteDetails;
 import edu.iiitb.facebook.action.model.OrganizationDetails;
 import edu.iiitb.facebook.util.ConnectionPool;
 public class DetailsDAOImpl implements DetailsDAO{
 	List<OrganizationDetails> organization_details=new ArrayList<OrganizationDetails>();
 	List<InstituteDetails> institute_details=new ArrayList<InstituteDetails>();
+	
+	public void setUserDetails(String relationship,String nativeplace,String place,Date dob,String gender,int id)
+	{
+		final String query = "update user set relationship=?,place=?,nativeplace=?,gender=?,dob=? where id=?";
+		Connection connection = ConnectionPool.getConnection();
+		
+		try {
+			PreparedStatement stmt=connection.prepareStatement(query);
+			stmt.setString(1,relationship);
+			stmt.setString(2, place);
+			stmt.setString(3, nativeplace);
+			stmt.setString(4, gender);
+			stmt.setDate(5, (java.sql.Date) dob);
+			stmt.setInt(6, id);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 	
 	@Override
 	public List<OrganizationDetails> getOrganizationDetailsForUser(int userId) {
@@ -99,6 +119,60 @@ public class DetailsDAOImpl implements DetailsDAO{
 			ConnectionPool.freeConnection(connection);
 		}
 	return institute_details;
+	
+	
+	}
+	
+	public void setInstituteDetailsForUser(int userId,Date startdate,Date enddate,int status,String description,String name) {
+		// TODO Auto-generated method stub
+		final String query = "insert into institute(working_from,working_to,has_graduated,description,name,user_id) values(?,?,?,?,?,?)";
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setDate(1,(java.sql.Date)startdate);
+			stmt.setDate(2,(java.sql.Date)enddate);
+			stmt.setInt(3, status);
+			stmt.setString(4, description);
+			stmt.setString(5,name);
+			stmt.setInt(6,userId);
+			int rs = stmt.executeUpdate();
+			
+			
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+	}
+	public void setOrganizationDetailsForUser(int userId,Date startdate,Date enddate,String name,String position) {
+		// TODO Auto-generated method stub
+		final String query = "insert into organization(working_from,working_to,name,position,user_id) values(?,?,?,?,?)";
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setDate(1,(java.sql.Date)startdate);
+			stmt.setDate(2,(java.sql.Date) enddate);
+			stmt.setString(3,name);
+			stmt.setString(4,position);
+			stmt.setInt(5,userId);
+			int rs = stmt.executeUpdate();
+			
+					
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
 	
 	
 	}

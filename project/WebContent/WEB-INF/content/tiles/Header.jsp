@@ -16,12 +16,12 @@
 </style>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-ui.js"></script>
-<%-- <script type="text/javascript">
+<script type="text/javascript">
 	window.history.forward();
 	function noBack() {
 		window.history.forward();
 	}
-</script> --%>
+</script>
 <script type="text/javascript">
 
 $(document).on('click', '.accept-request',
@@ -70,7 +70,7 @@ $(document).on('click', '.reject-request',
 	
 	function gotoTimeline() {
 
-		document.getElementById("facebookHeader").action = "/facebook/timeline.action";
+		document.getElementById("facebookHeader").action = "/facebook/timeline.action?myprofile=true";
 		document.getElementById("facebookHeader").submit();
 	}
 	
@@ -142,7 +142,7 @@ $(document).on('click', '.reject-request',
 	            dataType: 'html',
 	            success: function(html) {
 	            	$("#friendReq").popover({
-	                    title: 'Friends Requests',
+	                    title: '<s:text name="global.friendreq"/>',
 	                    content: html,
 	                    placement: 'bottom',
 	                    html: true                    
@@ -173,7 +173,7 @@ $(document).on('click', '.reject-request',
 				<div class="col-lg-6">
 					<div class="input-group">
 						<input type="text" class="form-control"
-							placeholder="Search for people, places and things" name="email"
+							placeholder="<s:text name="global.search"/>" name="email"
 							id="names" autocomplete="off" /> <input type="text" id="fref"
 							name="fref" hidden="true" /> <span class="input-group-btn">
 							<button class="btn btn-default" type="button" onclick="search();">
@@ -195,7 +195,7 @@ $(document).on('click', '.reject-request',
 					<!-- Home Button -->
 					<button type="button" id="home" class="btn btn-primary"
 						onclick="gotoNewsFeeds();">
-						<b>Home</b>
+						<b><s:text name="global.home"/></b>
 					</button>
 					<!-- My Friends Request -->
 					<a id="friendReq" class="btn btn-primary" rel="popover" >
@@ -222,9 +222,9 @@ $(document).on('click', '.reject-request',
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li><a href="accountSettings">Settings</a></li>
+						<li><a href="accountSettings"><s:text name="global.settings"/></a></li>
 						<li class="divider"></li>
-						<li><a href="logout">Logout</a></li>
+						<li><a href="logout"><s:text name="global.logout"/></a></li>
 					</ul>
 				</div> 
 

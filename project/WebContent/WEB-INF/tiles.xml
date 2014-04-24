@@ -124,11 +124,17 @@
 			value="/WEB-INF/content/tiles/profile_menu.jsp" />
 	</definition>
 
-	<!-- This is for the friends page -->
+	<!-- This is for the about page -->
 	<definition name="about.tiles" extends="viewFriendsLayout">
 		<put-attribute name="title" value="friends" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
 		<put-attribute name="profile_menu-pane" value="/about/about.jsp" />
+	</definition>
+	<!-- This is for the edit about page -->
+	<definition name="editabout.tiles" extends="viewFriendsLayout">
+		<put-attribute name="title" value="friends" />
+		<put-attribute name="central-pane" value="/friends/profile.jsp" />
+		<put-attribute name="profile_menu-pane" value="/about/aboutedit.jsp" />
 	</definition>
 
 
@@ -149,7 +155,7 @@
 	
 	
 
-	<!-- This is for the friends page -->
+	<!-- This is for the timeline page -->
 	<definition name="viewtimeline.tiles" extends="viewFriendsLayout">
 		<put-attribute name="title" value="friends" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
@@ -186,14 +192,19 @@
 		<put-attribute name="title" value="Settings" />
 		<put-attribute name="central-pane" value="/settings/settings.jsp" />
 	</definition>
-	
-	
-		<!-- This is for the edit about page -->
+	<definition name="editsettings.tiles" extends="simpleLayout">
+		<put-attribute name="title" value="Settings" />
+		<put-attribute name="central-pane" value="/settings/editsettings.jsp" />
+	</definition>
+	<!-- This is for the edit about page -->
 	<definition name="editabout.tiles" extends="viewFriendsLayout">
-		<put-attribute name="title" value="editabout" />
+		<put-attribute name="title" value="Editabout" />
 		<put-attribute name="central-pane" value="/friends/profile.jsp" />
-		<put-attribute name="profile_menu-pane" value="/WEB-INF/content/tiles/profile_menu.jsp" />		
-		
-	</definition> 
+		<put-attribute name="profile_menu-pane"
+			value="/about/aboutedit.jsp" />
+
+	</definition>
+	
+	 
 
 </tiles-definitions>

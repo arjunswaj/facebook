@@ -119,6 +119,8 @@ img.wne {
 </style>
 </head>
 <body>
+<s:set name="loggedInUser" value="userId" />
+			<s:set name="ReferredUser" value="fuserId" />
 	<div class="row" style="background-color: #f7f7f7">
 		<div class="col-md-1" align="left"></div>
 		<div class="col-md-10" align="left" style="background-color: white">
@@ -126,10 +128,12 @@ img.wne {
 				<table>
 					<tr>
 						<td><b class="q">About</b></td>
+						<s:if test="#loggedInUser==#ReferredUser">
 						<td><s:form action="editabout" method="post">
 								<s:submit type="button" label="Edit" align="right" />
 							</s:form>
 						</td>
+						</s:if>
 					</tr>
 				</table>
 

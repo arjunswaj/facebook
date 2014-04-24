@@ -31,6 +31,33 @@ private String year;
 private String date_month;
 private String gender;
 private String fref;
+private int userId;
+private int fuserId;
+
+public int getUserId() {
+	return userId;
+}
+
+
+public void setUserId(int userId) {
+	this.userId = userId;
+}
+
+
+public int getFuserId() {
+	return fuserId;
+}
+
+
+public void setFuserId(int fuserId) {
+	this.fuserId = fuserId;
+}
+
+
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
+
 
 public String getFref() {
 	return fref;
@@ -124,6 +151,7 @@ public String execute()
 {
 	 User user = (User) session.get("user");
 	 int ref = user.getUserId();
+	 userId=ref;	 
 	 String tmp_ref = (String) session.get("profileReference");
 	 if(tmp_ref!=null)
 	 this.fref = tmp_ref;
