@@ -91,6 +91,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 				this.servletResponse.addCookie(cookie);
 				this.session.put("user", user);
+				this.session.put("profileReference", user.getUserId() + "");
 				return SUCCESS;
 			}
 			else
@@ -114,7 +115,8 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 				newUser = tempuser;
 				session.put("user", newUser);
-
+				session.put("profileReference", newUser.getUserId() + "");
+				session.put("fref", newUser.getUserId() + "");
 				if (persistent != null)
 				{
 					Cookie userCookie = new Cookie("userID", tempuser.getEmail());
