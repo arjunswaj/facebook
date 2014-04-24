@@ -29,7 +29,7 @@ body {background-color:#ffffff;}
 	<div class="page-header" align="left">
 		<h4><strong>General Account Settings</strong></h4>
 	</div>
-	<form action="viewSettings" method="post">
+	<form action="updateSettings" method="post">
 		<hr>
 		<div class="row" align="center">
         	<div class="col-md-3"><strong>Name</strong></div>
@@ -43,21 +43,18 @@ body {background-color:#ffffff;}
         	<div class="col-md-3"><a href="#"></a></div>
       	</div>
       	<hr>
- 		<div class="row" align="center">
- 		<s:set var="locale" value="#session['user'].locale"/>
- 			<%
- 				String localeCode = (String) pageContext.getAttribute("locale");
-				String localeCodeParts[] = localeCode.split("_");
- 				String language = localeCodeParts[0];
-  				String country = localeCodeParts[1];
-				Locale loc = new Locale(language, country);
-  				String languageName = loc.getDisplayName();
-			%>
-        	<div class="col-md-3"><strong>Language</strong></div>
-        	<div class="col-md-3"><%= languageName %></div>
-        	<div class="col-md-3"><a href="editSettings">Edit</a></div>
-      	</div>
-      	<hr>
+      	<div class="row" align="center">
+      	<div class="col-md-3"><strong>Language</strong></div>
+      	<div class="col-md-3">
+			<select name="localeCode" id="localeCode"> 
+			    <option value="-1">Select Your Preference</option> 
+			    <option value="en_US">English (United States)</option> 
+			    <option value="mt_MT">Maltese</option> 
+			</select>
+		</div>
+		<div><input type="submit" value="Submit"></input>
+		</div>
+		<hr>
 	</form>
 	
 	<h4>List of Blocked Users</h4>
@@ -78,6 +75,7 @@ body {background-color:#ffffff;}
 		</s:iterator>
 	</div>
 	
+</div>
 </div>
 
 </body>

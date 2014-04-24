@@ -186,6 +186,10 @@
 		<put-attribute name="title" value="Settings" />
 		<put-attribute name="central-pane" value="/settings/settings.jsp" />
 	</definition>
+	<definition name="editsettings.tiles" extends="simpleLayout">
+		<put-attribute name="title" value="Settings" />
+		<put-attribute name="central-pane" value="/settings/editsettings.jsp" />
+	</definition>
 	
 	
 		<!-- This is for the edit about page -->

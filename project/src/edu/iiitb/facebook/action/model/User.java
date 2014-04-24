@@ -23,6 +23,7 @@ public class User
 	private String nativeplace;
 	private String relationship;
 	private String gender;
+	private String locale;
 	
 	public String getGender() {
 		return gender;
@@ -218,5 +219,13 @@ public class User
 	public void setCreated(Timestamp created)
 	{
 		this.created = created;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

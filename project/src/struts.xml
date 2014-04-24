@@ -467,8 +467,18 @@
 			<result name="success" type="tiles">settings.tiles</result>
 			<result name="login" type="redirectAction">checkCookie</result>
 		</action>
-
-
+		<action name="editSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction" method="edit">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">editsettings.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
+		<action name="updateSettings"
+			class="edu.iiitb.facebook.action.settings.AccountSettingsAction" method="update">
+			<interceptor-ref name="secureAccess"></interceptor-ref>
+			<result name="success" type="tiles">settings.tiles</result>
+			<result name="login" type="redirectAction">checkCookie</result>
+		</action>
 	</package>
 
 </struts>
