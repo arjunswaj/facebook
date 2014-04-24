@@ -94,6 +94,8 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 					setFref(user.getUserId() + "");
 				}
 				setRequestStatus(FriendInfo.RequestStatus.MYPROFILE.getReqstat());
+				session.put("requestStatus", requestStatus);
+				session.put("profileReference", fref);
 				return SUCCESS;
 
 			}
