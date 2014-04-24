@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Friend Suggestions</title>
+<title><s:text name="global.friendsugg"/></title>
 </head>
 <body>
 	<s:if test="%{getFriendSuggestionsList().isEmpty()}">
 	</s:if>
 	<s:else>
 	<div id="suggestions">
-		<h5 style="color:gray";" align="center">PEOPLE YOU MAY KNOW</h5>
+		<h5 style="color:gray";" align="center"><s:text name="global.pplyoumayknow"/></h5>
 		<s:iterator value="friendSuggestionsList" var="fsl">
 			<s:set var="friendId" value="%{friendId}"/>
 			<%
@@ -25,9 +25,10 @@
 					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
 					</a>
 					<br>
-						<a id="mutualFriends" style="color:gray;" onclick="getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>);"> Mutual Friends </a>
+<%-- 						<a id="mutualFriends" style="color:gray;" onclick="getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>);"> <s:text name="global.mutualfriends"/> </a> --%>
+						<a style="color: gray;" href='mutualfriends?userId=<s:property value="userId"/>&friendId=<s:property value="friendId"/>'><s:text name="global.mutualfriends"/></a>
 					<br>
-					<input type="submit" class="btn btn-default" id="AddFriend" value="+ Add Friend"/>
+					<input type="submit" class="btn btn-default" id="AddFriend" value="<s:text name="global.addfriend"/>"/>
 
 					<s:hidden name="friendId" value="%{friendId}" />
 				</div>
@@ -56,7 +57,7 @@
 		
 		posting.done(function(addSuggFriendData) {
 			if (addSuggFriendData.status == true) {
-				form[0][0].value = "Friend Request Sent";
+				form[0][0].value = "<s:text name="global.friendreqsent"/>";
 				form[0][0].disabled = true;
 			}
 		});
@@ -80,7 +81,7 @@
 	
 	$(document).ready(function(){
 		  $("#addfriend").click(function(){
-		   	$(this).html('Friend Request Sent');
+		   	$(this).html('<s:text name="global.friendreqsent"/>');
 		  });
 	});
 			
