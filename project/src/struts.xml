@@ -274,9 +274,9 @@
 		<action name="mutualfriends"
 			class="edu.iiitb.facebook.action.friendsuggestions.MutualFriendsAction">
 			<interceptor-ref name="secureAccess"></interceptor-ref>
-			<result name="success">/suggestions/mutualfriends.jsp</result>
+			<result name="success">/suggestions/mutualfriendList.jsp</result>
 			<result name="login" type="redirectAction">checkCookie</result>
-			<result name="input">/suggestions/mutualfriends.jsp</result>
+			<result name="input">/suggestions/mutualfriendList.jsp</result>
 		</action>
 		<!-- This is for adding a suggested Friend -->
 		<action name="addSuggestedFriend"

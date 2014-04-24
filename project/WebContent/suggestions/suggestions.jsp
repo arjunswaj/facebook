@@ -25,7 +25,8 @@
 					<b style="color:#45619d;"><s:property value="firstName" />&nbsp;<s:property value="lastName" /></b>
 					</a>
 					<br>
-						<a id="mutualFriends" style="color:gray;" onclick="getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>);"> <s:text name="global.mutualfriends"/> </a>
+<%-- 						<a id="mutualFriends" style="color:gray;" onclick="getMutualFriends(<s:property value="userId"/>,<s:property value="friendId"/>);"> <s:text name="global.mutualfriends"/> </a> --%>
+						<a style="color: gray;" href='mutualfriends?userId=<s:property value="userId"/>&friendId=<s:property value="friendId"/>'>Mutual Friends</a>
 					<br>
 					<input type="submit" class="btn btn-default" id="AddFriend" value="<s:text name="global.addfriend"/>"/>
 
