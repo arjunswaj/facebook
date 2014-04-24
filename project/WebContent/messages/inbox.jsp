@@ -35,6 +35,9 @@
 											<s:property value="lastName" />
 											, 
 									</s:iterator>
+									<s:if test="%{unreadMessagesCount > 0}">
+										(<s:property value="unreadMessagesCount" />)
+									</s:if>
 							</div>
 							<div class="conversation-date-div">								
 									<s:property value="latestMessage.sentAt" />

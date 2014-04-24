@@ -64,7 +64,7 @@ public class SendNewMessageAction extends ActionSupport implements SessionAware
 		selectedConversation = new Conversation();
 		selectedConversation.setId(cid);
 		selectedConversation.setLatestMessage(newMessage);
-		selectedConversation.setUnreadMessagesCount(0);//TODO
+		selectedConversation.setUnreadMessagesCount(0);
 		selectedConversation.setOtherParticipants(dao.getOtherParticipants(cid, user.getUserId()));
 		selectedConversation.setAllFriends(true);
 		// don't need logged in user

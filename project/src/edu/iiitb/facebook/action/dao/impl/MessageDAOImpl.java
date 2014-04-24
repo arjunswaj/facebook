@@ -172,15 +172,13 @@ public class MessageDAOImpl implements MessageDAO
 			    + " message.sent_at,"
 			    + " message.sender,"
 			    + " message.inbox,"
-			    + " message.read_status,"
-			    + " conversation.unread_count"
+			    + " message.read_status"
 			+ " from"
 			    + " user,"
 				+ " message,"
 			    + " (select "
 			        + " message.conversation as id,"
-			            + " max(message.sent_at) as sent_at,"
-			            + " count(*) as unread_count"
+			            + " max(message.sent_at) as sent_at"
 			    + " from"
 			        + " message"
 				+ " where message.inbox = ?"
@@ -217,8 +215,9 @@ public class MessageDAOImpl implements MessageDAO
 				latestMessage.setReadStatus(rs.getString("read_status"));
 				
 				conversation.setLatestMessage(latestMessage);
-				conversation.setUnreadMessagesCount(rs.getInt("unread_count"));
-				// TODO: Can this db call be avoided??
+				
+				// TODO: Can these db calls be avoided??
+				conversation.setUnreadMessagesCount(getUnreadCount(rs.getInt("conversation"), user));
 				conversation.setOtherParticipants(getOtherParticipants(rs.getInt("conversation"), user));
 				
 				conversations.add(conversation);
@@ -256,6 +255,36 @@ public class MessageDAOImpl implements MessageDAO
 			ConnectionPool.freeConnection(connection);
 		}
 		return conversations;
+	}
+
+	/**
+	 * @param conversation
+	 * @param user
+	 * @return
+	 */
+	private int getUnreadCount(int conversation, int inbox)
+	{
+		final String query = "select count(*) as unread_count from message where inbox = ? and conversation = ? and read_status = 'unread'";
+		Connection connection = ConnectionPool.getConnection();
+		int count = 9999999;
+		PreparedStatement stmt;
+		try
+		{
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next())
+				count = rs.getInt("unread_count");
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}
+		return count;
 	}
 
 	/**
@@ -438,5 +467,33 @@ public class MessageDAOImpl implements MessageDAO
 		{
 			ConnectionPool.freeConnection(connection);
 		}		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.iiitb.facebook.action.dao.MessageDAO#markAsRead(int, edu.iiitb.facebook.action.model.Conversation)
+	 */
+	@Override
+	public void markAsRead(int inbox, int conversation)
+	{
+		final String deleteMessage = "update message set read_status = 'read' where inbox = ? and conversation = ?";
+		
+		Connection connection = ConnectionPool.getConnection();
+		PreparedStatement stmt;
+		try
+		{	
+			stmt = connection.prepareStatement(deleteMessage);
+			stmt.setInt(1, inbox);
+			stmt.setInt(2, conversation);
+			stmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		} finally
+		{
+			ConnectionPool.freeConnection(connection);
+		}		
+
+		
 	}
 }

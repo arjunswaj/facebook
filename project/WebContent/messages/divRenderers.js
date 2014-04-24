@@ -1,6 +1,61 @@
 /**
  * Object literals used for rendering
  */
+
+var conversationsDiv = {
+		conversations : {},
+		
+		init : function(conversations) {
+			conversationsDiv.conversations = conversations;
+		},
+		
+		get : function() {
+			var div = '<div id="conversations-div">';
+			$.each(conversationsDiv.conversations, function(index, conversation) {
+				conversationDiv.init(conversation);
+				div	+= conversationDiv.get();
+			});
+			div += '</div>';
+			return div;
+		}
+};
+
+var conversationDiv = {
+		conversation : {},
+		
+		init : function(conversation) {
+			conversationDiv.conversation = conversation; 
+		},
+		
+		get : function() {
+			var div
+				= '<div class="conversation-div">\
+					<input type=hidden class="conversation-conversation-hidden" value="' + conversationDiv.conversation.id + '" />\
+						<div class="conversation-photo-div">\
+								<img width="50" height="50" src="image?userId='  + conversationDiv.conversation.otherParticipants[0].userId + '"/>\
+						</div>\
+						<div class="conversation-details-div">\
+							<div class="conversation-participants-div">';
+			$.each(conversationDiv.conversation.otherParticipants, function(index, otherParticipant) {
+				div += otherParticipant.firstName + ' ' + otherParticipant.lastName + ', ';
+			});
+			
+			if (conversationDiv.conversation.unreadMessagesCount > 0)
+					div += '(' + conversationDiv.conversation.unreadMessagesCount + ')';
+			div += '		</div>\
+							<div class="conversation-date-div">'
+								+ jQuery.timeago(conversationDiv.conversation.latestMessage.sentAt) +
+							'</div>\
+							<div class="conversation-text-div">'
+								+ conversationDiv.conversation.latestMessage.text + 
+								'<input type="hidden" value="' + conversationDiv.conversation.id + '"/> \
+							</div>\
+						</div>\
+				   </div>';
+			return div;
+		}
+};
+
 var selectedConversationThreadHeaderDiv = {
 		selectedConversation : {},
 		
@@ -97,57 +152,6 @@ var replyBoxDiv = {
 				<input type="hidden" id="conversation-hidden" name="replyMsg.conversation" value="' + replyBoxDiv.selectedConversation.id + '" />\
 				<input id="reply-button" type="submit" value="Reply" />\
 			</div>';
-			return div;
-		}
-};
-
-var conversationDiv = {
-		conversation : {},
-		
-		init : function(conversation) {
-			conversationDiv.conversation = conversation; 
-		},
-		
-		get : function() {
-			var div
-				= '<div class="conversation-div">\
-					<input type=hidden class="conversation-conversation-hidden" value="' + conversationDiv.conversation.id + '" />\
-						<div class="conversation-photo-div">\
-								<img width="50" height="50" src="image?userId='  + conversationDiv.conversation.otherParticipants[0].userId + '"/>\
-						</div>\
-						<div class="conversation-details-div">\
-							<div class="conversation-participants-div">';
-			$.each(conversationDiv.conversation.otherParticipants, function(index, otherParticipant) {
-				div += otherParticipant.firstName + ' ' + otherParticipant.lastName + ', ';
-			});
-			div += '		</div>\
-							<div class="conversation-date-div">'
-								+ jQuery.timeago(conversationDiv.conversation.latestMessage.sentAt) +
-							'</div>\
-							<div class="conversation-text-div">'
-								+ conversationDiv.conversation.latestMessage.text + 
-								'<input type="hidden" value="' + conversationDiv.conversation.id + '"/> \
-							</div>\
-						</div>\
-				   </div>';
-			return div;
-		}
-};
-
-var conversationsDiv = {
-		conversations : {},
-		
-		init : function(conversations) {
-			conversationsDiv.conversations = conversations;
-		},
-		
-		get : function() {
-			var div = '<div id="conversations-div">';
-			$.each(conversationsDiv.conversations, function(index, conversation) {
-				conversationDiv.init(conversation);
-				div	+= conversationDiv.get();
-			});
-			div += '</div>';
 			return div;
 		}
 };

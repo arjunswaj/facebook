@@ -57,6 +57,9 @@ public class InboxAction extends ActionSupport implements SessionAware
 				break;
 			}
 		
+		if (selectedConversation.getUnreadMessagesCount() > 0)
+			dao.markAsRead(user, selectedConversation.getId());
+		
 		return SUCCESS;
 	}
 
