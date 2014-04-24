@@ -10,7 +10,12 @@
 	function validate() {
 		var x = document.forms["myForm"]["secret_question"].value;
 		var y = document.forms["myForm"]["secret_answer"].value;
+		var z = document.forms["myForm"]["phone_number"].value;
 		
+		if (isNaN(z)) {
+            alert('Phone number should contain only numbers');
+            return false;
+        }
 		if (!x) {
 			alert("secret_question cannot be null");
 			return false;
@@ -31,7 +36,7 @@
 			href="login.jsp"><img src="images/facebook-logo.jpg"
 			alt="Facebook" width="200" height="65" /></a> &nbsp; &nbsp; &nbsp; &nbsp;
 		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<s:property value="first_name" />
+	<span style="color:white; font-size: 20pt;position: absolute;  left: 1000px; top: 30px">User: <s:property value="first_name" /></span>
 	</div>
 	<br>
 	<br>

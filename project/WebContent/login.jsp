@@ -43,8 +43,10 @@ var a=document.forms["signupform"]["day"].value;
 var b=document.forms["signupform"]["month"].value;
 var c=document.forms["signupform"]["year"].value;
 
+
 var atpos=x.indexOf("@");
 var dotpos=x.lastIndexOf(".");
+
 if (!p)
 {
 alert("first name cannot be null");
@@ -73,7 +75,39 @@ if( a == -1 || b == -1 || c == -1)
 	return false;
 	}
 
+else if(!leapYear(a,b,c))
+{
+ alert(" Enter a valid Bithday date because you have entered a leap year ");
+return false;
 }
+
+}
+
+
+function leapYear(day,month,year)
+{
+ if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+ {
+	 if((month==2)&&((day==30)||(day==31)))
+			 {
+		 document.forms["signupform"]["day"].value=-1;
+		 document.forms["signupform"]["month"].value=-1;
+			return false;
+			 }
+ }
+ else
+	 {
+	 if((month==2)&&((day==30)||(day==31)||(day==29)))
+			 {
+		 document.forms["signupform"]["day"].value=-1;
+		 document.forms["signupform"]["month"].value=-1;
+			return false;
+			 }
+	 }
+ return true;
+}
+
+
 </script>
 </head>
 
