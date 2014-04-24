@@ -39,7 +39,7 @@ public class LikesAction extends ActionSupport implements SessionAware {
     if (null != user) {
       userId = user.getUserId();
       postsDAO.likeAPost(postId, userId);
-      likersCount = postsDAO.updateLikersCount(postId);
+      likersCount = postsDAO.updateLikersCount(postId);      
       return SUCCESS;
     } else {
       return LOGIN;

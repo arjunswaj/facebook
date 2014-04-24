@@ -71,12 +71,12 @@
 						<form id="accept_request_<%=strangerId%>" class="accept-request"
 							action="confirmfriend" method="post">
 							<input type ="hidden" name="friendId" id="friendId" value="<%=strangerId%>"/>
-							<input type ="submit" value="Accept" />
+							<input type ="submit" value="<s:text name="global.accept"/>" />
 						</form>
 						<form id="reject_request_<%=strangerId%>" class="reject-request"
 							action="rejectfriend" method="post">
 							<input type ="hidden" name="friendId" id="friendId" value="<%=strangerId%>"/>
-							<input type ="submit" value="Reject" />
+							<input type ="submit" value="<s:text name="global.reject"/>" />
 						</form>
 					</div>
 				</div>

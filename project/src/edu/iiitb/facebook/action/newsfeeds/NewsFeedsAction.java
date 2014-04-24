@@ -4,10 +4,14 @@
 package edu.iiitb.facebook.action.newsfeeds;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.LocaleUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import edu.iiitb.facebook.action.dao.PostsDAO;
@@ -36,8 +40,9 @@ public class NewsFeedsAction extends ActionSupport implements SessionAware {
   private int userId;
 
   public String execute() {
-    User user = (User) session.get("user");
+    User user = (User) session.get("user");      
     userId = user.getUserId();
+    this.session.put("WW_TRANS_I18N_LOCALE", LocaleUtils.toLocale(user.getLocale()));
     newsFeeds = postsDAO.getNewsFeedsForUser(userId);
     return SUCCESS;
   }
@@ -52,7 +57,7 @@ public class NewsFeedsAction extends ActionSupport implements SessionAware {
 
   @Override
   public void setSession(Map<String, Object> session) {
-    this.session = session;
+    this.session = session;      
   }
 
   public int getUserId() {
@@ -62,5 +67,5 @@ public class NewsFeedsAction extends ActionSupport implements SessionAware {
   public void setUserId(int userId) {
     this.userId = userId;
   }
-
+ 
 }
