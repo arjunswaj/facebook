@@ -94,6 +94,8 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 					setFref(user.getUserId() + "");
 				}
 				setRequestStatus(FriendInfo.RequestStatus.MYPROFILE.getReqstat());
+				session.put("requestStatus", requestStatus);
+				session.put("profileReference", fref);
 				return SUCCESS;
 
 			}
@@ -158,6 +160,9 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				}
 			}
 
+			session.put("requestStatus", requestStatus);
+			session.put("profileReference", fref);
+
 		}
 		else
 		{
@@ -196,6 +201,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 
 				setRequestStatus(FriendInfo.RequestStatus.PENDING.getReqstat());
 			}
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -231,6 +237,8 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 			{
 				return ERROR;
 			}
+
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -266,6 +274,7 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 			{
 				return ERROR;
 			}
+			session.put("requestStatus", requestStatus);
 		}
 		else
 		{
@@ -290,12 +299,13 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 				else
 				{
 					setRequestStatus(FriendInfo.RequestStatus.BLOCKED.getReqstat());
-					
-					Connection cn=ConnectionPool.getConnection();
-					EventDAO eventDAO=new EventDAOImpl();
+
+					Connection cn = ConnectionPool.getConnection();
+					EventDAO eventDAO = new EventDAOImpl();
 					eventDAO.deleteAllInvitationsBetweenUsers(cn, Integer.parseInt(lref), Integer.parseInt(fref));
 					ConnectionPool.freeConnection(cn);
 				}
+				session.put("requestStatus", requestStatus);
 			}
 			else
 			{
@@ -309,14 +319,18 @@ public class FriendProfileAction extends ActionSupport implements SessionAware
 		}
 		return SUCCESS;
 	}
-	
-	public String unblockfriend() {
+
+	public String unblockfriend()
+	{
 		User user = (User) session.get("user");
-		if (user == null) return LOGIN;
+		if (user == null)
+			return LOGIN;
 		setLref(user.getUserId() + "");
-		if (fref == null) return ERROR;
+		if (fref == null)
+			return ERROR;
 		FriendsDAO friendsDAO = new FriendsDAOImpl();
-		if ( friendsDAO.unblockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) == false) return ERROR;
+		if (friendsDAO.unblockFriend(Integer.parseInt(lref), Integer.parseInt(fref)) == false)
+			return ERROR;
 		return SUCCESS;
 	}
 

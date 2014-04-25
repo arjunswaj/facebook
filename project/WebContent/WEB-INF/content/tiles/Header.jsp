@@ -70,7 +70,7 @@ $(document).on('click', '.reject-request',
 	
 	function gotoTimeline() {
 
-		document.getElementById("facebookHeader").action = "/facebook/timeline.action";
+		document.getElementById("facebookHeader").action = "/facebook/timeline.action?myprofile=true";
 		document.getElementById("facebookHeader").submit();
 	}
 	

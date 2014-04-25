@@ -8,6 +8,10 @@ $(document).on("click", ".conversation-div", function(event) {
 	$(this).parent().find(".conversation-div").css('background-color', 'white');
 	$(this).css('background-color', 'teal');
 	
+	// Mark all messages as read
+	var participantsAndUnread = $(this).find(".conversation-details-div").find(".conversation-participants-div").text();
+	$(this).find(".conversation-details-div").find(".conversation-participants-div").text(participantsAndUnread.split('(')[0]);
+	
 	// load selected conversation
 	var selectedConversation = $(this).children("input").val();
 	var posting = $.post("loadSelectedConversationThread.action", {"selectedConversation.id" : selectedConversation});

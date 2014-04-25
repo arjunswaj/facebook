@@ -41,7 +41,7 @@ public class InboxAction extends ActionSupport implements SessionAware
 		if (selectedConversation == null)
 		{ 
 			if (conversations.isEmpty()) // No conversations
-				return NO_CONVERSATIONS;
+				return SUCCESS;
 			selectedConversation = conversations.get(0); // Initial load of inbox
 		}
 		
@@ -56,6 +56,9 @@ public class InboxAction extends ActionSupport implements SessionAware
 				selectedConversation = conversation;
 				break;
 			}
+		
+		if (selectedConversation.getUnreadMessagesCount() > 0)
+			dao.markAsRead(user, selectedConversation.getId());
 		
 		return SUCCESS;
 	}

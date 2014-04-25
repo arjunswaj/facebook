@@ -77,7 +77,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 			return SUCCESS;
 		}
-		/*else if (getCookie("userID") != null)
+		else if (getCookie("userID") != null)
 		{
 			UserDAO dao = new UserDAOImpl();
 
@@ -91,11 +91,19 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 				this.servletResponse.addCookie(cookie);
 				this.session.put("user", user);
+				this.session.put("profileReference", user.getUserId() + "");
 				return SUCCESS;
 			}
-			
+			else
+			{
+				cookie.setMaxAge(0);
 
-		}*/
+				this.servletResponse.addCookie(cookie);
+				return INPUT;
+
+			}
+
+		}
 		else
 		{
 			// System.out.println("place2");
@@ -107,7 +115,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 				newUser = tempuser;
 				session.put("user", newUser);
-
+				session.put("profileReference", newUser.getUserId() + "");
 				if (persistent != null)
 				{
 					Cookie userCookie = new Cookie("userID", tempuser.getEmail());

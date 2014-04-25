@@ -47,12 +47,16 @@ body {background-color:#ffffff;}
       	<div class="col-md-3"><strong>Language</strong></div>
       	<div class="col-md-3">
 			<select name="localeCode" id="localeCode"> 
-			    <option value="-1">Select Your Preference</option> 
+			    <option value="en_US">Select Your Preference</option> 
 			    <option value="en_US">English (United States)</option> 
-			    <option value="mt_MT">Maltese</option> 
+			    <option value="fr_FR">French (France)</option> 
 			</select>
 		</div>
-		<div><input type="submit" value="Submit"></input>
+		<div>
+			<input style="color:black;" type="submit" value="Submit"></input>
+			<a href="accountSettings" ><input style="color:black;"  type="button" value="Cancel"></input></a>
+		</div>
+		
 		</div>
 		<hr>
 	</form>
@@ -75,7 +79,6 @@ body {background-color:#ffffff;}
 		</s:iterator>
 	</div>
 	
-</div>
 </div>
 
 </body>
