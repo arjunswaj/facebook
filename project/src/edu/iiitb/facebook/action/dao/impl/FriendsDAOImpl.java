@@ -200,7 +200,7 @@ public class FriendsDAOImpl implements FriendsDAO
 	@Override
 	public List<User> getFriendsList(int userId)
 	{
-		ArrayList<User> friends = null;
+		ArrayList<User> friends = new ArrayList<User>();
 		User userDao = null;
 		Connection conn = ConnectionPool.getConnection();
 
