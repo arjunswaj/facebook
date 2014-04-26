@@ -319,6 +319,7 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 			{
 				fref = user.getUserId() + "";
 				session.put("requestStatus", FriendInfo.RequestStatus.MYPROFILE.getReqstat());
+				session.put("profileReference", user.getUserId() + "");
 			}
 			else
 			{

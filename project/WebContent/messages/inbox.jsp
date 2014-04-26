@@ -12,51 +12,17 @@
 </head>
 <body>
 	<div id="container-div">
-	
 		<div id="left-div">
-			
-			<!-- Inbox header -->
 			<div id="inbox-header-div">
 				<span id="inbox-heading-span">Inbox</span>
 			</div>
-			
 			<!-- Conversations -->
-			<div id="conversations-div">
-				<s:iterator value="conversations">
-					<div class="conversation-div">
-						<input type=hidden value='<s:property value="id" />' />
-						<div class="conversation-photo-div">
-							<img width="50" height="50" src="image?userId=<s:property value="otherParticipants.get(0).userId" />" />
-						</div>
-						<div class="conversation-details-div">
-							<div class="conversation-participants-div">
-									<s:iterator value="otherParticipants">
-											<s:property value="firstName" /> 
-											<s:property value="lastName" />
-											, 
-									</s:iterator>
-									<s:if test="%{unreadMessagesCount > 0}">
-										(<s:property value="unreadMessagesCount" />)
-									</s:if>
-							</div>
-							<div class="conversation-date-div">								
-									<s:property value="latestMessage.sentAt" />
-							</div>	
-							<div class="conversation-text-div">
-								<s:property value="latestMessage.text" />
-								<input type="hidden" value='<s:property value="id"/>' />
-							</div>
-						</div>	
-					</div>
-				</s:iterator>
+			<div id="conversations-div" style="text-align:center">
+			No conversations
 			</div>
-			
 		</div>
 
-
 		<div id="right-div">
-		
-			<!-- Selected conversation header -->
 			<div id="selected-conversation-thread-header-div">
 				<div id="other-participants-div">
 					No conversation selected
@@ -65,11 +31,11 @@
 					<input type="button" id="new-message-button" value="+ New Message"/>
 				</div>
 			</div>
-			
 		</div>
 	
 	</div>
 	<script src="messages/divRenderers.js"></script>
+	<script src="messages/onInboxLoad.js"></script>
 	<script src="messages/onConversationThreadClick.js"></script>
 	<script src="messages/onCreateNewMessage.js"></script>
 	<script src="messages/onReplySubmit.js"></script>

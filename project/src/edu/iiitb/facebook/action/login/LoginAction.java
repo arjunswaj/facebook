@@ -116,7 +116,6 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 				newUser = tempuser;
 				session.put("user", newUser);
 				session.put("profileReference", newUser.getUserId() + "");
-				session.put("fref", newUser.getUserId() + "");
 				if (persistent != null)
 				{
 					Cookie userCookie = new Cookie("userID", tempuser.getEmail());

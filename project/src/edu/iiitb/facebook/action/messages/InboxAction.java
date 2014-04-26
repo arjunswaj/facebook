@@ -41,7 +41,7 @@ public class InboxAction extends ActionSupport implements SessionAware
 		if (selectedConversation == null)
 		{ 
 			if (conversations.isEmpty()) // No conversations
-				return NO_CONVERSATIONS;
+				return SUCCESS;
 			selectedConversation = conversations.get(0); // Initial load of inbox
 		}
 		

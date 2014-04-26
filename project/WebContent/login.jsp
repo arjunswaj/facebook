@@ -29,6 +29,68 @@ if (!y)
 	return false;
 	}
 }
+
+
+function validatedate(inputText)  
+{  
+var dateformat = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;  
+// Match the date format through regular expression  
+if(inputText.value.match(dateformat))  
+{  
+document.form1.text1.focus();  
+//Test which seperator is used '/' or '-'  
+var opera1 = inputText.value.split('/');  
+var opera2 = inputText.value.split('-');  
+lopera1 = opera1.length;  
+lopera2 = opera2.length;  
+// Extract the string into month, date and year  
+if (lopera1>1)  
+{  
+var pdate = inputText.value.split('/');  
+}  
+else if (lopera2>1)  
+{  
+var pdate = inputText.value.split('-');  
+}  
+var dd = parseInt(pdate[0]);  
+var mm  = parseInt(pdate[1]);  
+var yy = parseInt(pdate[2]);  
+// Create list of days of a month [assume there is no leap year by default]  
+var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];  
+if (mm==1 || mm>2)  
+{  
+if (dd>ListofDays[mm-1])  
+{  
+alert('Invalid date format!');  
+return false;  
+}  
+}  
+if (mm==2)  
+{  
+var lyear = false;  
+if ( (!(yy % 4) && yy % 100) || !(yy % 400))   
+{  
+lyear = true;  
+}  
+if ((lyear==false) && (dd>=29))  
+{  
+alert('Invalid date format!');  
+return false;  
+}  
+if ((lyear==true) && (dd>29))  
+{  
+alert('Invalid date format!');  
+return false;  
+}  
+}  
+}  
+else  
+{  
+alert("Invalid date format!");  
+document.form1.text1.focus();  
+return false;  
+}  
+}  
 </script>
 
 <script>
@@ -42,9 +104,12 @@ var r=document.forms["signupform"]["password"].value;
 var a=document.forms["signupform"]["day"].value;
 var b=document.forms["signupform"]["month"].value;
 var c=document.forms["signupform"]["year"].value;
+var selecteddate=new Date(c,b-1,a);
+var today = new Date();
 
 var atpos=x.indexOf("@");
 var dotpos=x.lastIndexOf(".");
+
 if (!p)
 {
 alert("first name cannot be null");
@@ -72,8 +137,37 @@ if( a == -1 || b == -1 || c == -1)
 	alert(" Enter a valid Bithday date ");
 	return false;
 	}
+else if(!checkdate(a,b,c))
+{
+	return false;
+}
+if (selecteddate>today)
+  {
+  alert("The Birthday selected is after todays date, so select a valid Birthdate");
+  return false;
+  }
 
 }
+
+
+function checkdate(day,month,year){
+	var returnval=false;
+	var monthfield=month;
+	var dayfield=day;
+	var yearfield=year;
+	var dayobj = new Date(yearfield, monthfield-1, dayfield);
+	if ((dayobj.getMonth()+1!=monthfield)||(dayobj.getDate()!=dayfield)||(dayobj.getFullYear()!=yearfield))
+	{
+		alert("Invalid Day, Month, or Year range detected. Please correct and submit again.");
+	return false;
+	}
+		else
+	returnval=true;
+	if (returnval==false) input.select();
+	return returnval;
+	}
+
+
 </script>
 </head>
 

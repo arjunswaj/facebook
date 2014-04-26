@@ -25,7 +25,7 @@ $(document).on("click", "#reply-button", function(event) {
 	});
 	
 	/*
-	 * Reload the latest Conversations
+	 * Reload the conversations
 	 */
 	var posting = $.post('loadConversations.action', {});
 	posting.done(function(response) {

@@ -14,7 +14,9 @@
 		<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
 			href='login.action'><img src="images/facebook-logo.jpg" alt="Facebook" width="200" height="65"/></a>
 			 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		 <s:property value="#user.first_name"/>
+			
+		<span style="color:white; font-size: 20pt;position: absolute;  left: 1000px; top: 30px">User:<s:property value="#session['user'].firstName" /></span>
+		 
 	
 	</div>
 	<br>

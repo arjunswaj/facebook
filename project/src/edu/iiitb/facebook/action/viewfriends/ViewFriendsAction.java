@@ -87,7 +87,7 @@ public class ViewFriendsAction extends ActionSupport implements SessionAware,
 		// System.out.println(user.getUserId() + "! " + user.getFirstName());
 		// }
 		System.out.println("view friends main class");
-		if (friendsList != null) {
+		if (!friendsList.isEmpty()) {
 			return SUCCESS;
 		} else {
 			return "error";

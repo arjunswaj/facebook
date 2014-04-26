@@ -16,8 +16,7 @@
 
 			<s:textfield key="email" id="email" label="Enter your Email ID"
 				onchange="question()" />
-			<s:textfield name="secret_question" label="Secret Question" id="qs"
-				disabled="true"></s:textfield>
+			<s:textfield key="secret_question" label="Secret Question" id="qs" readonly="true"></s:textfield>
 
 			<s:textfield key="secret_answer" label="Enter the Secret Answer" />
 			<s:submit value="add" />
