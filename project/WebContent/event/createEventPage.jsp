@@ -10,7 +10,7 @@
 	<script src="../js/jquery-ui.js"></script>
 	<script>
 		$(function() {
-		$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
+		$( "#datepicker" ).datepicker({dateFormat: 'yy-mm-dd', minDate: 1});
 		});
 	</script>
 	<script type="text/javascript">
