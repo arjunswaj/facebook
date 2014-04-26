@@ -9,7 +9,7 @@ width:70%;
 	<img align="left" width="50px" src="image?userId=<s:property value="#session['user'].userId" />" />
 	<b><s:property value="#session['user'].firstName"/> <s:property value="#session['user'].lastName"/></b>
 	<br>
-	<a href="#"><s:text name="global.editprofile"/></a>
+	<a href="/facebook/about.action"><s:text name="global.editprofile"/></a>
 	<br clear="all">
 </div>
 <hr>
