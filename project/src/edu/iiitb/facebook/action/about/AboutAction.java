@@ -150,22 +150,21 @@ public static String theMonth(int month){
 public String execute()
 {
 	 User user = (User) session.get("user");
-	 int ref = user.getUserId();
-	 userId=ref;	 
-	 String tmp_ref = (String) session.get("profileReference");
-	 if(tmp_ref!=null)
-	 this.fref = tmp_ref;
-	 int id=Integer.parseInt(fref);
-	 System.out.println("Friend reference:"+fref);
+	 userId=user.getUserId();;	 
+	 fref = (String) session.get("profileReference");
+	 if(fref!=null || !("".equals(fref)))
+	 fuserId=Integer.parseInt(fref);
+	 System.out.println(">>Friend reference:"+fuserId);
+	 System.out.println(">>My reference:"+userId);
 	 userDAO = new UserDAOImpl();
 	 User userdetails;
-	 if(tmp_ref==null)
+	 if(fuserId==0)
 	 {
-	 userdetails=userDAO.getUserByUserId(ref);
+	 userdetails=userDAO.getUserByUserId(userId);
 	 }
 	 else
 	 {
-	 userdetails=userDAO.getUserByUserId(id);
+	 userdetails=userDAO.getUserByUserId(fuserId);
 	 }
 	 relationship = userdetails.getRelationship();
 	 if(relationship==null)
@@ -185,7 +184,8 @@ public String execute()
 	 gender = userdetails.getGender();
 	 organization_details=detailsDAO.getOrganizationDetailsForUser(userdetails.getUserId()); 
 	 institute_details=detailsDAO.getInstituteDetailsForUser(userdetails.getUserId());
-			 
+	 System.out.println("<<"+userId);
+	 System.out.println("<<"+fuserId);
 	 return SUCCESS;
 }
 

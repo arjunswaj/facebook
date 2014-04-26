@@ -1,0 +1,232 @@
+@CHARSET "UTF-8";
+.feed-container, .status-container {
+	width: 90%;
+	padding: 15px 0px 15px 0px;
+	margin:  0px 0px 15px 0px;
+	background-color: whitesmoke;
+	overflow: auto;
+	height: 100%;
+}
+
+.status-form {
+	text-align: center;
+}
+
+.status-action {
+	width: 98%; 
+	text-align: right;	
+}
+.left-status {
+	float: left;
+	width: 20%;
+	padding-left: 15px;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-status {
+	float: left;
+	width: 75%;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.left-comment {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-comment {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	width: 86%;
+	font-family: Arial Narrow, sans-serif;
+}
+
+.left-likers {
+	float: left;
+	margin: 2px;	
+	font-family: Arial Narrow, sans-serif;
+}
+
+.right-likers {
+	float: left;
+	margin: 2px;
+	padding: 5px;
+	width: 80%;
+	font-family: Arial Narrow, sans-serif;
+	top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.timestamp {
+	padding: 15px 0px;
+	font-size: 12px;
+}
+
+.post {
+	font-size: 18px;
+	padding: 5px 0px;
+	width: 88%;
+	text-align: justify;
+}
+
+.comment-post {
+	padding: 3px 0px;
+	width: 100%;
+	text-align: left;
+}
+
+.delete_post, .delete_comment {
+	margin: 0 0 0 0;
+	text-align: center;	
+	width: auto;
+}
+
+.edit_post, .edit_comment {
+	margin: 0 0 0 0;
+	text-align: center;	
+	width: auto;
+}
+
+.fullname {
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px 0px;
+}
+
+.comment-form {
+	width: 103%;
+}
+
+.comment-text {
+	font-size: 15px;
+	padding: 5px 0px;
+	text-align: left;
+}
+
+.clear {
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.status-description, .comment-description {
+	float: left;
+	width: 99%;
+}
+
+.status-options, .comment-options {
+	float: left;
+	width: 1%;
+}
+
+.like, .like-comment {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.like:hover, .like-comment:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.liked, .liked-comment {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.liked:hover, .liked-comment:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.people-who-like, .people-who-like-comment {
+	color: #428bca;
+	text-decoration: none;
+}
+
+.people-who-like:hover, .people-who-like-comment:hover {
+	color: #428bca;
+	text-decoration: none;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.overlay {
+	background-color: rgba(204, 204, 204, 0.5);
+	color: #333;
+	position: absolute;
+	width: 100%;
+	z-index: 400;
+	height: 100%;
+	top: 0px;
+	display: none;
+}
+
+.show,.show2 {
+	width: 50px;
+	height: 50px;
+	left: 20%;
+	top: 30%;
+	background-color: #9C9C9C;
+	position: absolute;
+}
+
+.show2 {
+	left: 60%;
+	top: 40%;
+}
+
+.Absolute-Center {
+  width: 90%;
+  height: auto;
+  overflow: auto;
+  margin: auto;
+  position: absolute;
+  background-color: rgba(204, 204, 204, 0.8);
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.like-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 10 px;
+}
+
+.likers {
+	padding: 10 px;
+}
+
+.status-options-button {
+	background-image: url(/facebook/feeds/fbsprite.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: 0 -267px;
+	height: 24px;
+	width: 21px;
+	border: none;
+	padding: 0px;
+	background-color: whitesmoke;
+}
+
+.comment-options-button {
+	background-image: url(/facebook/feeds/fbsprite2.png);
+	background-repeat: no-repeat;
+	background-size: auto;
+	background-position: -1px -142px;
+	height: 14px;
+	margin-right: 0;
+	margin-top: 10px;
+	width: 14px;
+	border: none;
+	padding: 0px;
+	background-color: whitesmoke;
+}

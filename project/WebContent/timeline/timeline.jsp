@@ -403,7 +403,7 @@ p.padding {
 
 
 			<s:set name="loggedInUser" value="userId" />
-			<s:set name="ReferredUser" value="fuserId" />
+			<s:set name="ReferredUser" value="fref" />
 
 
 			<div id="Overlay" name="Overlay" class="overlay" onclick="funcClose(this);">		
@@ -949,7 +949,7 @@ $(document).on("submit", ".comment-form",
 
 					/* stop form from submitting normally */
 					event.preventDefault();
-
+					
 					/* get some values from elements on the page: */
 					var form = $(this);
 					var url = form[0].action;

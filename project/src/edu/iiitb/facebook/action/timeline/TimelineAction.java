@@ -42,6 +42,15 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 	private String position;
 	private String name;
 	private String myprofile;
+	private String allowed="false";
+	
+	public String getAllowed() {
+		return allowed;
+	}
+
+	public void setAllowed(String allowed) {
+		this.allowed = allowed;
+	}
 
 	public String getMyprofile()
 	{
@@ -317,9 +326,11 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 			}
 
 		}
-
-		System.out.println("Friend reference:" + fref);
 		userId = user.getUserId();
+		System.out.println("Friend reference:" + fref);
+		System.out.println("My reference:"+userId);
+
+		
 		if (fref != null)
 			fuserId = Integer.parseInt(fref);
 		else
@@ -387,7 +398,18 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 			friendsList = friendsDao.getFriendsList(fuserId);
 			if (position == null && name == null)
 				position = name = "undefined";
-
+			if(friendsList!=null)
+			{
+			for(User p : friendsList)
+			{
+				if(userId==p.getUserId())
+				{
+					allowed="true";
+					break;
+				}
+			}
+			}
+			
 		}
 
 		for (NewsFeed n : newsFeeds)
@@ -422,7 +444,10 @@ public class TimelineAction extends ActionSupport implements SessionAware, Reque
 			for (int j = count; j != 8; j++)
 				friendIds.add(0);
 		}
-
+		
+		System.out.println("*Friend reference:" + fref);
+		System.out.println("*My reference:"+userId);
+		
 		return SUCCESS;
 	}
 

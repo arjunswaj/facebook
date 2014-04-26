@@ -35,14 +35,13 @@ public class SubmitAboutAction extends ActionSupport implements SessionAware, Re
 	private String degree;
 	private String schoolname;
 	private String standard;
-	private String workstartdate;
-	private String workenddate;
-	private String collegestartdate;
-	private String collegeenddate;
-	private String schoolstartdate;
-	private String schoolenddate;
-	
-	
+	private String joindate;
+	private String leftdate;
+	private String collegejoindate;
+	private String collegeleftdate;
+	private String schooljoindate;
+	private String schoolleftdate;
+		
 	public String getWrkplace() {
 		return wrkplace;
 	}
@@ -79,179 +78,45 @@ public class SubmitAboutAction extends ActionSupport implements SessionAware, Re
 	public void setStandard(String standard) {
 		this.standard = standard;
 	}
-	public String getWorkstartdate() {
-		return workstartdate;
+	public String getJoindate() {
+		return joindate;
 	}
-	public void setWorkstartdate(String workstartdate) {
-		this.workstartdate = workstartdate;
+	public void setJoindate(String joindate) {
+		this.joindate = joindate;
 	}
-	public String getWorkenddate() {
-		return workenddate;
+	public String getLeftdate() {
+		return leftdate;
 	}
-	public void setWorkenddate(String workenddate) {
-		this.workenddate = workenddate;
+	public void setLeftdate(String leftdate) {
+		this.leftdate = leftdate;
 	}
-	public String getCollegestartdate() {
-		return collegestartdate;
+	public String getCollegejoindate() {
+		return collegejoindate;
 	}
-	public void setCollegestartdate(String collegestartdate) {
-		this.collegestartdate = collegestartdate;
+	public void setCollegejoindate(String collegejoindate) {
+		this.collegejoindate = collegejoindate;
 	}
-	public String getCollegeenddate() {
-		return collegeenddate;
+	public String getCollegeleftdate() {
+		return collegeleftdate;
 	}
-	public void setCollegeenddate(String collegeenddate) {
-		this.collegeenddate = collegeenddate;
+	public void setCollegeleftdate(String collegeleftdate) {
+		this.collegeleftdate = collegeleftdate;
 	}
-	public String getSchoolstartdate() {
-		return schoolstartdate;
+	public String getSchooljoindate() {
+		return schooljoindate;
 	}
-	public void setSchoolstartdate(String schoolstartdate) {
-		this.schoolstartdate = schoolstartdate;
+	public void setSchooljoindate(String schooljoindate) {
+		this.schooljoindate = schooljoindate;
 	}
-	public String getSchoolenddate() {
-		return schoolenddate;
+	public String getSchoolleftdate() {
+		return schoolleftdate;
 	}
-	public void setSchoolenddate(String schoolenddate) {
-		this.schoolenddate = schoolenddate;
+	public void setSchoolleftdate(String schoolleftdate) {
+		this.schoolleftdate = schoolleftdate;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public String execute() throws ParseException
-	{
-		User user = (User) session.get("user");
-		DetailsDAO adduserdetails = new DetailsDAOImpl();
-		System.out.println("****");
-		System.out.println(relationship);
-		System.out.println(hometown);
-		System.out.println(currentcity);
-		System.out.println(birthday);
-		System.out.println(schoolstartdate);
-		System.out.println(schoolenddate);
-		System.out.println(collegestartdate);
-		System.out.println(collegeenddate);
-		System.out.println(workstartdate);
-		System.out.println(workenddate);
-		System.out.println(wrkplace);
-		System.out.println( role);
-		System.out.println(collegename);
-		System.out.println(degree);
-		System.out.println(schoolname);
-		System.out.println(standard);
-		System.out.println("***");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
-		String date1=null;
-		Date birthdate =null;
-		java.sql.Date sd=null;
-		if(birthday!=null)
-		{
-		date1 = convertToSqlDate(birthday);
-		birthdate = sdf.parse(date1);
-		sd = new java.sql.Date(birthdate.getTime());
-		}
-		System.out.println("1");
-		System.out.println(date1);
-		System.out.println(birthdate);
-		adduserdetails.setUserDetails(relationship, hometown,currentcity,sd, gender,user.getUserId());
-		System.out.println("2");
-		String date2=null;
-		String date3=null;
-		if(!workstartdate.equals(""))
-		date2 = convertToSqlDate(workstartdate);
-		if(!workenddate.equals(""))
-		date3 = convertToSqlDate(workenddate);
-		System.out.println(date2);
-		System.out.println(date3);
-		Date wrkdate=null;
-		if(date2!=null)
-		wrkdate = sdf.parse(date2);
-		Date wrkenddate=null;
-		if(date3!=null)		
-		wrkenddate = sdf.parse(date3);
-		java.sql.Date sd1=null;
-		java.sql.Date sd2=null;
-		if(wrkdate!=null)		
-		sd1 = new java.sql.Date(wrkdate.getTime()); 
-		if(wrkenddate!=null)
-		sd2 = new java.sql.Date(wrkenddate.getTime());
-		if(!wrkplace.equals(""))
-		adduserdetails.setOrganizationDetailsForUser(user.getUserId(),sd1, sd2,wrkplace, role);
-		System.out.println("3");
-		int status;
-		if(schoolenddate==null)
-			status=0;
-		else
-			status=1;
-		String date4=null;
-		String date5=null;
-		if(!schoolstartdate.equals(""))
-		date4 = convertToSqlDate(schoolstartdate);
-		if(!schoolenddate.equals(""))
-		date5 = convertToSqlDate(schoolenddate);
-		System.out.println(date4);
-		System.out.println(date5);
-		Date schooldate=null;
-		Date schoolenddate=null;
-		if(date4!=null)
-		schooldate = sdf.parse(date4);
-		if(date5!=null)
-		schoolenddate = sdf.parse(date5);
-		java.sql.Date sd3=null;
-		if(schooldate!=null)
-		sd3= new java.sql.Date(schooldate.getTime()); 
-		java.sql.Date sd4=null;
-		if(schoolenddate!=null)
-		sd4= new java.sql.Date(schoolenddate.getTime()); 
-		if(!schoolname.equals(""))
-		{
-		adduserdetails.setInstituteDetailsForUser(user.getUserId(), sd3, sd4,status, standard,schoolname);
-		System.out.println("school");
-		}
-		System.out.println("");
-		if(collegeenddate==null)
-			status=0;
-		else
-			status=1;
-		
-		String date6=null;
-		if(!collegestartdate.equals(""))
-		date6= convertToSqlDate(collegestartdate);
-		String date7 =null;
-		if(!collegeenddate.equals(""))
-		date7= convertToSqlDate(collegeenddate);
-		System.out.println(date6);
-		System.out.println(date7);
-		Date collegedate=null;
-		if(date6!=null)
-		collegedate= sdf.parse(date6);
-		Date collegeend = null;
-		if(date7!=null)
-		collegeend=sdf.parse(date7);
-		java.sql.Date sd5=null;
-		java.sql.Date sd6=null;
-		if(collegedate!=null)
-		sd5 = new java.sql.Date(collegedate.getTime()); 
-		if(collegeend!=null)
-		sd6 = new java.sql.Date(collegeend.getTime()); 
-		if(!collegename.equals(""))
-		{
-		adduserdetails.setInstituteDetailsForUser(user.getUserId(), sd5, sd6,status, degree,collegename);
-		System.out.println("college");
-		}
-		return SUCCESS;
-	}	
-	public String convertToSqlDate(String date){
-		String converted_date="";
-		System.out.println("Inn.."+date);
-		converted_date+=date.substring(date.lastIndexOf('-')+1,date.length());
-		converted_date+="-"+date.substring(0,date.indexOf('-'));
-		converted_date+="-"+date.substring(date.indexOf('-')+1,date.lastIndexOf('-'));
-
-		return converted_date;
-
-	} 
-	
 	public String getRelationship() {
 		return relationship;
 	}
@@ -303,4 +168,107 @@ public class SubmitAboutAction extends ActionSupport implements SessionAware, Re
 	public void setRequest(Map<String, Object> request) {
 		this.request = request;
 	}
+	public String execute() throws ParseException
+	{
+		
+		User user = (User) session.get("user");
+		DetailsDAO adduserdetails = new DetailsDAOImpl();
+		if(wrkplace!=null)
+		{
+			java.sql.Date wjoindate=null;
+			java.sql.Date wlastdate=null;
+			Date convertedCurrentDate1 = null;
+			Date convertedCurrentDate2 = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			if(joindate!=null && !joindate.equals(""))
+		    convertedCurrentDate1 = sdf.parse(joindate);
+		    if(leftdate!=null && !leftdate.equals(""))
+		    convertedCurrentDate2 = sdf.parse(leftdate);
+		    if(convertedCurrentDate1!=null && !convertedCurrentDate1.equals(""))
+		    wjoindate=new java.sql.Date(convertedCurrentDate1.getTime());
+		    if(convertedCurrentDate2!=null && !convertedCurrentDate2.equals(""))
+		    wlastdate=new java.sql.Date(convertedCurrentDate2.getTime());
+		    System.out.println(wjoindate+"/////"+wlastdate);
+			adduserdetails.setOrganizationDetailsForUser(user.getUserId(),wjoindate,wlastdate,wrkplace, role);
+		}
+		else if(collegename!=null)
+		{
+			java.sql.Date cjoindate=null;
+			java.sql.Date clastdate=null;
+			Date convertedCurrentDate1 = null;
+			Date convertedCurrentDate2 = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			if(collegejoindate!=null && !collegejoindate.equals(""))
+		    convertedCurrentDate1 = sdf.parse(collegejoindate);
+		    if(collegeleftdate!=null && !collegeleftdate.equals(""))
+		    convertedCurrentDate2 = sdf.parse(collegeleftdate);
+		    if(convertedCurrentDate1!=null && !convertedCurrentDate1.equals(""))
+		    cjoindate=new java.sql.Date(convertedCurrentDate1.getTime());
+		    if(convertedCurrentDate2!=null && !convertedCurrentDate2.equals(""))
+		    clastdate=new java.sql.Date(convertedCurrentDate2.getTime());
+		     int status;
+		    if(collegeleftdate==null || collegeleftdate.equals(""))
+		    	status=0;
+		    else
+		    	status=1;
+		    adduserdetails.setInstituteDetailsForUser(user.getUserId(),cjoindate,clastdate, status,degree, collegename);
+		}
+		else if(schoolname!=null)
+		{
+			java.sql.Date sjoindate=null;
+			java.sql.Date slastdate=null;
+			Date convertedCurrentDate1 = null;
+			Date convertedCurrentDate2 = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			if(schooljoindate!=null && !schooljoindate.equals(""))
+		    convertedCurrentDate1 = sdf.parse(schooljoindate);
+		    if(schoolleftdate!=null && !schoolleftdate.equals(""))
+		    convertedCurrentDate2 = sdf.parse(schoolleftdate);
+		    if(convertedCurrentDate1!=null && !convertedCurrentDate1.equals(""))
+		    sjoindate=new java.sql.Date(convertedCurrentDate1.getTime());
+		    if(convertedCurrentDate2!=null && !convertedCurrentDate2.equals(""))
+		    slastdate=new java.sql.Date(convertedCurrentDate2.getTime());
+		    int status;
+		    if(schoolleftdate==null || schoolleftdate.equals(""))
+		    	status=0;
+		    else
+		    	status=1;
+			adduserdetails.setInstituteDetailsForUser(user.getUserId(),sjoindate,slastdate, status,standard, schoolname);
+		}
+		else if(relationship!=null && !relationship.equals(""))
+		{
+			
+			adduserdetails.setRelationshipForUser(user.getUserId(), relationship);
+		}
+		else if((hometown!=null && !hometown.equals("")) || currentcity!=null && !currentcity.equals(""))
+		{
+			if(hometown.equals(""))
+				hometown=currentcity;
+			if(currentcity.equals(""))
+				currentcity=hometown;
+			adduserdetails.setLocationDetailsForUser(user.getUserId(), hometown, currentcity);
+		}
+		else
+		{
+			java.sql.Date bday = null;
+			Date convertedCurrentDate = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			 convertedCurrentDate = sdf.parse(birthday);
+			 bday = new java.sql.Date(convertedCurrentDate.getTime());
+			adduserdetails.setDOBGenderForUser(user.getUserId(), bday, gender);
+		}
+		
+		return SUCCESS;
+	}	
+	public String convertToSqlDate(String date){
+		String converted_date="";
+		converted_date+=date.substring(date.lastIndexOf('-')+1,date.length());
+		converted_date+="-"+date.substring(0,date.indexOf('-'));
+		converted_date+="-"+date.substring(date.indexOf('-')+1,date.lastIndexOf('-'));
+
+		return converted_date;
+
+	} 
+	
+	
 }

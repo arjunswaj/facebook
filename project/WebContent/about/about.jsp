@@ -119,8 +119,8 @@ img.wne {
 </style>
 </head>
 <body>
-<s:set name="loggedInUser" value="userId" />
-			<s:set name="ReferredUser" value="fuserId" />
+	<s:set name="loggedInUser" value="userId" />
+	<s:set name="ReferredUser" value="fuserId" />
 	<div class="row" style="background-color: #f7f7f7">
 		<div class="col-md-1" align="left"></div>
 		<div class="col-md-10" align="left" style="background-color: white">
@@ -129,9 +129,10 @@ img.wne {
 					<tr>
 						<td><b class="q">About</b></td>
 						<s:if test="#loggedInUser==#ReferredUser">
-						<td><s:form action="editabout" method="post">
+						<td>
+						<s:form action="editabout" method="post">
 								<s:submit type="button" label="Edit" align="right" />
-							</s:form>
+						</s:form>
 						</td>
 						</s:if>
 					</tr>
@@ -153,7 +154,7 @@ img.wne {
 							<tr>
 								<td width="70px"><img src="about/job.png" class="wne"></img></td>
 								<td><b class="a"><s:property value="#org.name" /></b><br />
-								<b class="b"><s:property value="#org.position" /></b></td>
+									<b class="b"><s:property value="#org.position" /></b></td>
 							</tr>
 
 						</s:iterator>
@@ -161,7 +162,7 @@ img.wne {
 							<tr>
 								<td><img src="about/school.png" class="wne"></img></td>
 								<td><b class="a"><s:property value="#ins.name" /></b><br />
-								<b class="b"><s:property value="#ins.description" /></b></td>
+									<b class="b"><s:property value="#ins.description" /></b></td>
 							</tr>
 						</s:iterator>
 					</table>
@@ -188,13 +189,13 @@ img.wne {
 						</tr>
 						<tr>
 							<td><img src="about/location.jpeg" class="loc"></img></td>
-							<td><b class="a"><s:property value="place" /></b><br />
-							<b class="b">Current City</b></td>
+							<td><b class="a"><s:property value="place" /></b><br /> <b
+								class="b">Current City</b></td>
 						</tr>
 						<tr>
 							<td><img src="about/location.jpeg" class="loc"></img></td>
 							<td><b class="a"><s:property value="nativePlace" /></b><br />
-							<b class="b">Hometown</b></td>
+								<b class="b">Hometown</b></td>
 						</tr>
 					</table>
 					<br /> <br />

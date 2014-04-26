@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+
 import edu.iiitb.facebook.action.dao.DetailsDAO;
 import edu.iiitb.facebook.action.model.InstituteDetails;
 import edu.iiitb.facebook.action.model.OrganizationDetails;
@@ -175,6 +176,61 @@ public class DetailsDAOImpl implements DetailsDAO{
 		}
 	
 	
+	}
+
+	@Override
+	public void setRelationshipForUser(int userId, String relationship) {
+		// TODO Auto-generated method stub
+		final String query = "update user set relationship=? where id=?";
+		Connection connection = ConnectionPool.getConnection();
+		
+		try {
+			PreparedStatement stmt=connection.prepareStatement(query);
+			stmt.setString(1,relationship);
+			stmt.setInt(2, userId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setLocationDetailsForUser(int userId, String hometown,
+			String currentcity) {
+		// TODO Auto-generated method stub
+		final String query = "update user set place=?,nativeplace=? where id=?";
+		Connection connection = ConnectionPool.getConnection();
+		
+		try {
+			PreparedStatement stmt=connection.prepareStatement(query);
+			stmt.setString(1,currentcity);
+			stmt.setString(2, hometown);
+			stmt.setInt(3,userId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void setDOBGenderForUser(int userId, java.sql.Date dob, String gender) {
+		// TODO Auto-generated method stub
+		final String query = "update user set dob=?,gender=? where id=?";
+		Connection connection = ConnectionPool.getConnection();
+		
+		try {
+			PreparedStatement stmt=connection.prepareStatement(query);
+			stmt.setDate(1,dob);
+			stmt.setString(2,gender);
+			stmt.setInt(3, userId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
